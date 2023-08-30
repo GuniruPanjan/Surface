@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private string enemyTag = "Enemy";
     public float speed;    //プレイヤーの梯子を上るスピード
     private Animator anim = null;          //アニメーション
-    public static float playerspeed = 0.012f;      //プレイヤーのスピード
+    public static float playerspeed = 0.2f;      //プレイヤーのスピード
     private float playerjump = 0.1f;             //プレイヤーのジャンプ
     private BoxCollider2D box = null;
     public static int PlayerHP = 100;             //プレイヤーのHP
@@ -94,12 +94,12 @@ public class Player : MonoBehaviour
 
             if (rightAttack == 1)
             {
-                rd.velocity = positiion * 3f;
+                rd.velocity = positiion * 2f;
                 rightAttack = 0;
             }
             else if (leftAttack == 1)
             {
-                rd.velocity = positiion * -3f;
+                rd.velocity = positiion * -2f;
                 leftAttack = 0;
             }
             //else if (Input.GetKey("up") && foot)
@@ -172,22 +172,34 @@ public class Player : MonoBehaviour
 
         if (collision.collider.tag == enemyTag)
         {
-            this.rd.AddForce(transform.right * 5f);
+
+            GManager.instance.PlaySE(AttackSE);
+            GManager.instance.PlayerHp -= EnemyAttack.Damage;
+
+            if(transform.localScale.x >= 0)
+            {
+                rightAttack = 1;
+                leftAttack = 1;
+            }
+            else
+            {
+                leftAttack = 1;
+                rightAttack = 1;
+            }
             foreach (ContactPoint2D p in collision.contacts)
             {
                 if (p.point.x > transform.position.x)
                 {
-                    GManager.instance.PlaySE(AttackSE);
-                    GManager.instance.PlayerHp -= EnemyAttack.Damage;
+                    
+                    
                     Debug.Log("右から来た");
-                    rightAttack = 1;
+                    
                 }
                 else if (p.point.x < transform.position.x)
                 {
-                    GManager.instance.PlaySE(AttackSE);
-                    GManager.instance.PlayerHp -= EnemyAttack.Damage;
+                    
                     Debug.Log("左から来た");
-                    leftAttack = 1;
+                    
                 }
 
                 if (GManager.instance.PlayerHp == 0)
