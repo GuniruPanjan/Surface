@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
                     
                 }
 
-                if (GManager.instance.PlayerHp == 0)
+                if (GManager.instance.PlayerHp <= 0)
                 {
                     ReceiveDamage(true);
                     break;
