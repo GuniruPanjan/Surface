@@ -32,9 +32,9 @@ Application::Application()
 
 bool Application::Init()
 {
-	ChangeWindowMode(true);
+	ChangeWindowMode(true); //ウィンドウモードにします
 	SetGraphMode(windowSize_.w, windowSize_.h, 32);
-	SetWindowText(L"みんみん");
+	SetWindowText(_T("みんみん"));
 	if (DxLib_Init() == -1)
 	{
 		return false;

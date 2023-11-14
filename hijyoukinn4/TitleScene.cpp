@@ -4,6 +4,8 @@
 #include"Input.h"
 #include"SceneManager.h"
 #include<cassert>
+#include<sstream>
+#include<iomanip>
 
 void TitleScene::FadeInupdate(Input&)
 {
@@ -32,10 +34,21 @@ void TitleScene::NormalDraw()
 {
 	DrawString(100, 100, "TitleScene", 0xffffff);
 	DrawGraph(100, 100, handle_, true);
+	int x = abs((frame + 2) % (640 * 2) - 640);
+	DrawCircle(x, 240, 10, 0xffaaaa, true);
 }
 
 void TitleScene::NoramalUpdate(Input& input)
 {
+	if (input.IsTriggered("OK"))
+	{
+		updateFunc_ = &TitleScene::FadeOutDraw;
+		drawFunc_ = &TitleScene::FadeDraw;
+		frame = 0;
+	}
+	frame = frame + 8;
+	//GetJoypadInputState();
+
 }
 
 void TitleScene::FadeOutDraw(Input&)
@@ -52,9 +65,17 @@ TitleScene::TitleScene(SceneManager& manager) : Scene(manager)
 {
 	handle_ = LoadGraph("img/—‘.png");
 	assert(handle_ >= 0);
-	frame = 0;
+	frame = 60;
 	updateFunc_ = &TitleScene::FadeInupdate;
 	drawFunc_ = &TitleScene::FadeDraw;
+
+	std::ostringstream oss; //•¶š—ñ‚ªoss‚É“ü‚é
+	                               //Œã‚ë‚ğ‚P‚Ui”‚É‚·‚é  //‚P‚Ui”‚©‚ç–ß‚·
+	oss << "TitleScene handle = " << std::hex << handle_ << std::dec << std::setfill('0') << std::setw(4) <<
+		" , frame = " << frame << " , FPS =" << std::fixed << std::setprecision(2) <<
+		GetFPS() << std::endl;
+    
+	OutputDebugStringA(oss.str().c_str());
 }
 
 TitleScene::~TitleScene()

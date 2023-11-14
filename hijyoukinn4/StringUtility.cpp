@@ -26,13 +26,13 @@ StringUtility::StringToWString(const std::string& str)
 	//標準の特殊な書き方
 	//基本的には数字がビット数を表していると思ってください
 	//先頭にuがついているものは、符号なし(unsigned)を表しています
-	uint8_t a; //8bit符号なし
-	int8_t b;  //8bit符号あり
-	uint16_t c;//16bit符号なし
-	int16_t d; //16bit符号あり
-	uint32_t e;//32bit符号なし
-	int32_t f; //32bit符号あり
-	byte g;    //
+	//uint8_t a; //8bit符号なし
+	//int8_t b;  //8bit符号あり
+	//uint16_t c;//16bit符号なし
+	//int16_t d; //16bit符号あり
+	//uint32_t e;//32bit符号なし
+	//int32_t f; //32bit符号あり
+	//byte g;    //
 
 
 	assert(result >= 0);

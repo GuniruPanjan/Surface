@@ -5,10 +5,14 @@
 namespace
 {
 	constexpr float kSpeed = 4.0f;
+
+	constexpr float kWaveRange = 32.0f;  //上下の移動量
+	constexpr float kWaveSpeed = 0.1f;   //振動の速さ
 }
 
 EnemyLeft::EnemyLeft():
-	EnemyBase() //明示的に呼ぶ場合の例
+	EnemyBase(), //明示的に呼ぶ場合の例
+	m_sinRate(0.0f)
 {
 	//基底クラスのコンストラクタを明示的に呼ばなくてもここで呼ばれる
 }
@@ -23,7 +27,13 @@ void EnemyLeft::Update()
 	//存在しない敵の処理はしない
 	if (!m_isExist) return;
 
-	m_pos += m_vec;
+	m_basePos += m_vec;
+
+	m_pos += m_basePos;
+
+	m_sinRate += kWaveSpeed;
+
+	m_pos.y += sinf(m_sinRate) * kWaveRange;
 
 	//あたり判定の更新
 	UpdateCollision();
@@ -47,8 +57,13 @@ void EnemyLeft::Start()
 	int height = 0;
 	GetGraphSize(m_handle, &width, &height);
 
-	m_pos.x = static_cast<float>(0 - width / 2);
-	m_pos.y = static_cast<float>(GetRand(Game::kScreenHeight - height) + height /2);
+	m_basePos.x = static_cast<float>(0 - width / 2);
+	m_basePos.y = static_cast<float>(GetRand(Game::kScreenHeight - height) + height / 2);
+
+	m_pos = m_basePos;
+
+	/*m_pos.x = static_cast<float>(0 - width / 2);
+	m_pos.y = static_cast<float>(GetRand(Game::kScreenHeight - height) + height /2);*/
 
 	m_vec.x = -kSpeed;
 	m_vec.y = 0.0f;

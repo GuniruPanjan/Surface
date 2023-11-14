@@ -9,7 +9,7 @@
 //back();––”ö‚Ì—v‘f‚Ö‚ÌQÆ‚ğæ“¾
 SceneManager::~SceneManager()
 {
-	delete scene_;
+	delete scene_.back();
 }
 void SceneManager::Update(Input& input)
 {

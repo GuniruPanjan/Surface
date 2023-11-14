@@ -53,12 +53,17 @@ void ShotMagicWand::Update()
 	//画面外に出た処理
 	//過去の表示位置も含めてすべて画面外にでたら終了
 	bool isOut = false;
-	if (m_pos.x < 0.0f - kWidth / 2) isOut = true;
-	if (m_pos.x > Game::kScreenWidth + kWidth / 2) isOut = true;
-	if (m_pos.x < 0.0f - kHeight / 2) isOut = true;
-	if (m_pos.x > Game::kScreenHeight + kHeight / 2) isOut = true;
-	//チェック中の座標が画面内ならここで終了
-	if (!isOut) return;
+	for (int i = 0; i < m_posLog.size(); i++)
+	{
+		isOut = false;
+		if (m_posLog[i].x < 0.0f - kWidth / 2) isOut = true;
+		if (m_posLog[i].x > Game::kScreenWidth + kWidth / 2) isOut = true;
+		if (m_posLog[i].y < 0.0f - kHeight / 2) isOut = true;
+		if (m_posLog[i].y > Game::kScreenHeight + kHeight / 2) isOut = true;
+		//チェック中の座標が画面内ならここで終了
+		if (!isOut) return;
+	}
+	
 
 	//過去ログも画面外にあるかをチェックする
 	for (int i = 0; i < m_posLog.size(); i++)
@@ -74,29 +79,29 @@ void ShotMagicWand::Update()
 	//ここに来たということは画面外にいる
 	m_isExist = false;
 
-	if ((m_vec.x < 0.0f) &&   //左に移動している敵
-		(m_pos.x < 0.0f - kWidth / 2))   //左から画面外に出た
-	{
-		m_isExist = false;
-	}
-	//右に移動している敵が"画面右から完全に出きった敵を消す
-	if ((m_vec.x > 0.0f) &&   //右に移動している敵
-		(m_pos.x > Game::kScreenWidth + kWidth / 2))   //右から画面外に出た
-	{
-		m_isExist = false;
-	}
-	//上に移動している敵が"画面上から完全に出きった敵を消す
-	if ((m_vec.y < 0.0f) &&   //上に移動している敵
-		(m_pos.y < 0.0f - kHeight / 2))   //上から画面外に出た
-	{
-		m_isExist = false;
-	}
-	//下に移動している敵が"画面下から完全に出きった敵を消す
-	if ((m_vec.y > 0.0f) &&   //下に移動している敵
-		(m_pos.y > Game::kScreenHeight + kHeight / 2))   //下から画面外に出た
-	{
-		m_isExist = false;
-	}
+	//if ((m_vec.x < 0.0f) &&   //左に移動している敵
+	//	(m_pos.x < 0.0f - kWidth / 2))   //左から画面外に出た
+	//{
+	//	m_isExist = false;
+	//}
+	////右に移動している敵が"画面右から完全に出きった敵を消す
+	//if ((m_vec.x > 0.0f) &&   //右に移動している敵
+	//	(m_pos.x > Game::kScreenWidth + kWidth / 2))   //右から画面外に出た
+	//{
+	//	m_isExist = false;
+	//}
+	////上に移動している敵が"画面上から完全に出きった敵を消す
+	//if ((m_vec.y < 0.0f) &&   //上に移動している敵
+	//	(m_pos.y < 0.0f - kHeight / 2))   //上から画面外に出た
+	//{
+	//	m_isExist = false;
+	//}
+	////下に移動している敵が"画面下から完全に出きった敵を消す
+	//if ((m_vec.y > 0.0f) &&   //下に移動している敵
+	//	(m_pos.y > Game::kScreenHeight + kHeight / 2))   //下から画面外に出た
+	//{
+	//	m_isExist = false;
+	//}
 }
 
 void ShotMagicWand::Draw()

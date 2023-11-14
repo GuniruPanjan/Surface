@@ -34,11 +34,19 @@ Input::Input()
 	commandTable_["OK"] = { {InputType::keybd, KEY_INPUT_RETURN},{InputType::pad,PAD_INPUT_A} };
 	commandTable_["pause"] = { {InputType::keybd, KEY_INPUT_R}, {InputType::pad,PAD_INPUT_R } };
 	commandTable_["keyconf"] = { {InputType::keybd, KEY_INPUT_K}, {InputType::pad,PAD_INPUT_L } };
+	commandTable_["cancel"] = { {InputType::keybd, KEY_INPUT_ESCAPE},{InputType::pad,PAD_INPUT_B} };
+
+
+	commandTable_["jump"] = { {InputType::keybd, KEY_INPUT_Z}, {InputType::pad,PAD_INPUT_C } };
+	commandTable_["attack"] = { {InputType::keybd, KEY_INPUT_X}, {InputType::pad,PAD_INPUT_X } }; 
+
+	
 
 	commandTable_["up"] = { {InputType::keybd,KEY_INPUT_UP},{InputType::pad,PAD_INPUT_UP } };
 	commandTable_["down"] = { {InputType::keybd,KEY_INPUT_DOWN},{InputType::pad,PAD_INPUT_DOWN } };
 	commandTable_["left"] = { {InputType::keybd,KEY_INPUT_LEFT},{InputType::pad,PAD_INPUT_LEFT } };
 	commandTable_["right"] = { {InputType::keybd,KEY_INPUT_RIGHT},{InputType::pad,PAD_INPUT_RIGHT } };
+
 
 	exclusiveKeyConfigCommands = { "up","down" ,"left", "right" };
 
@@ -57,7 +65,7 @@ void Input::Update()
 
 	for (const auto& cmd : commandTable_)
 	{
-		auto& input = inputDate_[cmd.first];
+		auto& input = inputDate_[cmd.first];  //コマンドの名前から入力データを作る
 		for (const auto& hardIO : cmd.second)
 		{
 			//キーボードのチェック
@@ -86,8 +94,9 @@ void Input::Update()
 
 bool Input::IsTriggered(const char* command) const
 {
+	//inputDate_[command];
 	auto it = inputDate_.find(command);
-	if (it == inputDate_.end())
+	if (it == inputDate_.end()) //要素がなかった
 	{
 		return false;
 	}

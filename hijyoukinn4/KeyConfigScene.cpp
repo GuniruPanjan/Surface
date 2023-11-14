@@ -20,15 +20,44 @@ void KeyConfigScene::AppearInupdate(Input&)
 
 void KeyConfigScene::NoramalUpdate(Input& input)
 {
+	if (input.IsTriggered("OK"))
+	{
+		if (currentLineIndex_ < keyCommandTable_.size())
+		{
+			isEditingNow_ = !isEditingNow_;
+			updateFunc_ = &KeyConfigScene::NoramalUpdate;
+
+			return;
+		}
+		else
+		{
+			CommitCurrentKeySetting();
+			updateFunc_ = &KeyConfigScene::DisappearUpdate;
+			drawFunc_ = &KeyConfigScene::NormalDraw;
+			return;
+		}
+		
+	}
+
+	if(isEditingNow_)
+	{
+		return;
+	}
+		
 	if (input.IsTriggered("pause"))
 	{
 		updateFunc_ = &KeyConfigScene::DisappearUpdate;
 		drawFunc_ = &KeyConfigScene::NormalDraw;
 		frame_ = appear_interval;
 	}
-	else if (input.IsTriggered("keyconf"))
+	auto size = keyCommandTable_.size() + 1;
+	if (input.IsTriggered("up"))
 	{
-
+		--currentLineIndex_ = (currentLineIndex_+ size - 1) % size;
+	}
+	if (input.IsTriggered("down"))
+	{
+		++currentLineIndex_ = (currentLineIndex_ +1) % size;
 	}
 }
 
@@ -39,6 +68,35 @@ void KeyConfigScene::DisappearUpdate(Input&)
 	{
 		manager_.PopScene();
 	}
+}
+
+void KeyConfigScene::EditUpdate(Input& input)
+{
+	if (input.IsTriggered("OK"))
+	{
+		isEditingNow_ = !isEditingNow_;
+		updateFunc_ = &KeyConfigScene::NoramalUpdate;
+
+		return;
+	}
+
+	char keystate[256];
+	GetHitKeyStateAll(keystate);
+	int padstate = GetJoypadInputState(DX_INPUT_PAD1);
+
+
+	auto strItem = menuItems_[currentLineIndex_];
+	auto& cmd = keyCommandTable_[strItem];
+	
+	for (int i = 0; i < 256; ++i)
+	{
+		if (keystate[i])
+		{
+			cmd[InputType::keybd] = i;
+			break;
+		}
+	}
+			
 }
 
 void KeyConfigScene::FadeOutDraw(Input&)
@@ -73,21 +131,74 @@ void KeyConfigScene::NormalDraw()
 
 void KeyConfigScene::DrawCommandList()
 {
+	constexpr int line_height = 20;
 	const auto& cmadTable = input_.GetCommandTable();
-	int x = menu_margin + 50;
+	
 	int y = menu_margin + 50 + 10;
-	for (const auto& cmd : cmadTable)
+	int idx = 0;
+	constexpr unsigned int default_color = 0xffffff;
+	for (const auto& item : menuItems_)
 	{
-		std::wstring cmdName = StringUtility::StringToWString(cmd.first);
-		DrawFormatString(x, y, 0xffffff, "%s", cmd.first.c_str());
-		y += 20;
+		auto& cmd = keyCommandTable_[item];
+	
+		int x = menu_margin + 50;
+		unsigned int lineColor = default_color;
+		std::wstring cmdName = StringUtility::StringToWString(item);
+		
+		if (idx == currentLineIndex_)
+		{
+			DrawString(x - 20, y, "→", 0xff0000);
+			x += 10;
+			if (isEditingNow_)
+			{
+				lineColor = 0xffaa00;
+				x += 5;
+			}
+		}
+
+		DrawFormatString(x, y, 0xffffff, _T("%s : keybd=%03d , pad=%03d"), cmdName.c_str(), cmd.second.at(InputType::keybd), cmd.second.at(InputType::pad)); //化ける
+		
+		y += line_height;
+		++idx;
+	}
+	y += line_height;
+	int x = menu_margin + 250;
+	unsigned int lineColor = default_color;
+	if (currentLineIndex_ == keyCommandTable_.size())
+	{
+		x += 10;
+		DrawString(x - 20, y, _T("→"), 0xff0000);
+	}
+	DrawString(x, y, _T("確定"), lineColor);
+	
+	
+}
+
+void KeyConfigScene::CommitCurrentKeySetting()
+{
+	//input本体のキー情報書き換えている
+	for (const auto& cmd : keyCommandTable_)
+	{
+		input_.commandTable_[cmd.first] = cmd.second;
 	}
 }
 
 KeyConfigScene::KeyConfigScene(SceneManager& manage,Input& input) : Scene(manage),input_(input)
 {
+	keyCommandTable_ = input.GetCommandTable();
 	updateFunc_ = &KeyConfigScene::AppearInupdate;
 	drawFunc_ = &KeyConfigScene::NormalDraw;
+
+	menuItems_ =
+	{
+		"jump",
+		"attack",
+		"OK",
+		"cancel",
+		"pause",
+		"keyconf"
+
+	};
 }
 
 void KeyConfigScene::Update(Input& input)

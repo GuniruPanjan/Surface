@@ -19,14 +19,19 @@ class KeyConfigScene;
 //std::array<char,256>
 class Input
 {
-	friend KeyConfigScene;
+	friend KeyConfigScene; //キーコンフィグからは丸見え
 private:
+
+	InputTable_t commandTable_;
+
+	std::vector<std::string> exclusiveKeyConfigCommands;
+
 	std::array<char, 256 >keyState_;
 	std::array<char, 256 >lastkeyState_;
 
-	std::map<std::string, std::map<InputType, int>> commandTable_;
+	/*std::map<std::string, std::map<InputType, int>> commandTable_;
 
-	std::vector<std::string> exclusiveKeyConfigCommands;
+	std::vector<std::string> exclusiveKeyConfigCommands;*/
 
 	//コマンドの入力を覚えておく
 	std::map<std::string, bool> inputDate_; //現在の入力
