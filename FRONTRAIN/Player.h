@@ -9,6 +9,8 @@ public:
 	void Update();
 	void Draw();
 
+	
+
 private:
 	int HP;
 	int Speed;
@@ -18,5 +20,13 @@ private:
 	//プレイヤーの初期位置
 	int PlayerX;
 	int PlayerY;
+
+
+	//プレイヤーの幅
+	int PlayerW;
+	int PlayerH;
+
+	bool PlayerShotFlag;
+	
 };
 
