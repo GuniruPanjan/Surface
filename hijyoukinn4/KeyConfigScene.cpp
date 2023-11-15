@@ -24,6 +24,7 @@ void KeyConfigScene::NoramalUpdate(Input& input)
 	{
 		if (currentLineIndex_ < keyCommandTable_.size())
 		{
+			isEditRequestButton_ = true;
 			isEditingNow_ = !isEditingNow_;
 			updateFunc_ = &KeyConfigScene::NoramalUpdate;
 
@@ -37,6 +38,17 @@ void KeyConfigScene::NoramalUpdate(Input& input)
 			return;
 		}
 		
+	}
+
+	if (isEditRequestButton_)
+	{
+		if (input.IsReleased("OK"))
+		{
+			isEditingNow_ = !isEditingNow_;
+			updateFunc_ = &KeyConfigScene::EditUpdate;
+			isEditRequestButton_ = false;
+			return;
+		}
 	}
 
 	if(isEditingNow_)
@@ -155,8 +167,8 @@ void KeyConfigScene::DrawCommandList()
 				x += 5;
 			}
 		}
-
-		DrawFormatString(x, y, 0xffffff, _T("%s : keybd=%03d , pad=%03d"), cmdName.c_str(), cmd.second.at(InputType::keybd), cmd.second.at(InputType::pad)); //化ける
+		auto keyname = GetKeyName(cmd.at(InputType::keybd));
+		DrawFormatString(x, y, 0xffffff, _T("%s : keybd=%s , pad=%03d"), cmdName.c_str(), keyname.c_str, cmd.second.at(InputType::pad)); //化ける
 		
 		y += line_height;
 		++idx;
@@ -181,6 +193,22 @@ void KeyConfigScene::CommitCurrentKeySetting()
 	{
 		input_.commandTable_[cmd.first] = cmd.second;
 	}
+}
+
+std::string KeyConfigScene::GetKeyName(int keycode)
+{
+	wchar_t name[16];
+	//mapのfindはイテレータを返す
+	auto it = keynameTable_.find(keycode);
+
+	//なかったらイテレータはend()になる
+	if (it == keynameTable_.end())
+	{
+		wsprintf(name, "%02f", keycode);
+		return name;
+	}
+	//見つかったら返す
+	return(it->second);
 }
 
 KeyConfigScene::KeyConfigScene(SceneManager& manage,Input& input) : Scene(manage),input_(input)

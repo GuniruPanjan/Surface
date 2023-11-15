@@ -5,9 +5,14 @@ class KeyConfigScene:public Scene
 {
 private:
 	int frame_ = 0;
+
+	std::unordered_map<int, std::string> keynameTable_;
+	std::unordered_map<int, std::string> padnameTable_;
+
 	std::vector<std::string> menuItems_; //特定の順序にコマンドを並べるための配列
 	int currentLineIndex_ = 0; //現在行のインデックス
 	bool isEditingNow_ = false; //今編集中なのか
+	bool isEditRequestButton_ = false; //今編集中なのか
 
 	Input& input_; //inputクラスの参照
 	InputTable_t keyCommandTable_;
@@ -32,6 +37,9 @@ private:
 
 	void DrawCommandList();//テキスト描画
 	void CommitCurrentKeySetting();
+
+
+	std::string GetKeyName(int keycode);
 
 public:
 	KeyConfigScene(SceneManager& manager,Input& input);

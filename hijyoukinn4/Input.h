@@ -51,5 +51,23 @@ public:
 	/// <param name="command">コマンド文字列</param>
 	/// <returns>true:押された瞬間 , false押されてないか押しっぱ</returns>
 	bool IsTriggered(const char* command)const;
+	/// <summary>
+	/// 今押しているかどうか
+	/// </summary>
+	/// <param name="command">コマンド文字列</param>
+	/// <returns></returns>今押してるならtrue・押していないならfalse
+	bool IsPressing(const char* command) const;
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="command"></param>
+	/// <returns></returns>
+	bool IsReleased(const char* command) const;
+
+	/// <summary>
+	/// 現在のキーコンフィグをファイルに保存する
+	/// </summary>
+	/// <param name="path">保存場所</param>
+	void Save(const std::string& path);
 };
 

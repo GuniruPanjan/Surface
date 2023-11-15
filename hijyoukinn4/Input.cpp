@@ -104,3 +104,24 @@ bool Input::IsTriggered(const char* command) const
 
 	//return !lastkeyState_[KEY_INPUT_RETURN] && keyState_[KEY_INPUT_RETURN];
 }
+
+bool Input::IsPressing(const char* command) const
+{
+	auto it = inputDate_.find(command);
+	if (it == inputDate_.end()) //—v‘f‚ª‚È‚©‚Á‚½
+	{
+		return false;
+	}
+	return inputDate_.at(command);
+}
+
+bool Input::IsReleased(const char* command) const
+{
+	return false;
+}
+
+void Input::Save(const std::string& path)
+{
+	FILE* fp;
+	fopen_s(&fp, path.c_str(), "wp");//‘‚«‚İ—p‚ÅŠJ‚­
+}
