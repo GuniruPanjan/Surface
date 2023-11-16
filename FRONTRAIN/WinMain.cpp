@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Background.h"
 #include "DxLib.h"
 
 // プログラムは WinMain から始まります
@@ -19,11 +20,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 
+	
+
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Player player;
+	Background Back;
+
+	
 
 	player.Init();
+	
+	
+
 
 	// ゲームループ
 
@@ -40,11 +49,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ゲームの処理
+		Back.Draw();
+
 		player.Update();
 
 		player.ShotUpdate();
 
 		player.Draw();
+
+		
 
 		// 画面が切り替わるのを待つ
 

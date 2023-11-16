@@ -14,6 +14,9 @@ struct Shot
 	int Graph;
 	//画像の幅と高さ
 	int Width, Height;
+	//弾が照準に向かっていく
+	double AimX, AimY;
+
 };
 
 class Player
@@ -37,6 +40,17 @@ private:
 	//プレイヤーの画像を入れる変数
 	int playerGraph;
 
+	//照準の画像を入れる変数
+	int Aiming;
+
+	//照準の画像サイズ
+	int AimingW, AimingH;
+
+	
+
+	//マウスの座標取得
+	int MouseX, MouseY;
+
 	//プレイヤーの初期位置
 	int PlayerX;
 	int PlayerY;
@@ -46,6 +60,7 @@ private:
 	int PlayerW;
 	int PlayerH;
 
+	//前のフレームでショットを撃ったかどうか
 	bool PlayerShotFlag;
 
 	//弾の画像サイズ
