@@ -35,7 +35,7 @@ public class GManager : MonoBehaviour
 
     public void HPnum()
     {
-        if(PlayerHp == 0)    //‰Šú‰»‚·‚é
+        if(PlayerHp <= 0)    //‰Šú‰»‚·‚é
         {
             
                 Debug.Log("€–S");
