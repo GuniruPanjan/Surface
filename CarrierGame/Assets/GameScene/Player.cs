@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private string enemyTag = "Enemy";
     public float speed;    //プレイヤーの梯子を上るスピード
     private Animator anim = null;          //アニメーション
-    public static float playerspeed = 0.2f;      //プレイヤーのスピード
+    public static float playerspeed = 0.1f;      //プレイヤーのスピード
     private float playerjump = 0.1f;             //プレイヤーのジャンプ
     private BoxCollider2D box = null;
     public static int PlayerHP = 100;             //プレイヤーのHP
@@ -94,12 +94,12 @@ public class Player : MonoBehaviour
 
             if (rightAttack == 1)
             {
-                rd.velocity = positiion * 2f;
+                rd.velocity = positiion * 1f;
                 rightAttack = 0;
             }
             else if (leftAttack == 1)
             {
-                rd.velocity = positiion * -2f;
+                rd.velocity = positiion * -1f;
                 leftAttack = 0;
             }
             //else if (Input.GetKey("up") && foot)
