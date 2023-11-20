@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "WalkEnemy.h"
 #include "Background.h"
 #include "DxLib.h"
 
@@ -25,11 +26,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Player player;
+	WalkEnemy WEnemy;
 	Background Back;
 
 	
 
 	player.Init();
+	WEnemy.Init();
 	
 	
 
@@ -52,10 +55,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Back.Draw();
 
 		player.Update();
+		WEnemy.Update();
 
 		player.ShotUpdate();
 
 		player.Draw();
+		WEnemy.Draw();
 
 		
 
