@@ -9,7 +9,10 @@ public:
 	void Init();
 	void Update();
 	void Draw();
-private:
+
 	int WalkEnemyGraph;
+
+	//エネミーの大きさ取得する変数
+	int WalkEnemyW, WalkEnmeyH;
 };
 

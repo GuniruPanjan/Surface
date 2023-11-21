@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "WalkEnemy.h"
 #include "DxLib.h"
 #include<math.h>
 
@@ -34,13 +35,15 @@ Player::~Player()
 
 void Player::Init()
 {
-	DrawGraph(PlayerX, PlayerY, playerGraph, true);
-
 	//プレイヤーの大きさを得る
 	GetGraphSize(playerGraph, &PlayerW, &PlayerH);
 
 	//照準の大きさを得る
 	GetGraphSize(Aiming, &AimingW, &AimingH);
+
+	DrawGraph(PlayerX, PlayerY, playerGraph, true);
+
+	DrawGraph(MouseX, MouseY, Aiming, true);
 
 
 	//弾の描画
@@ -153,6 +156,16 @@ void Player::ShotUpdate()
 			}
 		}
 	}
+
+	//弾のあたり判定
+	for (int i = 0; i < SHOT; i++)
+	{
+		if (shot[i].Flag == 1)
+		{
+			//WalkEnemyとのあたり判定
+		}
+	}
+	
 }
 
 void Player::Draw()
@@ -167,7 +180,11 @@ void Player::Draw()
 
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 	
-	Aiming = LoadGraphScreen(MouseX, MouseY, "date/標準(仮).png", true);
+	Aiming = LoadGraph("date/標準(仮).png");
+
+	
+
+
 }
 
 
