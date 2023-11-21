@@ -1,5 +1,4 @@
 #pragma once
-
 #define SHOT 30
 
 struct Shot
@@ -32,7 +31,8 @@ public:
 
 	void Draw();
 
-	
+	//弾
+	Shot shot[SHOT];
 
 private:
 	int HP;
@@ -46,15 +46,12 @@ private:
 	//照準の画像サイズ
 	int AimingW, AimingH;
 
-	
-
 	//マウスの座標取得
 	int MouseX, MouseY;
 
 	//プレイヤーの初期位置
 	int PlayerX;
 	int PlayerY;
-
 
 	//プレイヤーの幅と高さ
 	int PlayerW;
@@ -67,8 +64,7 @@ private:
 	int ShotGraph;
 	int W, H;
 	
-	//弾
-	Shot shot[SHOT];
+	
 
 };
 

@@ -26,16 +26,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Player player;
+	Shot shot;
 	WalkEnemy WEnemy;
 	Background Back;
 
-	
-
-	player.Init();
 	WEnemy.Init();
-	
-	
-
 
 	// ÉQÅ[ÉÄÉãÅ[Év
 
@@ -55,7 +50,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Back.Draw();
 
 		player.Update();
-		WEnemy.Update();
+		WEnemy.Update(shot);
 
 		player.ShotUpdate();
 

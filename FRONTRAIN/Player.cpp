@@ -3,13 +3,15 @@
 #include "DxLib.h"
 #include<math.h>
 
+
+
 class Shot;
 
 Player::Player():
 	HP(100),
 	Speed(2),
-	playerGraph(0),
-	Aiming(0),
+	playerGraph(-1),
+	Aiming(-1),
 	AimingW(0),
 	AimingH(0),
 	MouseX(0),
@@ -19,7 +21,7 @@ Player::Player():
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
-	ShotGraph(0),
+	ShotGraph(-1),
 	W(0),
 	H(0)
 {
@@ -35,16 +37,9 @@ Player::~Player()
 
 void Player::Init()
 {
-	//プレイヤーの大きさを得る
-	GetGraphSize(playerGraph, &PlayerW, &PlayerH);
-
-	//照準の大きさを得る
-	GetGraphSize(Aiming, &AimingW, &AimingH);
+	
 
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
-
-	DrawGraph(MouseX, MouseY, Aiming, true);
-
 
 	//弾の描画
 	for (int i = 0; i < SHOT; i++)
@@ -170,8 +165,6 @@ void Player::ShotUpdate()
 
 void Player::Draw()
 {
-	
-
 	//弾画像読み込み
 	for (int i = 0; i < SHOT; i++)
 	{
@@ -179,12 +172,16 @@ void Player::Draw()
 	}
 
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
+
+	//プレイヤーの大きさを得る
+	GetGraphSize(playerGraph, &PlayerW, &PlayerH);
 	
 	Aiming = LoadGraph("date/標準(仮).png");
 
-	
+	//照準の大きさを得る
+	GetGraphSize(Aiming, &AimingW, &AimingH);
 
-
+	DrawGraph(MouseX, MouseY, Aiming, true);
 }
 
 
