@@ -124,4 +124,5 @@ void Input::Save(const std::string& path)
 {
 	FILE* fp;
 	fopen_s(&fp, path.c_str(), "wp");//書き込み用で開く
+	//ヘッダの書き込み
 }
