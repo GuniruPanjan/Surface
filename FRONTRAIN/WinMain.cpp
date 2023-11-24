@@ -26,10 +26,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Player player;
-	Shot shot;
+	Shot shot[SHOT];
 	WalkEnemy WEnemy;
 	Background Back;
+	int shotGraph = LoadGraph("date/èeíe.png");
 
+	player.Init();
+	for (int i = 0; i < SHOT; i++)
+	{
+		player.InitShot(shot[i],shotGraph);
+	}
+	
 	WEnemy.Init();
 
 	// ÉQÅ[ÉÄÉãÅ[Év
@@ -50,11 +57,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Back.Draw();
 
 		player.Update();
-		WEnemy.Update(shot);
-
-		player.ShotUpdate();
+		WEnemy.Update();
+		
+		player.ShotUpdate(player, shot, SHOT);
+		
+		
 
 		player.Draw();
+		for (int i = 0; i < SHOT; i++)
+		{
+			player.DrawShot(shot[i]);
+		}
+		
 		WEnemy.Draw();
 
 		

@@ -8,5 +8,7 @@ private:
 	int HP;
 	int Speed;
 	int Attack;
+	int EnemyW;
+	int EnemyH;
 };
 

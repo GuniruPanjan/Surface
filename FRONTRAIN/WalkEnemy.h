@@ -8,8 +8,11 @@ public:
 	~WalkEnemy();
 
 	void Init();
-	void Update(Shot& shot);
+	void Update();
 	void Draw();
+
+	Shot shot[SHOT];
+	EnemyBase Base;
 
 	int WalkEnemyGraph;
 

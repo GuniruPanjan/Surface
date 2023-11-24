@@ -25,14 +25,18 @@ public:
 	~Player();
 
 	void Init();
+	void InitShot(Shot& shot, int shotGraph);
 	void Update();
 
-	void ShotUpdate();
+	void ShotUpdate(Player& player,Shot shot[], int shotSize);
 
 	void Draw();
+	void DrawShot(Shot& shot);
 
 	//’e
 	Shot shot[SHOT];
+	
+	
 
 private:
 	int HP;

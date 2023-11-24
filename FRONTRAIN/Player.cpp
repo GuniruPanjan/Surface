@@ -21,7 +21,6 @@ Player::Player():
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
-	ShotGraph(-1),
 	W(0),
 	H(0)
 {
@@ -41,32 +40,15 @@ void Player::Init()
 
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
-	//弾の描画
-	for (int i = 0; i < SHOT; i++)
-	{
-		if (shot[i].Flag)
-		{
-			DrawGraph(shot[i].X, shot[i].Y, shot[i].Graph, true);
-		}
-	}
+}
 
+void Player::InitShot(Shot& shot, int shotGraph)
+{
+	shot.Graph = shotGraph;
 
-	for (int i = 0; i < SHOT; i++)
-	{
-		W, H;
-		//弾画像のサイズ取得
-		GetGraphSize(ShotGraph, &W, &H);
+	shot.Flag = false;
 
-		//フラグを全部falseにしておく
-		//グラフィックハンドルと画像のサイズを代入
-		shot[i].Flag = false;
-		shot[i].Graph = ShotGraph;
-		shot[i].Width = W;
-		shot[i].Height = H;
-	}
-	
-	
-
+	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
 void Player::Update()
@@ -89,20 +71,20 @@ void Player::Update()
 	
 }
 
-void Player::ShotUpdate()
+void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {
 	//マウスキー(左クリック)が押されると発射
 	if (GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
-		if (PlayerShotFlag == false)
+		if (player.PlayerShotFlag == false)
 		{
-			for (int i = 0; i < SHOT; i++)
+			for (int i = 0; i < shotSize; i++)
 			{
 				if (shot[i].Flag == false)
 				{
 					shot[i].Flag = true;
-					shot[i].X = PlayerX;
-					shot[i].Y = PlayerY;
+					shot[i].X = player.PlayerX;
+					shot[i].Y = player.PlayerY;
 
 					//弾の移動速度を設定する
 					double sb, sbx, sby, ax, ay, sx, sy;
@@ -110,8 +92,8 @@ void Player::ShotUpdate()
 					sx = shot[i].X + shot[i].Width / 2;
 					sy = shot[i].Y + shot[i].Height / 2;
 
-					ax = MouseX + AimingW / 2;
-					ay = MouseY + AimingH / 2;
+					ax = player.MouseX + player.AimingW / 2;
+					ay = player.MouseY + player.AimingH / 2;
 
 					sbx = ax - sx;
 					sby = ay - sy;
@@ -122,55 +104,27 @@ void Player::ShotUpdate()
 					shot[i].AimX = sbx / sb * 10;
 					shot[i].AimY = sby / sb * 10;
 
+					//一つ弾を出したので弾を出すループから抜ける
 					break;
 				}
 			}
+			
 			PlayerShotFlag = true;
 		}
-
+		
 		
 	}
 	else
 	{
 		PlayerShotFlag = false;
 	}
-
-	//弾を移動させる処理
-	for (int i = 0; i < SHOT; i++)
-	{
-		//発射してる弾だけ
-		if (shot[i].Flag)
-		{
-			shot[i].X += shot[i].AimX;
-			shot[i].Y += shot[i].AimY;
-
-			//画面の外にはみ出したらフラグを戻す
-			if (shot[i].X > 640 || shot[i].X < 0 || shot[i].Y > 480 || shot[i].Y < 0)
-			{
-				shot[i].Flag = false;
-			}
-		}
-	}
-
-	//弾のあたり判定
-	for (int i = 0; i < SHOT; i++)
-	{
-		if (shot[i].Flag == 1)
-		{
-			//WalkEnemyとのあたり判定
-		}
-	}
 	
 }
 
 void Player::Draw()
 {
-	//弾画像読み込み
-	for (int i = 0; i < SHOT; i++)
-	{
-		ShotGraph = DrawCircle(shot[i].X, shot[i].Y, 2, GetColor(0, 0, 0), true);
-	}
 
+	
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 
 	//プレイヤーの大きさを得る
@@ -183,6 +137,27 @@ void Player::Draw()
 
 	DrawGraph(MouseX, MouseY, Aiming, true);
 }
+
+void Player::DrawShot(Shot& shot)
+{
+	//弾の移動
+	//発射してる弾数だけ
+	if (shot.Flag)
+	{
+		shot.X += shot.AimX;
+		shot.Y += shot.AimY;
+
+		//画面の外にはみ出したらフラグを戻す
+		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
+		{
+			shot.Flag = false;
+		}
+
+		DrawGraph(shot.X, shot.Y, shot.Graph, true);
+	}
+
+}
+
 
 
 	
