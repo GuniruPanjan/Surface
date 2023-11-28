@@ -2,6 +2,7 @@
 #include "WalkEnemy.h"
 #include "Background.h"
 #include "DxLib.h"
+#include "Map.h"
 
 // プログラムは WinMain から始まります
 
@@ -28,6 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Player player;
 	Shot shot[SHOT];
 	WalkEnemy WEnemy;
+	Map map;
 	Background Back;
 	int shotGraph = LoadGraph("date/銃弾.png");
 
@@ -39,6 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 	WEnemy.Init();
 
+	map.InitMap();
 	// ゲームループ
 
 	while (ProcessMessage() != -1)
@@ -58,9 +61,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		player.Update();
 		WEnemy.Update();
-		
+
 		player.ShotUpdate(player, shot, SHOT);
-		
+		map.UpdateMap();
 		
 
 		player.Draw();
@@ -70,6 +73,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		
 		WEnemy.Draw();
+
+		map.DrawMap();
 
 		
 

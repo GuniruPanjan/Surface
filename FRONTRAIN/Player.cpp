@@ -1,11 +1,14 @@
 #include "Player.h"
 #include "WalkEnemy.h"
 #include "DxLib.h"
+#include "Map.h"
 #include<math.h>
 
 
 
 class Shot;
+MapEd maped;
+Map map;
 
 Player::Player():
 	HP(100),
@@ -16,8 +19,8 @@ Player::Player():
 	AimingH(0),
 	MouseX(0),
 	MouseY(0),
-	PlayerX(640 / 2),
-	PlayerY(480 / 2),
+	PlayerX(640 / 12),
+	PlayerY(480 - 110),
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
@@ -64,6 +67,29 @@ void Player::Update()
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
 		PlayerX += Speed;
+	}
+
+	int Pw, Ph, PwM, PhM;
+	float bby;
+	Pw = PlayerX + 8;
+	Ph = PlayerY + 8;
+	PwM = PlayerX - 8;
+	PhM = PlayerY - 8;
+
+	bby = (float)((int)Ph / MAPCHIP_HEIGHT + 1) * MAPCHIP_HEIGHT;  //下辺のY座標
+
+	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
+	{
+		
+
+		//当たっていたら壁を上る
+		PlayerY -= 20;
+		
+	}
+	else if(map.GetChipUnder(Ph) == 0)
+	{
+		//下にブロックが無かったら下へ移動
+		PlayerY += 20;
 	}
 
 	//マウスの座標取得
