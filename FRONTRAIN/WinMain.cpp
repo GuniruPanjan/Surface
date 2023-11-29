@@ -3,16 +3,20 @@
 #include "Background.h"
 #include "DxLib.h"
 #include "Map.h"
+#include "GraphMode.h"
 
 // プログラムは WinMain から始まります
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 
 {
+	GraphMode graph;
 
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
 
 	ChangeWindowMode(true);
+
+	SetWindowSize(graph.GraphModeWIDTH, graph.GraphModeHEIGHT);
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 
@@ -103,6 +107,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 	}
+
+	
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

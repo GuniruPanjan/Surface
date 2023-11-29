@@ -1,5 +1,8 @@
 #include "Map.h"
+#include "Player.h"
 #include "DxLib.h"
+
+Player player;
 
 void Map::InitMap()
 {
@@ -41,7 +44,7 @@ void Map::DrawMap()
 			//1はブロックを表しているから1のところだけ描画
 			if (g_MapChipFirst[j][i] == 1)
 			{
-				DrawGraph(i * MAPCHIP_HEIGHT, j * MAPCHIP_WIDTH, maped.Block, true);
+					DrawGraph(i * MAPCHIP_HEIGHT, j * MAPCHIP_WIDTH, maped.Block, true);
 			}
 		}
 	}

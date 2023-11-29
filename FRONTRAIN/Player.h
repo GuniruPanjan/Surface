@@ -36,6 +36,11 @@ public:
 	//弾
 	Shot shot[SHOT];
 	
+	//プレイヤーの初期位置
+	int PlayerX;
+	int PlayerY;
+
+	bool PlayerRight;
 	
 
 private:
@@ -53,9 +58,7 @@ private:
 	//マウスの座標取得
 	int MouseX, MouseY;
 
-	//プレイヤーの初期位置
-	int PlayerX;
-	int PlayerY;
+	
 
 	//プレイヤーの幅と高さ
 	int PlayerW;

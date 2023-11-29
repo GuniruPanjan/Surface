@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="GraphMode.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="WalkEnemy.h" />

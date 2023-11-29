@@ -2,6 +2,7 @@
 #include "WalkEnemy.h"
 #include "DxLib.h"
 #include "Map.h"
+#include "GraphMode.h"
 #include<math.h>
 
 
@@ -9,6 +10,7 @@
 class Shot;
 MapEd maped;
 Map map;
+GraphMode graph;
 
 Player::Player():
 	HP(100),
@@ -25,7 +27,8 @@ Player::Player():
 	PlayerW(0),
 	PlayerH(0),
 	W(0),
-	H(0)
+	H(0),
+	PlayerRight(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -62,11 +65,21 @@ void Player::Update()
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
 		PlayerX -= Speed;
+		//左端から先にいかない
+		if (PlayerX < 8)
+		{
+			PlayerX = 8;
+		}
 	}
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
 		PlayerX += Speed;
+		//真ん中から先に行くと画面がついてくる
+		if (PlayerX >= graph.GraphModeWIDTH / 2)
+		{
+			PlayerRight = true;
+		}
 	}
 
 	int Pw, Ph, PwM, PhM;
@@ -76,9 +89,7 @@ void Player::Update()
 	PwM = PlayerX - 8;
 	PhM = PlayerY - 8;
 
-	bby = (float)((int)Ph / MAPCHIP_HEIGHT + 1) * MAPCHIP_HEIGHT;  //下辺のY座標
-
-	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
+	if (map.GetChipParm(Pw,Ph) == (0,1) || map.GetChipParm(PwM, PhM) == (0,1))
 	{
 		
 
