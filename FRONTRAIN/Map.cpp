@@ -1,5 +1,8 @@
 #include "Map.h"
+#include "Player.h"
 #include "DxLib.h"
+
+Player player;
 
 void Map::InitMap()
 {
@@ -41,7 +44,7 @@ void Map::DrawMap()
 			//1はブロックを表しているから1のところだけ描画
 			if (g_MapChipFirst[j][i] == 1)
 			{
-				DrawGraph(i * MAPCHIP_HEIGHT, j * MAPCHIP_WIDTH, maped.Block, true);
+					DrawGraph(i * MAPCHIP_HEIGHT, j * MAPCHIP_WIDTH, maped.Block, true);
 			}
 		}
 	}
@@ -58,7 +61,7 @@ int Map::GetChipParm(float X, float Y)
 	y = (int)Y / MAPCHIP_HEIGHT;
 
 	//マップからはみ出ていたら0を返す
-	if (x >= MAP_SIZE_WIDTH || y >= MAP_SIZE_HEIGHT || x < 0 || y < 0) return 0;
+	//if (x >= MAP_SIZE_WIDTH || y >= MAP_SIZE_HEIGHT || x < 0 || y < 0) return 0;
 	
 	//指定の座標に該当するマップの情報を返す
 	return g_MapChipFirst[y][x];
@@ -71,7 +74,7 @@ int Map::GetChipUnder(float Y)
 	y = (int)Y / MAPCHIP_HEIGHT;
 
 	//マップからはみ出ていたら0を返す
-	if ( y < 0) return 0;
+	//if ( y < 0) return 0;
 
 	for (int i = 0; i < MAP_SIZE_WIDTH; i++)
 	{

@@ -47,6 +47,15 @@ void TitleScene::NoramalUpdate(Input& input)
 		frame = 0;
 	}
 	frame = frame + 8;
+	frame++;
+
+	GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	int x = abs((frame + 640) % (640 * 2) - 640);
+	if (frame % 5 == 0)
+	{
+		Position2 pos = { (float)x,320.0f };
+
+	}
 	//GetJoypadInputState();
 
 }

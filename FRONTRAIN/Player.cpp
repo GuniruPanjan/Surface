@@ -2,6 +2,7 @@
 #include "WalkEnemy.h"
 #include "DxLib.h"
 #include "Map.h"
+#include "GraphMode.h"
 #include<math.h>
 
 
@@ -9,6 +10,7 @@
 class Shot;
 MapEd maped;
 Map map;
+GraphMode graph;
 
 Player::Player():
 	HP(100),
@@ -20,12 +22,13 @@ Player::Player():
 	MouseX(0),
 	MouseY(0),
 	PlayerX(640 / 12),
-	PlayerY(480 - 110),
+	PlayerY(480 - 108.1),
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
 	W(0),
-	H(0)
+	H(0),
+	PlayerRight(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -62,31 +65,44 @@ void Player::Update()
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
 		PlayerX -= Speed;
+		//左端から先にいかない
+		if (PlayerX < 8)
+		{
+			PlayerX = 8;
+		}
 	}
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
 		PlayerX += Speed;
+		//真ん中から先に行くと画面がついてくる
+		if (PlayerX >= graph.GraphModeWIDTH / 2)
+		{
+			PlayerRight = true;
+			PlayerX = graph.GraphModeWIDTH / 2;
+		}
 	}
 
 	int Pw, Ph, PwM, PhM;
 	float bby;
-	Pw = PlayerX + 8;
-	Ph = PlayerY + 8;
-	PwM = PlayerX - 8;
-	PhM = PlayerY - 8;
+	Pw = PlayerX + 8; //右辺
+	Ph = PlayerY + 8; //下辺
+	PwM = PlayerX - 8; //左辺
+	PhM = PlayerY - 8; //上辺
 
-	bby = (float)((int)Ph / MAPCHIP_HEIGHT + 1) * MAPCHIP_HEIGHT;  //下辺のY座標
-
-	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
+	if (map.GetChipParm(Pw, Ph) == (0, 1) || map.GetChipParm(PwM, PhM) == (0, 1))
+	{
+		PlayerY;
+	}
+	if (map.GetChipParm(Pw,Ph) == (0,1) || map.GetChipParm(PwM, PhM) == (0,1))
 	{
 		
 
-		//当たっていたら壁を上る
+		//ブロックに当たっていたら壁を上る
 		PlayerY -= 20;
 		
 	}
-	else if(map.GetChipUnder(Ph) == 0)
+	else if(map.GetChipParm(Pw,Ph) == (0,0))
 	{
 		//下にブロックが無かったら下へ移動
 		PlayerY += 20;
