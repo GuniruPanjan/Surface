@@ -305,10 +305,21 @@ public:
 	};
 
 	void InitMap();
-	void UpdateMap();
-	void DrawMap();
+	void UpdateMap(int ScrollX,int ScrollY);
+	void DrawMap(int ScrollX, int ScrollY);
 	int GetChipParm(float X, float Y);
 	int GetChipUnder(float Y);
+
+	int ScrollX, ScrollY = 0;
+	int i, j;
+	int MapDrawPointX, MapDrawPointY;  //描画するマップ座標値
+	int DrawMapChipNumX, DrawMapChipNumY; //描画するマップチップの数
+
+	int DrawW;
+	int DrawH;
+	int DrawMapGraph;
+
+	int DrawScroll = 0;
 
 	MapEd maped;
 	

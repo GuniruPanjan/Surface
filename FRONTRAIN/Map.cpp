@@ -9,45 +9,54 @@ void Map::InitMap()
 	
 }
 
-void Map::UpdateMap()
+void Map::UpdateMap(int ScrollX, int ScrollY)
 {
-	maped.width_chip_num = (int)maped.W / MAPCHIP_WIDTH;
-	maped.height_chip_num = (int)maped.H / MAPCHIP_HEIGHT;
-
-	for (int i = 0; i < MAP_SIZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAP_SIZE_WIDTH; j++)
-		{
-			maped.chip_id = g_MapChipFirst[i][j];
-
-			maped.chip_pos_x = (float)(maped.chip_id % maped.width_chip_num) * MAPCHIP_WIDTH;
-			maped.chip_pos_y = (float)(maped.chip_id / maped.height_chip_num) * MAPCHIP_HEIGHT;
-			if (maped.chip_id == 0)
-			{
-				continue;
-			}
-
-			maped.position_x = MAPCHIP_WIDTH * j;
-			maped.position_y = MAPCHIP_HEIGHT * i;
-		}
-	}
-
+	MAP_SIZE_WIDTH + ScrollX;
 }
 
-void Map::DrawMap()
+void Map::DrawMap(int ScrollX, int ScrollY)
 {
-	int i, j;
-	for (j = 0; j < MAP_SIZE_HEIGHT; j++)
+	
+
+	//描画するマップチップの数をセット
+	DrawMapChipNumX = STAGE_WIDTH / MAPCHIP_WIDTH;
+	DrawMapChipNumY = STAGE_HEIGHT / MAPCHIP_HEIGHT;
+
+	//画面左上に描画するマップ座標をセット
+	MapDrawPointX = player.PlayerX - (DrawMapChipNumX / 2 - 1);
+	MapDrawPointY = player.PlayerY - (DrawMapChipNumY / 2 - 1);
+
+	//for (j = 0; j < MAP_SIZE_HEIGHT; j++)
+	//{
+	//	for (i = 0; i < MAP_SIZE_WIDTH; i++)
+	//	{
+	//		DrawW = i * MAPCHIP_WIDTH;
+	//		DrawH = j * MAPCHIP_HEIGHT;
+	//		//1はブロックを表しているから1のところだけ描画
+	//		if (g_MapChipFirst[j][i] == 1)
+	//		{
+	//			DrawMapGraph = DrawGraph(DrawW + ScrollX, DrawH + ScrollY, maped.Block, true);
+	//		}
+	//	}
+	//}
+
+	//マップを描く
+	for (i = 0; i < DrawMapChipNumY; i++)
 	{
-		for (i = 0; i < MAP_SIZE_WIDTH; i++)
+		for (j = 0; j < DrawMapChipNumX; j++)
 		{
-			//1はブロックを表しているから1のところだけ描画
-			if (g_MapChipFirst[j][i] == 1)
+			//画面からはみ出た位置なら描画しない
+			/*if (j + MapDrawPointX < 0 || i + MapDrawPointY < 0 ||
+				j + MapDrawPointX >= MAP_SIZE_WIDTH || i + MapDrawPointY >= MAP_SIZE_HEIGHT) continue;*/
+
+			//マップデータが１だったらブロックを描画する
+			if (g_MapChipFirst[i][j] == 1)
 			{
-					DrawGraph(i * MAPCHIP_HEIGHT, j * MAPCHIP_WIDTH, maped.Block, true);
+				DrawGraph(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 			}
 		}
 	}
+	
 	
 
 	GetGraphSize(maped.Block, &maped.W, &maped.H);

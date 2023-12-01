@@ -16,6 +16,7 @@ struct Vector2
 	void operator-=(const Vector2& val);
 	void operator*(float scale);
 	void operator/(float div);
+
 	/// <summary>
 	/// ƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚ð•Ô‚·
 	/// </summary>

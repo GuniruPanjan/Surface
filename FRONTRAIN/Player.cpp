@@ -23,6 +23,8 @@ Player::Player():
 	MouseY(0),
 	PlayerX(640 / 12),
 	PlayerY(480 - 108.1),
+	ScrollX(0),
+	ScrollY(0),
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
@@ -59,7 +61,11 @@ void Player::InitShot(Shot& shot, int shotGraph)
 
 void Player::Update()
 {
-	
+	int Pw, Ph, PwM, PhM;
+	Pw = PlayerX + 8; //右辺
+	Ph = PlayerY + 8; //下辺
+	PwM = PlayerX - 8; //左辺
+	PhM = PlayerY - 8; //上辺
 
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
@@ -81,20 +87,29 @@ void Player::Update()
 			PlayerRight = true;
 			PlayerX = graph.GraphModeWIDTH / 2;
 		}
+		
+	}
+	//移動してないと画面が止まる
+	else if (PlayerX <= graph.GraphModeWIDTH / 2)
+	{
+		//停止中は画面のスクロールは行わない
+		PlayerRight = false;
+		
+		
 	}
 
-	int Pw, Ph, PwM, PhM;
-	float bby;
-	Pw = PlayerX + 8; //右辺
-	Ph = PlayerY + 8; //下辺
-	PwM = PlayerX - 8; //左辺
-	PhM = PlayerY - 8; //上辺
-
+	if (PlayerRight == true)
+	{
+		//プレイヤー操作からスクロール量を算出する
+		ScrollX -= Speed;
+		ScrollY = 0;
+	}
+	
 	if (map.GetChipParm(Pw, Ph) == (0, 1) || map.GetChipParm(PwM, PhM) == (0, 1))
 	{
 		PlayerY;
 	}
-	if (map.GetChipParm(Pw,Ph) == (0,1) || map.GetChipParm(PwM, PhM) == (0,1))
+	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
 	{
 		
 
@@ -112,6 +127,7 @@ void Player::Update()
 	GetMousePoint(&MouseX, &MouseY);
 	
 }
+
 
 void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {

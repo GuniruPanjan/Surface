@@ -40,6 +40,8 @@ public:
 	int PlayerX;
 	int PlayerY;
 
+	int ScrollX, ScrollY;
+
 	bool PlayerRight;
 	
 
@@ -71,7 +73,17 @@ private:
 	int ShotGraph;
 	int W, H;
 	
-	
+	//マップチップ座標
+	int rightMapX = 0;
+	int leftMapX = 0;
+	int upMapY = 0;
+	int downMapY = 0;
+
+	//スクロール処理
+	int maxDrawMapX; //最大の描画範囲X
+	int minDrawMapX = 0;   //最小の描画範囲X
+	int mapScrollX = 0;   //スクロール量X
+	int moveNumX = 0;    //総移動量X
 
 };
 
