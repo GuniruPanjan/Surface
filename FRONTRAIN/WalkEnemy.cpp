@@ -1,14 +1,16 @@
 #include "WalkEnemy.h"
-
 #include "DxLib.h"
 
 
 WalkEnemy::WalkEnemy():
 	WalkEnemyGraph(0),
-	WalkEnemyX(610),
-	WalkEnemyY(230),
+	WalkEnemyX(610.00f),
+	WalkEnemyY(360.00f),
+	WalkEnemyWidth(20),
+	WalkEnemyHeight(20),
 	WalkEnemyW(0),
-	WalkEnmeyH(0)
+	WalkEnmeyH(0),
+	WalkEnemySpeed(0.03f)
 {
 }
 
@@ -24,31 +26,53 @@ void WalkEnemy::Init()
 
 }
 
-void WalkEnemy::Update()
+void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemy& enemy)
 {
-	for (int i = 0; i < SHOT; i++)
+	//敵の移動処理
+	if (player.PlayerX - player.ScrollX <= enemy.WalkEnemyX)
 	{
-		if (shot[i].Flag == 1)
-		{
-			//敵とのあたり判定
-			if (((shot[i].X > WalkEnemyX && shot[i].X < WalkEnemyX + WalkEnemyW) ||
-				(WalkEnemyX > shot[i].X && WalkEnemyX < shot[i].X + shot[i].Width)) &&
-				((shot[i].Y > WalkEnemyY && shot[i].Y < WalkEnemyY + WalkEnmeyH) ||
-					(WalkEnemyY > shot[i].Y && WalkEnemyY < shot[i].Y + shot[i].Height)))
-			{
-				//接触している場合は当たった弾の存在を消す
-				shot[i].Flag = 0;
-			}
-		}
+		enemy.WalkEnemyX -= enemy.WalkEnemySpeed;
 	}
+	else if (player.PlayerX - player.ScrollX > enemy.WalkEnemyX)
+	{
+		enemy.WalkEnemyX += enemy.WalkEnemySpeed;
+	}
+
+	//当たり判定の更新
+	m_colRect.SetCenter(enemy.WalkEnemyX + 10 + player.ScrollX, enemy.WalkEnemyY + 10, enemy.WalkEnemyWidth, enemy.WalkEnemyHeight);
+
+
+	if (shot.Flag == 1)
+	{
+		//敵との当たり判定
+		if (m_colRect.IsCollision(shot.m_colRect) == false)
+		{
+
+		}
+		else if (m_colRect.IsCollision(shot.m_colRect) == true)
+		{
+			//接触している場合は当たった弾の存在を消す
+			shot.Flag = 0;
+		}
+
+	}
+	
+		
+
+	
 }
 
-void WalkEnemy::Draw()
+void WalkEnemy::Draw(int ScrollX)
 {
+	
+
 	WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
 	//エネミーの大きさ取得
 	GetGraphSize(WalkEnemyGraph, &WalkEnemyW, &WalkEnmeyH);
 
-	DrawGraph(WalkEnemyX, WalkEnemyY, WalkEnemyGraph, true);
+	DrawGraph(WalkEnemyX + ScrollX, WalkEnemyY, WalkEnemyGraph, true);
+
+	//エネミーの当たり判定の表示
+	m_colRect.Draw(GetColor(255, 0, 0), false);
 	//WalkEnemyGraph = DrawBox(WalkEnemyX, WalkEnemyY, 630, 250, GetColor(255, 255, 0), true);
 }

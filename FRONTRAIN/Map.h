@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "Rect.h"
 #define STAGE_WIDTH 640                    //ステージの横幅
 #define STAGE_HEIGHT 480                   //ステージの縦幅
 #define MAPCHIP_WIDTH 20                   //マップチップの横幅
@@ -24,6 +25,8 @@ struct MapEd
 class Map
 {
 public:
+	Map();
+	~Map();
 	int g_MapChipFirst[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH]     //最初のマップ生成
 	{
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -305,8 +308,8 @@ public:
 	};
 
 	void InitMap();
-	void UpdateMap(int ScrollX,int ScrollY);
-	void DrawMap(int ScrollX, int ScrollY);
+	void UpdateMap(int ScrollX);
+	void DrawMap(int ScrollX);
 	int GetChipParm(float X, float Y);
 	int GetChipUnder(float Y);
 
@@ -320,6 +323,12 @@ public:
 	int DrawMapGraph;
 
 	int DrawScroll = 0;
+
+	//マップチップの当たり判定を取得する
+	Rect GetColRect() { return m_colRect; }
+
+	//当たり判定の矩形
+	Rect m_colRect;
 
 	MapEd maped;
 	

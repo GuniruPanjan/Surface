@@ -143,6 +143,8 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="WalkEnemy.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -152,6 +154,8 @@
     <ClInclude Include="GraphMode.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Vec2.h" />
     <ClInclude Include="WalkEnemy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

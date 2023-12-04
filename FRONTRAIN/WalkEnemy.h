@@ -1,6 +1,10 @@
 #pragma once
 #include "EnemyBase.h"
 #include "Player.h"
+
+class Player;
+class Shot;
+
 class WalkEnemy : public EnemyBase
 {
 public:
@@ -8,18 +12,23 @@ public:
 	~WalkEnemy();
 
 	void Init();
-	void Update();
-	void Draw();
+	void Update(Player& player, Shot& shot, WalkEnemy& enemy);
+	void Draw(int ScrollX);
 
-	Shot shot[SHOT];
 	EnemyBase Base;
 
 	int WalkEnemyGraph;
 
 	//敵の現在地
-	int WalkEnemyX, WalkEnemyY;
+	float WalkEnemyX, WalkEnemyY;
+
+	//敵の大きさ
+	int WalkEnemyWidth, WalkEnemyHeight;
 
 	//エネミーの大きさ取得する変数
 	int WalkEnemyW, WalkEnmeyH;
+
+	//エネミーのスピード
+	float WalkEnemySpeed;
 };
 

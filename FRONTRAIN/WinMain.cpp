@@ -63,12 +63,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// ƒQ[ƒ€‚Ìˆ—
 		Back.Draw();
 
-		player.Update();
-
-		WEnemy.Update();
+		player.Update(player);
+		for (int i = 0; i < SHOT; i++)
+		{
+			WEnemy.Update(player,shot[i],WEnemy);
+		}
+		
 
 		player.ShotUpdate(player, shot, SHOT);
-		map.UpdateMap(player.ScrollX,player.ScrollY);
+		map.UpdateMap(player.ScrollX);
 		
 
 		player.Draw();
@@ -77,9 +80,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			player.DrawShot(shot[i]);
 		}
 		
-		WEnemy.Draw();
+		WEnemy.Draw(player.ScrollX);
 
-		map.DrawMap(player.ScrollX,player.ScrollY);
+		map.DrawMap(player.ScrollX);
 
 		
 

@@ -21,8 +21,10 @@ Player::Player():
 	AimingH(0),
 	MouseX(0),
 	MouseY(0),
+	PlayerWidth(16),
+	PlayerHeight(16),
 	PlayerX(640 / 12),
-	PlayerY(480 - 108.1),
+	PlayerY(480 - 109),
 	ScrollX(0),
 	ScrollY(0),
 	PlayerShotFlag(false),
@@ -59,72 +61,85 @@ void Player::InitShot(Shot& shot, int shotGraph)
 	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
-void Player::Update()
+void Player::Update(Player& player)
 {
 	int Pw, Ph, PwM, PhM;
-	Pw = PlayerX + 8; //右辺
-	Ph = PlayerY + 8; //下辺
-	PwM = PlayerX - 8; //左辺
-	PhM = PlayerY - 8; //上辺
+	Pw = player.PlayerX + 8; //右辺
+	Ph = player.PlayerY + 8; //下辺
+	PwM = player.PlayerX - 8; //左辺
+	PhM = player.PlayerY - 8; //上辺
 
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
-		PlayerX -= Speed;
+		player.PlayerX -= Speed;
 		//左端から先にいかない
-		if (PlayerX < 8)
+		if (player.PlayerX < 8)
 		{
-			PlayerX = 8;
+			player.PlayerX = 8;
 		}
 	}
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
-		PlayerX += Speed;
+		player.PlayerX += player.Speed;
 		//真ん中から先に行くと画面がついてくる
-		if (PlayerX >= graph.GraphModeWIDTH / 2)
+		if (player.PlayerX >= graph.GraphModeWIDTH / 2)
 		{
-			PlayerRight = true;
-			PlayerX = graph.GraphModeWIDTH / 2;
+			player.PlayerRight = true;
+			player.PlayerX = graph.GraphModeWIDTH / 2;
 		}
 		
 	}
 	//移動してないと画面が止まる
-	else if (PlayerX <= graph.GraphModeWIDTH / 2)
+	else if (player.PlayerX <= graph.GraphModeWIDTH / 2)
 	{
 		//停止中は画面のスクロールは行わない
-		PlayerRight = false;
+		player.PlayerRight = false;
 		
 		
 	}
 
-	if (PlayerRight == true)
+	if (player.PlayerRight == true)
 	{
 		//プレイヤー操作からスクロール量を算出する
-		ScrollX -= Speed;
-		ScrollY = 0;
+		player.ScrollX -= Speed;
+		player.ScrollY = 0;
 	}
 	
 	if (map.GetChipParm(Pw, Ph) == (0, 1) || map.GetChipParm(PwM, PhM) == (0, 1))
 	{
-		PlayerY;
+		player.PlayerY;
 	}
 	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
 	{
 		
 
 		//ブロックに当たっていたら壁を上る
-		PlayerY -= 20;
+		player.PlayerY -= 20;
 		
 	}
-	else if(map.GetChipParm(Pw,Ph) == (0,0))
-	{
-		//下にブロックが無かったら下へ移動
-		PlayerY += 20;
-	}
+	//else if(map.GetChipParm(Pw,Ph) == (0,0))
+	//{
+	//	//下にブロックが無かったら下へ移動
+	//	player.PlayerY += 20;
+	//}
+	//当たり判定の更新
+	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
+
+	////当たり判定
+	//if (m_colRect.IsCollision(Wenemy.m_colRect) == false)
+	//{
+	//	//当たってない
+	//}
+	////当たっている
+	//else if (m_colRect.IsCollision(Wenemy.m_colRect) == true)
+	//{
+	//	DrawString(0, 0, "当たった", GetColor(255, 255, 255));
+	//}
 
 	//マウスの座標取得
-	GetMousePoint(&MouseX, &MouseY);
+	GetMousePoint(&player.MouseX, &player.MouseY);
 	
 }
 
@@ -162,20 +177,24 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 					shot[i].AimX = sbx / sb * 10;
 					shot[i].AimY = sby / sb * 10;
 
+					
+
 					//一つ弾を出したので弾を出すループから抜ける
 					break;
 				}
 			}
 			
-			PlayerShotFlag = true;
+			player.PlayerShotFlag = true;
 		}
 		
 		
 	}
 	else
 	{
-		PlayerShotFlag = false;
+		player.PlayerShotFlag = false;
 	}
+
+	
 	
 }
 
@@ -189,6 +208,9 @@ void Player::Draw()
 	GetGraphSize(playerGraph, &PlayerW, &PlayerH);
 	
 	Aiming = LoadGraph("date/標準(仮).png");
+
+	//プレイヤーの当たり判定の表示
+	m_colRect.Draw(GetColor(0, 0, 255), false);
 
 	//照準の大きさを得る
 	GetGraphSize(Aiming, &AimingW, &AimingH);
@@ -205,13 +227,20 @@ void Player::DrawShot(Shot& shot)
 		shot.X += shot.AimX;
 		shot.Y += shot.AimY;
 
+		//当たり判定の更新
+		shot.m_colRect.SetCenter(shot.X, shot.Y, shot.Width, shot.Height);
+
 		//画面の外にはみ出したらフラグを戻す
 		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
 		{
 			shot.Flag = false;
 		}
 
+		
+
 		DrawGraph(shot.X, shot.Y, shot.Graph, true);
+
+		shot.m_colRect.Draw(GetColor(0, 255, 0), false);
 	}
 
 }

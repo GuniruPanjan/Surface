@@ -4,17 +4,36 @@
 
 Player player;
 
+Map::Map():
+	ScrollX(0),
+	ScrollY(0),
+	i(0),
+	j(0),
+	MapDrawPointX(0),
+	MapDrawPointY(0),
+	DrawMapChipNumX(0),
+	DrawMapChipNumY(0),
+	DrawW(0),
+	DrawH(0),
+	DrawMapGraph(0)
+{
+}
+
+Map::~Map()
+{
+}
+
 void Map::InitMap()
 {
 	
 }
 
-void Map::UpdateMap(int ScrollX, int ScrollY)
+void Map::UpdateMap(int ScrollX)
 {
 	MAP_SIZE_WIDTH + ScrollX;
 }
 
-void Map::DrawMap(int ScrollX, int ScrollY)
+void Map::DrawMap(int ScrollX)
 {
 	
 
@@ -53,6 +72,12 @@ void Map::DrawMap(int ScrollX, int ScrollY)
 			if (g_MapChipFirst[i][j] == 1)
 			{
 				DrawGraph(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+
+				//当たり判定の更新
+				m_colRect.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX,i * MAPCHIP_HEIGHT + 10 + ScrollY, MAPCHIP_WIDTH,MAPCHIP_HEIGHT);
+
+				//マップチップの当たり判定の表示
+				m_colRect.Draw(GetColor(255, 255, 255), false);
 			}
 		}
 	}
