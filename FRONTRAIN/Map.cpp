@@ -33,7 +33,7 @@ void Map::UpdateMap(int ScrollX)
 	MAP_SIZE_WIDTH + ScrollX;
 }
 
-void Map::DrawMap(int ScrollX)
+void Map::DrawMap(int ScrollX, Shot& shot)
 {
 	
 
@@ -78,6 +78,17 @@ void Map::DrawMap(int ScrollX)
 
 				//マップチップの当たり判定の表示
 				m_colRect.Draw(GetColor(255, 255, 255), false);
+
+				//shotの当たり判定false
+				if (m_colRect.IsCollision(shot.m_colRect) == false)
+				{
+					//shotが壁に当たってない時
+				}
+				else if (m_colRect.IsCollision(shot.m_colRect) == true)
+				{
+					//shotが壁に当たった時
+
+				}
 			}
 		}
 	}
