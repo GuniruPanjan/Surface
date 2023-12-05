@@ -95,10 +95,10 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 					//ƒuƒƒbƒN‚É“–‚½‚Á‚Ä‚¢‚½‚ç•Ç‚ğã‚é
 					player.PlayerY -= 0.15f;
 				}
-				if (m_colRect.IsCollisionBlockBottom(player.m_colRect) == true)
+				/*if (m_colRect.IsCollisionBlockBottom(player.m_colRect) == true)
 				{
 					player.PlayerY += 0.5f;
-				}
+				}*/
 				
 
 			}
