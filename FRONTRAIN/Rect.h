@@ -23,6 +23,9 @@ public:
 	//矩形同士のあたり判定
 	bool IsCollision(const Rect& rect);
 
+	//ブロックの当たり判定下
+	bool IsCollisionBlockBottom(const Rect& rect);
+
 private:
 	float m_left;    //左上のX座標
 	float m_top;     //左上のY座標

@@ -4,6 +4,8 @@
 #include "DxLib.h"
 #include "Map.h"
 #include "GraphMode.h"
+#include "TimeCount.h"
+#include "Point.h"
 
 // ÉvÉçÉOÉâÉÄÇÕ WinMain Ç©ÇÁénÇ‹ÇËÇ‹Ç∑
 
@@ -35,8 +37,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	WalkEnemy WEnemy;
 	Map map;
 	Background Back;
+	TimeCount timecount;
+	Point point;
+
 	int shotGraph = LoadGraph("date/èeíe.png");
 
+	timecount.InitTime();
+	point.InitPoint();
 	player.Init();
 	for (int i = 0; i < SHOT; i++)
 	{
@@ -63,7 +70,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// ÉQÅ[ÉÄÇÃèàóù
 		Back.Draw();
 
-		player.Update(player);
+		
+
+		timecount.UpdateTime(point);
+		player.Update(player, WEnemy);
 		for (int i = 0; i < SHOT; i++)
 		{
 			WEnemy.Update(player,shot[i],WEnemy);
@@ -73,7 +83,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		player.ShotUpdate(player, shot, SHOT);
 		map.UpdateMap(player.ScrollX);
 		
-
+		timecount.DrawTime();
+		point.DrawPoint();
 		player.Draw();
 		for (int i = 0; i < SHOT; i++)
 		{
@@ -81,8 +92,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		
 		WEnemy.Draw(player.ScrollX);
-
-		map.DrawMap(player.ScrollX);
+		
+		for (int i = 0; i < SHOT; i++)
+		{
+			map.DrawMap(player.ScrollX, shot[i], player);
+		}
+		
 
 		
 

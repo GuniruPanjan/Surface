@@ -70,3 +70,11 @@ bool Rect::IsCollision(const Rect& rect)
 
 	return true;
 }
+
+bool Rect::IsCollisionBlockBottom(const Rect& rect)
+{
+	//‘ÎÛ‚Ì‰º‚ª“–‚½‚Á‚Ä‚È‚¢ƒpƒ^[ƒ“‚ð‘‚­
+	if (m_top == rect.m_bottom && m_left > rect.m_right && m_right < rect.m_left) return true;
+	//‘¼‚Í“–‚½‚Á‚Ä‚¢‚é”»’è
+	return false;
+}

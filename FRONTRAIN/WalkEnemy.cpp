@@ -51,15 +51,13 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemy& enemy)
 		}
 		else if (m_colRect.IsCollision(shot.m_colRect) == true)
 		{
+			DrawString(500, 0, "当たった", GetColor(255, 255, 255));
+			HP -= shot.Damage;
 			//接触している場合は当たった弾の存在を消す
 			shot.Flag = 0;
 		}
 
 	}
-	
-		
-
-	
 }
 
 void WalkEnemy::Draw(int ScrollX)
@@ -75,4 +73,11 @@ void WalkEnemy::Draw(int ScrollX)
 	//エネミーの当たり判定の表示
 	m_colRect.Draw(GetColor(255, 0, 0), false);
 	//WalkEnemyGraph = DrawBox(WalkEnemyX, WalkEnemyY, 630, 250, GetColor(255, 255, 0), true);
+
+	//敵が死んだ時
+	if (HP <= 0)
+	{
+		DeleteGraph(WalkEnemyGraph);
+		point.PointNow += 100;
+	}
 }

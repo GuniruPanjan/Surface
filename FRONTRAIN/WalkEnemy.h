@@ -1,9 +1,11 @@
 #pragma once
 #include "EnemyBase.h"
+#include "Point.h"
 #include "Player.h"
 
 class Player;
 class Shot;
+class Point;
 
 class WalkEnemy : public EnemyBase
 {
@@ -16,6 +18,7 @@ public:
 	void Draw(int ScrollX);
 
 	EnemyBase Base;
+	Point point;
 
 	int WalkEnemyGraph;
 

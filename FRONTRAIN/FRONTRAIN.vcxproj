@@ -143,7 +143,9 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="TimeCount.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="WalkEnemy.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -154,7 +156,9 @@
     <ClInclude Include="GraphMode.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="TimeCount.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WalkEnemy.h" />
   </ItemGroup>

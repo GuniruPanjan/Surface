@@ -23,6 +23,7 @@ struct MapEd
 };
 
 class Shot;
+class Player;
 
 class Map
 {
@@ -311,7 +312,7 @@ public:
 
 	void InitMap();
 	void UpdateMap(int ScrollX);
-	void DrawMap(int ScrollX,Shot& shot);
+	void DrawMap(int ScrollX,Shot& shot,Player& player);
 	int GetChipParm(float X, float Y);
 	int GetChipUnder(float Y);
 

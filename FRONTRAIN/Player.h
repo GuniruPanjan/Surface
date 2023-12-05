@@ -1,5 +1,6 @@
 #pragma once
 #include "Rect.h"
+#include "Map.h"
 #include "WalkEnemy.h"
 #define SHOT 30
 
@@ -17,11 +18,15 @@ struct Shot
 	int Width, Height;
 	//弾が照準に向かっていく
 	double AimX, AimY;
+	//弾のダメージ
+	int Damage = 3;
 
 	//当たり判定の矩形
 	Rect m_colRect;
 
 };
+
+class WalkEnemy;
 
 class Player
 {
@@ -31,7 +36,7 @@ public:
 
 	void Init();
 	void InitShot(Shot& shot, int shotGraph);
-	void Update(Player& player);
+	void Update(Player& player, WalkEnemy& Wenemy);
 	//プレイヤーの当たり判定を取得する
 	Rect GetColRect() { return m_colRect; }
 
@@ -44,8 +49,8 @@ public:
 	Shot shot[SHOT];
 	
 	//プレイヤーの初期位置
-	int PlayerX;
-	int PlayerY;
+	float PlayerX;
+	float PlayerY;
 	//プレイヤーのサイズ
 	int PlayerWidth, PlayerHeight;
 
@@ -58,7 +63,7 @@ public:
 
 private:
 	int HP;
-	int Speed;
+	float Speed;
 	//プレイヤーの画像を入れる変数
 	int playerGraph;
 

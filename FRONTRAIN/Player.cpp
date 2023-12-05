@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "WalkEnemy.h"
 #include "DxLib.h"
-#include "Map.h"
 #include "GraphMode.h"
 #include<math.h>
 
@@ -14,7 +13,7 @@ GraphMode graph;
 
 Player::Player():
 	HP(100),
-	Speed(2),
+	Speed(2.0f),
 	playerGraph(-1),
 	Aiming(-1),
 	AimingW(0),
@@ -23,8 +22,8 @@ Player::Player():
 	MouseY(0),
 	PlayerWidth(16),
 	PlayerHeight(16),
-	PlayerX(640 / 12),
-	PlayerY(480 - 109),
+	PlayerX(640.00f / 12),
+	PlayerY(480.00f - 100.0f),
 	ScrollX(0),
 	ScrollY(0),
 	PlayerShotFlag(false),
@@ -61,8 +60,9 @@ void Player::InitShot(Shot& shot, int shotGraph)
 	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
-void Player::Update(Player& player)
+void Player::Update(Player& player,WalkEnemy& Wenemy)
 {
+
 	int Pw, Ph, PwM, PhM;
 	Pw = player.PlayerX + 8; //右辺
 	Ph = player.PlayerY + 8; //下辺
@@ -84,10 +84,10 @@ void Player::Update(Player& player)
 	{
 		player.PlayerX += player.Speed;
 		//真ん中から先に行くと画面がついてくる
-		if (player.PlayerX >= graph.GraphModeWIDTH / 2)
+		if (player.PlayerX >= graph.GraphModeWIDTH / 4)
 		{
 			player.PlayerRight = true;
-			player.PlayerX = graph.GraphModeWIDTH / 2;
+			player.PlayerX = graph.GraphModeWIDTH / 4;
 		}
 		
 	}
@@ -107,36 +107,21 @@ void Player::Update(Player& player)
 		player.ScrollY = 0;
 	}
 	
-	if (map.GetChipParm(Pw, Ph) == (0, 1) || map.GetChipParm(PwM, PhM) == (0, 1))
-	{
-		player.PlayerY;
-	}
-	if (map.GetChipParm(Pw,Ph) == 1 || map.GetChipParm(PwM, PhM) == 1)
-	{
-		
-
-		//ブロックに当たっていたら壁を上る
-		player.PlayerY -= 20;
-		
-	}
-	//else if(map.GetChipParm(Pw,Ph) == (0,0))
-	//{
-	//	//下にブロックが無かったら下へ移動
-	//	player.PlayerY += 20;
-	//}
+	
 	//当たり判定の更新
 	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
 
-	////当たり判定
-	//if (m_colRect.IsCollision(Wenemy.m_colRect) == false)
-	//{
-	//	//当たってない
-	//}
-	////当たっている
-	//else if (m_colRect.IsCollision(Wenemy.m_colRect) == true)
-	//{
-	//	DrawString(0, 0, "当たった", GetColor(255, 255, 255));
-	//}
+
+	//当たり判定
+	if (m_colRect.IsCollision(Wenemy.m_colRect) == false)
+	{
+		//当たってない
+	}
+	//当たっている
+	else if (m_colRect.IsCollision(Wenemy.m_colRect) == true)
+	{
+		DrawString(0, 0, "当たった", GetColor(255, 255, 255));
+	}
 
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);

@@ -33,7 +33,7 @@ void Map::UpdateMap(int ScrollX)
 	MAP_SIZE_WIDTH + ScrollX;
 }
 
-void Map::DrawMap(int ScrollX, Shot& shot)
+void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 {
 	
 
@@ -86,9 +86,21 @@ void Map::DrawMap(int ScrollX, Shot& shot)
 				}
 				else if (m_colRect.IsCollision(shot.m_colRect) == true)
 				{
-					//shot‚ª•Ç‚É“–‚½‚Á‚½
-
+					//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
+					shot.Flag = 0;
 				}
+
+				if (m_colRect.IsCollision(player.m_colRect) == true)
+				{
+					//ƒuƒƒbƒN‚É“–‚½‚Á‚Ä‚¢‚½‚ç•Ç‚ğã‚é
+					player.PlayerY -= 0.15f;
+				}
+				if (m_colRect.IsCollisionBlockBottom(player.m_colRect) == true)
+				{
+					player.PlayerY += 0.5f;
+				}
+				
+
 			}
 		}
 	}
