@@ -15,7 +15,7 @@ public:
 
 	void Init();
 	void Update(Player& player, Shot& shot, WalkEnemy& enemy);
-	void Draw(int ScrollX);
+	void Draw(int ScrollX, WalkEnemy& enemy, Point& point);
 
 	EnemyBase Base;
 	Point point;
@@ -33,5 +33,7 @@ public:
 
 	//エネミーのスピード
 	float WalkEnemySpeed;
+
+	bool WalkEnemyDead = false;
 };
 

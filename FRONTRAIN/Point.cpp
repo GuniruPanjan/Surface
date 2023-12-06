@@ -4,7 +4,8 @@
 
 
 Point::Point():
-	PointNow(0)
+	PointNow(0),
+	WenemyPoint(0)
 {
 
 }
@@ -23,5 +24,5 @@ void Point::UpdatePoint()
 
 void Point::DrawPoint()
 {
-	DrawFormatString(300, 460, GetColor(255, 255, 255), "ポイント:%d", PointNow);
+	DrawFormatString(300, 460, GetColor(255, 255, 255), "ポイント:%d", PointNow + WenemyPoint);
 }

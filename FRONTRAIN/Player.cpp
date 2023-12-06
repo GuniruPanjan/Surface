@@ -60,8 +60,9 @@ void Player::InitShot(Shot& shot, int shotGraph)
 	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
-void Player::Update(Player& player,WalkEnemy& Wenemy)
+void Player::Update(Player& player)
 {
+	player.PlayerY += player.Gravity;
 
 	int Pw, Ph, PwM, PhM;
 	Pw = player.PlayerX + 8; //右辺
@@ -112,16 +113,7 @@ void Player::Update(Player& player,WalkEnemy& Wenemy)
 	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
 
 
-	//当たり判定
-	if (m_colRect.IsCollision(Wenemy.m_colRect) == false)
-	{
-		//当たってない
-	}
-	//当たっている
-	else if (m_colRect.IsCollision(Wenemy.m_colRect) == true)
-	{
-		DrawString(0, 0, "当たった", GetColor(255, 255, 255));
-	}
+	
 
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
@@ -131,56 +123,67 @@ void Player::Update(Player& player,WalkEnemy& Wenemy)
 
 void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {
+	
+
 	//マウスキー(左クリック)が押されると発射
 	if (GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
-		if (player.PlayerShotFlag == false)
+		//弾が入っていると撃てる
+		if (player.Bullet > 0)
 		{
-			for (int i = 0; i < shotSize; i++)
+			if (player.PlayerShotFlag == false)
 			{
-				if (shot[i].Flag == false)
+
+				for (int i = 0; i < shotSize; i++)
 				{
-					shot[i].Flag = true;
-					shot[i].X = player.PlayerX;
-					shot[i].Y = player.PlayerY;
+					if (shot[i].Flag == false)
+					{
+						shot[i].Flag = true;
+						shot[i].X = player.PlayerX;
+						shot[i].Y = player.PlayerY;
 
-					//弾の移動速度を設定する
-					double sb, sbx, sby, ax, ay, sx, sy;
+						//弾の移動速度を設定する
+						double sb, sbx, sby, ax, ay, sx, sy;
 
-					sx = shot[i].X + shot[i].Width / 2;
-					sy = shot[i].Y + shot[i].Height / 2;
+						sx = shot[i].X + shot[i].Width / 2;
+						sy = shot[i].Y + shot[i].Height / 2;
 
-					ax = player.MouseX + player.AimingW / 2;
-					ay = player.MouseY + player.AimingH / 2;
+						ax = player.MouseX + player.AimingW / 2;
+						ay = player.MouseY + player.AimingH / 2;
 
-					sbx = ax - sx;
-					sby = ay - sy;
+						sbx = ax - sx;
+						sby = ay - sy;
 
-					sb = sqrt(sbx * sbx + sby * sby);
+						sb = sqrt(sbx * sbx + sby * sby);
 
-					//1フレームあたり10ドットで動く
-					shot[i].AimX = sbx / sb * 10;
-					shot[i].AimY = sby / sb * 10;
+						//1フレームあたり10ドットで動く
+						shot[i].AimX = sbx / sb * 10;
+						shot[i].AimY = sby / sb * 10;
 
-					
+						player.Bullet--;
 
-					//一つ弾を出したので弾を出すループから抜ける
-					break;
+						//一つ弾を出したので弾を出すループから抜ける
+						break;
+					}
 				}
+				player.PlayerShotFlag = true;
 			}
-			
-			player.PlayerShotFlag = true;
 		}
-		
-		
+		else if (player.Bullet <= 0)
+		{
+			DrawString(100, 100, "弾切れ", GetColor(255, 255, 255));
+		}
 	}
 	else
 	{
 		player.PlayerShotFlag = false;
 	}
 
-	
-	
+	//右クリックで弾をリロード
+	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	{
+		player.Bullet = 12;
+	}
 }
 
 void Player::Draw()

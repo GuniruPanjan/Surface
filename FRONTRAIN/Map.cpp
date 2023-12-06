@@ -94,13 +94,10 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 				{
 					//ブロックに当たっていたら壁を上る
 					player.PlayerY -= 0.15f;
-				}
-				if (m_colRect.IsCollisionBlockBottom(player.m_colRect) == true)
-				{
-					player.PlayerY += 0.5f;
+					//地面に触れると重力が0になる
+					//player.Gravity = 0;
 				}
 				
-
 			}
 		}
 	}

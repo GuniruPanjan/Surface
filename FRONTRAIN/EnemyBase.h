@@ -1,5 +1,7 @@
 #pragma once
 #include "Rect.h"
+#define ENEMY_NOW 30
+
 class EnemyBase
 {
 public:

@@ -73,8 +73,8 @@ bool Rect::IsCollision(const Rect& rect)
 
 bool Rect::IsCollisionBlockBottom(const Rect& rect)
 {
-	//対象の下が当たってないパターンを書く
-	if (m_top == rect.m_bottom && m_left > rect.m_right && m_right < rect.m_left) return true;
-	//他は当たっている判定
+	//キャラの足元が地面についていない状態
+	if (m_top <= rect.m_bottom) return true;
+	//他は地面についている状態判定
 	return false;
 }

@@ -20,6 +20,7 @@ struct Shot
 	double AimX, AimY;
 	//弾のダメージ
 	int Damage = 3;
+	
 
 	//当たり判定の矩形
 	Rect m_colRect;
@@ -36,7 +37,7 @@ public:
 
 	void Init();
 	void InitShot(Shot& shot, int shotGraph);
-	void Update(Player& player, WalkEnemy& Wenemy);
+	void Update(Player& player);
 	//プレイヤーの当たり判定を取得する
 	Rect GetColRect() { return m_colRect; }
 
@@ -57,6 +58,12 @@ public:
 	int ScrollX, ScrollY;
 
 	bool PlayerRight;
+
+	//弾切れ変数
+	int Bullet = 12;
+
+	//重力
+	float Gravity = 2.0f;
 	
 	//当たり判定の矩形
 	Rect m_colRect;

@@ -9,6 +9,6 @@ public:
 	void UpdatePoint();
 	void DrawPoint();
 
-	int PointNow;
+	int PointNow, WenemyPoint;
 };
 
