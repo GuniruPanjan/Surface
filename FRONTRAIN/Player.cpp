@@ -62,7 +62,7 @@ void Player::InitShot(Shot& shot, int shotGraph)
 
 void Player::Update(Player& player)
 {
-	player.PlayerY += player.Gravity;
+	//player.PlayerY += player.Gravity;
 
 	int Pw, Ph, PwM, PhM;
 	Pw = player.PlayerX + 8; //‰E•Ó

@@ -33,7 +33,9 @@ public:
 
 	//エネミーのスピード
 	float WalkEnemySpeed;
-
+	//エネミーの死亡判定
 	bool WalkEnemyDead = false;
+	//エネミーの出現時間
+	int WalkEnemyTime;
 };
 

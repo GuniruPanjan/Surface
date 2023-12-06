@@ -1,5 +1,6 @@
 #include "WalkEnemy.h"
 #include "DxLib.h"
+#include<cmath>
 
 
 WalkEnemy::WalkEnemy():
@@ -12,6 +13,18 @@ WalkEnemy::WalkEnemy():
 	WalkEnmeyH(0),
 	WalkEnemySpeed(0.03f)
 {
+	for (int i = 0; i < ENEMY_NOW; i++)
+	{
+		if (GetRand(1) == 0)
+		{
+			WalkEnemyX = 680.00f;
+		}
+		else if (GetRand(1) == 1)
+		{
+			WalkEnemyX = -20.0f;
+		}
+		i++;
+	}
 }
 
 WalkEnemy::~WalkEnemy()
@@ -28,6 +41,7 @@ void WalkEnemy::Init()
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemy& enemy)
 {
+	
 	//エネミーが生きている時
 	if (enemy.HP >= 0)
 	{
