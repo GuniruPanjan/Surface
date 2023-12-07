@@ -22,24 +22,23 @@ WalkEnemy::~WalkEnemy()
 
 void WalkEnemy::Init(WalkEnemy& enemy,TimeCount* time)
 {
-	time->WalkEnemyTime;
-
-	if (time->WalkEnemyTime  == 5)
+	if (time->WalkEnemyTime == 5)
 	{
 		DrawString(200, 200, "出た", GetColor(255, 255, 255));
 		//エネミーがランダムな場所に出現
 		if (GetRand(1) == 0)
 		{
-			enemy.WalkEnemyX = 680.00f;
+			enemy.WalkEnemyX = -40.0f;
 		}
 		if (GetRand(1) == 1)
 		{
-			enemy.WalkEnemyX = -20.0f;
+			enemy.WalkEnemyX = 680.00f;
 		}
 
 		enemy.WalkEnemyflag = true;
+
+		time->WalkEnemyTime = 0;
 	}
-	
 	
 }
 

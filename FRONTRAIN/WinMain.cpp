@@ -50,19 +50,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		player.InitShot(shot[i],shotGraph);
 	}
 
-	for (int i = 0; i < ENEMY_NOW; i++)
-	{
-		WEnemy[i].Init(WEnemy[i],&timecount);
-	}
+	
 	
 
 	map.InitMap();
 	// ゲームループ
 
 	while (ProcessMessage() != -1)
-
 	{
-
 		// このフレームの開始時刻を覚えておく
 
 		LONGLONG start = GetNowHiPerformanceCount();
@@ -72,6 +67,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ゲームの処理
+
+		for (int i = 0; i < ENEMY_NOW; i++)
+		{
+			WEnemy[i].Init(WEnemy[i], &timecount);
+		}
+
 		Back.Draw();
 
 		timecount.UpdateTime(point);
