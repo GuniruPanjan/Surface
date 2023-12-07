@@ -28,6 +28,7 @@ struct Shot
 };
 
 class WalkEnemy;
+class Map;
 
 class Player
 {
@@ -37,18 +38,18 @@ public:
 
 	void Init();
 	void InitShot(Shot& shot, int shotGraph);
-	void Update(Player& player);
+	void Update(Player& player, Map& map);
 	//プレイヤーの当たり判定を取得する
 	Rect GetColRect() { return m_colRect; }
 
-	void ShotUpdate(Player& player,Shot shot[], int shotSize);
+	void ShotUpdate(Player& player, Shot shot[], int shotSize);
 
 	void Draw();
 	void DrawShot(Shot& shot);
 
 	//弾
 	Shot shot[SHOT];
-	
+
 	//プレイヤーの初期位置
 	float PlayerX;
 	float PlayerY;
@@ -64,7 +65,7 @@ public:
 
 	//重力
 	float Gravity = 2.0f;
-	
+
 	//当たり判定の矩形
 	Rect m_colRect;
 
@@ -83,7 +84,7 @@ private:
 	//マウスの座標取得
 	int MouseX, MouseY;
 
-	
+
 
 	//プレイヤーの幅と高さ
 	int PlayerW;
@@ -95,7 +96,7 @@ private:
 	//弾の画像サイズ
 	int ShotGraph;
 	int W, H;
-	
+
 	//マップチップ座標
 	int rightMapX = 0;
 	int leftMapX = 0;
@@ -107,6 +108,4 @@ private:
 	int minDrawMapX = 0;   //最小の描画範囲X
 	int mapScrollX = 0;   //スクロール量X
 	int moveNumX = 0;    //総移動量X
-
 };
-

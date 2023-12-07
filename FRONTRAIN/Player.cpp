@@ -60,9 +60,13 @@ void Player::InitShot(Shot& shot, int shotGraph)
 	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
-void Player::Update(Player& player)
+void Player::Update(Player& player,Map& map)
 {
 	//player.PlayerY += player.Gravity;
+	if (m_colRect.IsCollision(map.m_colRect) == true)
+	{
+		DrawString(200, 100, "’n–Ê‚É‚¢‚é", GetColor(255, 255, 255));
+	}
 
 	int Pw, Ph, PwM, PhM;
 	Pw = player.PlayerX + 8; //‰E•Ó

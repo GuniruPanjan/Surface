@@ -74,10 +74,11 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 				DrawGraph(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 				//当たり判定の更新
-				m_colRect.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX,i * MAPCHIP_HEIGHT + 10 + ScrollY, MAPCHIP_WIDTH,MAPCHIP_HEIGHT);
+				m_colRect.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX,i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH,MAPCHIP_HEIGHT);
 
 				//マップチップの当たり判定の表示
 				m_colRect.Draw(GetColor(255, 255, 255), false);
+				
 
 				//shotの当たり判定false
 				if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -98,6 +99,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 					//player.Gravity = 0;
 				}
 				
+				
+				
+			}
+			if (g_MapChipFirst[i][j] == 2)
+			{
+				//当たり判定の更新
+				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+				//マップチップの当たり判定の表示
+				m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
+
+				if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
+				{
+					//プレイヤーを落とす
+					player.PlayerY += 0.1f;
+				}
 			}
 		}
 	}

@@ -10,5 +10,8 @@ public:
 	void DrawPoint();
 
 	int PointNow, WenemyPoint;
+
+	//エネミーの出現時間
+	int WalkEnemyTime = 0;
 };
 

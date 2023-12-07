@@ -49,10 +49,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		player.InitShot(shot[i],shotGraph);
 	}
-	
+
 	for (int i = 0; i < ENEMY_NOW; i++)
 	{
-		WEnemy[i].Init();
+		WEnemy[i].Init(WEnemy[i],&timecount);
 	}
 	
 
@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		timecount.UpdateTime(point);
 
-		player.Update(player);
+		player.Update(player, map);
 		for (int j = 0; j < ENEMY_NOW; j++)
 		{
 			

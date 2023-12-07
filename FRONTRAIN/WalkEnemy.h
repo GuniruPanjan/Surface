@@ -1,11 +1,13 @@
 #pragma once
 #include "EnemyBase.h"
 #include "Point.h"
+#include "TimeCount.h"
 #include "Player.h"
 
 class Player;
 class Shot;
 class Point;
+class TimeCount;
 
 class WalkEnemy : public EnemyBase
 {
@@ -13,7 +15,7 @@ public:
 	WalkEnemy();
 	~WalkEnemy();
 
-	void Init();
+	void Init(WalkEnemy& enemy,TimeCount* time);
 	void Update(Player& player, Shot& shot, WalkEnemy& enemy);
 	void Draw(int ScrollX, WalkEnemy& enemy, Point& point);
 
@@ -21,7 +23,10 @@ public:
 	Point point;
 
 	int WalkEnemyGraph;
-
+	//敵の出現スタート時間
+	int WalkEnemyTime;
+	//敵の出現時間
+	int WalkEnemyNowTime;
 	//敵の現在地
 	float WalkEnemyX, WalkEnemyY;
 
@@ -35,7 +40,9 @@ public:
 	float WalkEnemySpeed;
 	//エネミーの死亡判定
 	bool WalkEnemyDead = false;
-	//エネミーの出現時間
-	int WalkEnemyTime;
+	
+
+	//エネミーが出現するフラグ
+	bool WalkEnemyflag = false;
 };
 

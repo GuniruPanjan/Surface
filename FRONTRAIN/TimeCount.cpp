@@ -15,10 +15,13 @@ TimeCount::~TimeCount()
 
 void TimeCount::InitTime()
 {
+	WalkEnemyTime = 0;
 }
 
 void TimeCount::UpdateTime(Point& point)
 {
+	WalkEnemyTime = (GetNowCount() - time) / 1000;
+
 	timenow = (GetNowCount() - time) / 1000;
 
 	if (GetNowCount() - time <= 1000)
