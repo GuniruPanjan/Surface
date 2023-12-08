@@ -34,13 +34,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	Player player;
 	Shot shot[SHOT];
-	WalkEnemy WEnemy[ENEMY_NOW];
+	WalkEnemy WEnemy;
+	WalkEnemyStruct WenemyS[ENEMY_NOW];
 	Map map;
 	Background Back;
 	TimeCount timecount;
 	Point point;
 
 	int shotGraph = LoadGraph("date/èeíe.png");
+	bool Isflag = false;
 
 	timecount.InitTime();
 	point.InitPoint();
@@ -48,6 +50,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	for (int i = 0; i < SHOT; i++)
 	{
 		player.InitShot(shot[i],shotGraph);
+	}
+
+	for (int i = 0; i < ENEMY_NOW; i++)
+	{
+		WEnemy.Init(WenemyS[i], WEnemy);
 	}
 
 	
@@ -68,29 +75,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// ÉQÅ[ÉÄÇÃèàóù
 
-		for (int i = 0; i < ENEMY_NOW; i++)
-		{
-			WEnemy[i].Init(WEnemy[i], &timecount);
-		}
-
 		Back.Draw();
 
 		timecount.UpdateTime(point);
 
 		player.Update(player, map);
-		for (int j = 0; j < ENEMY_NOW; j++)
+
+		for (int i = 0; i < SHOT; i++)
 		{
-			
-			for (int i = 0; i < SHOT; i++)
-			{
-				WEnemy[j].Update(player, shot[i], WEnemy[j]);
-
-			}
-
+			WEnemy.Update(player, shot[i], WenemyS, ENEMY_NOW,player.ScrollX,&timecount,WEnemy);
 		}
-		
-		
-		
 
 		player.ShotUpdate(player, shot, SHOT);
 		map.UpdateMap(player.ScrollX);
@@ -102,11 +96,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		{
 			player.DrawShot(shot[i]);
 		}
-		
+
 		for (int i = 0; i < ENEMY_NOW; i++)
 		{
-			WEnemy[i].Draw(player.ScrollX, WEnemy[i], point);
+			WEnemy.Draw(player.ScrollX, WenemyS[i], point);
 		}
+		
+		
 		
 		
 		for (int i = 0; i < SHOT; i++)

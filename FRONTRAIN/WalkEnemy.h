@@ -9,40 +9,48 @@ class Shot;
 class Point;
 class TimeCount;
 
+struct WalkEnemyStruct : public EnemyBase
+{
+	//敵の現在地
+	float WalkEnemyX; 
+	float WalkEnemyY;
+	int WalkEnemyGraph;
+
+	//敵の大きさ
+	int WalkEnemyWidth = 20;
+	int WalkEnemyHeight = 20;
+	//エネミーの大きさ取得する変数
+	int WalkEnemyW, WalkEnmeyH;
+
+	//エネミーのスピード
+	float WalkEnemySpeed = 0.03f;
+	//エネミーの死亡判定
+	bool WalkEnemyDead = false;
+
+	//エネミーが出現するフラグ
+	bool WalkEnemyflag = false;
+
+	
+};
+
 class WalkEnemy : public EnemyBase
 {
 public:
 	WalkEnemy();
 	~WalkEnemy();
 
-	void Init(WalkEnemy& enemy,TimeCount* time);
-	void Update(Player& player, Shot& shot, WalkEnemy& enemy);
-	void Draw(int ScrollX, WalkEnemy& enemy, Point& point);
+	void Init(WalkEnemyStruct enemy,WalkEnemy& Wenemy);
+	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,int ScrollX,TimeCount* time,WalkEnemy& Wenemy);
+	void Draw(int ScrollX, WalkEnemyStruct& enemy, Point& point);
 
 	EnemyBase Base;
 	Point point;
+	WalkEnemyStruct WenemyS[ENEMY_NOW];
 
-	int WalkEnemyGraph;
-	//敵の出現スタート時間
-	int WalkEnemyTime;
-	//敵の出現時間
-	int WalkEnemyNowTime;
-	//敵の現在地
-	float WalkEnemyX, WalkEnemyY;
-
-	//敵の大きさ
-	int WalkEnemyWidth, WalkEnemyHeight;
-
-	//エネミーの大きさ取得する変数
-	int WalkEnemyW, WalkEnmeyH;
-
-	//エネミーのスピード
-	float WalkEnemySpeed;
-	//エネミーの死亡判定
-	bool WalkEnemyDead = false;
+	//敵の出現フラグ
+	bool WalkEnemyAppearance = true;
 	
-
-	//エネミーが出現するフラグ
-	bool WalkEnemyflag = false;
+	//時間を進める変数
+	int T;
 };
 
