@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Player.h"
+#include "WalkEnemy.h"
 #include "DxLib.h"
 
 Player player;
@@ -33,7 +34,7 @@ void Map::UpdateMap(int ScrollX)
 	MAP_SIZE_WIDTH + ScrollX;
 }
 
-void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
+void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
 {
 	
 
@@ -44,20 +45,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 	//画面左上に描画するマップ座標をセット
 	MapDrawPointX = player.PlayerX - (DrawMapChipNumX / 2 - 1);
 	MapDrawPointY = player.PlayerY - (DrawMapChipNumY / 2 - 1);
-
-	//for (j = 0; j < MAP_SIZE_HEIGHT; j++)
-	//{
-	//	for (i = 0; i < MAP_SIZE_WIDTH; i++)
-	//	{
-	//		DrawW = i * MAPCHIP_WIDTH;
-	//		DrawH = j * MAPCHIP_HEIGHT;
-	//		//1はブロックを表しているから1のところだけ描画
-	//		if (g_MapChipFirst[j][i] == 1)
-	//		{
-	//			DrawMapGraph = DrawGraph(DrawW + ScrollX, DrawH + ScrollY, maped.Block, true);
-	//		}
-	//	}
-	//}
 
 	//マップを描く
 	for (i = 0; i < DrawMapChipNumY; i++)
@@ -98,8 +85,15 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 					//地面に触れると重力が0になる
 					//player.Gravity = 0;
 				}
-				
-				
+
+				for (int g = 0; g < ENEMY_NOW; g++)
+				{
+					if (m_colRect.IsCollision(Wenemy[g].m_colRect) == true)
+					{
+						//ブロックに当たっていたら壁を上る
+						Wenemy[g].WalkEnemyY -= 0.04f;
+					}
+				}
 				
 			}
 			if (g_MapChipFirst[i][j] == 2)
@@ -114,6 +108,16 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player)
 				{
 					//プレイヤーを落とす
 					player.PlayerY += 0.1f;
+				}
+
+				for (int g = 0; g < ENEMY_NOW; g++)
+				{
+					if (m_colBlockRect2.IsCollision(Wenemy[g].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Wenemy[g].WalkEnemyY += 0.05f;
+						DrawString(200, 200, "降りた", GetColor(255, 255, 255));
+					}
 				}
 			}
 		}

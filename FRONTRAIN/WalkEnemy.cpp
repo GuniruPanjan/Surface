@@ -35,14 +35,16 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				{
 					enemy[i].WalkEnemyflag = true;
 
-					DrawString(200, 200, "出た", GetColor(255, 255, 255));
+					
 					//エネミーがランダムな場所に出現
 					if (GetRand(1) == 0)
 					{
 						enemy[i].WalkEnemyX = -40.0f;
+						DrawString(0, 200, "出た", GetColor(255, 255, 255));
 					}
 					if (GetRand(1) == 1)
 					{
+						DrawString(500, 200, "出た", GetColor(255, 255, 255));
 						enemy[i].WalkEnemyX = 680.00f + ScrollX;
 					}
 
@@ -82,15 +84,15 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				}
 
 				//当たり判定の更新
-				m_colRect.SetCenter(enemy[i].WalkEnemyX + 10 + player.ScrollX, enemy[i].WalkEnemyY + 10, enemy[i].WalkEnemyWidth, enemy[i].WalkEnemyHeight);
+				enemy[i].m_colRect.SetCenter(enemy[i].WalkEnemyX + 10 + player.ScrollX, enemy[i].WalkEnemyY + 10, enemy[i].WalkEnemyWidth, enemy[i].WalkEnemyHeight);
 
 				//プレイヤーの当たり判定
-				if (m_colRect.IsCollision(player.m_colRect) == false)
+				if (enemy[i].m_colRect.IsCollision(player.m_colRect) == false)
 				{
 					//当たってない
 				}
 				//当たっている
-				else if (m_colRect.IsCollision(player.m_colRect) == true)
+				else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 				{
 					DrawString(0, 0, "当たった", GetColor(255, 255, 255));
 				}
@@ -98,11 +100,11 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				if (shot.Flag == 1)
 				{
 					//敵との当たり判定
-					if (m_colRect.IsCollision(shot.m_colRect) == false)
+					if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == false)
 					{
 
 					}
-					else if (m_colRect.IsCollision(shot.m_colRect) == true)
+					else if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == true)
 					{
 						DrawString(500, 0, "当たった", GetColor(255, 255, 255));
 						enemy[i].HP -= shot.Damage;

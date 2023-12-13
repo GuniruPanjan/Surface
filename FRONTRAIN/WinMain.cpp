@@ -44,6 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int shotGraph = LoadGraph("date/èeíe.png");
 	bool Isflag = false;
 
+	
+
 	timecount.InitTime();
 	point.InitPoint();
 	player.Init();
@@ -107,7 +109,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		
 		for (int i = 0; i < SHOT; i++)
 		{
-			map.DrawMap(player.ScrollX, shot[i], player);
+			map.DrawMap(player.ScrollX, shot[i], player, WenemyS);
+			
 		}
 		
 
