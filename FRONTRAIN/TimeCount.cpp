@@ -16,6 +16,8 @@ TimeCount::~TimeCount()
 void TimeCount::InitTime()
 {
 	WalkEnemyTime = 0;
+	time = 0;
+	time = GetNowCount(); //Œ»İŠÔ‚ğ“¾‚é
 }
 
 void TimeCount::UpdateTime(Point& point)
@@ -36,7 +38,8 @@ void TimeCount::DrawTime()
 {
 	if (flg)
 	{
-		DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", (GetNowCount() - time) / 1000);
+		//DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", (GetNowCount() - time) / 1000);
 	}
-	
+	DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", (GetNowCount() - time) / 1000);
+
 }

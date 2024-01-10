@@ -7,8 +7,8 @@
 
 
 class Shot;
-MapEd maped;
-Map map;
+//MapEd maped;
+//Map map;
 GraphMode graph;
 
 Player::Player():
@@ -51,13 +51,9 @@ void Player::Init()
 
 }
 
-void Player::InitShot(Shot& shot, int shotGraph)
+void Player::InitShot(Shot& shot)
 {
-	shot.Graph = shotGraph;
-
 	shot.Flag = false;
-
-	GetGraphSize(shot.Graph, &shot.Width, &shot.Height);
 }
 
 void Player::Update(Player& player,Map& map)
@@ -216,6 +212,8 @@ void Player::DrawShot(Shot& shot)
 	//”­ŽË‚µ‚Ä‚é’e”‚¾‚¯
 	if (shot.Flag)
 	{
+		shot.Graph = LoadGraph("date/e’e.png");
+
 		shot.X += shot.AimX;
 		shot.Y += shot.AimY;
 
@@ -226,15 +224,15 @@ void Player::DrawShot(Shot& shot)
 		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
 		{
 			shot.Flag = false;
+			DeleteGraph(shot.Graph);
 		}
-
-		
 
 		DrawGraph(shot.X, shot.Y, shot.Graph, true);
 
 		shot.m_colRect.Draw(GetColor(0, 255, 0), false);
 	}
 
+	
 }
 
 

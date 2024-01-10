@@ -1,11 +1,12 @@
-#include "Player.h"
-#include "WalkEnemy.h"
-#include "Background.h"
+//#include "Player.h"
+//#include "WalkEnemy.h"
+//#include "Background.h"
 #include "DxLib.h"
-#include "Map.h"
+//#include "Map.h"
 #include "GraphMode.h"
-#include "TimeCount.h"
-#include "Point.h"
+//#include "TimeCount.h"
+//#include "Point.h"
+#include "SceneMgr.h"
 
 // プログラムは WinMain から始まります
 
@@ -32,7 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	Player player;
+	SceneMgr_Initialize();
+
+	/*Player player;
 	Shot shot[SHOT];
 	WalkEnemy WEnemy;
 	WalkEnemyStruct WenemyS[ENEMY_NOW];
@@ -59,10 +62,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		WEnemy.Init(WenemyS[i], WEnemy);
 	}
 
-	
-	
-
-	map.InitMap();
+	map.InitMap();*/
 	// ゲームループ
 
 	while (ProcessMessage() != -1)
@@ -77,7 +77,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// ゲームの処理
 
-		Back.Draw();
+		SceneMgr_Update();  //更新
+		SceneMgr_Draw();  //描画
+
+		/*Back.Draw();
 
 		timecount.UpdateTime(point);
 
@@ -104,17 +107,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			WEnemy.Draw(player.ScrollX, WenemyS[i], point);
 		}
 		
-		
-		
-		
 		for (int i = 0; i < SHOT; i++)
 		{
 			map.DrawMap(player.ScrollX, shot[i], player, WenemyS);
 			
-		}
-		
-
-		
+		}*/
 
 		// 画面が切り替わるのを待つ
 
@@ -142,7 +139,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 
-	
+	SceneMgr_Finalize();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

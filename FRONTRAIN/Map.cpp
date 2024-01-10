@@ -3,7 +3,7 @@
 #include "WalkEnemy.h"
 #include "DxLib.h"
 
-Player player;
+//Player player;
 
 Map::Map():
 	ScrollX(0),
@@ -36,7 +36,7 @@ void Map::UpdateMap(int ScrollX)
 
 void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
 {
-	
+	maped.Block = LoadGraph("date/ブロック.png");
 
 	//描画するマップチップの数をセット
 	DrawMapChipNumX = STAGE_WIDTH / MAPCHIP_WIDTH;
@@ -122,10 +122,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 			}
 		}
 	}
-	
-	
-
-	GetGraphSize(maped.Block, &maped.W, &maped.H);
 }
 
 int Map::GetChipParm(float X, float Y)
