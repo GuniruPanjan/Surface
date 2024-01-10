@@ -45,7 +45,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					if (GetRand(1) == 1)
 					{
 						DrawString(500, 200, "出た", GetColor(255, 255, 255));
-						enemy[i].WalkEnemyX = 680.00f + ScrollX;
+						enemy[i].WalkEnemyX = 680.00f;
 					}
 
 					enemy[i].WalkEnemyY = 360.00f;
@@ -73,6 +73,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 			//エネミーが生きている時
 			if (enemy[i].HP >= 0)
 			{
+
 				//敵の移動処理
 				if (player.PlayerX - player.ScrollX <= enemy[i].WalkEnemyX)
 				{

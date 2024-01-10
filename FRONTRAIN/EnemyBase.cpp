@@ -3,7 +3,7 @@
 EnemyBase::EnemyBase():
 	HP(10),
 	Speed(2),
-	Attack(5),
+	Attack(2),
 	EnemyW(0),
 	EnemyH(0)
 {

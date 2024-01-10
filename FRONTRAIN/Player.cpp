@@ -12,7 +12,7 @@ class Shot;
 GraphMode graph;
 
 Player::Player():
-	HP(100),
+	HP(10),
 	Speed(2.0f),
 	playerGraph(-1),
 	Aiming(-1),

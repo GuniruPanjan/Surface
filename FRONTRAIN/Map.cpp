@@ -96,7 +96,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				}
 				
 			}
-			if (g_MapChipFirst[i][j] == 2)
+			else if (g_MapChipFirst[i][j] == 2)
 			{
 				//ìñÇΩÇËîªíËÇÃçXêV
 				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
