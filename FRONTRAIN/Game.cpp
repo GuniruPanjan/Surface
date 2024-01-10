@@ -8,8 +8,10 @@
 #include "TimeCount.h"
 #include "Point.h"
 #include "SceneMgr.h"
+#include "HP.h"
 
 Player player;
+HP hp;
 Shot shot[SHOT];
 WalkEnemy WEnemy;
 WalkEnemyStruct WenemyS[ENEMY_NOW];
@@ -65,7 +67,11 @@ void Game_Draw()
 
 	timecount.DrawTime();
 	point.DrawPoint();
+
+	hp.PlayerHP(player);
+
 	player.Draw();
+	
 	for (int i = 0; i < SHOT; i++)
 	{
 		player.DrawShot(shot[i]);

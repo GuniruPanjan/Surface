@@ -323,6 +323,15 @@ public:
 	int MapDrawPointX, MapDrawPointY;  //描画するマップ座標値
 	int DrawMapChipNumX, DrawMapChipNumY; //描画するマップチップの数
 
+	int FiveMasu;
+	int FourMasu;
+	int SixMasu;
+
+	//マップを配置するか判定する
+	bool Five;
+	bool Four;
+	bool Six;
+
 	int DrawW;
 	int DrawH;
 	int DrawMapGraph;

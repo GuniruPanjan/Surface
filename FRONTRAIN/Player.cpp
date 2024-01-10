@@ -7,8 +7,6 @@
 
 
 class Shot;
-//MapEd maped;
-//Map map;
 GraphMode graph;
 
 Player::Player():
@@ -31,7 +29,8 @@ Player::Player():
 	PlayerH(0),
 	W(0),
 	H(0),
-	PlayerRight(false)
+	PlayerRight(false),
+	PlayerDamage(false)
 {
 	//’e‰Šú‰»
 	memset(shot, 0, sizeof(shot));

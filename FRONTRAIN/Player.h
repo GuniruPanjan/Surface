@@ -50,6 +50,8 @@ public:
 	//弾
 	Shot shot[SHOT];
 
+	//プレイヤーのHP
+	int HP;
 	//プレイヤーの初期位置
 	float PlayerX;
 	float PlayerY;
@@ -58,7 +60,11 @@ public:
 
 	int ScrollX, ScrollY;
 
+	//スクロール判定
 	bool PlayerRight;
+
+	//ダメージ判定
+	bool PlayerDamage;
 
 	//弾切れ変数
 	int Bullet = 12;
@@ -70,7 +76,7 @@ public:
 	Rect m_colRect;
 
 private:
-	int HP;
+	
 	float Speed;
 	//プレイヤーの画像を入れる変数
 	int playerGraph;

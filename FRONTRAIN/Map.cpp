@@ -16,7 +16,13 @@ Map::Map():
 	DrawMapChipNumY(0),
 	DrawW(0),
 	DrawH(0),
-	DrawMapGraph(0)
+	DrawMapGraph(0),
+	FiveMasu(0),
+	FourMasu(0),
+	SixMasu(0),
+	Five(false),
+	Four(false),
+	Six(false)
 {
 }
 
@@ -32,6 +38,10 @@ void Map::InitMap()
 void Map::UpdateMap(int ScrollX)
 {
 	MAP_SIZE_WIDTH + ScrollX;
+
+	FiveMasu = GetRand(2);
+	FourMasu = GetRand(1);
+	SixMasu = GetRand(2);
 }
 
 void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
@@ -118,6 +128,30 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						Wenemy[g].WalkEnemyY += 0.05f;
 						DrawString(200, 200, "ç~ÇËÇΩ", GetColor(255, 255, 255));
 					}
+				}
+			}
+			//FiveMasuÇ™0ÇæÇ¡ÇΩèÍçá
+			if (FiveMasu == 0)
+			{
+				if (g_MapChip_1[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+			}
+			//FiveMasuÇ™1ÇæÇ¡ÇΩèÍçá
+			if (FiveMasu == 1)
+			{
+				if (g_MapChip_4[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+			}
+			//FiveMasuÇ™2ÇæÇ¡ÇΩèÍçá
+			if (FiveMasu == 2)
+			{
+				if (g_MapChip_8[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 				}
 			}
 		}
