@@ -39,13 +39,13 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					//エネミーがランダムな場所に出現
 					if (GetRand(1) == 0)
 					{
-						enemy[i].WalkEnemyX = -40.0f;
+						enemy[i].WalkEnemyX = -40.0f - ScrollX;
 						DrawString(0, 200, "出た", GetColor(255, 255, 255));
 					}
 					if (GetRand(1) == 1)
 					{
 						DrawString(500, 200, "出た", GetColor(255, 255, 255));
-						enemy[i].WalkEnemyX = 680.00f;
+						enemy[i].WalkEnemyX = 680.00f - ScrollX;
 					}
 
 					enemy[i].WalkEnemyY = 360.00f;

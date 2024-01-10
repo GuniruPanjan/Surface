@@ -30,6 +30,6 @@ void Config_Update()
 void Config_Draw()
 {
 	DrawGraph(0, 0, mimageHandle, false);
-	DrawString(0, 0, "設定画面です", GetColor(255, 255, 255));
-	DrawString(0, 20, "SPACEキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
+	DrawString(280, 240, "設定画面です", GetColor(255, 255, 255));
+	DrawString(200, 240 + 20, "SPACEキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
 }
