@@ -17,12 +17,17 @@ Map::Map():
 	DrawW(0),
 	DrawH(0),
 	DrawMapGraph(0),
-	FiveMasu(0),
-	FourMasu(0),
-	SixMasu(0),
+	FiveMasu(-1),
+	FourMasu(-1),
+	SixMasu(-1),
 	Five(false),
-	Four(false),
-	Six(false)
+	Four(true),
+	Six(true),
+	MapDistanceFive(0),
+	MapDistanceFour(0),
+	MapDistanceSix(0),
+	MapSelection(true),
+	MapSeparator(637)
 {
 }
 
@@ -39,9 +44,36 @@ void Map::UpdateMap(int ScrollX)
 {
 	MAP_SIZE_WIDTH + ScrollX;
 
-	FiveMasu = GetRand(2);
-	FourMasu = GetRand(1);
-	SixMasu = GetRand(2);
+	if (Five == false)
+	{
+		FiveMasu = GetRand(2);
+
+		MapDistanceFive = 640 - ScrollX;
+	}
+	if (Four == false)
+	{
+		FourMasu = GetRand(1);
+
+		MapDistanceFour = 640 - ScrollX;
+	}
+	if (Six == false)
+	{
+		SixMasu = GetRand(2);
+
+		MapDistanceSix = 640 - ScrollX;
+	}
+
+	if (MapSeparator + ScrollX <= 0)
+	{
+		MapSelection = false;
+
+		if (MapSelection == false)
+		{
+			MapSeparator += 640;
+		}
+	}
+
+
 }
 
 void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
@@ -106,7 +138,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				}
 				
 			}
-			else if (g_MapChipFirst[i][j] == 2)
+			//マップが端に到達したとき
+			if (g_MapChipFirst[i][j] == 2)
 			{
 				//当たり判定の更新
 				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
@@ -130,30 +163,144 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					}
 				}
 			}
+
+			//↓はランダム配置のマップ形成
 			//FiveMasuが0だった場合
 			if (FiveMasu == 0)
 			{
 				if (g_MapChip_1[i][j] == 1)
 				{
-					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceFive, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 				}
+				Five = true;
+				
+				if (MapSelection == false)
+				{
+					Four = false;
+				}
+				MapSelection = true;
+				
 			}
+			
 			//FiveMasuが1だった場合
 			if (FiveMasu == 1)
 			{
 				if (g_MapChip_4[i][j] == 1)
 				{
-					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceFive, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 				}
+				Five = true;
+				
+
+				if (MapSelection == false)
+				{
+					Four = false;
+				}
+				MapSelection = true;
+				
 			}
 			//FiveMasuが2だった場合
 			if (FiveMasu == 2)
 			{
 				if (g_MapChip_8[i][j] == 1)
 				{
-					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + 640, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceFive, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 				}
+				Five = true;
+
+				if (MapSelection == false)
+				{
+					Six = false;
+				}
+				MapSelection = true;
+				
 			}
+
+
+			//FourMasuが0だった場合
+			if (FourMasu == 0)
+			{
+				if (g_MapChip_2[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceFour, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+				Four = true;
+
+				if (MapSelection == false)
+				{
+					Six = false;
+				}
+				MapSelection = true;
+				
+			}
+			//FourMasuが１だった場合
+			if (FourMasu == 1)
+			{
+				if (g_MapChip_5[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceFour, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+				Four = true;
+
+				if (MapSelection == false)
+				{
+					Six = false;
+				}
+				MapSelection = true;
+				
+			}
+
+
+			//SixMasuが0だった場合
+			if (SixMasu == 0)
+			{
+				if (g_MapChip_3[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceSix, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+				Six = true;
+
+				if (MapSelection == false)
+				{
+					Five = false;
+				}
+				MapSelection = true;
+				
+			}
+			//SixMasuが1だった場合
+			if (SixMasu == 1)
+			{
+				if (g_MapChip_6[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceSix, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+				Six = true;
+
+				if (MapSelection == false)
+				{
+					Four = false;
+				}
+				MapSelection = true;
+				
+			}
+			//SixMasuが2だった場合
+			if (SixMasu == 2)
+			{
+				if (g_MapChip_9[i][j] == 1)
+				{
+					DrawGraph(j * MAPCHIP_WIDTH + ScrollX + MapDistanceSix, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
+				}
+				Six = true;
+
+
+				if (MapSelection == false)
+				{
+					Five = false;
+				}
+				MapSelection = true;
+				
+			}
+			
 		}
 	}
 }
