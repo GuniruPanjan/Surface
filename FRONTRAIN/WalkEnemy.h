@@ -12,15 +12,13 @@ class TimeCount;
 struct WalkEnemyStruct : public EnemyBase
 {
 	//敵の現在地
-	float WalkEnemyX; 
-	float WalkEnemyY;
-	int WalkEnemyGraph;
+	float WalkEnemyX = 0.0f; 
+    float WalkEnemyY = 0.0f;
+	int WalkEnemyGraph = -1;
 
 	//敵の大きさ
 	int WalkEnemyWidth = 20;
 	int WalkEnemyHeight = 20;
-	//エネミーの大きさ取得する変数
-	int WalkEnemyW, WalkEnmeyH;
 
 	//エネミーのスピード
 	float WalkEnemySpeed = 0.03f;
@@ -51,6 +49,6 @@ public:
 	bool WalkEnemyAppearance = true;
 	
 	//時間を進める変数
-	int T;
+	int T = 0;
 };
 

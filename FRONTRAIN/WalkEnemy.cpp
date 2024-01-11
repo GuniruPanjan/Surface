@@ -40,15 +40,13 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					if (GetRand(1) == 0)
 					{
 						enemy[i].WalkEnemyX = -40.0f - ScrollX;
-						DrawString(0, 200, "出た", GetColor(255, 255, 255));
 					}
 					if (GetRand(1) == 1)
 					{
-						DrawString(500, 200, "出た", GetColor(255, 255, 255));
-						enemy[i].WalkEnemyX = 680.00f - ScrollX;
+						enemy[i].WalkEnemyX = 680.0f - ScrollX;
 					}
 
-					enemy[i].WalkEnemyY = 360.00f;
+					enemy[i].WalkEnemyY = 360.0f;
 
 					Wenemy.T++;
 
@@ -107,7 +105,6 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					}
 					else if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == true)
 					{
-						DrawString(500, 0, "当たった", GetColor(255, 255, 255));
 						enemy[i].HP -= shot.Damage;
 						//接触している場合は当たった弾の存在を消す
 						shot.Flag = 0;
@@ -127,8 +124,6 @@ void WalkEnemy::Draw(int ScrollX,WalkEnemyStruct& enemy, Point& point)
 	if (enemy.HP >= 0)
 	{
 		enemy.WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
-		//エネミーの大きさ取得
-		GetGraphSize(enemy.WalkEnemyGraph, &enemy.WalkEnemyW, &enemy.WalkEnmeyH);
 
 		DrawGraph(enemy.WalkEnemyX + ScrollX, enemy.WalkEnemyY, enemy.WalkEnemyGraph, true);
 
@@ -141,7 +136,6 @@ void WalkEnemy::Draw(int ScrollX,WalkEnemyStruct& enemy, Point& point)
 	{
 		if (enemy.WalkEnemyDead == false)
 		{
-			DrawString(500, 0, "死んだ", GetColor(255, 255, 255));
 			DeleteGraph(enemy.WalkEnemyGraph);
 			point.WenemyPoint += 100;
 			enemy.WalkEnemyDead = true;

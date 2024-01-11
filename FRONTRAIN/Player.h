@@ -7,13 +7,13 @@
 struct Shot
 {
 	//弾が発射中かどうか
-	bool Flag;
+	bool Flag = false;
 	//x座標
 	double X;
 	//y座標
 	double Y;
 	//グラフィックハンドル
-	int Graph;
+	int Graph = -1;
 	//画像の幅と高さ
 	int Width, Height;
 	//弾が照準に向かっていく
@@ -77,7 +77,7 @@ public:
 
 private:
 	
-	float Speed;
+	int Speed;
 	//プレイヤーの画像を入れる変数
 	int playerGraph;
 

@@ -27,7 +27,8 @@ Map::Map():
 	MapDistanceFour(0),
 	MapDistanceSix(0),
 	MapSelection(true),
-	MapSeparator(637)
+	MapSeparator(637),
+	maped()
 {
 }
 
@@ -42,8 +43,6 @@ void Map::InitMap()
 
 void Map::UpdateMap(int ScrollX)
 {
-	MAP_SIZE_WIDTH + ScrollX;
-
 	if (Five == false)
 	{
 		FiveMasu = GetRand(2);
@@ -62,7 +61,7 @@ void Map::UpdateMap(int ScrollX)
 
 		MapDistanceSix = 640 - ScrollX;
 	}
-
+	//マップが端についた時
 	if (MapSeparator + ScrollX <= 0)
 	{
 		MapSelection = false;
@@ -138,7 +137,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				}
 				
 			}
-			//マップが端に到達したとき
 			if (g_MapChipFirst[i][j] == 2)
 			{
 				//当たり判定の更新
@@ -317,20 +315,4 @@ int Map::GetChipParm(float X, float Y)
 	
 	//指定の座標に該当するマップの情報を返す
 	return g_MapChipFirst[y][x];
-}
-
-int Map::GetChipUnder(float Y)
-{
-	int y;
-	//整数値へ変換
-	y = (int)Y / MAPCHIP_HEIGHT;
-
-	//マップからはみ出ていたら0を返す
-	//if ( y < 0) return 0;
-
-	for (int i = 0; i < MAP_SIZE_WIDTH; i++)
-	{
-		return g_MapChipFirst[y][i];
-	}
-	
 }

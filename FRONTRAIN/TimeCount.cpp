@@ -3,7 +3,9 @@
 
 TimeCount::TimeCount():
 	cnt(0),
-	test(0)
+	test(0),
+	WalkEnemyTime(0),
+	timenow(0)
 {
 	time = GetNowCount();    //Œ»İŠÔ‚ğ“¾‚é
 	

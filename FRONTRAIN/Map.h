@@ -316,7 +316,6 @@ public:
 	void UpdateMap(int ScrollX);
 	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[]);
 	int GetChipParm(float X, float Y);
-	int GetChipUnder(float Y);
 
 	int ScrollX, ScrollY = 0;
 	int i, j;

@@ -11,7 +11,7 @@ GraphMode graph;
 
 Player::Player():
 	HP(10),
-	Speed(2.0f),
+	Speed(1),
 	playerGraph(-1),
 	Aiming(-1),
 	AimingW(0),
@@ -20,7 +20,7 @@ Player::Player():
 	MouseY(0),
 	PlayerWidth(16),
 	PlayerHeight(16),
-	PlayerX(640.00f / 12),
+	PlayerX(640.00f / 12.0f),
 	PlayerY(480.00f - 100.0f),
 	ScrollX(0),
 	ScrollY(0),
@@ -44,10 +44,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	
-
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
-
 }
 
 void Player::InitShot(Shot& shot)
@@ -57,17 +54,11 @@ void Player::InitShot(Shot& shot)
 
 void Player::Update(Player& player,Map& map)
 {
-	//player.PlayerY += player.Gravity;
-	if (m_colRect.IsCollision(map.m_colRect) == true)
-	{
-		DrawString(200, 100, "地面にいる", GetColor(255, 255, 255));
-	}
-
 	int Pw, Ph, PwM, PhM;
-	Pw = player.PlayerX + 8; //右辺
-	Ph = player.PlayerY + 8; //下辺
-	PwM = player.PlayerX - 8; //左辺
-	PhM = player.PlayerY - 8; //上辺
+	Pw = player.PlayerX + 8.0f; //右辺
+	Ph = player.PlayerY + 8.0f; //下辺
+	PwM = player.PlayerX - 8.0f; //左辺
+	PhM = player.PlayerY - 8.0f; //上辺
 
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
@@ -107,12 +98,8 @@ void Player::Update(Player& player,Map& map)
 		player.ScrollY = 0;
 	}
 	
-	
 	//当たり判定の更新
 	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
-
-
-	
 
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
@@ -122,8 +109,6 @@ void Player::Update(Player& player,Map& map)
 
 void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {
-	
-
 	//マウスキー(左クリック)が押されると発射
 	if (GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
@@ -186,9 +171,7 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 }
 
 void Player::Draw()
-{
-
-	
+{	
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 
 	//プレイヤーの大きさを得る
@@ -198,10 +181,7 @@ void Player::Draw()
 
 	//プレイヤーの当たり判定の表示
 	m_colRect.Draw(GetColor(0, 0, 255), false);
-
-	//照準の大きさを得る
-	GetGraphSize(Aiming, &AimingW, &AimingH);
-
+	//標準の画像描画
 	DrawGraph(MouseX, MouseY, Aiming, true);
 }
 
