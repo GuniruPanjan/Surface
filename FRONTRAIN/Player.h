@@ -9,15 +9,17 @@ struct Shot
 	//弾が発射中かどうか
 	bool Flag = false;
 	//x座標
-	double X;
+	double X = 0;
 	//y座標
-	double Y;
+	double Y = 0;
 	//グラフィックハンドル
 	int Graph = -1;
 	//画像の幅と高さ
-	int Width, Height;
+	int Width;
+	int Height;
 	//弾が照準に向かっていく
-	double AimX, AimY;
+	double AimX = 0;
+	double AimY = 0;
 	//弾のダメージ
 	int Damage = 3;
 	

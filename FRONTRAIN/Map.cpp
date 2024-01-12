@@ -185,7 +185,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//エネミーを落とす
 						Wenemy[g].WalkEnemyY += 0.05f;
-						DrawString(200, 200, "降りた", GetColor(255, 255, 255));
 					}
 				}
 			}
