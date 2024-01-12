@@ -174,9 +174,6 @@ void Player::Draw()
 {	
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 
-	//プレイヤーの大きさを得る
-	GetGraphSize(playerGraph, &PlayerW, &PlayerH);
-	
 	Aiming = LoadGraph("date/標準(仮).png");
 
 	//プレイヤーの当たり判定の表示

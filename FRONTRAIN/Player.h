@@ -58,6 +58,7 @@ public:
 	//プレイヤーのサイズ
 	int PlayerWidth, PlayerHeight;
 
+	//画面スクロール
 	int ScrollX, ScrollY;
 
 	//スクロール判定

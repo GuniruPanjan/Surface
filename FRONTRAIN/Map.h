@@ -343,6 +343,19 @@ public:
 	//マップの区切り
 	int MapSeparator;
 
+	//マップのX
+	int MapFiveX;
+	int MapFourX;
+	int MapSixX;
+
+	//マップのリセット区切り
+	int MapReset;
+
+	//マップのリセットカウント
+	int FiveCount;
+	int FourCount;
+	int SixCount;
+
 	int DrawW;
 	int DrawH;
 	int DrawMapGraph;
