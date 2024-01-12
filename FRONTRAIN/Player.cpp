@@ -11,7 +11,7 @@ GraphMode graph;
 
 Player::Player():
 	HP(10),
-	Speed(1),
+	Speed(1.0f),
 	playerGraph(-1),
 	Aiming(-1),
 	AimingW(0),
@@ -22,8 +22,8 @@ Player::Player():
 	PlayerHeight(16),
 	PlayerX(640.00f / 12.0f),
 	PlayerY(480.00f - 100.0f),
-	ScrollX(0),
-	ScrollY(0),
+	ScrollX(0.0f),
+	ScrollY(0.0f),
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
@@ -45,6 +45,8 @@ Player::~Player()
 void Player::Init()
 {
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
+
+	BulletTime = 0;
 }
 
 void Player::InitShot(Shot& shot)
@@ -54,20 +56,14 @@ void Player::InitShot(Shot& shot)
 
 void Player::Update(Player& player,Map& map)
 {
-	int Pw, Ph, PwM, PhM;
-	Pw = player.PlayerX + 8.0f; //右辺
-	Ph = player.PlayerY + 8.0f; //下辺
-	PwM = player.PlayerX - 8.0f; //左辺
-	PhM = player.PlayerY - 8.0f; //上辺
-
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
 		player.PlayerX -= Speed;
 		//左端から先にいかない
-		if (player.PlayerX < 8)
+		if (player.PlayerX < 8.0f)
 		{
-			player.PlayerX = 8;
+			player.PlayerX = 8.0f;
 		}
 	}
 	//右キーを押したとき
@@ -95,7 +91,7 @@ void Player::Update(Player& player,Map& map)
 	{
 		//プレイヤー操作からスクロール量を算出する
 		player.ScrollX -= Speed;
-		player.ScrollY = 0;
+		player.ScrollY = 0.0f;
 	}
 	
 	//当たり判定の更新
@@ -166,8 +162,11 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 	//右クリックで弾をリロード
 	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
 	{
+		player.PlayerShotFlag = true;
+
 		player.Bullet = 12;
 	}
+
 }
 
 void Player::Draw()

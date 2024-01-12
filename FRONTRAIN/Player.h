@@ -15,8 +15,8 @@ struct Shot
 	//グラフィックハンドル
 	int Graph = -1;
 	//画像の幅と高さ
-	int Width;
-	int Height;
+	int Width = 0;
+	int Height = 0;
 	//弾が照準に向かっていく
 	double AimX = 0;
 	double AimY = 0;
@@ -61,7 +61,7 @@ public:
 	int PlayerWidth, PlayerHeight;
 
 	//画面スクロール
-	int ScrollX, ScrollY;
+	float ScrollX, ScrollY;
 
 	//スクロール判定
 	bool PlayerRight;
@@ -72,6 +72,9 @@ public:
 	//弾切れ変数
 	int Bullet = 12;
 
+	//リロード時間
+	int BulletTime = 0;
+
 	//重力
 	float Gravity = 2.0f;
 
@@ -80,7 +83,7 @@ public:
 
 private:
 	
-	int Speed;
+	float Speed;
 	//プレイヤーの画像を入れる変数
 	int playerGraph;
 

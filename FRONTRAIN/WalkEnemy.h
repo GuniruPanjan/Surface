@@ -21,7 +21,7 @@ struct WalkEnemyStruct : public EnemyBase
 	int WalkEnemyHeight = 20;
 
 	//エネミーのスピード
-	float WalkEnemySpeed = 0.03f;
+	float WalkEnemySpeed = 0.04f;
 	//エネミーの死亡判定
 	bool WalkEnemyDead = false;
 
@@ -38,8 +38,8 @@ public:
 	~WalkEnemy();
 
 	void Init(WalkEnemyStruct enemy,WalkEnemy& Wenemy);
-	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,int ScrollX,TimeCount* time,WalkEnemy& Wenemy);
-	void Draw(int ScrollX, WalkEnemyStruct& enemy, Point& point);
+	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
+	void Draw(float ScrollX, WalkEnemyStruct& enemy, Point& point);
 
 	EnemyBase Base;
 	Point point;

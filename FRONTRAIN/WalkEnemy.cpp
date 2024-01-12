@@ -21,7 +21,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy,WalkEnemy& Wenemy)
 	Wenemy.T = 1;
 }
 
-void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, int ScrollX, TimeCount* time, WalkEnemy& Wenemy)
+void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	
 	//時間がたつと敵が出現
@@ -118,7 +118,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	
 }
 
-void WalkEnemy::Draw(int ScrollX,WalkEnemyStruct& enemy, Point& point)
+void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct& enemy, Point& point)
 {
 	//エネミーが生きている時
 	if (enemy.HP >= 0)
@@ -142,6 +142,12 @@ void WalkEnemy::Draw(int ScrollX,WalkEnemyStruct& enemy, Point& point)
 			enemy.WalkEnemyflag = false;
 		}
 
+	}
+
+	//敵が画面外から離れすぎたら消す
+	if (enemy.WalkEnemyX <= -80 || enemy.WalkEnemyY <= 50 || enemy.WalkEnemyY >= 500)
+	{
+		DeleteGraph(enemy.WalkEnemyGraph);
 	}
 	
 }
