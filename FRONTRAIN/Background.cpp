@@ -1,15 +1,22 @@
 #include "Background.h"
 #include "DxLib.h"
 
-Background::Background()
+Background::Background():
+	BackGroundGraph(-1)
 {
 }
 
 Background::~Background()
 {
+
+}
+
+void Background::Init()
+{
+	BackGroundGraph = LoadGraph("date/îwåi.png");
 }
 
 void Background::Draw()
 {
-	LoadGraphScreen(0,0,"date/îwåi.png",true);
+	DrawGraph(0, 0, BackGroundGraph, true);
 }

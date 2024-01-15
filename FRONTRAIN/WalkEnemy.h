@@ -37,7 +37,7 @@ public:
 	WalkEnemy();
 	~WalkEnemy();
 
-	void Init(WalkEnemyStruct enemy,WalkEnemy& Wenemy);
+	void Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy);
 	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
 	void Draw(float ScrollX, WalkEnemyStruct& enemy, Point& point);
 

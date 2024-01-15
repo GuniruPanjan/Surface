@@ -47,6 +47,28 @@ void Player::Init()
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
 	BulletTime = 0;
+
+	Aiming = LoadGraph("date/標準(仮).png");
+
+	HP = 10;
+	Speed = 1.0f;
+	AimingW = 0;
+	AimingH = 0;
+	MouseX = 0;
+	MouseY = 0;
+	PlayerWidth = 16;
+	PlayerHeight = 16;
+	PlayerX = 640.0f / 12.0f;
+	PlayerY = 480.0f - 100.0f;
+	ScrollX = 0.0f;
+	ScrollY = 0.0f;
+	PlayerShotFlag = false;
+	PlayerW = 0;
+	PlayerH = 0;
+	W = 0;
+	H = 0;
+	PlayerRight = false;
+	PlayerDamage = false;
 }
 
 void Player::InitShot(Shot& shot)
@@ -96,10 +118,9 @@ void Player::Update(Player& player,Map& map)
 	
 	//当たり判定の更新
 	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
-
+	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
-	
 }
 
 
@@ -173,8 +194,6 @@ void Player::Draw()
 {	
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 
-	Aiming = LoadGraph("date/標準(仮).png");
-
 	//プレイヤーの当たり判定の表示
 	m_colRect.Draw(GetColor(0, 0, 255), false);
 	//標準の画像描画
@@ -189,6 +208,8 @@ void Player::DrawShot(Shot& shot)
 	{
 		shot.Graph = LoadGraph("date/銃弾.png");
 
+		DrawGraph(shot.X, shot.Y, shot.Graph, true);
+
 		shot.X += shot.AimX;
 		shot.Y += shot.AimY;
 
@@ -202,9 +223,6 @@ void Player::DrawShot(Shot& shot)
 			DeleteGraph(shot.Graph);
 		}
 
-		DrawGraph(shot.X, shot.Y, shot.Graph, true);
-
-		shot.m_colRect.Draw(GetColor(0, 255, 0), false);
 	}
 
 	

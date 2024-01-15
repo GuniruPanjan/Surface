@@ -25,6 +25,8 @@ bool Isflag = false;
 //初期化
 void Game_Initialize()
 {
+	Back.Init();
+
 	timecount.InitTime();
 	point.InitPoint();
 	player.Init();
@@ -58,6 +60,12 @@ void Game_Update()
 
 	player.ShotUpdate(player, shot, SHOT);
 	map.UpdateMap(player.ScrollX);
+
+	//プレイヤーが死亡すると
+	if (player.HP <= 0)
+	{
+		SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
+	}
 }
 
 //描画処理
@@ -66,7 +74,7 @@ void Game_Draw()
 	Back.Draw();
 
 	timecount.DrawTime();
-	point.DrawPoint();
+	point.DrawPoint(player.ScrollX);
 
 	hp.PlayerHP(player);
 
