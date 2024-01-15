@@ -43,7 +43,37 @@ Map::~Map()
 
 void Map::InitMap()
 {
-	
+	maped.Block = LoadGraph("date/ブロック.png");
+	ScrollX = 0;
+	ScrollY = 0;
+	i = 0;
+	j = 0;
+	MapDrawPointX = 0;
+	MapDrawPointY = 0;
+	DrawMapChipNumX = 0;
+	DrawMapChipNumY = 0;
+	DrawW = 0;
+	DrawH = 0;
+	DrawMapGraph = 0;
+	FiveMasu = -1;
+	FourMasu = -1;
+	SixMasu = -1;
+	Five = false;
+	Four = true;
+	Six = true;
+	MapDistanceFive = 0;
+	MapDistanceFour = 0;
+	MapDistanceSix = 0;
+	MapSelection = true;
+	MapSeparator = 637;
+	maped;
+	MapFiveX = 0;
+	MapFourX = 0;
+	MapSixX = 0;
+	MapReset = 1277;
+	FiveCount = 0;
+	FourCount = 0;
+	SixCount = 0;
 }
 
 void Map::UpdateMap(int ScrollX)
@@ -98,9 +128,6 @@ void Map::UpdateMap(int ScrollX)
 
 void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
 {
-	
-
-	maped.Block = LoadGraph("date/ブロック.png");
 
 	//描画するマップチップの数をセット
 	DrawMapChipNumX = STAGE_WIDTH / MAPCHIP_WIDTH;
@@ -137,6 +164,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//shotが壁に当たった時弾の存在を消す
 					shot.Flag = 0;
+
+					DeleteGraph(shot.Graph);
 				}
 
 				if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -213,6 +242,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -291,6 +322,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -368,6 +401,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -447,6 +482,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -524,6 +561,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -604,6 +643,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -681,6 +722,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -759,6 +802,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//shotが壁に当たった時弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)

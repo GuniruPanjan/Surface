@@ -1,4 +1,5 @@
 #pragma once
+
 class Point
 {
 public:
@@ -7,7 +8,7 @@ public:
 
 	void InitPoint();
 	void UpdatePoint();
-	void DrawPoint();
+	void DrawPoint(int ScrollX);
 
 	int PointNow, WenemyPoint;
 

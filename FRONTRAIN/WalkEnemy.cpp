@@ -11,31 +11,37 @@ WalkEnemy::~WalkEnemy()
 {
 }
 
-void WalkEnemy::Init(WalkEnemyStruct enemy,WalkEnemy& Wenemy)
+void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
 {
+	Wenemy.Attack = 2;
+	Wenemy.HP = 10;
+
 	enemy.WalkEnemyX = -20.0f;
 	enemy.WalkEnemyY = 360.0f;
 
 	enemy.WalkEnemyflag = false;
 
 	Wenemy.T = 1;
+
+	enemy.WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
+
 }
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
-	
 	//時間がたつと敵が出現
-	if (time->WalkEnemyTime == 10 * Wenemy.T)
+	if (time->WalkEnemyTime == 5 * Wenemy.T)
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
+			Wenemy.T++;
+
 			for (int i = 0; i < WenemySize; i++)
 			{
 				if (enemy[i].WalkEnemyflag == false)
 				{
 					enemy[i].WalkEnemyflag = true;
 
-					
 					//エネミーがランダムな場所に出現
 					if (GetRand(1) == 0)
 					{
@@ -47,8 +53,6 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					}
 
 					enemy[i].WalkEnemyY = 360.0f;
-
-					Wenemy.T++;
 
 					//一体だしたのでループから抜ける
 					break;
@@ -93,7 +97,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				//当たっている
 				else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 				{
-					DrawString(0, 0, "当たった", GetColor(255, 255, 255));
+					player.HP -= Wenemy.Attack;
 				}
 
 				if (shot.Flag == 1)
@@ -108,6 +112,8 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 						enemy[i].HP -= shot.Damage;
 						//接触している場合は当たった弾の存在を消す
 						shot.Flag = 0;
+
+						DeleteGraph(shot.Graph);
 					}
 
 				}
@@ -123,13 +129,10 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct& enemy, Point& point)
 	//エネミーが生きている時
 	if (enemy.HP >= 0)
 	{
-		enemy.WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
-
 		DrawGraph(enemy.WalkEnemyX + ScrollX, enemy.WalkEnemyY, enemy.WalkEnemyGraph, true);
 
 		//エネミーの当たり判定の表示
 		enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
-		//WalkEnemyGraph = DrawBox(WalkEnemyX, WalkEnemyY, 630, 250, GetColor(255, 255, 0), true);
 	}
 	//敵が死んだ時
 	else if (enemy.HP <= 0)

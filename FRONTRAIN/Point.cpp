@@ -22,7 +22,7 @@ void Point::UpdatePoint()
 {
 }
 
-void Point::DrawPoint()
+void Point::DrawPoint(int ScrollX)
 {
 	DrawFormatString(300, 460, GetColor(255, 255, 255), "ƒ|ƒCƒ“ƒg:%d", PointNow + WenemyPoint);
 }

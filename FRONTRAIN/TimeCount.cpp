@@ -20,6 +20,7 @@ void TimeCount::InitTime()
 	WalkEnemyTime = 0;
 	time = 0;
 	time = GetNowCount(); //Œ»İŠÔ‚ğ“¾‚é
+	timenow = 0;
 }
 
 void TimeCount::UpdateTime(Point& point)

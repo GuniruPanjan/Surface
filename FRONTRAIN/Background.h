@@ -5,6 +5,9 @@ public:
 	Background();
 	~Background();
 
+	void Init();
 	void Draw();
+
+	int BackGroundGraph;
 };
 
