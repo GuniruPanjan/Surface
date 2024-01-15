@@ -27,7 +27,6 @@ struct WalkEnemyStruct : public EnemyBase
 
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;
-
 	
 };
 

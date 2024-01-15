@@ -24,23 +24,24 @@ void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
 	Wenemy.T = 1;
 
 	enemy.WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
+
 }
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
-	
 	//時間がたつと敵が出現
-	if (time->WalkEnemyTime == 10 * Wenemy.T)
+	if (time->WalkEnemyTime == 5 * Wenemy.T)
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
+			Wenemy.T++;
+
 			for (int i = 0; i < WenemySize; i++)
 			{
 				if (enemy[i].WalkEnemyflag == false)
 				{
 					enemy[i].WalkEnemyflag = true;
 
-					
 					//エネミーがランダムな場所に出現
 					if (GetRand(1) == 0)
 					{
@@ -52,8 +53,6 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					}
 
 					enemy[i].WalkEnemyY = 360.0f;
-
-					Wenemy.T++;
 
 					//一体だしたのでループから抜ける
 					break;
