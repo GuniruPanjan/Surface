@@ -3,11 +3,38 @@
 #include "Point.h"
 #include "TimeCount.h"
 #include "Player.h"
+#define ENEMY_SHOT 30
 
 class Player;
 class Shot;
 class Point;
 class TimeCount;
+
+struct EnemyShot
+{
+	//弾が発射中かどうか
+	bool Flag = false;
+	//x座標
+	double X = 0;
+	//y座標
+	double Y = 0;
+	//グラフィックハンドル
+	int Graph = -1;
+	//画像の幅と高さ
+	int Width = 0;
+	int Height = 0;
+	//弾が標的に向かっていく
+	double PX = 0;
+	double PY = 0;
+	//弾のダメージ
+	int ShotDamage = 2;
+
+	//前のフレームで撃ったかどうか
+	bool EnemyShotFlag = false;
+
+	//当たり判定の矩形
+	Rect m_colRect;
+};
 
 struct DistanceEnemyStruct : public EnemyBase
 {
@@ -30,6 +57,14 @@ struct DistanceEnemyStruct : public EnemyBase
 	//敵が出現するフラグ
 	bool DistanceEnemyflag = false;
 
+	//現在時間を得る
+	int Time = 0;
+	//敵の弾発射までの時間
+	int ShotEnemy = 0;
+	int ShotDistance = 0;
+
+	
+
 };
 class DistanceEnemy : public EnemyBase
 {
@@ -38,8 +73,11 @@ public:
 	~DistanceEnemy();
 
 	void Init(DistanceEnemyStruct& enemy,DistanceEnemy& Denemy);
-	void Update(Player& player,Shot& shot,DistanceEnemyStruct enemy[],int DenemySize,float ScrollX,TimeCount* time,DistanceEnemy& Denemy);
+	void EnemyShotInit(EnemyShot shot[]);
+	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[]);
+	void EnemyShotUpdate(DistanceEnemyStruct& enemy, EnemyShot shot[], int shotSize, Player& player);
 	void Draw(float ScrollX, DistanceEnemyStruct& enemy,Point& point);
+	void DrawShot(EnemyShot& shot);
 
 	//敵の出現フラグ
 	bool DistanceEnemyAppearance = true;
