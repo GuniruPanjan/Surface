@@ -69,11 +69,18 @@ void Player::Init()
 	H = 0;
 	PlayerRight = false;
 	PlayerDamage = false;
+	Bullet = 12;
 }
 
-void Player::InitShot(Shot& shot)
+void Player::InitShot(Shot shot[])
 {
-	shot.Flag = false;
+	for (int i = 0; i < SHOT; i++)
+	{
+		shot[i].Flag = false;
+
+		shot[i].Damage = 3;
+	}
+	
 }
 
 void Player::Update(Player& player,Map& map)

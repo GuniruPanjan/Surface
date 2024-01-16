@@ -16,10 +16,16 @@ void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
 	Wenemy.Attack = 2;
 	Wenemy.HP = 10;
 
-	enemy.WalkEnemyX = -20.0f;
-	enemy.WalkEnemyY = 360.0f;
+	enemy.WalkEnemyX = 0.0f;
+	enemy.WalkEnemyY = 0.0f;
+
+	enemy.WalkEnemyDead = false;
+
+	enemy.WalkShotDead = false;
 
 	enemy.WalkEnemyflag = false;
+
+	Wenemy.WalkEnemyAppearance = true;
 
 	Wenemy.T = 1;
 
@@ -30,7 +36,7 @@ void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//ŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->WalkEnemyTime == 5 * Wenemy.T)
+	if (time->EnemyTime == 8 * Wenemy.T)
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
@@ -113,6 +119,8 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 						//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
+						enemy[i].WalkShotDead = true;
+
 						DeleteGraph(shot.Graph);
 					}
 
@@ -139,18 +147,19 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct& enemy, Point& point)
 	{
 		if (enemy.WalkEnemyDead == false)
 		{
+			enemy.m_colRect.SetCenter(0, 0, 0, 0);
 			DeleteGraph(enemy.WalkEnemyGraph);
-			point.WenemyPoint += 100;
-			enemy.WalkEnemyDead = true;
+			if (enemy.WalkShotDead == true)
+			{
+				point.WenemyPoint += 100;
+
+				enemy.WalkShotDead = false;
+			}
+			
 			enemy.WalkEnemyflag = false;
+			enemy.WalkEnemyDead = true;
 		}
 
-	}
-
-	//“G‚ª‰æ–ÊŠO‚©‚ç—£‚ê‚·‚¬‚½‚çÁ‚·
-	if (enemy.WalkEnemyX <= -80 || enemy.WalkEnemyY <= 50 || enemy.WalkEnemyY >= 500)
-	{
-		DeleteGraph(enemy.WalkEnemyGraph);
 	}
 	
 }

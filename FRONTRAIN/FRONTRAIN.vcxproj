@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="SkyEnemy.cpp" />
     <ClCompile Include="TimeCount.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="WalkEnemy.cpp" />
@@ -159,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="SkyEnemy.h" />
     <ClInclude Include="TimeCount.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WalkEnemy.h" />

@@ -30,8 +30,8 @@ void Menu_Update()
 		//ゲームシーンを初期化する
 		Game_Initialize();
 	}
-	ContinueInit = false;
 	
+	ContinueInit = false;
 
 	//Aキーが押されていたら
 	if (CheckHitKey(KEY_INPUT_A) != 0)

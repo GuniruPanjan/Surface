@@ -4,7 +4,7 @@
 TimeCount::TimeCount():
 	cnt(0),
 	test(0),
-	WalkEnemyTime(0),
+	EnemyTime(0),
 	timenow(0)
 {
 	time = GetNowCount();    //Œ»İŠÔ‚ğ“¾‚é
@@ -17,7 +17,8 @@ TimeCount::~TimeCount()
 
 void TimeCount::InitTime()
 {
-	WalkEnemyTime = 0;
+
+	EnemyTime = 0;
 	time = 0;
 	time = GetNowCount(); //Œ»İŠÔ‚ğ“¾‚é
 	timenow = 0;
@@ -25,7 +26,7 @@ void TimeCount::InitTime()
 
 void TimeCount::UpdateTime(Point& point)
 {
-	WalkEnemyTime = (GetNowCount() - time) / 1000;
+	EnemyTime = (GetNowCount() - time) / 1000;
 
 	timenow = (GetNowCount() - time) / 1000;
 

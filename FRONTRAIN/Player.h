@@ -39,7 +39,7 @@ public:
 	~Player();
 
 	void Init();
-	void InitShot(Shot& shot);
+	void InitShot(Shot shot[]);
 	void Update(Player& player, Map& map);
 	//ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è‚ğæ“¾‚·‚é
 	Rect GetColRect() { return m_colRect; }

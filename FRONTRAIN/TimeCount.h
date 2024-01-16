@@ -18,7 +18,7 @@ public:
 	bool flg = false;
 	bool countflg = true;
 	int timenow;
-	int WalkEnemyTime;  //エネミーの出現時間
+	int EnemyTime;  //エネミーの出現時間
 	int time;  //スタート時刻を記憶しておく
 };
 

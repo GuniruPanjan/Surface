@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include "Player.h"
 #include "WalkEnemy.h"
+#include "SkyEnemy.h"
+#include "DistanceEnemy.h"
 #include "Rect.h"
 #define STAGE_WIDTH 640                    //ステージの横幅
 #define STAGE_HEIGHT 480                   //ステージの縦幅
@@ -26,6 +28,8 @@ struct MapEd
 class Shot;
 class Player;
 class WalkEnemyStruct;
+class SkyEnemyStruct;
+class DistanceEnemyStruct;
 
 class Map
 {
@@ -314,7 +318,7 @@ public:
 
 	void InitMap();
 	void UpdateMap(int ScrollX);
-	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[]);
+	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[]);
 
 	int ScrollX, ScrollY = 0;
 	int i, j;

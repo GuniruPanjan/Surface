@@ -9,12 +9,22 @@
 #include "Point.h"
 #include "SceneMgr.h"
 #include "HP.h"
+#include "SkyEnemy.h"
+#include "DistanceEnemy.h"
 
 Player player;
 HP hp;
 Shot shot[SHOT];
+
 WalkEnemy WEnemy;
 WalkEnemyStruct WenemyS[ENEMY_NOW];
+
+SkyEnemy SEnemy;
+SkyEnemyStruct SenemyS[SKY_ENEMY_NOW];
+
+DistanceEnemy DEnemy;
+DistanceEnemyStruct DenemyS[DISTANCE_ENEMY_NOW];
+
 Map map;
 Background Back;
 TimeCount timecount;
@@ -30,13 +40,20 @@ void Game_Initialize()
 	timecount.InitTime();
 	point.InitPoint();
 	player.Init();
-	for (int i = 0; i < SHOT; i++)
-	{
-		player.InitShot(shot[i]);
-	}
+
+	player.InitShot(shot);
+
 	for (int i = 0; i < ENEMY_NOW; i++)
 	{
 		WEnemy.Init(WenemyS[i], WEnemy);
+	}
+	for (int i = 0; i < SKY_ENEMY_NOW; i++)
+	{
+		SEnemy.Init(SenemyS[i], SEnemy);
+	}
+	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
+	{
+		DEnemy.Init(DenemyS[i], DEnemy);
 	}
 	map.InitMap();
 }
@@ -56,8 +73,12 @@ void Game_Update()
 	for (int i = 0; i < SHOT; i++)
 	{
 		WEnemy.Update(player, shot[i], WenemyS, ENEMY_NOW, player.ScrollX, &timecount, WEnemy);
-	}
 
+		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy);
+
+		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy);
+	}
+	
 	player.ShotUpdate(player, shot, SHOT);
 	map.UpdateMap(player.ScrollX);
 
@@ -89,10 +110,18 @@ void Game_Draw()
 	{
 		WEnemy.Draw(player.ScrollX, WenemyS[i], point);
 	}
+	for (int i = 0; i < SKY_ENEMY_NOW; i++)
+	{
+		SEnemy.Draw(player.ScrollX, SenemyS[i], point);
+	}
+	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
+	{
+		DEnemy.Draw(player.ScrollX, DenemyS[i], point);
+	}
 
 	for (int i = 0; i < SHOT; i++)
 	{
-		map.DrawMap(player.ScrollX, shot[i], player, WenemyS);
+		map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS);
 	}
 
 	

@@ -24,6 +24,8 @@ struct WalkEnemyStruct : public EnemyBase
 	float WalkEnemySpeed = 0.04f;
 	//エネミーの死亡判定
 	bool WalkEnemyDead = false;
+	//敵が弾で死んだ判定
+	bool WalkShotDead = false;
 
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;

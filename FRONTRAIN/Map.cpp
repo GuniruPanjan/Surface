@@ -1,6 +1,4 @@
 #include "Map.h"
-#include "Player.h"
-#include "WalkEnemy.h"
 #include "DxLib.h"
 
 Map::Map():
@@ -126,7 +124,7 @@ void Map::UpdateMap(int ScrollX)
 	}
 }
 
-void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[])
+void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[])
 {
 
 	//描画するマップチップの数をセット
@@ -184,6 +182,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						Wenemy[g].WalkEnemyY -= 0.04f;
 					}
 				}
+				for (int s = 0; s < SKY_ENEMY_NOW; s++)
+				{
+					if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+					{
+						//空の敵がブロックにあたっていたら死ぬ
+						Senemy[s].HP--;
+					}
+				}
+				for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+				{
+					if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+					{
+						//ブロックに当たっていたら壁を上る
+						Denemy[d].DistanceEnemyY -= 0.04f;
+					}
+				}
+				
 				
 			}
 			if (g_MapChipFirst[i][j] == 2)
@@ -206,6 +221,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//エネミーを落とす
 						Wenemy[g].WalkEnemyY += 0.05f;
+					}
+				}
+				for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+				{
+					if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Denemy[d].DistanceEnemyY += 0.05f;
 					}
 				}
 			}
@@ -262,6 +285,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_1[i][j] == 2)
 				{
@@ -283,6 +322,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -342,6 +389,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_4[i][j] == 2)
 				{
@@ -363,6 +426,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -421,6 +492,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_8[i][j] == 2)
 				{
@@ -442,6 +529,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -502,6 +597,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_2[i][j] == 2)
 				{
@@ -523,6 +634,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -581,6 +700,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_5[i][j] == 2)
 				{
@@ -602,6 +737,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -663,6 +806,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_3[i][j] == 2)
 				{
@@ -684,6 +843,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -742,6 +909,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_6[i][j] == 2)
 				{
@@ -763,6 +946,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
@@ -822,6 +1013,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Wenemy[g].WalkEnemyY -= 0.04f;
 						}
 					}
+					for (int s = 0; s < SKY_ENEMY_NOW; s++)
+					{
+						if (m_colRect.IsCollision(Senemy[s].m_colRect) == true)
+						{
+							//空の敵がブロックにあたっていたら死ぬ
+							Senemy[s].HP = -1;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colRect.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//ブロックに当たっていたら壁を上る
+							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
 				}
 				if (g_MapChip_9[i][j] == 2)
 				{
@@ -843,6 +1050,14 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//エネミーを落とす
 							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
 						}
 					}
 				}
