@@ -115,7 +115,7 @@ void Game_Draw()
 		player.DrawShot(shot[i]);
 	}
 
-	DEnemy.DrawShot(enemyshot,ENEMY_SHOT);
+	DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX);
 
 	for (int i = 0; i < ENEMY_NOW; i++)
 	{

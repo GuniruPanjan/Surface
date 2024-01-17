@@ -52,7 +52,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 10 * Denemy.T)
+	if (time->EnemyTime == 360 + (10 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{
@@ -183,7 +183,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 						}
 						else if (enemyshot[j].m_colRect.IsCollision(player.m_colRect) == true)
 						{
-							//player.HP -= enemyshot[j].ShotDamage;
+							player.HP -= enemyshot[j].ShotDamage;
 							//接触している場合は当たった弾の存在を消す
 							enemyshot[j].Flag = 0;
 
@@ -208,7 +208,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 			{
 				shot.Flag = true;
 				shot.X = enemy[i].DistanceEnemyX;
-				shot.Y = enemy[i].DistanceEnemyY;
+				shot.Y = enemy[i].DistanceEnemyY + enemy[i].DistanceEnemyHeight / 2;
 
 				//弾の移動速度を設定する
 				double sb, sbx, sby, ax, ay, sx, sy;
@@ -217,7 +217,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 				sy = shot.Y;
 
 				//標的の場所
-				ax = player.PlayerX;
+				ax = player.PlayerX - ScrollX;
 				ay = player.PlayerY;
 
 				sbx = ax - sx;
@@ -225,9 +225,9 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 
 				sb = sqrt(sbx * sbx + sby * sby);
 
-				//1フレームあたり5ドットで動く
-				shot.PX = sbx / sb * 5;
-				shot.PY = sby / sb * 5;
+				//1フレームあたり10ドットで動く
+				shot.PX = sbx / sb * 10;
+				shot.PY = sby / sb * 10;
 
 				//一つ弾を出したので弾を出すループから抜ける
 				break;
@@ -268,7 +268,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	}
 }
 
-void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize)
+void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
 {
 	//弾の移動
 	//発射してる弾数だけ
@@ -281,17 +281,20 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize)
 			shot[i].X += shot[i].PX;
 			shot[i].Y += shot[i].PY;
 
-			DrawGraph(shot[i].X, shot[i].Y, shot[i].Graph, true);
+			DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].Graph, true);
 
 			//あたり判定の更新
-			shot[i].m_colRect.SetCenter(shot[i].X, shot[i].Y, shot[i].Width, shot[i].Height);
+			shot[i].m_colRect.SetCenter(shot[i].X + ScrollX, shot[i].Y, shot[i].Width, shot[i].Height);
 
-			//画面の外にはみ出したらフラグを戻す
-			if (shot[i].X > 640 || shot[i].X < 0 || shot[i].Y > 480 || shot[i].Y < 0)
+			//画面上に行きすぎたら消す
+			if (shot[i].Y <= -10)
 			{
 				shot[i].Flag = false;
+
 				DeleteGraph(shot[i].Graph);
 			}
+
+
 		}
 	}
 	

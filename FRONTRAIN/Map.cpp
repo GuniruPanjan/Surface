@@ -199,20 +199,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					}
 				}
 				//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-				//for (int e = 0; e < EnemyShotSize; e++)
-				//{
-				//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-				//	{
-				//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-				//	}
-				//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-				//	{
-				//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-				//		enemyShot[e].Flag = 0;
+				for (int e = 0; e < EnemyShotSize; e++)
+				{
+					if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+					{
+						//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+					}
+					else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+					{
+						//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+						enemyShot[e].Flag = 0;
 
-				//		DeleteGraph(enemyShot[e].Graph);
-				//	}
-				//}
+						DeleteGraph(enemyShot[e].Graph);
+					}
+				}
 				
 				
 				
@@ -318,20 +318,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_1[i][j] == 2)
 				{
@@ -437,20 +437,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_4[i][j] == 2)
 				{
@@ -555,20 +555,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_8[i][j] == 2)
 				{
@@ -675,20 +675,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_2[i][j] == 2)
 				{
@@ -793,20 +793,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_5[i][j] == 2)
 				{
@@ -914,20 +914,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_3[i][j] == 2)
 				{
@@ -1032,20 +1032,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_6[i][j] == 2)
 				{
@@ -1151,20 +1151,20 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 					//“G‚ÌƒVƒ‡ƒbƒg‚ ‚½‚è”»’è
-					//for (int e = 0; e < EnemyShotSize; e++)
-					//{
-					//	if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
-					//	}
-					//	else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
-					//	{
-					//		//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
-					//		enemyShot[e].Flag = 0;
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚Ä‚È‚¢Žž
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shot‚ª•Ç‚É“–‚½‚Á‚½Žž’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyShot[e].Flag = 0;
 
-					//		DeleteGraph(enemyShot[e].Graph);
-					//	}
-					//}
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_9[i][j] == 2)
 				{

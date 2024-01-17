@@ -75,7 +75,7 @@ public:
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[],int EnemyShotSize);
 	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX);
 	void Draw(float ScrollX, DistanceEnemyStruct& enemy,Point& point);
-	void DrawShot(EnemyShot shot[],int EnemyShotSize);
+	void DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX);
 
 	//ìGÇÃèoåªÉtÉâÉO
 	bool DistanceEnemyAppearance = true;
