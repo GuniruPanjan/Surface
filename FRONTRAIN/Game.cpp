@@ -15,6 +15,7 @@
 Player player;
 HP hp;
 Shot shot[SHOT];
+EnemyShot enemyshot[ENEMY_SHOT];
 
 WalkEnemy WEnemy;
 WalkEnemyStruct WenemyS[ENEMY_NOW];
@@ -42,6 +43,8 @@ void Game_Initialize()
 	player.Init();
 
 	player.InitShot(shot);
+
+	DEnemy.EnemyShotInit(enemyshot);
 
 	for (int i = 0; i < ENEMY_NOW; i++)
 	{
@@ -76,9 +79,15 @@ void Game_Update()
 
 		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy);
 
-		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy);
+		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot);
+	}
+	for (int j = 0; j < DISTANCE_ENEMY_NOW; j++)
+	{
+		DEnemy.EnemyShotUpdate(DenemyS[j], enemyshot, ENEMY_SHOT, player);
 	}
 	
+	
+
 	player.ShotUpdate(player, shot, SHOT);
 	map.UpdateMap(player.ScrollX);
 
@@ -104,6 +113,10 @@ void Game_Draw()
 	for (int i = 0; i < SHOT; i++)
 	{
 		player.DrawShot(shot[i]);
+	}
+	for (int i = 0; i < ENEMY_SHOT; i++)
+	{
+		DEnemy.DrawShot(enemyshot[i]);
 	}
 
 	for (int i = 0; i < ENEMY_NOW; i++)
