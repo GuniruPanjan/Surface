@@ -89,9 +89,9 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 
 					tb = sqrt(tbx * tbx + tby * tby);
 
-					//1フレームあたり5ドットで動く
-					enemy[i].PX = tbx / tb * 5;
-					enemy[i].PY = tby / tb * 5;
+					//1フレームあたり7ドットで動く
+					enemy[i].PX = tbx / tb * 7;
+					enemy[i].PY = tby / tb * 7;
 
 					//一体だしたので抜ける
 					break;

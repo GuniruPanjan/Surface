@@ -16,8 +16,8 @@ void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
 	Wenemy.Attack = 2;
 	Wenemy.HP = 10;
 
-	enemy.WalkEnemyX = 0.0f;
-	enemy.WalkEnemyY = 0.0f;
+	enemy.WalkEnemyX = -30.0f;
+	enemy.WalkEnemyY = -30.0f;
 
 	enemy.WalkEnemyDead = false;
 

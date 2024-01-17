@@ -30,6 +30,7 @@ class Player;
 class WalkEnemyStruct;
 class SkyEnemyStruct;
 class DistanceEnemyStruct;
+class EnemyShot;
 
 class Map
 {
@@ -318,7 +319,7 @@ public:
 
 	void InitMap();
 	void UpdateMap(int ScrollX);
-	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[]);
+	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[],EnemyShot enemyShot[],int EnemyShotSize);
 
 	int ScrollX, ScrollY = 0;
 	int i, j;

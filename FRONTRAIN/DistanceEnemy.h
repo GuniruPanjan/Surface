@@ -29,9 +29,6 @@ struct EnemyShot
 	//弾のダメージ
 	int ShotDamage = 2;
 
-	//前のフレームで撃ったかどうか
-	bool EnemyShotFlag = false;
-
 	//当たり判定の矩形
 	Rect m_colRect;
 };
@@ -63,7 +60,8 @@ struct DistanceEnemyStruct : public EnemyBase
 	int ShotEnemy = 0;
 	int ShotDistance = 0;
 
-	
+	//前のフレームで撃ったかどうか
+	bool EnemyShotFlag = false;
 
 };
 class DistanceEnemy : public EnemyBase
@@ -74,7 +72,7 @@ public:
 
 	void Init(DistanceEnemyStruct& enemy,DistanceEnemy& Denemy);
 	void EnemyShotInit(EnemyShot shot[]);
-	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[]);
+	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[],int EnemyShotSize);
 	void EnemyShotUpdate(DistanceEnemyStruct& enemy, EnemyShot shot[], int shotSize, Player& player);
 	void Draw(float ScrollX, DistanceEnemyStruct& enemy,Point& point);
 	void DrawShot(EnemyShot& shot);

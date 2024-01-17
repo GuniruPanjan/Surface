@@ -124,7 +124,7 @@ void Map::UpdateMap(int ScrollX)
 	}
 }
 
-void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[])
+void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[],EnemyShot enemyShot[], int EnemyShotSize)
 {
 
 	//描画するマップチップの数をセット
@@ -198,6 +198,22 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						Denemy[d].DistanceEnemyY -= 0.04f;
 					}
 				}
+				//敵のショットあたり判定
+				for (int e = 0; e < EnemyShotSize; e++)
+				{
+					if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+					{
+						//shotが壁に当たってない時
+					}
+					else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+					{
+						//shotが壁に当たった時弾の存在を消す
+						enemyShot[e].Flag = 0;
+
+						DeleteGraph(enemyShot[e].Graph);
+					}
+				}
+				
 				
 				
 			}
@@ -299,6 +315,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//ブロックに当たっていたら壁を上る
 							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -405,6 +436,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Denemy[d].DistanceEnemyY -= 0.04f;
 						}
 					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_4[i][j] == 2)
 				{
@@ -506,6 +552,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//ブロックに当たっていたら壁を上る
 							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -613,6 +674,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Denemy[d].DistanceEnemyY -= 0.04f;
 						}
 					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_2[i][j] == 2)
 				{
@@ -714,6 +790,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//ブロックに当たっていたら壁を上る
 							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -822,6 +913,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							Denemy[d].DistanceEnemyY -= 0.04f;
 						}
 					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
+						}
+					}
 				}
 				if (g_MapChip_3[i][j] == 2)
 				{
@@ -923,6 +1029,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//ブロックに当たっていたら壁を上る
 							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -1027,6 +1148,21 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						{
 							//ブロックに当たっていたら壁を上る
 							Denemy[d].DistanceEnemyY -= 0.04f;
+						}
+					}
+					//敵のショットあたり判定
+					for (int e = 0; e < EnemyShotSize; e++)
+					{
+						if (m_colRect.IsCollision(enemyShot[e].m_colRect) == false)
+						{
+							//shotが壁に当たってない時
+						}
+						else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
+						{
+							//shotが壁に当たった時弾の存在を消す
+							enemyShot[e].Flag = 0;
+
+							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}

@@ -79,7 +79,7 @@ void Game_Update()
 
 		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy);
 
-		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot);
+		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot,ENEMY_SHOT);
 	}
 	for (int j = 0; j < DISTANCE_ENEMY_NOW; j++)
 	{
@@ -134,7 +134,7 @@ void Game_Draw()
 
 	for (int i = 0; i < SHOT; i++)
 	{
-		map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS);
+		map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot,ENEMY_SHOT);
 	}
 
 	
