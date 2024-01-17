@@ -38,7 +38,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 	double tb, tbx, tby, px, py, sx, sy;
 
 	//ŽžŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime ==  (4 * Senemy.T))
+	if (time->EnemyTime == 180 + (4 * Senemy.T))
 	{
 		if (Senemy.SkyEnemyAppearance == true)
 		{

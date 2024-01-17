@@ -7,7 +7,7 @@ static int mimageHandle;  //画像ハンドル格納用変数
 //初期化
 void GameOver_Initialize()
 {
-	mimageHandle = LoadGraph("date/GAME OVER.jpg");  //画像のロード
+	mimageHandle = LoadGraph("date/ゲームオーバー画面.png");  //画像のロード
 
 	
 }
