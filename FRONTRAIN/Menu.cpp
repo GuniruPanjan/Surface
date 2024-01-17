@@ -10,7 +10,7 @@ bool ContinueInit; //コンテニューしたときに初期化する
 //初期化
 void Menu_Initialize()
 {
-	mimageHandle = LoadGraph("date/ホーム画面.jpg");    //画像ロード
+	mimageHandle = LoadGraph("date/スタート画面.png");    //画像ロード
 
 	ContinueInit = true;
 }

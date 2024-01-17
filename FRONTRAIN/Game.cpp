@@ -81,9 +81,9 @@ void Game_Update()
 
 		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot,ENEMY_SHOT);
 	}
-	for (int j = 0; j < DISTANCE_ENEMY_NOW; j++)
+	for (int j = 0; j < ENEMY_SHOT; j++)
 	{
-		DEnemy.EnemyShotUpdate(DenemyS[j], enemyshot, ENEMY_SHOT, player);
+		DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX);
 	}
 	
 	
@@ -114,10 +114,8 @@ void Game_Draw()
 	{
 		player.DrawShot(shot[i]);
 	}
-	for (int i = 0; i < ENEMY_SHOT; i++)
-	{
-		DEnemy.DrawShot(enemyshot[i]);
-	}
+
+	DEnemy.DrawShot(enemyshot,ENEMY_SHOT);
 
 	for (int i = 0; i < ENEMY_NOW; i++)
 	{

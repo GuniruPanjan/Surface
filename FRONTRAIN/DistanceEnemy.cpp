@@ -131,7 +131,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					for (int j = 0; j < EnemyShotSize; j++)
 					{
 						enemyshot[j].Flag = false;
-
 					}
 
 					enemy[i].ShotDistance++;
@@ -184,7 +183,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 						}
 						else if (enemyshot[j].m_colRect.IsCollision(player.m_colRect) == true)
 						{
-							player.HP -= enemyshot[j].ShotDamage;
+							//player.HP -= enemyshot[j].ShotDamage;
 							//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶Ý‚ðÁ‚·
 							enemyshot[j].Flag = 0;
 
@@ -199,24 +198,25 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 }
 
 //“G‚ÌUŒ‚s“®
-void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct& enemy, EnemyShot shot[], int shotSize, Player& player)
+void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX)
 {
-	for (int i = 0; i < shotSize; i++)
+	for (int i = 0; i < enemySize; i++)
 	{
-		if (enemy.EnemyShotFlag == false)
+		if (enemy[i].EnemyShotFlag == false)
 		{
-			if (shot[i].Flag == false)
+			if (shot.Flag == false)
 			{
-				shot[i].Flag = true;
-				shot[i].X = enemy.DistanceEnemyX;
-				shot[i].Y = enemy.DistanceEnemyY;
+				shot.Flag = true;
+				shot.X = enemy[i].DistanceEnemyX;
+				shot.Y = enemy[i].DistanceEnemyY;
 
 				//’e‚ÌˆÚ“®‘¬“x‚ðÝ’è‚·‚é
 				double sb, sbx, sby, ax, ay, sx, sy;
 
-				sx = shot[i].X + shot[i].Width / 2;
-				sy = shot[i].Y + shot[i].Height / 2;
+				sx = shot.X;
+				sy = shot.Y;
 
+				//•W“I‚ÌêŠ
 				ax = player.PlayerX;
 				ay = player.PlayerY;
 
@@ -226,14 +226,14 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct& enemy, EnemyShot shot[]
 				sb = sqrt(sbx * sbx + sby * sby);
 
 				//1ƒtƒŒ[ƒ€‚ ‚½‚è5ƒhƒbƒg‚Å“®‚­
-				shot[i].PX = sbx / sb * 5;
-				shot[i].PY = sby / sb * 5;
+				shot.PX = sbx / sb * 5;
+				shot.PY = sby / sb * 5;
 
 				//ˆê‚Â’e‚ðo‚µ‚½‚Ì‚Å’e‚ðo‚·ƒ‹[ƒv‚©‚ç”²‚¯‚é
 				break;
 			}
 		}
-	    enemy.EnemyShotFlag = true;
+	    enemy[i].EnemyShotFlag = true;
 	}
 	
 }
@@ -268,27 +268,31 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	}
 }
 
-void DistanceEnemy::DrawShot(EnemyShot& shot)
+void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize)
 {
 	//’e‚ÌˆÚ“®
 	//”­ŽË‚µ‚Ä‚é’e”‚¾‚¯
-	if (shot.Flag)
+	for (int i = 0; i < EnemyShotSize; i++)
 	{
-		shot.Graph = LoadGraph("date/e’e.png");
-
-		DrawGraph(shot.X, shot.Y, shot.Graph, true);
-
-		shot.X += shot.PX;
-		shot.Y += shot.PY;
-
-		//‚ ‚½‚è”»’è‚ÌXV
-		shot.m_colRect.SetCenter(shot.X, shot.Y, shot.Width, shot.Height);
-
-		//‰æ–Ê‚ÌŠO‚É‚Í‚Ýo‚µ‚½‚çƒtƒ‰ƒO‚ð–ß‚·
-		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
+		if (shot[i].Flag)
 		{
-			shot.Flag = false;
-			DeleteGraph(shot.Graph);
+			shot[i].Graph = LoadGraph("date/e’e.png");
+
+			shot[i].X += shot[i].PX;
+			shot[i].Y += shot[i].PY;
+
+			DrawGraph(shot[i].X, shot[i].Y, shot[i].Graph, true);
+
+			//‚ ‚½‚è”»’è‚ÌXV
+			shot[i].m_colRect.SetCenter(shot[i].X, shot[i].Y, shot[i].Width, shot[i].Height);
+
+			//‰æ–Ê‚ÌŠO‚É‚Í‚Ýo‚µ‚½‚çƒtƒ‰ƒO‚ð–ß‚·
+			if (shot[i].X > 640 || shot[i].X < 0 || shot[i].Y > 480 || shot[i].Y < 0)
+			{
+				shot[i].Flag = false;
+				DeleteGraph(shot[i].Graph);
+			}
 		}
 	}
+	
 }
