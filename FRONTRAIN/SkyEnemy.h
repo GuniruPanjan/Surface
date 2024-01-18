@@ -8,6 +8,7 @@ class Player;
 class Shot;
 class Point;
 class TimeCount;
+class Shield;
 
 struct SkyEnemyStruct : public EnemyBase
 {
@@ -43,7 +44,7 @@ public:
 	~SkyEnemy();
 
 	void Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy);
-	void Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy);
+	void Update(Player& player, Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy, Shield& shield);
 	void Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point);
 
 	//ìGÇÃèoåªÉtÉâÉO

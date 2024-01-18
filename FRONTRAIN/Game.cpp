@@ -16,6 +16,7 @@
 Player player;
 HP hp;
 Shot shot[SHOT];
+Shield shield;
 EnemyShot enemyshot[ENEMY_SHOT];
 
 WalkEnemy WEnemy;
@@ -43,7 +44,7 @@ void Game_Initialize()
 
 	timecount.InitTime();
 	point.InitPoint();
-	player.Init();
+	player.Init(shield);
 
 	player.InitShot(shot);
 
@@ -74,15 +75,15 @@ void Game_Update()
 
 	timecount.UpdateTime(point);
 
-	player.Update(player, map);
+	player.Update(player, map, shield);
 
 	for (int i = 0; i < SHOT; i++)
 	{
 		WEnemy.Update(player, shot[i], WenemyS, ENEMY_NOW, player.ScrollX, &timecount, WEnemy);
 
-		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy);
+		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy, shield);
 
-		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot,ENEMY_SHOT);
+		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot, ENEMY_SHOT, shield);
 	}
 	for (int j = 0; j < ENEMY_SHOT; j++)
 	{
@@ -113,7 +114,7 @@ void Game_Draw()
 
 	hp.PlayerHP(player);
 
-	player.Draw();
+	player.Draw(shield);
 	
 	for (int i = 0; i < SHOT; i++)
 	{

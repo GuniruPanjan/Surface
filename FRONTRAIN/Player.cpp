@@ -30,7 +30,9 @@ Player::Player():
 	W(0),
 	H(0),
 	PlayerRight(false),
-	PlayerDamage(false)
+	PlayerDamage(false),
+	Left(false),
+	Right(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -42,7 +44,7 @@ Player::~Player()
 {
 }
 
-void Player::Init()
+void Player::Init(Shield& shield)
 {
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
@@ -70,6 +72,14 @@ void Player::Init()
 	PlayerRight = false;
 	PlayerDamage = false;
 	Bullet = 12;
+	Left = false;
+	Right = false;
+
+	shield.LeftFlag = false;
+	shield.RightFlag = false;
+	shield.ShieldGraph = LoadGraph("date/Shiled.png");
+	shield.ShieldWidth = 3;
+	shield.ShieldHeight = 30;
 }
 
 void Player::InitShot(Shot shot[])
@@ -83,12 +93,16 @@ void Player::InitShot(Shot shot[])
 	
 }
 
-void Player::Update(Player& player,Map& map)
+void Player::Update(Player& player,Map& map,Shield& shield)
 {
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
-		player.PlayerX -= Speed;
+		if (Left == false)
+		{
+			player.PlayerX -= Speed;
+		}
+		
 		//左端から先にいかない
 		if (player.PlayerX < 8.0f)
 		{
@@ -98,14 +112,18 @@ void Player::Update(Player& player,Map& map)
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
-		player.PlayerX += player.Speed;
+		if (Right == false)
+		{
+			player.PlayerX += player.Speed;
+		}
+
 		//真ん中から先に行くと画面がついてくる
 		if (player.PlayerX >= graph.GraphModeWIDTH / 4)
 		{
 			player.PlayerRight = true;
 			player.PlayerX = graph.GraphModeWIDTH / 4;
 		}
-		
+
 	}
 	//移動してないと画面が止まる
 	else if (player.PlayerX <= graph.GraphModeWIDTH / 2)
@@ -130,6 +148,35 @@ void Player::Update(Player& player,Map& map)
 	GetMousePoint(&player.MouseX, &player.MouseY);
 
 	//盾実装
+	//下キーを押した時
+	if (CheckHitKey(KEY_INPUT_DOWN))
+	{
+		//プレイヤーを動けなくする
+		Left = true;
+		Right = true;
+
+		//左に盾を構える
+		if (player.PlayerX > player.MouseX)
+		{
+			shield.LeftFlag = true;
+		}
+		//右に盾を構える
+		else if (player.PlayerX < player.MouseX)
+		{
+			shield.RightFlag = true;
+		}
+	}
+	//下キーを押してないとき
+	else if (CheckHitKey(KEY_INPUT_DOWN) == false)
+	{
+		//盾を消す
+		shield.LeftFlag = false;
+		shield.RightFlag = false;
+
+		Left = false;
+		Right = false;
+	}
+	
 
 }
 
@@ -200,7 +247,7 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 
 }
 
-void Player::Draw()
+void Player::Draw(Shield& shield)
 {	
 	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
 
@@ -208,6 +255,26 @@ void Player::Draw()
 	m_colRect.Draw(GetColor(0, 0, 255), false);
 	//標準の画像描画
 	DrawGraph(MouseX, MouseY, Aiming, true);
+
+	//左に盾を構える
+	if (shield.LeftFlag == true)
+	{
+		DrawGraph(PlayerX - 12, PlayerY - 20, shield.ShieldGraph, true);
+		//当たり判定の更新
+		shield.m_colRect.SetCenter(PlayerX - 10, PlayerY - 5, shield.ShieldWidth, shield.ShieldHeight);
+
+		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
+	}
+	//右に盾を構える
+	else if (shield.RightFlag == true)
+	{
+		DrawGraph(PlayerX + 10, PlayerY - 20, shield.ShieldGraph, true);
+		//当たり判定の更新
+		shield.m_colRect.SetCenter(PlayerX + 12, PlayerY - 5, shield.ShieldWidth, shield.ShieldHeight);
+
+		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
+
+	}
 }
 
 void Player::DrawShot(Shot& shot)

@@ -4,6 +4,23 @@
 #include "WalkEnemy.h"
 #define SHOT 30
 
+struct Shield
+{
+	//盾の発生フラグ
+	bool LeftFlag = false;
+	bool RightFlag = false;
+
+	//グラフィックハンドル
+	int ShieldGraph = -1;
+
+	//盾の幅と高さ
+	int ShieldWidth = 0;
+	int ShieldHeight = 0;
+
+	//当たり判定の矩形
+	Rect m_colRect;
+};
+
 struct Shot
 {
 	//弾が発射中かどうか
@@ -38,15 +55,15 @@ public:
 	Player();
 	~Player();
 
-	void Init();
+	void Init(Shield& shield);
 	void InitShot(Shot shot[]);
-	void Update(Player& player, Map& map);
+	void Update(Player& player, Map& map, Shield& shield);
 	//プレイヤーの当たり判定を取得する
 	Rect GetColRect() { return m_colRect; }
 
 	void ShotUpdate(Player& player, Shot shot[], int shotSize);
 
-	void Draw();
+	void Draw(Shield& shield);
 	void DrawShot(Shot& shot);
 
 	//弾
@@ -96,7 +113,9 @@ private:
 	//マウスの座標取得
 	int MouseX, MouseY;
 
-
+	//移動する判定
+	bool Left;
+	bool Right;
 
 	//プレイヤーの幅と高さ
 	int PlayerW;

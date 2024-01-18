@@ -32,13 +32,13 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 	enemy.SkyEnemyGraph = LoadGraph("date/空のエネミー.png");
 }
 
-void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy)
+void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy,Shield& shield)
 {
 	//敵のスピード設定
 	double tb, tbx, tby, px, py, sx, sy;
 
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 180 + (3 * Senemy.T))
+	if (time->EnemyTime == (3 * Senemy.T))
 	{
 		if (Senemy.SkyEnemyAppearance == true)
 		{
@@ -131,6 +131,20 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 					enemy[i].SkyShotDead = true;
 
 					DeleteGraph(shot.Graph);
+				}
+			}
+			//盾との当たり判定
+			if (shield.LeftFlag == true || shield.RightFlag == true)
+			{
+				//盾と接触
+				if (enemy[i].m_colRect.IsCollision(shield.m_colRect) == false)
+				{
+					//当たってない
+				}
+				else if (enemy[i].m_colRect.IsCollision(shield.m_colRect) == true)
+				{
+					//盾に当たったら死ぬ
+					enemy[i].HP = -1;
 				}
 			}
 
