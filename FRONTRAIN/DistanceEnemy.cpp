@@ -52,7 +52,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize)
 {
 	//ŽžŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == 360 + (10 * Denemy.T))
+	if (time->EnemyTime == 360 + (6 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{

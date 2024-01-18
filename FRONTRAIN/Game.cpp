@@ -11,6 +11,7 @@
 #include "HP.h"
 #include "SkyEnemy.h"
 #include "DistanceEnemy.h"
+#include "SceneFedo.h"
 
 Player player;
 HP hp;
@@ -31,6 +32,8 @@ Background Back;
 TimeCount timecount;
 Point point;
 
+SceneFedo scenefedo;
+
 bool Isflag = false;
 
 //初期化
@@ -46,10 +49,8 @@ void Game_Initialize()
 
 	DEnemy.EnemyShotInit(enemyshot);
 
-	for (int i = 0; i < ENEMY_NOW; i++)
-	{
-		WEnemy.Init(WenemyS[i], WEnemy);
-	}
+	WEnemy.Init(WenemyS, WEnemy, ENEMY_NOW);
+
 	for (int i = 0; i < SKY_ENEMY_NOW; i++)
 	{
 		SEnemy.Init(SenemyS[i], SEnemy);
@@ -69,6 +70,8 @@ void Game_Finalize()
 //更新処理
 void Game_Update()
 {
+	scenefedo.UpdateIn();
+
 	timecount.UpdateTime(point);
 
 	player.Update(player, map);
@@ -94,6 +97,8 @@ void Game_Update()
 	//プレイヤーが死亡すると
 	if (player.HP <= 0)
 	{
+		scenefedo.DeadOut();
+
 		SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
 	}
 }
@@ -117,10 +122,9 @@ void Game_Draw()
 
 	DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX);
 
-	for (int i = 0; i < ENEMY_NOW; i++)
-	{
-		WEnemy.Draw(player.ScrollX, WenemyS[i], point);
-	}
+
+	WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW);
+
 	for (int i = 0; i < SKY_ENEMY_NOW; i++)
 	{
 		SEnemy.Draw(player.ScrollX, SenemyS[i], point);

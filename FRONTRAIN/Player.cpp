@@ -128,6 +128,9 @@ void Player::Update(Player& player,Map& map)
 	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
+
+	//盾実装
+
 }
 
 

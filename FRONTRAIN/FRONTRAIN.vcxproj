@@ -151,6 +151,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="SceneFedo.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="SkyEnemy.cpp" />
     <ClCompile Include="TimeCount.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="SceneFedo.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="SkyEnemy.h" />
     <ClInclude Include="TimeCount.h" />

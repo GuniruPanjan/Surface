@@ -1,7 +1,7 @@
 #pragma once
 #include "Rect.h"
-#define ENEMY_NOW 30
-#define SKY_ENEMY_NOW 20
+#define ENEMY_NOW 15
+#define SKY_ENEMY_NOW 15
 #define DISTANCE_ENEMY_NOW 10
 
 class EnemyBase

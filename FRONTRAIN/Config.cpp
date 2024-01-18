@@ -1,6 +1,9 @@
 #include "Config.h"
 #include "SceneMgr.h"
 #include "DxLib.h"
+#include "SceneFedo.h"
+
+SceneFedo settingfedo;
 
 static int mimageHandle;   //画像ハンドル格納用変数
 
@@ -19,6 +22,8 @@ void Config_Finalize()
 //更新
 void Config_Update()
 {
+	settingfedo.UpdateInSetting();
+
 	//Aキーが押されていたら
 	if (CheckHitKey(KEY_INPUT_B) != 0)
 	{

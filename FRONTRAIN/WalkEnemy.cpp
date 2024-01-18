@@ -11,32 +11,36 @@ WalkEnemy::~WalkEnemy()
 {
 }
 
-void WalkEnemy::Init(WalkEnemyStruct& enemy,WalkEnemy& Wenemy)
+void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 {
+	for (int i = 0; i < WenemySize; i++)
+	{
+		enemy[i].WalkEnemyX = -30.0f;
+		enemy[i].WalkEnemyY = -30.0f;
+
+		enemy[i].WalkEnemyDead = false;
+
+		enemy[i].WalkShotDead = false;
+
+		enemy[i].WalkEnemyflag = false;
+
+		enemy[i].WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
+	}
+
 	Wenemy.Attack = 2;
+
 	Wenemy.HP = 10;
-
-	enemy.WalkEnemyX = -30.0f;
-	enemy.WalkEnemyY = -30.0f;
-
-	enemy.WalkEnemyDead = false;
-
-	enemy.WalkShotDead = false;
-
-	enemy.WalkEnemyflag = false;
 
 	Wenemy.WalkEnemyAppearance = true;
 
-	Wenemy.T = 1;
-
-	enemy.WalkEnemyGraph = LoadGraph("date/エネミー(仮).png");
+	Wenemy.T = 0;
 
 }
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 8 * Wenemy.T)
+	if (time->EnemyTime == 10 + (5 * Wenemy.T))
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
@@ -132,34 +136,38 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	
 }
 
-void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct& enemy, Point& point)
+void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int WenemySize)
 {
-	//エネミーが生きている時
-	if (enemy.HP >= 0)
+	for (int i = 0; i < WenemySize; i++)
 	{
-		DrawGraph(enemy.WalkEnemyX + ScrollX, enemy.WalkEnemyY, enemy.WalkEnemyGraph, true);
-
-		//エネミーの当たり判定の表示
-		enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
-	}
-	//敵が死んだ時
-	else if (enemy.HP <= 0)
-	{
-		if (enemy.WalkEnemyDead == false)
+		//エネミーが生きている時
+		if (enemy[i].HP >= 0)
 		{
-			enemy.m_colRect.SetCenter(0, 0, 0, 0);
-			DeleteGraph(enemy.WalkEnemyGraph);
-			if (enemy.WalkShotDead == true)
-			{
-				point.WenemyPoint += 100;
+			DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY, enemy[i].WalkEnemyGraph, true);
 
-				enemy.WalkShotDead = false;
-			}
-			
-			enemy.WalkEnemyflag = false;
-			enemy.WalkEnemyDead = true;
+			//エネミーの当たり判定の表示
+			enemy[i].m_colRect.Draw(GetColor(255, 0, 0), false);
 		}
+		//敵が死んだ時
+		else if (enemy[i].HP <= 0)
+		{
+			if (enemy[i].WalkEnemyDead == false)
+			{
+				enemy[i].m_colRect.SetCenter(0, 0, 0, 0);
+				DeleteGraph(enemy[i].WalkEnemyGraph);
+				if (enemy[i].WalkShotDead == true)
+				{
+					point.WenemyPoint += 100;
 
+					enemy[i].WalkShotDead = false;
+				}
+
+				enemy[i].WalkEnemyflag = false;
+				enemy[i].WalkEnemyDead = true;
+			}
+
+		}
 	}
+	
 	
 }

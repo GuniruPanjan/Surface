@@ -5,6 +5,8 @@
 #include "Config.h"
 #include "GameOver.h"
 
+
+
 static eScene mScene = eScene_Menu; //現シーンの管理変数
 static eScene mNextScene = eScene_None; //次のシーン管理変数
 

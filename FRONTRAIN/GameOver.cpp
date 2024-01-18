@@ -1,6 +1,9 @@
 #include "GameOver.h"
 #include "SceneMgr.h"
 #include "DxLib.h"
+#include "SceneFedo.h"
+
+SceneFedo Scenefedo;
 
 static int mimageHandle;  //画像ハンドル格納用変数
 
@@ -8,8 +11,6 @@ static int mimageHandle;  //画像ハンドル格納用変数
 void GameOver_Initialize()
 {
 	mimageHandle = LoadGraph("date/ゲームオーバー画面.png");  //画像のロード
-
-	
 }
 
 //終了処理
@@ -21,6 +22,7 @@ void GameOver_Finalize()
 //更新
 void GameOver_Update()
 {
+	Scenefedo.UpdateIn();
 
 	//SPACEキーが押されていたら
 	if (CheckHitKey(KEY_INPUT_SPACE) != 0)
