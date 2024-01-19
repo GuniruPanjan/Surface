@@ -92,8 +92,11 @@ public:
 	//リロード時間
 	int BulletTime = 0;
 
+	//プレイヤーが壁を上っている判定
+	bool PlayerRise;
+
 	//重力
-	float Gravity = 2.0f;
+	float Gravity = 0.3f;
 
 	//当たり判定の矩形
 	Rect m_colRect;

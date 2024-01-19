@@ -170,8 +170,13 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//ブロックに当たっていたら壁を上る
 					player.PlayerY -= 0.15f;
-					//地面に触れると重力が0になる
-					//player.Gravity = 0;
+
+					//ブロックに当たっている判定
+					player.PlayerRise = true;
+				}
+				else if (m_colRect.IsCollision(player.m_colRect) == false)
+				{
+					player.PlayerRise = false;
 				}
 
 				for (int g = 0; g < ENEMY_NOW; g++)
@@ -217,18 +222,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				
 				
 			}
+			//左降りの判定
 			if (g_MapChipFirst[i][j] == 2)
 			{
 				//当たり判定の更新
-				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH - 5 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 				//マップチップの当たり判定の表示
 				//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 				if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 				{
-					//プレイヤーを落とす
-					player.PlayerY += 0.1f;
+					if (player.PlayerRise == false)
+					{
+						//プレイヤーを落とす
+						player.PlayerY += 0.1f;
+					}
+					
 				}
 
 				for (int g = 0; g < ENEMY_NOW; g++)
@@ -242,6 +252,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 				{
 					if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Denemy[d].DistanceEnemyY += 0.05f;
+					}
+				}
+			}
+			//右降りの判定
+			if (g_MapChipFirst[i][j] == 3)
+			{
+				//当たり判定の更新
+				m_colBlockRect3.SetCenter(j * MAPCHIP_WIDTH + 25 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+				//マップチップの当たり判定の表示
+				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+				if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+				{
+					if (player.PlayerRise == false)
+					{
+						//プレイヤーを落とす
+						player.PlayerY += 0.1f;
+					}
+
+				}
+
+				for (int g = 0; g < ENEMY_NOW; g++)
+				{
+					if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Wenemy[g].WalkEnemyY += 0.05f;
+					}
+				}
+				for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+				{
+					if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Denemy[d].DistanceEnemyY += 0.05f;
+					}
+				}
+			}
+			//2マス分降りるとき
+			if (g_MapChipFirst[i][j] == 5)
+			{
+				//当たり判定の更新
+				m_colBlockRect3.SetCenter(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+				//マップチップの当たり判定の表示
+				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+				if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+				{
+					if (player.PlayerRise == false)
+					{
+						//プレイヤーを落とす
+						player.PlayerY += 0.1f;
+					}
+
+				}
+
+				for (int g = 0; g < ENEMY_NOW; g++)
+				{
+					if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+					{
+						//エネミーを落とす
+						Wenemy[g].WalkEnemyY += 0.05f;
+					}
+				}
+				for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+				{
+					if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 					{
 						//エネミーを落とす
 						Denemy[d].DistanceEnemyY += 0.05f;
@@ -289,8 +371,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -333,18 +419,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_1[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -358,6 +449,42 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_1[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -408,8 +535,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -452,18 +583,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_4[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -477,6 +613,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_4[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//2マス分降りるとき
+				if (g_MapChip_4[i][j] == 5)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFiveX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -526,8 +734,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -570,18 +782,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_8[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -595,6 +812,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_8[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//1マス分の降りる判定
+				if (g_MapChip_8[i][j] == 4)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 15, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -646,8 +935,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -690,18 +983,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_2[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFourX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapFourX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -715,6 +1013,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_2[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFourX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//2マス分降りるとき
+				if (g_MapChip_2[i][j] == 5)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFourX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -764,8 +1134,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -808,18 +1182,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_5[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFourX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapFourX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -833,6 +1212,114 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_5[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFourX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//1マス分の降りる判定
+				if (g_MapChip_5[i][j] == 4)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFourX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 15, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//2マス分降りるとき
+				if (g_MapChip_5[i][j] == 5)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapFourX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -885,8 +1372,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -929,18 +1420,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_3[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -954,6 +1450,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_3[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//2マス分降りるとき
+				if (g_MapChip_3[i][j] == 5)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapSixX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -1003,8 +1571,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -1047,18 +1619,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_6[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -1072,6 +1649,78 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_6[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//2マス分降りるとき
+				if (g_MapChip_6[i][j] == 5)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapSixX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;
@@ -1122,8 +1771,12 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					{
 						//ブロックに当たっていたら壁を上る
 						player.PlayerY -= 0.15f;
-						//地面に触れると重力が0になる
-						//player.Gravity = 0;
+						//ブロックに当たっている判定
+						player.PlayerRise = true;
+					}
+					else if (m_colRect.IsCollision(player.m_colRect) == false)
+					{
+						player.PlayerRise = false;
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -1166,18 +1819,23 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						}
 					}
 				}
+				//左降りの判定
 				if (g_MapChip_9[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
-						//プレイヤーを落とす
-						player.PlayerY += 0.1f;
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
 					}
 
 					for (int g = 0; g < ENEMY_NOW; g++)
@@ -1191,6 +1849,42 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
 					{
 						if (m_colBlockRect2.IsCollision(Denemy[d].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Denemy[d].DistanceEnemyY += 0.05f;
+						}
+					}
+				}
+				//右降りの判定
+				if (g_MapChip_9[i][j] == 3)
+				{
+					//当たり判定の更新
+					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+
+					//マップチップの当たり判定の表示
+					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
+
+					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
+					{
+						if (player.PlayerRise == false)
+						{
+							//プレイヤーを落とす
+							player.PlayerY += 0.1f;
+						}
+
+					}
+
+					for (int g = 0; g < ENEMY_NOW; g++)
+					{
+						if (m_colBlockRect3.IsCollision(Wenemy[g].m_colRect) == true)
+						{
+							//エネミーを落とす
+							Wenemy[g].WalkEnemyY += 0.05f;
+						}
+					}
+					for (int d = 0; d < DISTANCE_ENEMY_NOW; d++)
+					{
+						if (m_colBlockRect3.IsCollision(Denemy[d].m_colRect) == true)
 						{
 							//エネミーを落とす
 							Denemy[d].DistanceEnemyY += 0.05f;

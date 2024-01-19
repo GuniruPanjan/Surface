@@ -52,7 +52,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize,Shield& shield)
 {
 	//ŽžŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == (6 * Denemy.T))
+	if (time->EnemyTime == 360 + (6 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{
@@ -174,8 +174,26 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 
 				for (int j = 0; j < EnemyShotSize; j++)
 				{
+					//‚‚Æ‚ÌÚG”»’è
+					if (shield.LeftFlag == true || shield.RightFlag == true)
+					{
+						//‚‚Æ‚Ì“–‚½‚è”»’è
+						if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == false)
+						{
+							//“–‚½‚Á‚Ä‚È‚¢
+						}
+						else if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == true)
+						{
+							//ÚG‚µ‚½’e‚Ì‘¶Ý‚ðÁ‚·
+							enemyshot[j].Flag = 0;
+
+							DeleteGraph(enemyshot[j].Graph);
+						}
+					}
+
 					if (enemyshot[j].Flag == 1)
 					{
+
 						//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
 						if (enemyshot[j].m_colRect.IsCollision(player.m_colRect) == false)
 						{
@@ -190,23 +208,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 							DeleteGraph(enemyshot[j].Graph);
 						}
 
-
-						//‚‚Æ‚ÌÚG”»’è
-						if (shield.LeftFlag == true || shield.RightFlag == true)
-						{
-							//‚‚Æ‚Ì“–‚½‚è”»’è
-							if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == false)
-							{
-								//“–‚½‚Á‚Ä‚È‚¢
-							}
-							else if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == true)
-							{
-								//ÚG‚µ‚½’e‚Ì‘¶Ý‚ðÁ‚·
-								enemyshot[j].Flag = 0;
-
-								DeleteGraph(enemyshot[j].Graph);
-							}
-						}
 					}
 
 					

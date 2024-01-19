@@ -38,7 +38,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 	double tb, tbx, tby, px, py, sx, sy;
 
 	//ŽžŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == (3 * Senemy.T))
+	if (time->EnemyTime == 180 + (3 * Senemy.T))
 	{
 		if (Senemy.SkyEnemyAppearance == true)
 		{
@@ -111,6 +111,8 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 			{
 				player.HP -= Senemy.Attack;
+
+				enemy[i].HP = -1;
 
 				DeleteGraph(enemy[i].SkyEnemyGraph);
 			}

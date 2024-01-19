@@ -27,12 +27,14 @@ Player::Player():
 	PlayerShotFlag(false),
 	PlayerW(0),
 	PlayerH(0),
+	Gravity(0),
 	W(0),
 	H(0),
 	PlayerRight(false),
 	PlayerDamage(false),
 	Left(false),
-	Right(false)
+	Right(false),
+	PlayerRise(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -69,11 +71,13 @@ void Player::Init(Shield& shield)
 	PlayerH = 0;
 	W = 0;
 	H = 0;
+	Gravity = 0.3f;
 	PlayerRight = false;
 	PlayerDamage = false;
 	Bullet = 12;
 	Left = false;
 	Right = false;
+	PlayerRise = false;
 
 	shield.LeftFlag = false;
 	shield.RightFlag = false;
@@ -95,6 +99,43 @@ void Player::InitShot(Shot shot[])
 
 void Player::Update(Player& player,Map& map,Shield& shield)
 {
+	//常に重力を与える
+	/*player.PlayerY += player.Gravity;*/
+
+	//盾実装
+	//下キーを押した時
+	if (CheckHitKey(KEY_INPUT_DOWN))
+	{
+		//プレイヤーを動けなくする
+		Left = true;
+		Right = true;
+		player.PlayerShotFlag = true;
+
+		//左に盾を構える
+		if (player.PlayerX > player.MouseX)
+		{
+			shield.LeftFlag = true;
+
+			shield.RightFlag = false;
+		}
+		//右に盾を構える
+		if (player.PlayerX < player.MouseX)
+		{
+			shield.RightFlag = true;
+
+			shield.LeftFlag = false;
+		}
+	}
+	//下キーを押してないとき
+	else if (CheckHitKey(KEY_INPUT_DOWN) == false)
+	{
+		//盾を消す
+		shield.LeftFlag = false;
+		shield.RightFlag = false;
+
+		Left = false;
+		Right = false;
+	}
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
@@ -146,38 +187,6 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
-
-	//盾実装
-	//下キーを押した時
-	if (CheckHitKey(KEY_INPUT_DOWN))
-	{
-		//プレイヤーを動けなくする
-		Left = true;
-		Right = true;
-
-		//左に盾を構える
-		if (player.PlayerX > player.MouseX)
-		{
-			shield.LeftFlag = true;
-		}
-		//右に盾を構える
-		else if (player.PlayerX < player.MouseX)
-		{
-			shield.RightFlag = true;
-		}
-	}
-	//下キーを押してないとき
-	else if (CheckHitKey(KEY_INPUT_DOWN) == false)
-	{
-		//盾を消す
-		shield.LeftFlag = false;
-		shield.RightFlag = false;
-
-		Left = false;
-		Right = false;
-	}
-	
-
 }
 
 
