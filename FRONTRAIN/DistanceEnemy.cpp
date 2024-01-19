@@ -65,6 +65,8 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					//現在時間を得る
 					enemy[i].Time = GetNowCount();
 
+					enemy[i].DistanceEnemyDead = false;
+
 					enemy[i].DistanceEnemyflag = true;
 
 					//エネミーがランダムな場所に出現
@@ -284,6 +286,12 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 			}
 			
 			enemy.DistanceEnemyflag = false;
+
+			enemy.HP = 5;
+
+			enemy.DistanceEnemyX = -30.0f;
+			enemy.DistanceEnemyY = -30.0f;
+
 			enemy.DistanceEnemyDead = true;
 		}
 

@@ -40,7 +40,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 10 + (5 * Wenemy.T))
+	if (time->EnemyTime == 10 + (6 * Wenemy.T))
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
@@ -50,7 +50,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 			{
 				if (enemy[i].WalkEnemyflag == false)
 				{
-					DrawString(300, 100, "敵出現", true);
+					enemy[i].WalkEnemyDead = false;
 
 					enemy[i].WalkEnemyflag = true;
 
@@ -143,7 +143,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 	for (int i = 0; i < WenemySize; i++)
 	{
 		//エネミーが生きている時
-		if (enemy[i].HP >= 0)
+		if (enemy[i].HP > 0)
 		{
 			DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY, enemy[i].WalkEnemyGraph, true);
 
@@ -166,6 +166,9 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 				enemy[i].WalkEnemyflag = false;
 
 				enemy[i].HP = 10;
+
+				enemy[i].WalkEnemyX = -30.0f;
+				enemy[i].WalkEnemyY = -30.0f;
 
 				enemy[i].WalkEnemyDead = true;
 			}

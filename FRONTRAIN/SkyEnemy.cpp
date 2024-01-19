@@ -48,6 +48,8 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			{
 				if (enemy[i].SkyEnemyflag == false)
 				{
+					enemy[i].SkyEnemyDead = false;
+
 					enemy[i].SkyEnemyflag = true;
 
 					//エネミーがランダムな場所に出現
@@ -159,7 +161,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 {
 	//敵が生きている時
-	if (enemy.HP >= 0)
+	if (enemy.HP > 0)
 	{
 		if (enemy.Flag)
 		{
@@ -187,6 +189,12 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 				enemy.SkyShotDead = false;
 			}
 			enemy.SkyEnemyflag = false;
+
+			enemy.HP = 1;
+
+			enemy.SkyEnemyX = -20.0f;
+			enemy.SkyEnemyY = -20.0f;
+
 			enemy.SkyEnemyDead = true;
 		}
 	}
