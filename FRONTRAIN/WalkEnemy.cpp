@@ -50,6 +50,8 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 			{
 				if (enemy[i].WalkEnemyflag == false)
 				{
+					DrawString(300, 100, "敵出現", true);
+
 					enemy[i].WalkEnemyflag = true;
 
 					//エネミーがランダムな場所に出現
@@ -154,7 +156,6 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 			if (enemy[i].WalkEnemyDead == false)
 			{
 				enemy[i].m_colRect.SetCenter(0, 0, 0, 0);
-				DeleteGraph(enemy[i].WalkEnemyGraph);
 				if (enemy[i].WalkShotDead == true)
 				{
 					point.WenemyPoint += 100;
@@ -163,6 +164,9 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 				}
 
 				enemy[i].WalkEnemyflag = false;
+
+				enemy[i].HP = 10;
+
 				enemy[i].WalkEnemyDead = true;
 			}
 

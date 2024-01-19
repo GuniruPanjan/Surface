@@ -43,7 +43,6 @@ public:
 	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize);
 
 	EnemyBase Base;
-	Point point;
 	WalkEnemyStruct WenemyS[ENEMY_NOW];
 
 	//“G‚ÌoŒ»ƒtƒ‰ƒO

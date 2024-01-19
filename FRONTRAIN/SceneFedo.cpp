@@ -64,8 +64,8 @@ void SceneFedo::Update()
 void SceneFedo::StartUpdate()
 {
 	Count++;
-
-	if (Count >= 112)
+	//1ƒtƒŒ[ƒ€Œã
+	if (Count >= 56)
 	{
 		b -= 1;
 	}
