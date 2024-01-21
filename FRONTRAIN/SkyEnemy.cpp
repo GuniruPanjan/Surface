@@ -50,6 +50,8 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 				{
 					enemy[i].SkyEnemyDead = false;
 
+					enemy[i].Flag = false;
+
 					enemy[i].SkyEnemyflag = true;
 
 					//エネミーがランダムな場所に出現
@@ -115,8 +117,6 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 				player.HP -= Senemy.Attack;
 
 				enemy[i].HP = -1;
-
-				DeleteGraph(enemy[i].SkyEnemyGraph);
 			}
 
 			if (shot.Flag == 1)
@@ -134,7 +134,6 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 
 					enemy[i].SkyShotDead = true;
 
-					DeleteGraph(shot.Graph);
 				}
 			}
 			//盾との当たり判定
@@ -181,7 +180,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 		if (enemy.SkyEnemyDead == false)
 		{
 			enemy.m_colRect.SetCenter(0, 0, 0, 0);
-			DeleteGraph(enemy.SkyEnemyGraph);
+
 			if (enemy.SkyShotDead == true)
 			{
 				point.SenemyPoint += 50;
@@ -192,7 +191,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 			enemy.HP = 1;
 
-			enemy.SkyEnemyX = -20.0f;
+			enemy.SkyEnemyX = -640.0f;
 			enemy.SkyEnemyY = -20.0f;
 
 			enemy.SkyEnemyDead = true;
