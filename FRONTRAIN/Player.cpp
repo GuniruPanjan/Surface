@@ -34,7 +34,8 @@ Player::Player():
 	PlayerDamage(false),
 	Left(false),
 	Right(false),
-	PlayerRise(false)
+	PlayerRise(false),
+	Count(0)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -78,6 +79,7 @@ void Player::Init(Shield& shield)
 	Left = false;
 	Right = false;
 	PlayerRise = false;
+	Count = 0;
 
 	shield.LeftFlag = false;
 	shield.RightFlag = false;
@@ -187,6 +189,17 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
+
+	if (player.PlayerDamage == true)
+	{
+		Count++;
+	}
+	//4フレーム後
+	if (Count <= 224)
+	{
+		player.PlayerDamage = false;
+		Count = 0;
+	}
 }
 
 

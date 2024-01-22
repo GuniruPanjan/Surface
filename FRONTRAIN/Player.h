@@ -95,6 +95,9 @@ public:
 	//プレイヤーが壁を上っている判定
 	bool PlayerRise;
 
+	//ダメージカウント
+	int Count = 0;
+
 	//重力
 	float Gravity = 0.3f;
 

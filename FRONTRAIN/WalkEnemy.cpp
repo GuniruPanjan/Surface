@@ -40,7 +40,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//ŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == 1000 + (6 * Wenemy.T))
+	if (time->EnemyTime == 10 + (6 * Wenemy.T))
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{
@@ -109,7 +109,14 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				//“–‚½‚Á‚Ä‚¢‚é
 				else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 				{
-					player.HP -= Wenemy.Attack;
+					//1‰ñ‚¾‚¯Às
+					if (player.PlayerDamage == false)
+					{
+						player.HP -= Wenemy.Attack;
+
+						player.PlayerDamage = true;
+					}
+					
 				}
 
 				if (shot.Flag == 1)

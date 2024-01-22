@@ -114,7 +114,14 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			//“–‚½‚Á‚Ä‚¢‚é
 			else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 			{
-				player.HP -= Senemy.Attack;
+				//1‰ñ‚¾‚¯Às
+				if (player.PlayerDamage == false)
+				{
+					player.HP -= Senemy.Attack;
+
+					player.PlayerDamage = true;
+				}
+				
 
 				enemy[i].HP = -1;
 			}

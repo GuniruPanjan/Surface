@@ -71,7 +71,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize,Shield& shield)
 {
 	//ŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == (10 * Denemy.T))
+	if (time->EnemyTime == 360 + (10 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{
@@ -182,7 +182,14 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					}
 					else if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == true)
 					{
-						enemy[i].HP -= shot.Damage;
+						//1‰ñ‚¾‚¯Às
+						if (player.PlayerDamage == false)
+						{
+							enemy[i].HP -= shot.Damage;
+
+							player.PlayerDamage = true;
+						}
+						
 						//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
