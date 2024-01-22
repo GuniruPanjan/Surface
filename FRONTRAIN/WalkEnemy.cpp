@@ -40,7 +40,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//ŽžŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == 10 + (6 * Wenemy.T))
+	if (time->EnemyTime == 1000 + (6 * Wenemy.T))
 	{
 		if (Wenemy.WalkEnemyAppearance == true)
 		{

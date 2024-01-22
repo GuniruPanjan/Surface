@@ -256,30 +256,34 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 
 }
 
-void Player::Draw(Shield& shield)
+void Player::Draw(Shield& shield, Player& player)
 {	
-	playerGraph = DrawCircle(PlayerX, PlayerY, 8, GetColor(255, 255, 255), true);
+	playerGraph = DrawCircle(player.PlayerX, player.PlayerY, 8, GetColor(255, 255, 255), true);
 
 	//プレイヤーの当たり判定の表示
-	m_colRect.Draw(GetColor(0, 0, 255), false);
+	player.m_colRect.Draw(GetColor(0, 0, 255), false);
 	//標準の画像描画
 	DrawGraph(MouseX, MouseY, Aiming, true);
 
 	//左に盾を構える
 	if (shield.LeftFlag == true)
 	{
-		DrawGraph(PlayerX - 12, PlayerY - 20, shield.ShieldGraph, true);
+		//shield.RightFlag = false;
+
+		DrawGraph(player.PlayerX - 12, player.PlayerY - 20, shield.ShieldGraph, true);
 		//当たり判定の更新
-		shield.m_colRect.SetCenter(PlayerX - 10, PlayerY - 5, shield.ShieldWidth, shield.ShieldHeight);
+		shield.m_colRect.SetCenter(player.PlayerX - 13, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
 
 		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 	}
 	//右に盾を構える
-	else if (shield.RightFlag == true)
+	if (shield.RightFlag == true)
 	{
-		DrawGraph(PlayerX + 10, PlayerY - 20, shield.ShieldGraph, true);
+		//shield.LeftFlag = false;
+
+		DrawGraph(player.PlayerX + 10, player.PlayerY - 20, shield.ShieldGraph, true);
 		//当たり判定の更新
-		shield.m_colRect.SetCenter(PlayerX + 12, PlayerY - 5, shield.ShieldWidth, shield.ShieldHeight);
+		shield.m_colRect.SetCenter(player.PlayerX + 12, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
 
 		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 

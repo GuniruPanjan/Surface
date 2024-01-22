@@ -37,6 +37,8 @@ SceneFedo scenefedo;
 
 bool Isflag = false;
 
+int DistanceDown = -1;
+
 //‰Šú‰»
 void Game_Initialize()
 {
@@ -61,6 +63,8 @@ void Game_Initialize()
 		DEnemy.Init(DenemyS[i], DEnemy);
 	}
 	map.InitMap();
+
+	DistanceDown = LoadGraph("date/”š”­Down.png");
 }
 
 //I—¹ˆ—
@@ -89,7 +93,7 @@ void Game_Update()
 	}
 	for (int j = 0; j < ENEMY_SHOT; j++)
 	{
-		DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX);
+		DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX, shield);
 	}
 	
 	
@@ -116,7 +120,7 @@ void Game_Draw()
 
 	hp.PlayerHP(player);
 
-	player.Draw(shield);
+	player.Draw(shield, player);
 	
 	for (int i = 0; i < SHOT; i++)
 	{
@@ -134,7 +138,7 @@ void Game_Draw()
 	}
 	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
 	{
-		DEnemy.Draw(player.ScrollX, DenemyS[i], point);
+		DEnemy.Draw(player.ScrollX, DenemyS[i], point, player, DistanceDown);
 	}
 
 	for (int i = 0; i < SHOT; i++)

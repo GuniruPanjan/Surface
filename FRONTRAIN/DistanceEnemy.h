@@ -61,6 +61,9 @@ struct DistanceEnemyStruct : public EnemyBase
 	int ShotEnemy = 0;
 	int ShotDistance = 0;
 
+	//敵が死んだ時のアニメーションフレーム
+	int m_DeadAnimFrame;
+
 	//前のフレームで撃ったかどうか
 	bool EnemyShotFlag = false;
 
@@ -74,8 +77,8 @@ public:
 	void Init(DistanceEnemyStruct& enemy,DistanceEnemy& Denemy);
 	void EnemyShotInit(EnemyShot shot[]);
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[], int EnemyShotSize, Shield& shield);
-	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX);
-	void Draw(float ScrollX, DistanceEnemyStruct& enemy,Point& point);
+	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield);
+	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph);
 	void DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX);
 
 	//敵の出現フラグ

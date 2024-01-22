@@ -3,6 +3,23 @@
 #include<cmath>
 #include<math.h>
 
+//DisEnemyで使用するアニメーション定数
+namespace
+{
+	//画像サイズ
+	int kWidth = 30;
+	int kHeight = 30;
+
+	//キャラクター1コマのフレーム数
+	constexpr int kAnimFrameNum = 8;
+
+	//キャラクターがやられた時のアニメーション
+	constexpr int kUseDownFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
+	//アニメーション1サイクルのフレーム数
+	constexpr int kAnimFrameCycle = _countof(kUseDownFrame) * kAnimFrameNum;
+
+}
+
 DistanceEnemy::DistanceEnemy()
 {
 }
@@ -36,7 +53,9 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 
 	enemy.EnemyShotFlag = true;
 
-	enemy.DistanceEnemyGraph = LoadGraph("date/エネミー遠.png");
+	enemy.m_DeadAnimFrame;
+
+	enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
 }
 
 void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
@@ -52,7 +71,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize,Shield& shield)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 360 + (10 * Denemy.T))
+	if (time->EnemyTime == (10 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{
@@ -172,48 +191,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					}
 
 				}
-
-				for (int j = 0; j < EnemyShotSize; j++)
-				{
-					//盾との接触判定
-					if (shield.LeftFlag == true || shield.RightFlag == true)
-					{
-						//盾との当たり判定
-						if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == false)
-						{
-							//当たってない
-						}
-						else if (enemyshot[j].m_colRect.IsCollision(shield.m_colRect) == true)
-						{
-							//接触した弾の存在を消す
-							enemyshot[j].Flag = 0;
-
-							DeleteGraph(enemyshot[j].Graph);
-						}
-					}
-
-					if (enemyshot[j].Flag == 1)
-					{
-
-						//プレイヤーとの当たり判定
-						if (enemyshot[j].m_colRect.IsCollision(player.m_colRect) == false)
-						{
-
-						}
-						else if (enemyshot[j].m_colRect.IsCollision(player.m_colRect) == true)
-						{
-							player.HP -= enemyshot[j].ShotDamage;
-							//接触している場合は当たった弾の存在を消す
-							enemyshot[j].Flag = 0;
-
-							DeleteGraph(enemyshot[j].Graph);
-						}
-
-					}
-
-					
-
-				}
 			}
 			
 		}
@@ -221,7 +198,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 }
 
 //敵の攻撃行動
-void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX)
+void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield)
 {
 	for (int i = 0; i < enemySize; i++)
 	{
@@ -249,8 +226,8 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 				sb = sqrt(sbx * sbx + sby * sby);
 
 				//1フレームあたり10ドットで動く
-				shot.PX = sbx / sb * 10;
-				shot.PY = sby / sb * 10;
+				shot.PX = sbx / sb * 5;
+				shot.PY = sby / sb * 5;
 
 				//一つ弾を出したので弾を出すループから抜ける
 				break;
@@ -258,15 +235,60 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 		}
 	    enemy[i].EnemyShotFlag = true;
 	}
-	
+
+	if (shot.Flag == 1)
+	{
+
+		//盾との接触判定
+		if (shield.LeftFlag == true || shield.RightFlag == true)
+		{
+			//盾との当たり判定
+			if (shot.m_colRect.IsCollision(shield.m_colRect) == false)
+			{
+				//当たってない
+
+			}
+			else if (shot.m_colRect.IsCollision(shield.m_colRect) == true)
+			{
+				DeleteGraph(shot.Graph);
+
+				//接触した弾の存在を消す
+				shot.Flag = 0;
+			}
+		}
+
+
+		//プレイヤーとの当たり判定
+		if (shot.m_colRect.IsCollision(player.m_colRect) == false)
+		{
+
+		}
+		else if (shot.m_colRect.IsCollision(player.m_colRect) == true)
+		{
+			player.HP -= shot.ShotDamage;
+
+			DeleteGraph(shot.Graph);
+
+			//接触している場合は当たった弾の存在を消す
+			shot.Flag = 0;
+		}
+
+	}
 }
 
-void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point)
+void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player,int DownAnimGraph)
 {
 	//エネミーが生きている時
 	if (enemy.HP >= 0)
 	{
-		DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY, enemy.DistanceEnemyGraph, true);
+		if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
+		{
+			DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
+		}
+		else if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
+		{
+			DrawTurnGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
+		}
 
 		//エネミーの当たり判定の表示
 		enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
@@ -274,9 +296,24 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	//敵が死んだ時
 	else if (enemy.HP <= 0)
 	{
+		if (enemy.HP <= 0)
+		{
+			//死んだアニメーション
+			enemy.m_DeadAnimFrame++;
+			if (enemy.m_DeadAnimFrame >= kAnimFrameCycle) enemy.m_DeadAnimFrame = 0;
+		}
+		else
+		{
+			enemy.m_DeadAnimFrame = kAnimFrameNum;
+		}
+
+		int animFrame = enemy.m_DeadAnimFrame / kAnimFrameNum;
+
+		int srcX = kUseDownFrame[animFrame] * kWidth;
+		int srcY = kHeight * 0;
+
 		if (enemy.DistanceEnemyDead == false)
 		{
-			DeleteGraph(enemy.DistanceEnemyGraph);
 			if (enemy.DistanceShotDead == true)
 			{
 				point.DenemyPoint += 120;
@@ -285,6 +322,9 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 			}
 			
 			enemy.DistanceEnemyflag = false;
+
+			/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
+				, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
 
 			enemy.HP = 5;
 

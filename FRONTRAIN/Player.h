@@ -63,7 +63,7 @@ public:
 
 	void ShotUpdate(Player& player, Shot shot[], int shotSize);
 
-	void Draw(Shield& shield);
+	void Draw(Shield& shield, Player& player);
 	void DrawShot(Shot& shot);
 
 	//’e
