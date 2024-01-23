@@ -10,7 +10,7 @@ static int mimageHandle;   //画像ハンドル格納用変数
 //初期化
 void Config_Initialize()
 {
-	mimageHandle = LoadGraph("date/メニュー画面.jpg");//画像のロード
+	mimageHandle = LoadGraph("date/Menu画面.png");//画像のロード
 }
 
 //終了処理
@@ -24,8 +24,8 @@ void Config_Update()
 {
 	settingfedo.UpdateInSetting();
 
-	//Aキーが押されていたら
-	if (CheckHitKey(KEY_INPUT_B) != 0)
+	//Zキーが押されていたら
+	if (CheckHitKey(KEY_INPUT_Z) != 0)
 	{
 		SceneMgr_ChageScene(eScene_Menu);//シーンをメニューに変更
 	}
@@ -34,7 +34,10 @@ void Config_Update()
 //描画
 void Config_Draw()
 {
-	DrawGraph(0, 0, mimageHandle, false);
-	DrawString(280, 240, "設定画面です", GetColor(255, 255, 255));
-	DrawString(200, 240 + 20, "Bキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
+	DrawGraph(0, 0, mimageHandle, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 125);
+
+	DrawString(200, 240, "記録画面ですまだできてませんすいません", GetColor(255, 255, 255));
+	DrawString(200, 240 + 20, "Zキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
 }

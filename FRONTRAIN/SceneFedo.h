@@ -22,7 +22,7 @@ public:
 	int Out = 0;
 
 	//スタート画面の変数
-	bool Start, Setting;
+	bool Start, Setting, Explanation;
 
 	//スタート画面用の演出ハンドル
 	int handle;

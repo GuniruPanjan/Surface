@@ -33,6 +33,8 @@ void SceneFedo::Init()
 
 	Setting = false;
 
+	Explanation = false;
+
 	Count = 0;
 
 	handle = LoadGraph("date/スタート画面演出.png");

@@ -139,18 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animation.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="graphic.cpp" />
     <ClCompile Include="HP.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="SceneExplanation.cpp" />
     <ClCompile Include="SceneFedo.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="SkyEnemy.cpp" />
@@ -160,12 +163,14 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animation.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="graphic.h" />
     <ClInclude Include="GraphMode.h" />
     <ClInclude Include="HP.h" />
     <ClInclude Include="Map.h" />
@@ -173,6 +178,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="SceneExplanation.h" />
     <ClInclude Include="SceneFedo.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="SkyEnemy.h" />

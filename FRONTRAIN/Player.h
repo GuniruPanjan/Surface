@@ -55,7 +55,7 @@ public:
 	Player();
 	~Player();
 
-	void Init(Shield& shield);
+	void Init(Shield& shield, Shot shot[]);
 	void InitShot(Shot shot[]);
 	void Update(Player& player, Map& map, Shield& shield);
 	//ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è‚ğæ“¾‚·‚é

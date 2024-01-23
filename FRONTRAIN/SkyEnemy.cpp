@@ -29,7 +29,12 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 
 	Senemy.T = 0;
 
-	enemy.SkyEnemyGraph = LoadGraph("date/空のエネミー.png");
+	enemy.S = 0;
+
+	enemy.Time = 0;
+
+	LoadDivGraph("date/SkyEnemy.png", 3, 3, 1, 15, 20, enemy.SkyHandle);
+
 }
 
 void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy,Shield& shield)
@@ -38,7 +43,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 	double tb, tbx, tby, px, py, sx, sy;
 
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 180 + (3 * Senemy.T))
+	if (time->EnemyTime == 180 +  (3 * Senemy.T))
 	{
 		if (Senemy.SkyEnemyAppearance == true)
 		{
@@ -104,7 +109,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			}
 
 			//当たり判定の更新
-			enemy[i].m_colRect.SetCenter(enemy[i].SkyEnemyX + 5 + player.ScrollX, enemy[i].SkyEnemyY + 5, enemy[i].SkyEnemyWidth, enemy[i].SkyEnemyHeight);
+			enemy[i].m_colRect.SetCenter(enemy[i].SkyEnemyX + 7 + player.ScrollX, enemy[i].SkyEnemyY + 10, enemy[i].SkyEnemyWidth, enemy[i].SkyEnemyHeight);
 
 			//プレイヤーの当たり判定
 			if (enemy[i].m_colRect.IsCollision(player.m_colRect) == false)
@@ -166,18 +171,30 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 
 void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 {
+
 	//敵が生きている時
 	if (enemy.HP > 0)
 	{
 		if (enemy.Flag)
 		{
-			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY, enemy.SkyEnemyGraph, true);
+			enemy.Time++;
+			if (enemy.Time >= 20)
+			{
+				enemy.S++;
+				if (enemy.S == 3)enemy.S = 0;
+
+				enemy.Time = 0;
+			}
+
+			
+
+			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY, enemy.SkyHandle[enemy.S], true);
 
 			enemy.SkyEnemyX += enemy.PX;
 			enemy.SkyEnemyY += enemy.PY;
 
 			//敵との当たり判定
-			enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
+			//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
 		}
 		
 	}

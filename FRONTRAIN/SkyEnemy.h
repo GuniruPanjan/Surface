@@ -15,10 +15,15 @@ struct SkyEnemyStruct : public EnemyBase
 	//敵の現在地
 	float SkyEnemyX = 0.0f;
 	float SkyEnemyY = 0.0f;
-	int SkyEnemyGraph = -1;
+	int SkyHandle[3];
+
+	//アニメーション画像表示の変数
+	int S = 0;
+
+	int Time = 0;
 
 	//敵の大きさ
-	int SkyEnemyWidth = 10;
+	int SkyEnemyWidth = 15;
 	int SkyEnemyHeight = 10;
 
 	//敵がプレイヤーに向かっていく
@@ -49,6 +54,8 @@ public:
 
 	//敵の出現フラグ
 	bool SkyEnemyAppearance = true;
+
+	
 
 	//時間を進める変数
 	int T = 0;

@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Config.h"
 #include "GameOver.h"
+#include "SceneExplanation.h"
 
 
 
@@ -43,6 +44,9 @@ void SceneMgr_Update()
 	case eScene_Game: //現在の画面がゲームなら
 		Game_Update(); //ゲーム画面の更新処理をする
 		break;
+	case eScene_Explanation: //現在の画面が説明画面なら
+		Explanation_Update();  //説明画面の更新処理をする
+		break;
 	case eScene_Config: //現在の画面が設定画面なら
 		Config_Update(); //設定画面の更新処理をする
 		break;
@@ -62,6 +66,9 @@ void SceneMgr_Draw()
 		break;
 	case eScene_Game: //現在の画面がゲームなら
 		Game_Draw(); //ゲーム画面の描画処理をする
+		break;
+	case eScene_Explanation: //現在の画面が説明画面なら
+		Explanation_Draw(); //説明画面の描画処理をする
 		break;
 	case eScene_Config: //現在の画面が設定画面なら
 		Config_Draw(); //設定画面の描画処理をする
@@ -89,6 +96,9 @@ static void SceneMgr_InitializeModule(eScene scene)
 	case eScene_Game: //指定画面がゲーム画面なら
 		Game_Initialize();//ゲーム画面の初期化処理を行う
 		break;
+	case eScene_Explanation:  //指定画面が説明画面なら
+		Explanation_Initialize();  //説明画面の初期化処理を行う
+		break;
 	case eScene_Config: //指定画面が設定画面なら
 		Config_Initialize();//設定画面の初期化処理を行う
 		break;
@@ -108,6 +118,9 @@ static void SceneMgr_FinalizeModule(eScene scene)
 		break;
 	case eScene_Game: //指定画面がゲーム画面なら
 		Game_Finalize();//ゲーム画面の終了処理を行う
+		break;
+	case eScene_Explanation:  //指定画面が説明画面なら
+		Explanation_Finalize();  //説明画面の処理を行う
 		break;
 	case eScene_Config: //指定画面が設定画面なら
 		Config_Finalize();//設定画面の終了処理を行う

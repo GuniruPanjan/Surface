@@ -170,7 +170,15 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				//“–‚½‚Á‚Ä‚¢‚é
 				else if (enemy[i].m_colRect.IsCollision(player.m_colRect) == true)
 				{
-					player.HP -= Denemy.Attack;
+					//1‰ñ‚¾‚¯Às
+					if (player.PlayerDamage == false)
+					{
+						player.HP -= Denemy.Attack;
+
+						player.PlayerDamage = true;
+					}
+
+					enemy[i].HP = -1;
 				}
 
 				if (shot.Flag == 1)

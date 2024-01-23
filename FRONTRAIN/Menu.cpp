@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "SceneFedo.h"
+#include "SceneExplanation.h"
 
 SceneFedo fedo;
 
@@ -55,6 +56,13 @@ void Menu_Update()
 
 		
 	}
+	//説明画面
+	if (fedo.end == 1 && fedo.Explanation == true)
+	{
+		SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
+
+		ContinueInit = true;
+	}
 	//設定画面
 	if (fedo.end == 1 && fedo.Setting == true)
 	{
@@ -75,6 +83,13 @@ void Menu_Update()
 		
 		fedo.Start = true;
 
+	}
+	//Bキーが押されていたら
+	if (CheckHitKey(KEY_INPUT_B) != 0)
+	{
+		fedo.Out = 1;
+
+		fedo.Explanation = true;
 	}
 	//Cキーが押されていたら
 	if (CheckHitKey(KEY_INPUT_C) != 0)
@@ -97,6 +112,7 @@ void Menu_Draw()
 
 	DrawString(0, 0, "メニュー画面です", GetColor(255, 255, 255));
 	DrawString(280, 320, "AキーSTART", GetColor(255, 255, 255));
-	DrawString(280, 420, "Cキー設定", GetColor(255, 255, 255));
+	DrawString(280, 370, "Bキー操作説明", GetColor(255, 255, 255));
+	DrawString(280, 420, "Cキー記録", GetColor(255, 255, 255));
 
 }

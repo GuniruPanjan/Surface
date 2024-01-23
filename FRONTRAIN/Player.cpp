@@ -47,13 +47,13 @@ Player::~Player()
 {
 }
 
-void Player::Init(Shield& shield)
+void Player::Init(Shield& shield,Shot shot[])
 {
 	DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
 	BulletTime = 0;
 
-	Aiming = LoadGraph("date/ïWèÄ(âº).png");
+	Aiming = LoadGraph("date/ïWèÄ.png");
 
 	HP = 10;
 	Speed = 1.0f;
@@ -80,6 +80,12 @@ void Player::Init(Shield& shield)
 	Right = false;
 	PlayerRise = false;
 	Count = 0;
+
+	for (int i = 0; i < SHOT; i++)
+	{
+		shot[i].Graph = LoadGraph("date/èeíe.png");
+	}
+	
 
 	shield.LeftFlag = false;
 	shield.RightFlag = false;
@@ -276,7 +282,7 @@ void Player::Draw(Shield& shield, Player& player)
 	//ÉvÉåÉCÉÑÅ[ÇÃìñÇΩÇËîªíËÇÃï\é¶
 	player.m_colRect.Draw(GetColor(0, 0, 255), false);
 	//ïWèÄÇÃâÊëúï`âÊ
-	DrawGraph(MouseX, MouseY, Aiming, true);
+	DrawGraph(MouseX - 10, MouseY - 10, Aiming, true);
 
 	//ç∂Ç…èÇÇç\Ç¶ÇÈ
 	if (shield.LeftFlag == true)
@@ -309,7 +315,7 @@ void Player::DrawShot(Shot& shot)
 	//î≠éÀÇµÇƒÇÈíeêîÇæÇØ
 	if (shot.Flag)
 	{
-		shot.Graph = LoadGraph("date/èeíe.png");
+		//shot.Graph = LoadGraph("date/èeíe.png");
 
 		DrawGraph(shot.X, shot.Y, shot.Graph, true);
 
@@ -323,7 +329,7 @@ void Player::DrawShot(Shot& shot)
 		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
 		{
 			shot.Flag = false;
-			DeleteGraph(shot.Graph);
+			//DeleteGraph(shot.Graph);
 		}
 
 	}

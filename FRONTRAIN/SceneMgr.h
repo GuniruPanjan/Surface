@@ -3,6 +3,7 @@
 typedef enum {
 	eScene_Menu,   //メニュー画面
 	eScene_Game,   //ゲーム画面
+	eScene_Explanation,    //説明画面
 	eScene_Config, //設定画面
 	eScene_GameOver, //ゲームオーバー画面
 
