@@ -136,7 +136,6 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 
 						enemy[i].WalkShotDead = true;
 
-						//DeleteGraph(shot.Graph);
 					}
 
 				}

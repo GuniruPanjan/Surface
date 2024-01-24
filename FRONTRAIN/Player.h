@@ -55,7 +55,7 @@ public:
 	Player();
 	~Player();
 
-	void Init(Shield& shield, Shot shot[]);
+	void Init(Shield& shield, Shot shot[],Player& player);
 	void InitShot(Shot shot[]);
 	void Update(Player& player, Map& map, Shield& shield);
 	//プレイヤーの当たり判定を取得する
@@ -108,7 +108,15 @@ private:
 	
 	float Speed;
 	//プレイヤーの画像を入れる変数
-	int playerGraph;
+	int playerGraph[12];
+
+	//プレイヤーアニメーションタイム
+	int RightAnimCount;
+	int LeftAnimCount;
+
+	//プレイヤーアニメーション
+	int RightAnimTime;
+	int LeftAnimTime;
 
 	//照準の画像を入れる変数
 	int Aiming;

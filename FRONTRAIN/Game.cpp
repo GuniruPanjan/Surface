@@ -46,7 +46,7 @@ void Game_Initialize()
 
 	timecount.InitTime();
 	point.InitPoint();
-	player.Init(shield, shot);
+	player.Init(shield, shot, player);
 
 	player.InitShot(shot);
 

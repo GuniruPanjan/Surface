@@ -12,7 +12,6 @@ GraphMode graph;
 Player::Player():
 	HP(10),
 	Speed(1.0f),
-	playerGraph(-1),
 	Aiming(-1),
 	AimingW(0),
 	AimingH(0),
@@ -35,7 +34,11 @@ Player::Player():
 	Left(false),
 	Right(false),
 	PlayerRise(false),
-	Count(0)
+	Count(0),
+	RightAnimCount(0),
+	LeftAnimCount(11),
+	RightAnimTime(0),
+	LeftAnimTime(0)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -47,39 +50,45 @@ Player::~Player()
 {
 }
 
-void Player::Init(Shield& shield,Shot shot[])
+void Player::Init(Shield& shield,Shot shot[],Player& player)
 {
-	DrawGraph(PlayerX, PlayerY, playerGraph, true);
+	//DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
-	BulletTime = 0;
+	player.BulletTime = 0;
 
-	Aiming = LoadGraph("date/標準.png");
+	player.Aiming = LoadGraph("date/標準.png");
 
-	HP = 10;
-	Speed = 1.0f;
-	AimingW = 0;
-	AimingH = 0;
-	MouseX = 0;
-	MouseY = 0;
-	PlayerWidth = 16;
-	PlayerHeight = 16;
-	PlayerX = 640.0f / 12.0f;
-	PlayerY = 480.0f - 100.0f;
-	ScrollX = 0.0f;
-	ScrollY = 0.0f;
-	PlayerShotFlag = false;
-	PlayerW = 0;
-	PlayerH = 0;
-	W = 0;
-	H = 0;
-	Gravity = 0.3f;
-	PlayerRight = false;
-	PlayerDamage = false;
-	Bullet = 12;
-	Left = false;
-	Right = false;
-	PlayerRise = false;
-	Count = 0;
+	player.HP = 10;
+	player.Speed = 1.0f;
+	player.AimingW = 0;
+	player.AimingH = 0;
+	player.MouseX = 0;
+	player.MouseY = 0;
+	player.PlayerWidth = 16;
+	player.PlayerHeight = 16;
+	player.PlayerX = 640.0f / 12.0f;
+	player.PlayerY = 480.0f - 100.0f;
+	player.ScrollX = 0.0f;
+	player.ScrollY = 0.0f;
+	player.PlayerShotFlag = false;
+	player.PlayerW = 0;
+	player.PlayerH = 0;
+	player.W = 0;
+	player.H = 0;
+	player.Gravity = 0.3f;
+	player.PlayerRight = false;
+	player.PlayerDamage = false;
+	player.Bullet = 12;
+	player.Left = false;
+	player.Right = false;
+	player.PlayerRise = false;
+	player.Count = 0;
+	player.RightAnimCount = 0;
+	player.LeftAnimCount = 11;
+	player.RightAnimTime = 0;
+	player.LeftAnimTime = 0;
+
+	LoadDivGraph("date/PlayerMove.png", 12, 6, 2, 20, 25, player.playerGraph);
 
 	for (int i = 0; i < SHOT; i++)
 	{
@@ -125,6 +134,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			shield.LeftFlag = true;
 
 			shield.RightFlag = false;
+
+			player.LeftAnimCount = 11;
 		}
 		//右に盾を構える
 		if (player.PlayerX < player.MouseX)
@@ -132,6 +143,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			shield.RightFlag = true;
 
 			shield.LeftFlag = false;
+
+			player.RightAnimCount = 0;
 		}
 	}
 	//下キーを押してないとき
@@ -149,29 +162,79 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	{
 		if (Left == false)
 		{
+			//標準がプレイヤーより右なら
+			if (player.MouseX >= player.PlayerX)
+			{
+				player.RightAnimTime++;
+				if (player.RightAnimTime >= 20)
+				{
+					player.RightAnimCount++;
+
+					player.RightAnimTime = 0;
+				}
+			}
+			//標準がプレイヤーより左なら
+			else if (player.MouseX < player.PlayerX)
+			{
+				player.LeftAnimTime++;
+				if (player.LeftAnimTime >= 20)
+				{
+					player.LeftAnimCount--;
+
+					player.LeftAnimTime = 0;
+				}
+			}
+
 			player.PlayerX -= Speed;
+
+			//左端から先にいかない
+			if (player.PlayerX < 8.0f)
+			{
+				player.PlayerX = 8.0f;
+			}
 		}
 		
-		//左端から先にいかない
-		if (player.PlayerX < 8.0f)
-		{
-			player.PlayerX = 8.0f;
-		}
+		
 	}
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
 		if (Right == false)
 		{
+			//標準がプレイヤーより右なら
+			if (player.MouseX >= player.PlayerX)
+			{
+				player.RightAnimTime++;
+				if (player.RightAnimTime >= 20)
+				{
+					player.RightAnimCount++;
+
+					player.RightAnimTime = 0;
+				}
+			}
+			//標準がプレイヤーより左なら
+			else if (player.MouseX < player.PlayerX)
+			{
+				player.LeftAnimTime++;
+				if (player.LeftAnimTime >= 20)
+				{
+					player.LeftAnimCount--;
+
+					player.LeftAnimTime = 0;
+				}
+			}
+
 			player.PlayerX += player.Speed;
+
+			//真ん中から先に行くと画面がついてくる
+			if (player.PlayerX >= graph.GraphModeWIDTH / 4)
+			{
+				player.PlayerRight = true;
+				player.PlayerX = graph.GraphModeWIDTH / 4;
+			}
 		}
 
-		//真ん中から先に行くと画面がついてくる
-		if (player.PlayerX >= graph.GraphModeWIDTH / 4)
-		{
-			player.PlayerRight = true;
-			player.PlayerX = graph.GraphModeWIDTH / 4;
-		}
+		
 
 	}
 	//移動してないと画面が止まる
@@ -180,8 +243,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 		//停止中は画面のスクロールは行わない
 		player.PlayerRight = false;
 		
-		
 	}
+	
 
 	if (player.PlayerRight == true)
 	{
@@ -191,7 +254,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	}
 	
 	//当たり判定の更新
-	m_colRect.SetCenter(player.PlayerX, player.PlayerY, player.PlayerWidth, player.PlayerHeight);
+	m_colRect.SetCenter(player.PlayerX, player.PlayerY - 1, player.PlayerWidth - 2, player.PlayerHeight);
 	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
@@ -277,7 +340,25 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 
 void Player::Draw(Shield& shield, Player& player)
 {	
-	playerGraph = DrawCircle(player.PlayerX, player.PlayerY, 8, GetColor(255, 255, 255), true);
+
+	//プレイヤーよりマウスが右なら
+	if (player.MouseX >= player.PlayerX)
+	{
+
+		if (player.RightAnimCount == 6)player.RightAnimCount = 1;
+
+		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.RightAnimCount], true);
+	}
+	//プレイヤーよりマウスが左なら
+	if (player.MouseX < player.PlayerX)
+	{
+		if (player.LeftAnimCount == 6)player.LeftAnimCount = 10;
+
+		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.LeftAnimCount], true);
+
+	}
+
+	
 
 	//プレイヤーの当たり判定の表示
 	player.m_colRect.Draw(GetColor(0, 0, 255), false);

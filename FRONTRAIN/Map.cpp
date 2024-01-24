@@ -163,7 +163,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 					shot.Flag = 0;
 
-					DeleteGraph(shot.Graph);
 				}
 
 				if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -215,7 +214,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						enemyShot[e].Flag = 0;
 
-						DeleteGraph(enemyShot[e].Graph);
 					}
 				}
 				
@@ -364,7 +362,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -415,7 +412,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -528,7 +524,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -579,7 +574,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -727,7 +721,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -778,7 +771,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -928,7 +920,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -979,7 +970,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -1127,7 +1117,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -1178,7 +1167,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -1365,7 +1353,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -1416,7 +1403,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -1564,7 +1550,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -1615,7 +1600,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}
@@ -1764,7 +1748,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						DeleteGraph(shot.Graph);
 					}
 
 					if (m_colRect.IsCollision(player.m_colRect) == true)
@@ -1815,7 +1798,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 							//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 							enemyShot[e].Flag = 0;
 
-							DeleteGraph(enemyShot[e].Graph);
 						}
 					}
 				}

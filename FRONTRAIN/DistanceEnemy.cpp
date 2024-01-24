@@ -65,6 +65,8 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 		shot[i].Flag = false;
 
 		shot[i].ShotDamage = 2;
+
+		shot[i].Graph = LoadGraph("date/e’e.png");
 	}
 }
 
@@ -190,18 +192,15 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					}
 					else if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == true)
 					{
-						//1‰ñ‚¾‚¯Às
-						if (player.PlayerDamage == false)
-						{
-							enemy[i].HP -= shot.Damage;
-
-							player.PlayerDamage = true;
-						}
+						enemy[i].HP -= shot.Damage;
 						
 						//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 						shot.Flag = 0;
 
-						enemy[i].DistanceShotDead = true;
+						if (enemy[i].HP <= 0)
+						{
+							enemy[i].DistanceShotDead = true;
+						}
 
 					}
 
@@ -265,7 +264,9 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 			}
 			else if (shot.m_colRect.IsCollision(shield.m_colRect) == true)
 			{
-				DeleteGraph(shot.Graph);
+				//’e‚ÌêŠ‚ğˆÚ“®
+				shot.PX = -10.0f;
+				shot.PY = -10.0f;
 
 				//ÚG‚µ‚½’e‚Ì‘¶İ‚ğÁ‚·
 				shot.Flag = 0;
@@ -280,9 +281,18 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 		}
 		else if (shot.m_colRect.IsCollision(player.m_colRect) == true)
 		{
-			player.HP -= shot.ShotDamage;
+			//1‰ñ‚¾‚¯Às
+			if (player.PlayerDamage == false)
+			{
+				player.HP -= shot.ShotDamage;
 
-			DeleteGraph(shot.Graph);
+				player.PlayerDamage = true;
+			}
+
+			//’e‚ÌêŠ‚ğˆÚ“®
+			shot.PX = -10.0f;
+			shot.PY = -10.0f;
+
 
 			//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
 			shot.Flag = 0;
@@ -360,7 +370,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
 	{
 		if (shot[i].Flag)
 		{
-			shot[i].Graph = LoadGraph("date/e’e.png");
+			//shot[i].Graph = LoadGraph("date/e’e.png");
 
 			shot[i].X += shot[i].PX;
 			shot[i].Y += shot[i].PY;
@@ -375,7 +385,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
 			{
 				shot[i].Flag = false;
 
-				DeleteGraph(shot[i].Graph);
+				//DeleteGraph(shot[i].Graph);
 			}
 
 
