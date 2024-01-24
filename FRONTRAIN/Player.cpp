@@ -157,9 +157,11 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 		Left = false;
 		Right = false;
 	}
+
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
+
 		if (Left == false)
 		{
 			//標準がプレイヤーより右なら
@@ -199,6 +201,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
+		Left = true;
+
 		if (Right == false)
 		{
 			//標準がプレイヤーより右なら
@@ -234,7 +238,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			}
 		}
 
-		
+
 
 	}
 	//移動してないと画面が止まる
