@@ -166,7 +166,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			if (player.MouseX >= player.PlayerX)
 			{
 				player.RightAnimTime++;
-				if (player.RightAnimTime >= 20)
+				if (player.RightAnimTime >= 10)
 				{
 					player.RightAnimCount++;
 
@@ -177,7 +177,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			else if (player.MouseX < player.PlayerX)
 			{
 				player.LeftAnimTime++;
-				if (player.LeftAnimTime >= 20)
+				if (player.LeftAnimTime >= 10)
 				{
 					player.LeftAnimCount--;
 
@@ -205,7 +205,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			if (player.MouseX >= player.PlayerX)
 			{
 				player.RightAnimTime++;
-				if (player.RightAnimTime >= 20)
+				if (player.RightAnimTime >= 10)
 				{
 					player.RightAnimCount++;
 
@@ -216,7 +216,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			else if (player.MouseX < player.PlayerX)
 			{
 				player.LeftAnimTime++;
-				if (player.LeftAnimTime >= 20)
+				if (player.LeftAnimTime >= 10)
 				{
 					player.LeftAnimCount--;
 
