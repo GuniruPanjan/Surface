@@ -2,8 +2,16 @@
 #include "SceneMgr.h"
 #include "DxLib.h"
 #include "SceneFedo.h"
+#include "Save.h"
+#include "Point.h"
+#include "TimeCount.h"
 
 SceneFedo settingfedo;
+
+Save save;
+
+Point savepoint;
+TimeCount savetime;
 
 static int mimageHandle;   //画像ハンドル格納用変数
 
@@ -23,6 +31,8 @@ void Config_Finalize()
 void Config_Update()
 {
 	settingfedo.UpdateInSetting();
+
+	save.SaveDraw(savepoint, savetime);
 
 	//Zキーが押されていたら
 	if (CheckHitKey(KEY_INPUT_Z) != 0)

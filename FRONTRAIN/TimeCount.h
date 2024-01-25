@@ -20,5 +20,7 @@ public:
 	int timenow;
 	int EnemyTime;  //エネミーの出現時間
 	int time;  //スタート時刻を記憶しておく
+
+	int SaveTime;  //時間をセーブする
 };
 

@@ -15,6 +15,9 @@ public:
 
 	int PointNow, WenemyPoint,SenemyPoint,DenemyPoint;
 
+	int PointPoint;
+	int DistancePoint;
+
 	//プレイヤーの移動距離ポイント加算区分
 	int PlayerMove = 0;
 

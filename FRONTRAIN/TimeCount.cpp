@@ -5,7 +5,8 @@ TimeCount::TimeCount():
 	cnt(0),
 	test(0),
 	EnemyTime(0),
-	timenow(0)
+	timenow(0),
+	SaveTime(0)
 {
 	time = GetNowCount();    //Œ»İŠÔ‚ğ“¾‚é
 	
@@ -22,6 +23,7 @@ void TimeCount::InitTime()
 	time = 0;
 	time = GetNowCount(); //Œ»İŠÔ‚ğ“¾‚é
 	timenow = 0;
+	SaveTime = 0;
 }
 
 void TimeCount::UpdateTime(Point& point)
@@ -40,10 +42,12 @@ void TimeCount::UpdateTime(Point& point)
 
 void TimeCount::DrawTime()
 {
+	SaveTime = (GetNowCount() - time) / 1000;
+
 	if (flg)
 	{
 		//DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", (GetNowCount() - time) / 1000);
 	}
-	DrawFormatString(250, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", (GetNowCount() - time) / 1000);
+	DrawFormatString(250, 0, GetColor(0, 0, 0), "Œo‰ßŠÔ:%d", SaveTime);
 
 }
