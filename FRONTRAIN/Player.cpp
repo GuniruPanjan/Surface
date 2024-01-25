@@ -27,6 +27,7 @@ Player::Player():
 	PlayerW(0),
 	PlayerH(0),
 	Gravity(0),
+	BulletTime(0),
 	W(0),
 	H(0),
 	PlayerRight(false),
@@ -79,6 +80,7 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.PlayerRight = false;
 	player.PlayerDamage = false;
 	player.Bullet = 12;
+	player.BulletTime = 0;
 	player.Left = false;
 	player.Right = false;
 	player.PlayerRise = false;
@@ -157,6 +159,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 		Left = false;
 		Right = false;
 	}
+
+	
 
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
@@ -278,8 +282,23 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 
 void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {
+	//右クリックで弾をリロード
+	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	{
+		player.PlayerShotFlag = true;
+
+		player.BulletTime++;
+		if (player.BulletTime >= 40)
+		{
+			player.Bullet = 12;
+
+			player.BulletTime = 0;
+		}
+
+		
+	}
 	//マウスキー(左クリック)が押されると発射
-	if (GetMouseInput() & MOUSE_INPUT_LEFT)
+	else if (GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
 		//弾が入っていると撃てる
 		if (player.Bullet > 0)
@@ -329,15 +348,11 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 	}
 	else
 	{
-		player.PlayerShotFlag = false;
-	}
-
-	//右クリックで弾をリロード
-	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
-	{
-		player.PlayerShotFlag = true;
-
-		player.Bullet = 12;
+		if (player.BulletTime <= 40)
+		{
+			player.PlayerShotFlag = false;
+		}
+		
 	}
 
 }
@@ -365,7 +380,7 @@ void Player::Draw(Shield& shield, Player& player)
 	
 
 	//プレイヤーの当たり判定の表示
-	player.m_colRect.Draw(GetColor(0, 0, 255), false);
+	//player.m_colRect.Draw(GetColor(0, 0, 255), false);
 	//標準の画像描画
 	DrawGraph(MouseX - 10, MouseY - 10, Aiming, true);
 
@@ -378,7 +393,7 @@ void Player::Draw(Shield& shield, Player& player)
 		//当たり判定の更新
 		shield.m_colRect.SetCenter(player.PlayerX - 13, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
 
-		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
+		//shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 	}
 	//右に盾を構える
 	if (shield.RightFlag == true)
@@ -389,7 +404,7 @@ void Player::Draw(Shield& shield, Player& player)
 		//当たり判定の更新
 		shield.m_colRect.SetCenter(player.PlayerX + 12, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
 
-		shield.m_colRect.Draw(GetColor(0, 0, 255), false);
+		//shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 
 	}
 }

@@ -73,7 +73,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize,Shield& shield)
 {
 	//ŠÔ‚ª‚½‚Â‚Æ“G‚ªoŒ»
-	if (time->EnemyTime == 360 + (10 * Denemy.T))
+	if (time->EnemyTime == 60 + (10 * Denemy.T))
 	{
 		if (Denemy.DistanceEnemyAppearance == true)
 		{
@@ -250,7 +250,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 	    enemy[i].EnemyShotFlag = true;
 	}
 
-	if (shot.Flag == 1)
+	if (shot.Flag == true)
 	{
 
 		//‚‚Æ‚ÌÚG”»’è
@@ -269,7 +269,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 				shot.PY = -10.0f;
 
 				//ÚG‚µ‚½’e‚Ì‘¶İ‚ğÁ‚·
-				shot.Flag = 0;
+				shot.Flag = false;
 			}
 		}
 
@@ -295,7 +295,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 
 
 			//ÚG‚µ‚Ä‚¢‚éê‡‚Í“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
-			shot.Flag = 0;
+			shot.Flag = false;
 		}
 
 	}
@@ -316,7 +316,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 		}
 
 		//ƒGƒlƒ~[‚Ì“–‚½‚è”»’è‚Ì•\¦
-		enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
+		//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
 	}
 	//“G‚ª€‚ñ‚¾
 	else if (enemy.HP <= 0)
@@ -379,6 +379,8 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
 
 			//‚ ‚½‚è”»’è‚ÌXV
 			shot[i].m_colRect.SetCenter(shot[i].X + ScrollX, shot[i].Y, shot[i].Width, shot[i].Height);
+
+			shot[i].m_colRect.Draw(GetColor(0, 0, 255), false);
 
 			//‰æ–Êã‚És‚«‚·‚¬‚½‚çÁ‚·
 			if (shot[i].Y <= -10)

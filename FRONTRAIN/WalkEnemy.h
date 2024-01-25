@@ -14,7 +14,7 @@ struct WalkEnemyStruct : public EnemyBase
 	//敵の現在地
 	float WalkEnemyX = 0.0f; 
     float WalkEnemyY = 0.0f;
-	int WalkEnemyGraph = -1;
+	int WalkEnemyGraph[12];
 
 	//敵の大きさ
 	int WalkEnemyWidth = 20;
@@ -26,6 +26,11 @@ struct WalkEnemyStruct : public EnemyBase
 	bool WalkEnemyDead = false;
 	//敵が弾で死んだ判定
 	bool WalkShotDead = false;
+
+	//アニメーションタイム
+	int AnimTime;
+
+	int RightAnim, LeftAnim;
 
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;
@@ -40,7 +45,7 @@ public:
 
 	void Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy, int WenemySize);
 	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
-	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize);
+	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize,Player& player);
 
 	EnemyBase Base;
 	WalkEnemyStruct WenemyS[ENEMY_NOW];

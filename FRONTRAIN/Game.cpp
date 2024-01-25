@@ -131,7 +131,7 @@ void Game_Draw()
 	DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX);
 
 
-	WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW);
+	WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player);
 
 	for (int i = 0; i < SKY_ENEMY_NOW; i++)
 	{
