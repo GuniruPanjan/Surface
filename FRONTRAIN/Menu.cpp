@@ -110,9 +110,12 @@ void Menu_Draw()
 
 	fedo.StartUpdate();
 
+	SetFontSize(24);
+
+	ChangeFont("アプリ明朝", DX_CHARSET_DEFAULT);
 	DrawString(0, 0, "メニュー画面です", GetColor(255, 255, 255));
-	DrawString(280, 320, "AキーSTART", GetColor(255, 255, 255));
-	DrawString(280, 370, "Bキー操作説明", GetColor(255, 255, 255));
-	DrawString(280, 420, "Cキー記録", GetColor(255, 255, 255));
+	DrawString(250, 310, "AキーSTART", GetColor(255, 255, 255));
+	DrawString(250, 370, "Bキー操作説明", GetColor(255, 255, 255));
+	DrawString(250, 430, "Cキー記録", GetColor(255, 255, 255));
 
 }

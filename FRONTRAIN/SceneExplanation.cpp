@@ -36,5 +36,5 @@ void Explanation_Draw()
 {
 	DrawGraph(0, 0, ExplanationHandle, TRUE);
 
-	DrawString(180, 420, "Zキーを押すとメニュー画面に戻ります", GetColor(0, 0, 0));
+	DrawString(130, 420, "Zキーを押すとメニュー画面に戻ります", GetColor(0, 0, 0));
 }

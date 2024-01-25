@@ -40,7 +40,7 @@ void Point::UpdatePoint(Player& player,int ScrollX)
 void Point::DrawPoint(Player& player,int ScrollX)
 {
 
-	DrawFormatString(500, 430, GetColor(255, 255, 255), "移動距離:%dm", -ScrollX / 100);
+	DrawFormatString(450, 430, GetColor(255, 255, 255), "移動距離:%dm", -ScrollX / 100);
 
-	DrawFormatString(300, 460, GetColor(255, 255, 255), "ポイント:%d", PointNow + WenemyPoint + SenemyPoint + DenemyPoint + MovePoint);
+	DrawFormatString(250, 450, GetColor(255, 255, 255), "ポイント:%d", PointNow + WenemyPoint + SenemyPoint + DenemyPoint + MovePoint);
 }

@@ -94,7 +94,7 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 
 	for (int i = 0; i < SHOT; i++)
 	{
-		shot[i].Graph = LoadGraph("date/e’e.png");
+		shot[i].Graph = LoadGraph("date/e’e‚¾.png");
 	}
 	
 

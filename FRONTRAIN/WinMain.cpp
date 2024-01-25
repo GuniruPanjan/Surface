@@ -7,12 +7,16 @@
 //#include "TimeCount.h"
 //#include "Point.h"
 #include "SceneMgr.h"
+#include "Font.h"
+
+Font font;
 
 // プログラムは WinMain から始まります
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 
 {
+
 	GraphMode graph;
 
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
@@ -33,6 +37,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
+
+	font.FontInit();
 	SceneMgr_Initialize();
 	// ゲームループ
 

@@ -38,6 +38,6 @@ void Config_Draw()
 	DrawGraph(0, 0, mimageHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 125);
 
-	DrawString(200, 240, "記録画面ですまだできてませんすいません", GetColor(255, 255, 255));
-	DrawString(200, 240 + 20, "Zキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
+	DrawString(100, 240, "記録画面ですまだできてませんすいません", GetColor(255, 255, 255));
+	DrawString(100, 280, "Zキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
 }

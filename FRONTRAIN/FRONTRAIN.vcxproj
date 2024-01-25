@@ -144,6 +144,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="graphic.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Save.cpp" />
     <ClCompile Include="SceneExplanation.cpp" />
     <ClCompile Include="SceneFedo.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="graphic.h" />
@@ -178,6 +181,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Save.h" />
     <ClInclude Include="SceneExplanation.h" />
     <ClInclude Include="SceneFedo.h" />
     <ClInclude Include="SceneMgr.h" />

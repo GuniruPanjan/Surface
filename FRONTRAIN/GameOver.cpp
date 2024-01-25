@@ -29,6 +29,7 @@ void GameOver_Update()
 	{
 		SceneMgr_ChageScene(eScene_Config);//シーンをメニューに変更
 	}
+
 }
 
 void GameOver_Draw()

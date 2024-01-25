@@ -3,7 +3,7 @@
 #include "Point.h"
 #include "TimeCount.h"
 #include "Player.h"
-#define ENEMY_SHOT 30
+#define ENEMY_SHOT 100
 
 class Player;
 class Shot;

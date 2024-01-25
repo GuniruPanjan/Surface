@@ -66,7 +66,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 
 		shot[i].ShotDamage = 2;
 
-		shot[i].Graph = LoadGraph("date/e’e.png");
+		shot[i].Graph = LoadGraph("date/e’e‚¾.png");
 	}
 }
 
@@ -84,7 +84,9 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				if (enemy[i].DistanceEnemyflag == false)
 				{
 					//Œ»ÝŽžŠÔ‚ð“¾‚é
-					enemy[i].Time = GetNowCount();
+					//enemy[i].Time = GetNowCount();
+
+					//enemy[i].Time = 0;
 
 					enemy[i].DistanceEnemyDead = false;
 
@@ -145,7 +147,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				}
 
 				//“G‚ÌUŒ‚s“®
-				enemy[i].ShotEnemy = (GetNowCount() - enemy[i].Time) / 1000;
+				/*enemy[i].ShotEnemy = (GetNowCount() - enemy[i].Time) / 1000;
 
 				if (enemy[i].ShotEnemy == 4 * enemy[i].ShotDistance)
 				{
@@ -157,6 +159,19 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					}
 
 					enemy[i].ShotDistance++;
+				}*/
+
+				enemy[i].Time++;
+				if (enemy[i].Time >= 3000)
+				{
+					enemy[i].EnemyShotFlag = false;
+
+					for (int j = 0; j < EnemyShotSize; j++)
+					{
+						enemyshot[j].Flag = false;
+					}
+
+					enemy[i].Time = 0;
 				}
 
 

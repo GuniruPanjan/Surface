@@ -44,6 +44,6 @@ void TimeCount::DrawTime()
 	{
 		//DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", (GetNowCount() - time) / 1000);
 	}
-	DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", (GetNowCount() - time) / 1000);
+	DrawFormatString(250, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", (GetNowCount() - time) / 1000);
 
 }
