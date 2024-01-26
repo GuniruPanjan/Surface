@@ -5,8 +5,12 @@
 #include "Config.h"
 #include "GameOver.h"
 #include "SceneExplanation.h"
+#include "Point.h"
+#include "TimeCount.h"
 
+Point pointsave;
 
+TimeCount timesave;
 
 static eScene mScene = eScene_Menu; //現シーンの管理変数
 static eScene mNextScene = eScene_None; //次のシーン管理変数
@@ -48,7 +52,7 @@ void SceneMgr_Update()
 		Explanation_Update();  //説明画面の更新処理をする
 		break;
 	case eScene_Config: //現在の画面が設定画面なら
-		Config_Update(); //設定画面の更新処理をする
+		Config_Update(pointsave, timesave); //設定画面の更新処理をする
 		break;
 	case eScene_GameOver://現在の画面がゲームオーバー画面なら
 		GameOver_Update(); //ゲームオーバー画面の更新処理をする
@@ -71,7 +75,7 @@ void SceneMgr_Draw()
 		Explanation_Draw(); //説明画面の描画処理をする
 		break;
 	case eScene_Config: //現在の画面が設定画面なら
-		Config_Draw(); //設定画面の描画処理をする
+		Config_Draw(pointsave, timesave); //設定画面の描画処理をする
 		break;
 	case eScene_GameOver://現在の画面がゲームオーバー画面なら
 		GameOver_Draw(); //ゲームオーバー画面の描画処理をする

@@ -10,12 +10,30 @@ SceneFedo fedo;
 
 static int mimageHandle;  //画像ハンドル格納用変数
 
+static int Graph[9];   //画像ハンドル格納用変数
+
+static int AnimCount; //アニメーションカウント
+
+static int Time; //アニメーションタイム
+
+static bool Plus, Mainas;
+
 bool ContinueInit; //コンテニューしたときに初期化する
 
 //初期化
 void Menu_Initialize()
 {
 	mimageHandle = LoadGraph("date/スタート画面.png");    //画像ロード
+
+	LoadDivGraph("date/Danceto.png", 9, 3, 3, 160, 90, Graph);
+
+	AnimCount = 0;
+
+	Time = 0;
+
+	Plus = true;
+
+	Mainas = false;
 
 	ContinueInit = true;
 }
@@ -24,6 +42,11 @@ void Menu_Initialize()
 void Menu_Finalize()
 {
 	DeleteGraph(mimageHandle); //画像の解放
+
+	for (int i = 0; i < 9; i++)
+	{
+		DeleteGraph(Graph[i]);
+	}
 
 	fedo.Init();
 }
@@ -107,6 +130,41 @@ void Menu_Draw()
 	fedo.Draw();
 
 	DrawGraph(0, 0, mimageHandle, false);
+
+	Time++;
+	if (Time >= 5)
+	{
+
+		
+		if (Plus == true)
+		{
+			AnimCount++;
+
+			if (AnimCount >= 9)
+			{
+				Plus = false;
+
+				Mainas = true;
+			}
+		}
+		if (Mainas == true)
+		{
+			AnimCount--;
+
+			if (AnimCount <= 0)
+			{
+				Mainas = false;
+
+				Plus = true;
+			}
+		}
+		
+
+		Time = 0;
+	}
+	
+
+	DrawGraph(0, 50, Graph[AnimCount], true);
 
 	fedo.StartUpdate();
 

@@ -44,10 +44,6 @@ void TimeCount::DrawTime()
 {
 	SaveTime = (GetNowCount() - time) / 1000;
 
-	if (flg)
-	{
-		//DrawFormatString(300, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", (GetNowCount() - time) / 1000);
-	}
 	DrawFormatString(250, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", SaveTime);
 
 }

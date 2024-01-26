@@ -12,6 +12,7 @@
 #include "SkyEnemy.h"
 #include "DistanceEnemy.h"
 #include "SceneFedo.h"
+#include "Save.h"
 
 Player player;
 HP hp;
@@ -34,6 +35,8 @@ TimeCount timecount;
 Point point;
 
 SceneFedo scenefedo;
+
+Save save;
 
 bool Isflag = false;
 
@@ -64,8 +67,6 @@ void Game_Initialize()
 		DEnemy.Init(DenemyS[i], DEnemy);
 	}
 	map.InitMap();
-
-	DistanceDown = LoadGraph("date/爆発Down.png");
 }
 
 //終了処理
@@ -105,6 +106,8 @@ void Game_Update()
 	//プレイヤーが死亡すると
 	if (player.HP <= 0)
 	{
+		save.SaveDate(point,timecount);
+
 		scenefedo.DeadOut();
 
 		SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更

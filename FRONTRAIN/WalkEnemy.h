@@ -32,6 +32,13 @@ struct WalkEnemyStruct : public EnemyBase
 
 	int RightAnim, LeftAnim;
 
+	//死んだアニメーション
+	int Handle[14];
+
+	//アニメーションタイム
+	int AnimCount;
+	int AnimTimeDead;
+
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;
 	

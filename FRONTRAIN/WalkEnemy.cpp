@@ -31,6 +31,12 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 		enemy[i].LeftAnim = 0;
 
 		LoadDivGraph("date/WalkEnemy.png", 12, 6, 2, 20, 25, enemy[i].WalkEnemyGraph);
+
+		LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, enemy[i].Handle);
+
+		enemy[i].AnimCount = 9;
+
+		enemy[i].AnimTimeDead = 0;
 	}
 
 	Wenemy.Attack = 2;
@@ -202,6 +208,16 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 		{
 			if (enemy[i].WalkEnemyDead == false)
 			{
+				enemy[i].AnimTimeDead++;
+				if (enemy[i].AnimTimeDead >= 5)
+				{
+					enemy[i].AnimCount++;
+
+					enemy[i].AnimTimeDead = 0;
+				}
+
+				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].Handle[enemy[i].AnimCount], true);
+
 				enemy[i].m_colRect.SetCenter(0, 0, 0, 0);
 				if (enemy[i].WalkShotDead == true)
 				{
@@ -212,16 +228,29 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				enemy[i].WalkEnemyflag = false;
 
-				enemy[i].HP = 10;
+				if (enemy[i].AnimCount == 13)
+				{
+					enemy[i].HP = 10;
 
-				enemy[i].WalkEnemyX = -30.0f;
-				enemy[i].WalkEnemyY = -30.0f;
+					enemy[i].WalkEnemyX = -30.0f;
+					enemy[i].WalkEnemyY = -30.0f;
 
-				enemy[i].WalkEnemyDead = true;
+
+
+					enemy[i].WalkEnemyDead = true;
+				}
+
+				
 			}
 
 		}
+		if (enemy[i].WalkEnemyDead == true)
+		{
+			enemy[i].AnimCount = 9;
+		}
+
 	}
+	
 	
 	
 }

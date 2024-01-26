@@ -67,6 +67,13 @@ struct DistanceEnemyStruct : public EnemyBase
 	//前のフレームで撃ったかどうか
 	bool EnemyShotFlag = false;
 
+	//死んだアニメーション
+	int Handle[14];
+
+	//アニメーションタイム
+	int AnimCount;
+	int AnimTime;
+
 };
 class DistanceEnemy : public EnemyBase
 {

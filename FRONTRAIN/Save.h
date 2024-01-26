@@ -16,7 +16,11 @@ public:
 	Save();
 	~Save();
 
-	void SaveDraw(Point& point, TimeCount& timecount);
+	void SaveDate(Point& point, TimeCount& timecount);
+
+	void SaveLoad();
+
+	save_data_t save_date;
 
 };
 

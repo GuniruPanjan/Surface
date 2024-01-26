@@ -3,23 +3,6 @@
 #include<cmath>
 #include<math.h>
 
-//DisEnemyで使用するアニメーション定数
-namespace
-{
-	//画像サイズ
-	int kWidth = 30;
-	int kHeight = 30;
-
-	//キャラクター1コマのフレーム数
-	constexpr int kAnimFrameNum = 8;
-
-	//キャラクターがやられた時のアニメーション
-	constexpr int kUseDownFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
-	//アニメーション1サイクルのフレーム数
-	constexpr int kAnimFrameCycle = _countof(kUseDownFrame) * kAnimFrameNum;
-
-}
-
 DistanceEnemy::DistanceEnemy()
 {
 }
@@ -56,6 +39,12 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 	enemy.m_DeadAnimFrame;
 
 	enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
+
+	LoadDivGraph("date/爆発Down.png", 14, 8, 2, 30, 30, enemy.Handle);
+
+	enemy.AnimCount = 0;
+
+	enemy.AnimTime = 0;
 }
 
 void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
@@ -162,7 +151,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				}*/
 
 				enemy[i].Time++;
-				if (enemy[i].Time >= 3000)
+				if (enemy[i].Time >= 4000)
 				{
 					enemy[i].EnemyShotFlag = false;
 
@@ -335,45 +324,54 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	}
 	//敵が死んだ時
 	else if (enemy.HP <= 0)
-	{
-		if (enemy.HP <= 0)
-		{
-			//死んだアニメーション
-			enemy.m_DeadAnimFrame++;
-			if (enemy.m_DeadAnimFrame >= kAnimFrameCycle) enemy.m_DeadAnimFrame = 0;
-		}
-		else
-		{
-			enemy.m_DeadAnimFrame = kAnimFrameNum;
-		}
-
-		int animFrame = enemy.m_DeadAnimFrame / kAnimFrameNum;
-
-		int srcX = kUseDownFrame[animFrame] * kWidth;
-		int srcY = kHeight * 0;
+	{	
 
 		if (enemy.DistanceEnemyDead == false)
 		{
-			if (enemy.DistanceShotDead == true)
+			enemy.AnimTime++;
+			if (enemy.AnimTime >= 5)
 			{
-				point.DenemyPoint += 120;
-
-				enemy.DistanceShotDead = false;
+				enemy.AnimCount++;
+				
+				enemy.AnimTime = 0;
 			}
+
+			DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.Handle[enemy.AnimCount], true);
+
+
 			
-			enemy.DistanceEnemyflag = false;
+				if (enemy.DistanceShotDead == true)
+				{
+					point.DenemyPoint += 120;
 
-			/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
-				, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
+					enemy.DistanceShotDead = false;
+				}
 
-			enemy.HP = 5;
+				enemy.DistanceEnemyflag = false;
 
-			enemy.DistanceEnemyX = -30.0f;
-			enemy.DistanceEnemyY = -30.0f;
+				if (enemy.AnimCount == 13)
+				{
 
-			enemy.DistanceEnemyDead = true;
+					/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
+						, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
+
+					enemy.HP = 5;
+
+					enemy.DistanceEnemyX = -30.0f;
+					enemy.DistanceEnemyY = -30.0f;
+
+					enemy.DistanceEnemyDead = true;
+
+				}
+
+			
 		}
+		
 
+	}
+	if (enemy.DistanceEnemyDead == true)
+	{
+		enemy.AnimCount = 0;
 	}
 }
 
