@@ -106,17 +106,26 @@ void Game_Update()
 	//プレイヤーが死亡すると
 	if (player.HP <= 0)
 	{
+
 		save.SaveDate(point,timecount);
 
 		scenefedo.DeadOut();
 
 		SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
+
+		if (scenefedo.WhiteCount >= 256)
+		{
+			
+		}
+		
 	}
 }
 
 //描画処理
 void Game_Draw()
 {
+	scenefedo.Draw();
+
 	Back.Draw();
 
 	timecount.DrawTime();
@@ -149,6 +158,11 @@ void Game_Draw()
 	{
 		map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot,ENEMY_SHOT);
 	}
-
 	
+	//プレイヤーが死亡すると
+	/*if (player.HP <= 0)
+	{
+		scenefedo.WhiteOut();
+	}*/
+
 }

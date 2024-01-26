@@ -13,6 +13,7 @@ public:
 	void UpdateInSetting();
 	void UpdateIn();
 	void DeadOut();
+	//void WhiteOut();
 	void Draw();
 
 	int c = 0, White, a;
@@ -26,6 +27,11 @@ public:
 
 	//スタート画面用の演出ハンドル
 	int handle;
+
+	//白い画面
+	int WhiteHandle;
+
+	int WhiteCount, WhiteTime;
 
 	//カウント
 	int Count;

@@ -10,7 +10,10 @@ SceneFedo::SceneFedo():
 	Start(false),
 	Setting(false),
 	Count(0),
-	handle(0)
+	handle(0),
+	WhiteHandle(0),
+	WhiteCount(0),
+	WhiteTime(0)
 {
 }
 
@@ -37,7 +40,13 @@ void SceneFedo::Init()
 
 	Count = 0;
 
+	WhiteCount = 0;
+
+	WhiteTime = 0;
+
 	handle = LoadGraph("date/スタート画面演出.png");
+
+	WhiteHandle = LoadGraph("date/WhiteOut.png");
 }
 
 void SceneFedo::Update()
@@ -54,7 +63,7 @@ void SceneFedo::Update()
 
 	if (Out == 1)
 	{
-		c++;                 //cをカウントアップ
+		c += 2;                 //cをカウントアップ
 	}
 
 	if (c >= 256)     //暗くなり終わったら終了
@@ -101,6 +110,20 @@ void SceneFedo::DeadOut()
 
 	SetDrawBright(a, a, a);
 }
+
+//void SceneFedo::WhiteOut()
+//{
+//	WhiteTime++;
+//	//1フレーム後
+//	if (WhiteTime >= 56)
+//	{
+//		WhiteCount += 1;
+//	}
+//
+//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, WhiteCount);
+//	DrawGraph(0, 0, WhiteHandle, TRUE);
+//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+//}
 
 void SceneFedo::Draw()
 {

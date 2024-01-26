@@ -18,5 +18,7 @@ void Background::Init()
 
 void Background::Draw()
 {
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	DrawGraph(0, 0, BackGroundGraph, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 150);
 }
