@@ -50,18 +50,15 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 void Save::SaveInput()
 {
-
-	
-
 	DrawFormatString(120, 100, White, "8文字以内で名前を入力してください");
 
 	DrawKeyInputModeString(640, 480);
 	DrawKeyInputString(250, 150, name);
 
-	DrawFormatString(100, 300, White, "決まったらSPACEキーを押してください");
+	DrawFormatString(100, 300, White, "決まったらマウス右クリックしてください");
 
-	//SPACEキーが押されたら
-	if (CheckHitKey(KEY_INPUT_SPACE) != 0)
+	//マウスの右クリックが押されたら
+	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
 	{
 		if (name == NULL)
 		{

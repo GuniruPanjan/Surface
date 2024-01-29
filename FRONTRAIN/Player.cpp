@@ -40,7 +40,9 @@ Player::Player():
 	LeftAnimCount(11),
 	RightAnimTime(0),
 	LeftAnimTime(0),
-	DeadAnim(0)
+	DeadAnim(0),
+	DeadAnimTime(0),
+	DeadAnimCount(9)
 {
 	//’e‰Šú‰»
 	memset(shot, 0, sizeof(shot));
@@ -92,6 +94,11 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.LeftAnimCount = 11;
 	player.RightAnimTime = 0;
 	player.LeftAnimTime = 0;
+
+	player.DeadAnimCount = 9;
+	player.DeadAnimTime = 0;
+
+	LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, player.DeadGraph);
 
 	LoadDivGraph("date/PlayerMove.png", 12, 6, 2, 20, 25, player.playerGraph);
 
@@ -416,6 +423,17 @@ void Player::Draw(Shield& shield, Player& player)
 	//ƒvƒŒƒCƒ„[‚ª€–S‚µ‚½‚ç
 	if (player.HP <= 0)
 	{
+		player.DeadAnimTime++;
+		if (player.DeadAnimTime >= 5)
+		{
+			player.DeadAnimCount++;
+
+			player.DeadAnimTime = 0;
+		}
+
+		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.DeadGraph[player.DeadAnimCount], true);
+
+
 		for (int i = 0; i < 12; i++)
 		{
 			DeleteGraph(player.playerGraph[i]);
@@ -425,7 +443,11 @@ void Player::Draw(Shield& shield, Player& player)
 
 		player.PlayerShotFlag = true;
 
-		DrawGraph(player.PlayerX - 10, player.PlayerY - 17, player.DeadAnim, true);
+		if (player.DeadAnimCount >= 13)
+		{
+			DrawGraph(player.PlayerX - 10, player.PlayerY - 17, player.DeadAnim, true);
+		}
+		
 
 	}
 
