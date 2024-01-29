@@ -11,6 +11,8 @@ static int mimageHandle;  //画像ハンドル格納用変数
 void GameOver_Initialize()
 {
 	mimageHandle = LoadGraph("date/ゲームオーバー画面.png");  //画像のロード
+
+	Scenefedo.Init();
 }
 
 //終了処理

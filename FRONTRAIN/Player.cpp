@@ -39,7 +39,8 @@ Player::Player():
 	RightAnimCount(0),
 	LeftAnimCount(11),
 	RightAnimTime(0),
-	LeftAnimTime(0)
+	LeftAnimTime(0),
+	DeadAnim(0)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -58,6 +59,8 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.BulletTime = 0;
 
 	player.Aiming = LoadGraph("date/標準.png");
+
+	player.DeadAnim = LoadGraph("date/墓.png");
 
 	player.HP = 10;
 	player.Speed = 1.0f;
@@ -148,6 +151,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 
 			player.RightAnimCount = 0;
 		}
+		
 	}
 	//下キーを押してないとき
 	else if (CheckHitKey(KEY_INPUT_DOWN) == false)
@@ -160,89 +164,90 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 		Right = false;
 	}
 
-	
-
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
-
-		if (Left == false)
+		if (player.HP >= 0)
 		{
-			//標準がプレイヤーより右なら
-			if (player.MouseX >= player.PlayerX)
+
+			if (Left == false)
 			{
-				player.RightAnimTime++;
-				if (player.RightAnimTime >= 10)
+				//標準がプレイヤーより右なら
+				if (player.MouseX >= player.PlayerX)
 				{
-					player.RightAnimCount++;
+					player.RightAnimTime++;
+					if (player.RightAnimTime >= 10)
+					{
+						player.RightAnimCount++;
 
-					player.RightAnimTime = 0;
+						player.RightAnimTime = 0;
+					}
 				}
-			}
-			//標準がプレイヤーより左なら
-			else if (player.MouseX < player.PlayerX)
-			{
-				player.LeftAnimTime++;
-				if (player.LeftAnimTime >= 10)
+				//標準がプレイヤーより左なら
+				else if (player.MouseX < player.PlayerX)
 				{
-					player.LeftAnimCount--;
+					player.LeftAnimTime++;
+					if (player.LeftAnimTime >= 10)
+					{
+						player.LeftAnimCount--;
 
-					player.LeftAnimTime = 0;
+						player.LeftAnimTime = 0;
+					}
 				}
-			}
 
-			player.PlayerX -= Speed;
+				player.PlayerX -= Speed;
 
-			//左端から先にいかない
-			if (player.PlayerX < 8.0f)
-			{
-				player.PlayerX = 8.0f;
+				//左端から先にいかない
+				if (player.PlayerX < 8.0f)
+				{
+					player.PlayerX = 8.0f;
+				}
 			}
 		}
-		
 		
 	}
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
-		Left = true;
-
-		if (Right == false)
+		if (player.HP >= 0)
 		{
-			//標準がプレイヤーより右なら
-			if (player.MouseX >= player.PlayerX)
+			Left = true;
+
+			if (Right == false)
 			{
-				player.RightAnimTime++;
-				if (player.RightAnimTime >= 10)
+				//標準がプレイヤーより右なら
+				if (player.MouseX >= player.PlayerX)
 				{
-					player.RightAnimCount++;
+					player.RightAnimTime++;
+					if (player.RightAnimTime >= 10)
+					{
+						player.RightAnimCount++;
 
-					player.RightAnimTime = 0;
+						player.RightAnimTime = 0;
+					}
 				}
-			}
-			//標準がプレイヤーより左なら
-			else if (player.MouseX < player.PlayerX)
-			{
-				player.LeftAnimTime++;
-				if (player.LeftAnimTime >= 10)
+				//標準がプレイヤーより左なら
+				else if (player.MouseX < player.PlayerX)
 				{
-					player.LeftAnimCount--;
+					player.LeftAnimTime++;
+					if (player.LeftAnimTime >= 10)
+					{
+						player.LeftAnimCount--;
 
-					player.LeftAnimTime = 0;
+						player.LeftAnimTime = 0;
+					}
 				}
-			}
 
-			player.PlayerX += player.Speed;
+				player.PlayerX += player.Speed;
 
-			//真ん中から先に行くと画面がついてくる
-			if (player.PlayerX >= graph.GraphModeWIDTH / 4)
-			{
-				player.PlayerRight = true;
-				player.PlayerX = graph.GraphModeWIDTH / 4;
+				//真ん中から先に行くと画面がついてくる
+				if (player.PlayerX >= graph.GraphModeWIDTH / 4)
+				{
+					player.PlayerRight = true;
+					player.PlayerX = graph.GraphModeWIDTH / 4;
+				}
 			}
 		}
-
-
 
 	}
 	//移動してないと画面が止まる
@@ -352,7 +357,7 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		{
 			player.PlayerShotFlag = false;
 		}
-		
+
 	}
 
 }
@@ -407,6 +412,23 @@ void Player::Draw(Shield& shield, Player& player)
 		//shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 
 	}
+
+	//プレイヤーが死亡したら
+	if (player.HP <= 0)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			DeleteGraph(player.playerGraph[i]);
+		}
+		
+		DeleteGraph(shield.ShieldGraph);
+
+		player.PlayerShotFlag = true;
+
+		DrawGraph(player.PlayerX - 10, player.PlayerY - 17, player.DeadAnim, true);
+
+	}
+
 }
 
 void Player::DrawShot(Shot& shot)

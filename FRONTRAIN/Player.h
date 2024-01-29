@@ -118,6 +118,9 @@ private:
 	int RightAnimTime;
 	int LeftAnimTime;
 
+	//€–S‰æ‘œ
+	int DeadAnim;
+
 	//Æ€‚Ì‰æ‘œ‚ğ“ü‚ê‚é•Ï”
 	int Aiming;
 

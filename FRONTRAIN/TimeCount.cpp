@@ -18,7 +18,6 @@ TimeCount::~TimeCount()
 
 void TimeCount::InitTime()
 {
-
 	EnemyTime = 0;
 	time = 0;
 	time = GetNowCount(); //Œ»İŠÔ‚ğ“¾‚é
@@ -28,8 +27,6 @@ void TimeCount::InitTime()
 
 void TimeCount::UpdateTime(Point& point)
 {
-	EnemyTime = (GetNowCount() - time) / 1000;
-
 	timenow = (GetNowCount() - time) / 1000;
 
 	if (GetNowCount() - time <= 1000)
@@ -38,6 +35,9 @@ void TimeCount::UpdateTime(Point& point)
 	}
 
 	point.PointNow = timenow * 10;
+
+	EnemyTime = ((GetNowCount() - time) / 1000);
+	
 }
 
 void TimeCount::DrawTime()

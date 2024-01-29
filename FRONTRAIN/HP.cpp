@@ -53,6 +53,15 @@ void HP::PlayerHP(Player& player)
 		HPCount = 0;
 	}
 
+	if (player.HP <= 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			DeleteGraph(HPberGraph[i]);
+		}
+		
+	}
+
 	//プレイヤーの真上に表示される
 	DrawGraph(player.PlayerX - 10, player.PlayerY - 30, HPberGraph[HPCount], true);
 

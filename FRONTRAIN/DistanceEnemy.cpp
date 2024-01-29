@@ -29,6 +29,8 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 
 	Denemy.T = 0;
 
+	Denemy.TUP = 15;
+
 	enemy.Time = 0;
 
 	enemy.ShotEnemy = 0;
@@ -62,48 +64,99 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy,EnemyShot enemyshot[],int EnemyShotSize,Shield& shield)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 60 + (10 * Denemy.T))
+	//2分以下だった場合
+	if (time->EnemyTime < 120)
 	{
-		if (Denemy.DistanceEnemyAppearance == true)
+		if (time->EnemyTime == 60 + (16 * Denemy.T))
 		{
-			Denemy.T++;
-
-			for (int i = 0; i < DenemySize; i++)
+			if (Denemy.DistanceEnemyAppearance == true)
 			{
-				if (enemy[i].DistanceEnemyflag == false)
+				Denemy.T++;
+
+				for (int i = 0; i < DenemySize; i++)
 				{
-					//現在時間を得る
-					//enemy[i].Time = GetNowCount();
-
-					//enemy[i].Time = 0;
-
-					enemy[i].DistanceEnemyDead = false;
-
-					enemy[i].DistanceEnemyflag = true;
-
-					//エネミーがランダムな場所に出現
-					if (GetRand(1) == 0)
+					if (enemy[i].DistanceEnemyflag == false)
 					{
-						enemy[i].DistanceEnemyX = -40.0f - ScrollX;
-					}
-					if (GetRand(1) == 1)
-					{
-						enemy[i].DistanceEnemyX = 680.0f - ScrollX;
-					}
+						//現在時間を得る
+						//enemy[i].Time = GetNowCount();
 
-					enemy[i].DistanceEnemyY = 360.0f;
+						//enemy[i].Time = 0;
 
-					//一体だしたのでループから抜ける
-					break;
+						enemy[i].DistanceEnemyDead = false;
+
+						enemy[i].DistanceEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].DistanceEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].DistanceEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].DistanceEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
 				}
+				Denemy.DistanceEnemyAppearance = false;
 			}
-			Denemy.DistanceEnemyAppearance = false;
+		}
+		else
+		{
+			Denemy.DistanceEnemyAppearance = true;
 		}
 	}
-	else
+	//2分たった場合は出現率アップ
+	else if (time->EnemyTime >= 120)
 	{
-		Denemy.DistanceEnemyAppearance = true;
+		if (time->EnemyTime == (8 * Denemy.TUP))
+		{
+			if (Denemy.DistanceEnemyAppearance == true)
+			{
+				Denemy.TUP++;
+
+				for (int i = 0; i < DenemySize; i++)
+				{
+					if (enemy[i].DistanceEnemyflag == false)
+					{
+						//現在時間を得る
+						//enemy[i].Time = GetNowCount();
+
+						//enemy[i].Time = 0;
+
+						enemy[i].DistanceEnemyDead = false;
+
+						enemy[i].DistanceEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].DistanceEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].DistanceEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].DistanceEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Denemy.DistanceEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Denemy.DistanceEnemyAppearance = true;
+		}
 	}
+	
 
 	for (int i = 0; i < DenemySize; i++)
 	{
@@ -329,7 +382,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 		if (enemy.DistanceEnemyDead == false)
 		{
 			enemy.AnimTime++;
-			if (enemy.AnimTime >= 5)
+			if (enemy.AnimTime >= 2)
 			{
 				enemy.AnimCount++;
 				

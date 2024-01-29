@@ -47,7 +47,7 @@ void Game_Initialize()
 {
 	Back.Init();
 
-	timecount.InitTime();
+
 	point.InitPoint();
 	hp.PlayerHPInit();
 	player.Init(shield, shot, player);
@@ -67,6 +67,10 @@ void Game_Initialize()
 		DEnemy.Init(DenemyS[i], DEnemy);
 	}
 	map.InitMap();
+
+	scenefedo.Init();
+
+	save.SaveInit();
 }
 
 //終了処理
@@ -79,90 +83,106 @@ void Game_Update()
 {
 	scenefedo.UpdateIn();
 
-	timecount.UpdateTime(point);
-
-	point.UpdatePoint(player, player.ScrollX);
-
-	player.Update(player, map, shield);
-
-	for (int i = 0; i < SHOT; i++)
+	if (save.Start == true)
 	{
-		WEnemy.Update(player, shot[i], WenemyS, ENEMY_NOW, player.ScrollX, &timecount, WEnemy);
-
-		SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy, shield);
-
-		DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot, ENEMY_SHOT, shield);
-	}
-	for (int j = 0; j < ENEMY_SHOT; j++)
-	{
-		DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX, shield);
-	}
-	
-	
-
-	player.ShotUpdate(player, shot, SHOT);
-	map.UpdateMap(player.ScrollX);
-
-	//プレイヤーが死亡すると
-	if (player.HP <= 0)
-	{
-
-		save.SaveDate(point,timecount);
-
-		scenefedo.DeadOut();
-
-		SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
-
-		if (scenefedo.WhiteCount >= 256)
+		if (scenefedo.LetGo == false)
 		{
-			
+			timecount.InitTime();
+
+			scenefedo.LetGo = true;
 		}
-		
+
+		timecount.UpdateTime(point);
+
+		point.UpdatePoint(player, player.ScrollX);
+
+		player.Update(player, map, shield);
+
+		for (int i = 0; i < SHOT; i++)
+		{
+			WEnemy.Update(player, shot[i], WenemyS, ENEMY_NOW, player.ScrollX, &timecount, WEnemy);
+
+			SEnemy.Update(player, shot[i], SenemyS, SKY_ENEMY_NOW, player.ScrollX, &timecount, SEnemy, shield);
+
+			DEnemy.Update(player, shot[i], DenemyS, DISTANCE_ENEMY_NOW, player.ScrollX, &timecount, DEnemy, enemyshot, ENEMY_SHOT, shield);
+		}
+		for (int j = 0; j < ENEMY_SHOT; j++)
+		{
+			DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX, shield);
+		}
+
+
+
+		player.ShotUpdate(player, shot, SHOT);
+		map.UpdateMap(player.ScrollX);
 	}
+	else if (save.Start == false)
+	{
+		save.SaveInput();
+	}
+
 }
 
 //描画処理
 void Game_Draw()
 {
-	scenefedo.Draw();
 
-	Back.Draw();
-
-	timecount.DrawTime();
-	point.DrawPoint(player, player.ScrollX);
-
-	hp.PlayerHP(player);
-
-	player.Draw(shield, player);
-	
-	for (int i = 0; i < SHOT; i++)
+	if (save.Start == true)
 	{
-		player.DrawShot(shot[i]);
+		scenefedo.Draw();
+
+		Back.Draw();
+
+		timecount.DrawTime();
+		point.DrawPoint(player, player.ScrollX);
+
+		hp.PlayerHP(player);
+
+		player.Draw(shield, player);
+
+		for (int i = 0; i < SHOT; i++)
+		{
+			player.DrawShot(shot[i]);
+		}
+
+		DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX);
+
+
+		WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player);
+
+		for (int i = 0; i < SKY_ENEMY_NOW; i++)
+		{
+			SEnemy.Draw(player.ScrollX, SenemyS[i], point);
+		}
+		for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
+		{
+			DEnemy.Draw(player.ScrollX, DenemyS[i], point, player, DistanceDown);
+		}
+
+		for (int i = 0; i < SHOT; i++)
+		{
+			map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot, ENEMY_SHOT);
+		}
+
+		//プレイヤーが死亡すると
+		if (player.HP <= 0)
+		{
+			scenefedo.WhiteOut();
+
+			if (save.end == false)
+			{
+				save.SaveDate(point, timecount);
+
+				save.end = true;
+			}
+
+			if (scenefedo.WhiteCount >= 300)
+			{
+				scenefedo.DeadOut();
+
+				SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
+			}
+
+		}
 	}
-
-	DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX);
-
-
-	WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player);
-
-	for (int i = 0; i < SKY_ENEMY_NOW; i++)
-	{
-		SEnemy.Draw(player.ScrollX, SenemyS[i], point);
-	}
-	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
-	{
-		DEnemy.Draw(player.ScrollX, DenemyS[i], point, player, DistanceDown);
-	}
-
-	for (int i = 0; i < SHOT; i++)
-	{
-		map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot,ENEMY_SHOT);
-	}
-	
-	//プレイヤーが死亡すると
-	/*if (player.HP <= 0)
-	{
-		scenefedo.WhiteOut();
-	}*/
-
 }
