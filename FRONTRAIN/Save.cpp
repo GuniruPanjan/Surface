@@ -4,12 +4,27 @@
 #include<stdlib.h>
 #include<time.h>
 
-Save::Save()
+Save::Save():
+	Start(false),
+	name(0),
+	White(0),
+	end(false)
 {
 }
 
 Save::~Save()
 {
+}
+
+void Save::SaveInit()
+{
+	Start = false;
+	end = false;
+
+	White = GetColor(255, 255, 255); //白色を代入
+
+	name = MakeKeyInput(8, TRUE, FALSE, FALSE);
+	SetActiveKeyInput(name);
 }
 
 void Save::SaveDate(Point& point,TimeCount& timecount)
@@ -18,7 +33,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 	FILE *fp;
 
-	fopen_s(&fp,"save.txt", "wb");
+	fopen_s(&fp, "save.txt", "wb");
 
 	if (fp == NULL)
 	{
@@ -31,6 +46,31 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	fwrite(&save_date, sizeof(save_date), 1, fp);   //save_date構造体の中身を出力
 
 	fclose(fp);
+}
+
+void Save::SaveInput()
+{
+	DrawFormatString(120, 100, White, "8文字以内で名前を入力してください");
+
+	DrawKeyInputModeString(640, 480);
+	DrawKeyInputString(250, 150, name);
+
+	DrawFormatString(100, 300, White, "決まったらマウス右クリックしてください");
+
+	//マウスの右クリックが押されたら
+	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	{
+		if (name == NULL)
+		{
+			DrawFormatString(120, 250, White, "名前を入力してください");
+		}
+		else
+		{
+			Start = true;
+		}
+		
+	}
+
 }
 
 void Save::SaveLoad()

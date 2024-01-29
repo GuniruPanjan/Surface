@@ -13,7 +13,7 @@ public:
 	void UpdateInSetting();
 	void UpdateIn();
 	void DeadOut();
-	//void WhiteOut();
+	void WhiteOut();
 	void Draw();
 
 	int c = 0, White, a;
@@ -24,6 +24,9 @@ public:
 
 	//スタート画面の変数
 	bool Start, Setting, Explanation;
+
+	//1回だけ実行するための変数
+	bool LetGo = false;
 
 	//スタート画面用の演出ハンドル
 	int handle;

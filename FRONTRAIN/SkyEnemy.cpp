@@ -29,6 +29,8 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 
 	Senemy.T = 0;
 
+	Senemy.TUP = 30;
+
 	enemy.S = 0;
 
 	enemy.Time = 0;
@@ -43,39 +45,81 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 	double tb, tbx, tby, px, py, sx, sy;
 
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 30 + (3 * Senemy.T))
+	//2分以下だった場合
+	if (time->EnemyTime < 120)
 	{
-		if (Senemy.SkyEnemyAppearance == true)
+		if (time->EnemyTime == 30 + (8 * Senemy.T))
 		{
-			Senemy.T++;
-
-			for (int i = 0; i < SenemySize; i++)
+			if (Senemy.SkyEnemyAppearance == true)
 			{
-				if (enemy[i].SkyEnemyflag == false)
+				Senemy.T++;
+
+				for (int i = 0; i < SenemySize; i++)
 				{
-					enemy[i].SkyEnemyDead = false;
+					if (enemy[i].SkyEnemyflag == false)
+					{
+						enemy[i].SkyEnemyDead = false;
 
-					enemy[i].Flag = false;
+						enemy[i].Flag = false;
 
-					enemy[i].SkyEnemyflag = true;
+						enemy[i].SkyEnemyflag = true;
 
-					//エネミーがランダムな場所に出現
-					
-					enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
+						//エネミーがランダムな場所に出現
 
-					enemy[i].SkyEnemyY = -10.0f;
+						enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
 
-					//一体だしたのでループから抜ける
-					break;
+						enemy[i].SkyEnemyY = -10.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
 				}
+				Senemy.SkyEnemyAppearance = false;
 			}
-			Senemy.SkyEnemyAppearance = false;
+		}
+		else
+		{
+			Senemy.SkyEnemyAppearance = true;
 		}
 	}
-	else
+	//2分たった場合出現率アップ
+	else if (time->EnemyTime >= 120)
 	{
-		Senemy.SkyEnemyAppearance = true;
+		if (time->EnemyTime == (4 * Senemy.TUP))
+		{
+			if (Senemy.SkyEnemyAppearance == true)
+			{
+				Senemy.TUP++;
+
+				for (int i = 0; i < SenemySize; i++)
+				{
+					if (enemy[i].SkyEnemyflag == false)
+					{
+						enemy[i].SkyEnemyDead = false;
+
+						enemy[i].Flag = false;
+
+						enemy[i].SkyEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+
+						enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
+
+						enemy[i].SkyEnemyY = -10.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Senemy.SkyEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Senemy.SkyEnemyAppearance = true;
+		}
 	}
+	
 
 	for (int i = 0; i < SenemySize; i++)
 	{

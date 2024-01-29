@@ -118,6 +118,14 @@ private:
 	int RightAnimTime;
 	int LeftAnimTime;
 
+	//€–S‰æ‘œ
+	int DeadGraph[14];
+	int DeadAnim;
+
+	//ƒvƒŒƒCƒ„[€–S
+	int DeadAnimTime;
+	int DeadAnimCount;
+
 	//Æ€‚Ì‰æ‘œ‚ğ“ü‚ê‚é•Ï”
 	int Aiming;
 

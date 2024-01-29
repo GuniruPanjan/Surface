@@ -93,5 +93,6 @@ public:
 
 	//ŠÔ‚ği‚ß‚é•Ï”
 	int T = 0;
+	int TUP = 0;
 };
 

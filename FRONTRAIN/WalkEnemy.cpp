@@ -47,50 +47,100 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 
 	Wenemy.T = 0;
 
+	Wenemy.TUP = 20;
+
 }
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
 {
 	//時間がたつと敵が出現
-	if (time->EnemyTime == 10 + (6 * Wenemy.T))
+	//2分以下の場合
+	if (time->EnemyTime < 120)
 	{
-		if (Wenemy.WalkEnemyAppearance == true)
+		if (time->EnemyTime == 10 + (12 * Wenemy.T))
 		{
-			Wenemy.T++;
-
-			for (int i = 0; i < WenemySize; i++)
+			if (Wenemy.WalkEnemyAppearance == true)
 			{
-				if (enemy[i].WalkEnemyflag == false)
+				Wenemy.T++;
+
+				for (int i = 0; i < WenemySize; i++)
 				{
-					enemy[i].WalkEnemyDead = false;
-
-					enemy[i].WalkEnemyflag = true;
-
-					//エネミーがランダムな場所に出現
-					if (GetRand(1) == 0)
+					if (enemy[i].WalkEnemyflag == false)
 					{
-						enemy[i].WalkEnemyX = -40.0f - ScrollX;
-					}
-					if (GetRand(1) == 1)
-					{
-						enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						enemy[i].WalkEnemyDead = false;
+
+						enemy[i].WalkEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].WalkEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].WalkEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
 					}
 
-					enemy[i].WalkEnemyY = 360.0f;
-
-					//一体だしたのでループから抜ける
-					break;
 				}
-
+				Wenemy.WalkEnemyAppearance = false;
 			}
-			Wenemy.WalkEnemyAppearance = false;
-		}
 
+		}
+		else
+		{
+			Wenemy.WalkEnemyAppearance = true;
+		}
 	}
-	else
+	//2分経過したら出現率アップ
+	else if (time->EnemyTime >= 120)
 	{
-		Wenemy.WalkEnemyAppearance = true;
+		if (time->EnemyTime == (6 * Wenemy.TUP))
+		{
+			if (Wenemy.WalkEnemyAppearance == true)
+			{
+				Wenemy.TUP++;
+
+				for (int i = 0; i < WenemySize; i++)
+				{
+					if (enemy[i].WalkEnemyflag == false)
+					{
+						enemy[i].WalkEnemyDead = false;
+
+						enemy[i].WalkEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].WalkEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].WalkEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+
+				}
+				Wenemy.WalkEnemyAppearance = false;
+			}
+
+		}
+		else
+		{
+			Wenemy.WalkEnemyAppearance = true;
+		}
 	}
+	
 
 	for (int i = 0; i < WenemySize; i++)
 	{

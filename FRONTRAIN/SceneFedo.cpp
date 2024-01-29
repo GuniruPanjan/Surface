@@ -38,6 +38,8 @@ void SceneFedo::Init()
 
 	Explanation = false;
 
+	LetGo = false;
+
 	Count = 0;
 
 	WhiteCount = 0;
@@ -111,21 +113,21 @@ void SceneFedo::DeadOut()
 	SetDrawBright(a, a, a);
 }
 
-//void SceneFedo::WhiteOut()
-//{
-//	WhiteTime++;
-//	//1フレーム後
-//	if (WhiteTime >= 56)
-//	{
-//		WhiteCount += 1;
-//	}
-//
-//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, WhiteCount);
-//	DrawGraph(0, 0, WhiteHandle, TRUE);
-//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-//}
+void SceneFedo::WhiteOut()
+{
+	WhiteTime++;
+	//1フレーム後
+	if (WhiteTime >= 56)
+	{
+		WhiteCount++;
+	}
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, WhiteCount);
+	DrawGraph(0, 0, WhiteHandle, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
 
 void SceneFedo::Draw()
 {
-	DrawBox(0, 0, 640, 480, White, TRUE); //画面全体に白い四角形を描画
+	//DrawBox(0, 0, 640, 480, White, TRUE); //画面全体に白い四角形を描画
 }
