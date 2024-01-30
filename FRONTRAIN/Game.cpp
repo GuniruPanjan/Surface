@@ -13,6 +13,7 @@
 #include "DistanceEnemy.h"
 #include "SceneFedo.h"
 #include "Save.h"
+#include "Explanation.h"
 
 Player player;
 HP hp;
@@ -33,6 +34,7 @@ Map map;
 Background Back;
 TimeCount timecount;
 Point point;
+Explanation explanation;
 
 SceneFedo scenefedo;
 
@@ -69,6 +71,8 @@ void Game_Initialize()
 	map.InitMap();
 
 	scenefedo.Init();
+	explanation.ExplanationInit();
+
 	save.SaveInit();
 }
 
@@ -119,7 +123,7 @@ void Game_Update()
 				DEnemy.EnemyShotUpdate(DenemyS, enemyshot[j], DISTANCE_ENEMY_NOW, player, player.ScrollX, shield);
 			}
 
-
+			explanation.ExplanationUpdate();
 
 			player.ShotUpdate(player, shot, SHOT);
 			map.UpdateMap(player.ScrollX);
@@ -173,6 +177,8 @@ void Game_Draw()
 			{
 				map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot, ENEMY_SHOT);
 			}
+
+			explanation.ExplanationDraw();
 
 			//ÉvÉåÉCÉÑÅ[Ç™éÄñSÇ∑ÇÈÇ∆
 			if (player.HP <= 0)

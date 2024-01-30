@@ -44,6 +44,6 @@ void TimeCount::DrawTime()
 {
 	SaveTime = (GetNowCount() - time) / 1000;
 
-	DrawFormatString(250, 0, GetColor(0, 0, 0), "Œo‰ßŽžŠÔ:%d", SaveTime);
+	DrawFormatString(240, 0, GetColor(0, 0, 0), "ƒ^ƒCƒ€ : %d", SaveTime);
 
 }
