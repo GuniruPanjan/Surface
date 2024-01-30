@@ -28,16 +28,17 @@ struct WalkEnemyStruct : public EnemyBase
 	bool WalkShotDead = false;
 
 	//アニメーションタイム
-	int AnimTime;
+	int AnimTime = 0;
 
-	int RightAnim, LeftAnim;
+	int RightAnim = 0;
+	int LeftAnim = 0;
 
 	//死んだアニメーション
 	int Handle[14];
 
 	//アニメーションタイム
-	int AnimCount;
-	int AnimTimeDead;
+	int AnimCount = 0;
+	int AnimTimeDead = 0;
 
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;
@@ -52,7 +53,7 @@ public:
 
 	void Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy, int WenemySize);
 	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
-	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize,Player& player);
+	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize, Player& player, Shot shot[]);
 
 	EnemyBase Base;
 	WalkEnemyStruct WenemyS[ENEMY_NOW];

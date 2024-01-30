@@ -35,6 +35,12 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 
 	enemy.Time = 0;
 
+	enemy.DeadAnimCount = 0;
+
+	enemy.DeadAnimTime = 0;
+
+	LoadDivGraph("date/Ž€–SŒŒ‚µ‚Ô‚«.png", 4, 4, 1, 15, 15, enemy.DeadAnimGraph);
+
 	LoadDivGraph("date/SkyEnemy.png", 3, 3, 1, 15, 20, enemy.SkyHandle);
 
 }
@@ -249,6 +255,17 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 		{
 			enemy.m_colRect.SetCenter(0, 0, 0, 0);
 
+			enemy.DeadAnimTime++;
+			if (enemy.DeadAnimTime >= 5)
+			{
+				enemy.DeadAnimCount++;
+
+				enemy.DeadAnimTime = 0;
+			}
+
+			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY - 5, enemy.DeadAnimGraph[enemy.DeadAnimCount], true);
+
+
 			if (enemy.SkyShotDead == true)
 			{
 				point.SenemyPoint += 50;
@@ -257,12 +274,20 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 			}
 			enemy.SkyEnemyflag = false;
 
-			enemy.HP = 1;
+			if (enemy.DeadAnimCount == 4)
+			{
+				enemy.HP = 1;
 
-			enemy.SkyEnemyX = -640.0f;
-			enemy.SkyEnemyY = -20.0f;
+				enemy.SkyEnemyX = -640.0f;
+				enemy.SkyEnemyY = -20.0f;
 
-			enemy.SkyEnemyDead = true;
+				enemy.SkyEnemyDead = true;
+			}
+			
 		}
+	}
+	if (enemy.SkyEnemyDead == true)
+	{
+		enemy.DeadAnimCount = 0;
 	}
 }

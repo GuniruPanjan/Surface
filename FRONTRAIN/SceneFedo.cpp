@@ -13,7 +13,11 @@ SceneFedo::SceneFedo():
 	handle(0),
 	WhiteHandle(0),
 	WhiteCount(0),
-	WhiteTime(0)
+	WhiteTime(0),
+	EndHandle(),
+	AnimCount(0),
+	AnimTime(0),
+	LetGo(false)
 {
 }
 
@@ -46,9 +50,15 @@ void SceneFedo::Init()
 
 	WhiteTime = 0;
 
+	AnimTime = 0;
+
+	AnimCount = 0;
+
 	handle = LoadGraph("date/スタート画面演出.png");
 
 	WhiteHandle = LoadGraph("date/WhiteOut.png");
+
+	LoadDivGraph("date/八神.png", 9, 3, 3, 853, 480, EndHandle);
 }
 
 void SceneFedo::Update()
@@ -115,16 +125,34 @@ void SceneFedo::DeadOut()
 
 void SceneFedo::WhiteOut()
 {
-	WhiteTime++;
-	//1フレーム後
-	if (WhiteTime >= 56)
-	{
-		WhiteCount++;
-	}
+
+	//WhiteTime++;
+	////1フレーム後
+	//if (WhiteTime >= 56)
+	//{
+	//	
+	//}
+
+	WhiteCount += 3;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, WhiteCount);
 	DrawGraph(0, 0, WhiteHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
+void SceneFedo::DeadAnim()
+{
+	AnimTime++;
+	if (AnimTime >= 6)
+	{
+		AnimCount++;
+
+		AnimTime = 0;
+	}
+
+	if (AnimCount >= 8)AnimCount = 8;
+
+	DrawGraph(-106, 0, EndHandle[AnimCount], TRUE);
 }
 
 void SceneFedo::Draw()

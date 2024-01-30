@@ -22,6 +22,11 @@ struct SkyEnemyStruct : public EnemyBase
 
 	int Time = 0;
 
+	//死亡アニメーション
+	int DeadAnimGraph[4];
+	int DeadAnimCount;
+	int DeadAnimTime;
+
 	//敵の大きさ
 	int SkyEnemyWidth = 15;
 	int SkyEnemyHeight = 10;

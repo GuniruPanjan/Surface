@@ -3,7 +3,10 @@
 #include<cmath>
 
 
-WalkEnemy::WalkEnemy()
+WalkEnemy::WalkEnemy():
+	T(0),
+	TUP(20),
+	WalkEnemyAppearance(true)
 {
 }
 
@@ -193,14 +196,16 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 					else if (enemy[i].m_colRect.IsCollision(shot.m_colRect) == true)
 					{
 						enemy[i].HP -= shot.Damage;
+
 						//接触している場合は当たった弾の存在を消す
 						shot.Flag = 0;
 
 						enemy[i].WalkShotDead = true;
-
+						
 					}
 
 				}
+
 			}
 
 		}
@@ -208,7 +213,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	
 }
 
-void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int WenemySize,Player& player)
+void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int WenemySize,Player& player,Shot shot[])
 {
 	for (int i = 0; i < WenemySize; i++)
 	{
@@ -217,7 +222,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 		{
 
 
-			//エネミーがプレイヤーより右にいる場合
+			//プレイヤーよりエネミーが右にいる場合
 			if (enemy[i].WalkEnemyX + player.ScrollX > player.PlayerX)
 			{
 				enemy[i].AnimTime++;
@@ -232,7 +237,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].WalkEnemyGraph[enemy[i].RightAnim], true);
 			}
-			//エネミーがプレイヤーより左にいる場合
+			//プレイヤーよりエネミーが左にいる場合
 			if (enemy[i].WalkEnemyX + player.ScrollX < player.PlayerX)
 			{
 				enemy[i].AnimTime++;
@@ -248,7 +253,48 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].WalkEnemyGraph[enemy[i].LeftAnim], true);
 			}
 
+			for (int s = 0; s < SHOT; s++)
+			{
+				//プレイヤーの弾が当たった時
+				if (enemy[i].m_colRect.IsCollision(shot[s].m_colRect) == true)
+				{
+					shot[s].ShotAnimTime++;
+
+					//プレイヤーよりエネミーが右にいる場合
+					if (enemy[i].WalkEnemyX + player.ScrollX > player.PlayerX)
+					{
+						if (shot[s].ShotAnimTime >= 10)
+						{
+							shot[s].ShotAnimCountRight++;
+
+							shot[s].ShotAnimTime = 0;
+						}
+
+						DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotAnimGraphRight[shot[s].ShotAnimCountRight], true);
+
+					}
+					//プレイヤーよりエネミーが左にいる場合
+					if (enemy[i].WalkEnemyX + player.ScrollX < player.PlayerX)
+					{
+						if (shot[s].ShotAnimTime >= 10)
+						{
+							shot[s].ShotAnimCountLeft++;
+
+							shot[s].ShotAnimTime = 0;
+						}
+
+						DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotAnimGraphLeft[shot[s].ShotAnimCountLeft], true);
+
+					}
+
+
+				}
+				shot[s].ShotAnimCountRight = 0;
+				shot[s].ShotAnimCountLeft = 0;
+			}
+
 			
+
 
 			//エネミーの当たり判定の表示
 			//enemy[i].m_colRect.Draw(GetColor(255, 0, 0), false);

@@ -104,7 +104,24 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 
 	for (int i = 0; i < SHOT; i++)
 	{
-		shot[i].Graph = LoadGraph("date/e’e‚¾.png");
+		shot[i].Graph = LoadGraph("date/e’e.png");
+
+		shot[i].ShotAnimCountRight = 0;
+		shot[i].ShotAnimCountLeft = 0;
+
+		shot[i].ShotAnimTime = 0;
+
+		LoadDivGraph("date/ŒŒ‚µ‚Ô‚«(¬)‰E.png", 2, 2, 1, 5, 5, shot[i].ShotAnimGraphRight);
+		LoadDivGraph("date/ŒŒ‚µ‚Ô‚«(¬)¶.png", 2, 2, 1, 5, 5, shot[i].ShotAnimGraphLeft);
+
+		shot[i].ShotSparkCountRight = 0;
+		shot[i].ShotSparkCountLeft = 0;
+
+		shot[i].ShotSparkTime = 0;
+
+		LoadDivGraph("date/‰Î‰Ô(¬)‰E.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
+		LoadDivGraph("date/‰Î‰Ô(¬)¶.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
+
 	}
 	
 

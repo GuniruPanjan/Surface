@@ -57,7 +57,24 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 
 		shot[i].ShotDamage = 2;
 
-		shot[i].Graph = LoadGraph("date/銃弾だ.png");
+		shot[i].Graph = LoadGraph("date/銃弾.png");
+
+		shot[i].ShotHitTime = 0;
+
+		shot[i].ShotHitLeftCount = 0;
+		shot[i].ShotHitRightCount = 0;
+
+		LoadDivGraph("date/血しぶき(小)左.png", 2, 2, 1, 5, 5, shot[i].ShotHitGraphLeft);
+		LoadDivGraph("date/血しぶき(小)右.png", 2, 2, 1, 5, 5, shot[i].ShotHitGraphRight);
+
+		shot[i].ShotSparkTime = 0;
+
+		shot[i].ShotSparkLeftCount = 0;
+		shot[i].ShotSparkRightCount = 0;
+
+		LoadDivGraph("date/火花(小)左.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
+		LoadDivGraph("date/火花(小)右.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
+
 	}
 }
 
@@ -169,7 +186,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				//右から
 				if (player.PlayerX - player.ScrollX + 200 < enemy[i].DistanceEnemyX)
 				{
-					enemy[i].DistanceEnemyX -= enemy[i].DistanceEnemySpeed;
+					enemy[i].DistanceEnemyX -= enemy[i].DistanceEnemySpeed + 0.02f;
 				}
 				//右に逃げる
 				else if (player.PlayerX - player.ScrollX + 200 > enemy[i].DistanceEnemyX && player.PlayerX - player.ScrollX < enemy[i].DistanceEnemyX)
@@ -179,7 +196,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				//左から
 				if (player.PlayerX - player.ScrollX - 150 > enemy[i].DistanceEnemyX)
 				{
-					enemy[i].DistanceEnemyX += enemy[i].DistanceEnemySpeed;
+					enemy[i].DistanceEnemyX += enemy[i].DistanceEnemySpeed + 0.02f;
 				}
 				//左に逃げる
 				else if (player.PlayerX - player.ScrollX - 150 < enemy[i].DistanceEnemyX && player.PlayerX - player.ScrollX > enemy[i].DistanceEnemyX)
@@ -321,9 +338,6 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 			}
 			else if (shot.m_colRect.IsCollision(shield.m_colRect) == true)
 			{
-				//弾の場所を移動
-				shot.PX = -10.0f;
-				shot.PY = -10.0f;
 
 				//接触した弾の存在を消す
 				shot.Flag = false;
@@ -346,11 +360,6 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 				player.PlayerDamage = true;
 			}
 
-			//弾の場所を移動
-			shot.PX = -10.0f;
-			shot.PY = -10.0f;
-
-
 			//接触している場合は当たった弾の存在を消す
 			shot.Flag = false;
 		}
@@ -358,10 +367,10 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 	}
 }
 
-void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player,int DownAnimGraph)
+void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player,int DownAnimGraph,Shot shot[])
 {
 	//エネミーが生きている時
-	if (enemy.HP >= 0)
+	if (enemy.HP > 0)
 	{
 		if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 		{
@@ -371,6 +380,46 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 		{
 			DrawTurnGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
 		}
+
+		for (int s = 0; s < SHOT; s++)
+		{
+			//プレイヤーの弾が当たった時
+			if (enemy.m_colRect.IsCollision(shot[s].m_colRect) == true)
+			{
+				shot[s].ShotSparkTime++;
+
+				//プレイヤーよりエネミーが右にいる場合
+				if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
+				{
+					if (shot[s].ShotSparkTime >= 10)
+					{
+						shot[s].ShotSparkCountRight++;
+
+						shot[s].ShotSparkTime = 0;
+					}
+
+					DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotSparkGraphRight[shot[s].ShotSparkCountRight], true);
+				}
+				//プレイヤーよりエネミーが左にいる場合
+				if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
+				{
+					if (shot[s].ShotSparkTime >= 10)
+					{
+						shot[s].ShotSparkCountLeft++;
+
+						shot[s].ShotAnimTime = 0;
+					}
+
+					DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotSparkGraphLeft[shot[s].ShotSparkCountLeft], true);
+				}
+			}
+
+			shot[s].ShotSparkCountRight = 0;
+			shot[s].ShotSparkCountLeft = 0;
+
+			
+		}
+
 
 		//エネミーの当たり判定の表示
 		//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
@@ -428,13 +477,13 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	}
 }
 
-void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
+void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Player& player,Shield& shield)
 {
 	//弾の移動
 	//発射してる弾数だけ
 	for (int i = 0; i < EnemyShotSize; i++)
 	{
-		if (shot[i].Flag)
+		if (shot[i].Flag == true)
 		{
 			//shot[i].Graph = LoadGraph("date/銃弾.png");
 
@@ -457,6 +506,87 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX)
 			}
 
 
+			//盾に当たった時
+			//盾が右だった場合
+			if (shield.RightFlag == true)
+			{
+				if (shot[i].m_colRect.IsCollision(shield.m_colRect) == true)
+				{
+
+					shot[i].ShotSparkTime++;
+					if (shot[i].ShotSparkTime >= 10)
+					{
+						shot[i].ShotSparkRightCount++;
+
+						shot[i].ShotSparkTime = 0;
+					}
+
+					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotSparkGraphRight[shot[i].ShotSparkRightCount], true);
+
+				}
+			}
+			//盾が左だった場合
+			if (shield.LeftFlag == true)
+			{
+				if (shot[i].m_colRect.IsCollision(shield.m_colRect) == true)
+				{
+					shot[i].ShotSparkTime++;
+					if (shot[i].ShotSparkTime >= 10)
+					{
+						shot[i].ShotSparkLeftCount++;
+
+						shot[i].ShotSparkTime = 0;
+					}
+
+					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotSparkGraphLeft[shot[i].ShotSparkLeftCount], true);
+
+				}
+			}
+
+			shot[i].ShotSparkRightCount = 0;
+			shot[i].ShotSparkLeftCount = 0;
+
+			//プレイヤーに当たった時
+			
+			if (shot[i].m_colRect.IsCollision(player.m_colRect) == true)
+			{
+				//プレイヤーが左だった場合
+				if (shot[i].X + ScrollX > player.PlayerX)
+				{
+					shot[i].ShotHitTime++;
+					if (shot[i].ShotHitTime >= 10)
+					{
+						shot[i].ShotHitLeftCount++;
+
+						shot[i].ShotHitTime = 0;
+					}
+
+					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotHitGraphLeft[shot[i].ShotHitLeftCount], true);
+				}
+				//プレイヤーが右だった場合
+				if (shot[i].X + ScrollX < player.PlayerX)
+				{
+					shot[i].ShotHitTime++;
+					if (shot[i].ShotHitTime >= 10)
+					{
+						shot[i].ShotHitRightCount++;
+
+						shot[i].ShotHitTime = 0;
+					}
+
+					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotHitGraphRight[shot[i].ShotHitRightCount], true);
+				}
+
+			}
+
+			shot[i].ShotHitLeftCount = 0;
+			shot[i].ShotHitRightCount = 0;
+
+		}
+		if (shot[i].Flag == false)
+		{
+			//あたり判定を終わらせる
+			shot[i].m_colRect.SetCenter(0, 0, 0, 0);
 		}
 	}
 	

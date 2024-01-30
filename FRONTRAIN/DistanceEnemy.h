@@ -30,6 +30,19 @@ struct EnemyShot
 	//弾のダメージ
 	int ShotDamage = 2;
 
+	//弾が当たった時の演出
+	int ShotHitGraphRight[2];
+	int ShotHitGraphLeft[2];
+	int ShotHitRightCount = 0;
+	int ShotHitLeftCount = 0;
+	int ShotHitTime = 0;
+
+	int ShotSparkGraphRight[2];
+	int ShotSparkGraphLeft[2];
+	int ShotSparkRightCount = 0;
+	int ShotSparkLeftCount = 0;
+	int ShotSparkTime = 0;
+
 	//当たり判定の矩形
 	Rect m_colRect;
 };
@@ -85,8 +98,8 @@ public:
 	void EnemyShotInit(EnemyShot shot[]);
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[], int EnemyShotSize, Shield& shield);
 	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield);
-	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph);
-	void DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX);
+	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph, Shot shot[]);
+	void DrawShot(EnemyShot shot[], int EnemyShotSize, int ScrollX, Player& player, Shield& shield);
 
 	//敵の出現フラグ
 	bool DistanceEnemyAppearance = true;

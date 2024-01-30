@@ -14,6 +14,7 @@ public:
 	void UpdateIn();
 	void DeadOut();
 	void WhiteOut();
+	void DeadAnim();
 	void Draw();
 
 	int c = 0, White, a;
@@ -30,6 +31,12 @@ public:
 
 	//スタート画面用の演出ハンドル
 	int handle;
+	//死亡時の演出用ハンドル
+	int EndHandle[9];
+
+	//アニメカウント
+	int AnimCount;
+	int AnimTime;
 
 	//白い画面
 	int WhiteHandle;

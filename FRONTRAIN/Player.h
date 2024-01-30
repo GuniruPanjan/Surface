@@ -39,6 +39,19 @@ struct Shot
 	double AimY = 0;
 	//弾のダメージ
 	int Damage = 3;
+
+	//倒したアニメーション
+	int ShotAnimGraphLeft[2];
+	int ShotAnimGraphRight[2];
+	int ShotAnimCountRight = 0;
+	int ShotAnimCountLeft = 0;
+	int ShotAnimTime = 0;
+
+	int ShotSparkGraphRight[2];
+	int ShotSparkGraphLeft[2];
+	int ShotSparkCountRight = 0;
+	int ShotSparkCountLeft = 0;
+	int ShotSparkTime = 0;
 	
 
 	//当たり判定の矩形
