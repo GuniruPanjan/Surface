@@ -7,7 +7,11 @@ Explanation::Explanation():
 	RK(0),
 	UnderKey(0),
 	RightKey(0),
-	LeftKey(0)
+	LeftKey(0),
+	LeftClick(0),
+	RightClick(0),
+	Mouse(0),
+	Graph(0)
 {
 }
 
@@ -24,6 +28,13 @@ void Explanation::ExplanationInit()
 	UnderKey = LoadGraph("date/UnderKey.png");
 	LeftKey = LoadGraph("date/RightKey.png");
 	RightKey = LoadGraph("date/LeftKey.png");
+
+	LeftClick = LoadGraph("date/左クリック.png");
+	RightClick = LoadGraph("date/右クリック.png");
+	Mouse = LoadGraph("date/マウス.png");
+
+	Graph = -1;
+
 }
 
 void Explanation::ExplanationUpdate()
@@ -59,6 +70,24 @@ void Explanation::ExplanationUpdate()
 		LK = 255;
 	}
 
+	
+	
+	//左クリックしたとき
+	if (GetMouseInput() & MOUSE_INPUT_LEFT)
+	{
+		Graph = LeftClick;
+	}
+	//右クリックしたとき
+	else if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	{
+		Graph = RightClick;
+	}
+	else
+	{
+		Graph = Mouse;
+	}
+	
+
 }
 
 void Explanation::ExplanationDraw()
@@ -68,7 +97,7 @@ void Explanation::ExplanationDraw()
 	DrawGraph(515, 430, UnderKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, UK);
 
-	DrawFormatString(515, 460, GetColor(255, 255, 255), "盾");
+	DrawFormatString(518, 460, GetColor(255, 255, 255), "盾");
 
 	//右キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, RK);
@@ -82,6 +111,12 @@ void Explanation::ExplanationDraw()
 	DrawGraph(500, 400, LeftKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, LK);
 
-	DrawFormatString(420, 400, GetColor(255, 255, 255), "左移動");
+	DrawFormatString(430, 400, GetColor(255, 255, 255), "左移動");
+
+	//マウス描画
+	DrawGraph(150, 400, Graph, true);
+	DrawFormatString(90, 410, GetColor(255, 255, 255), "ショット");
+	DrawFormatString(200, 410, GetColor(255, 255, 255), "リロード");
+
 
 }

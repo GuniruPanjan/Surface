@@ -285,9 +285,14 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 
 	if (player.PlayerRight == true)
 	{
-		//プレイヤー操作からスクロール量を算出する
-		player.ScrollX -= Speed;
-		player.ScrollY = 0.0f;
+		//シールドを構えた時はスクロール量を加算しない
+		if (player.Right == false)
+		{
+			//プレイヤー操作からスクロール量を算出する
+			player.ScrollX -= Speed;
+			player.ScrollY = 0.0f;
+		}
+		
 	}
 	
 	//当たり判定の更新
