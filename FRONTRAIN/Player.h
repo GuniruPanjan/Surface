@@ -110,9 +110,13 @@ public:
 
 	//ダメージカウント
 	int Count = 0;
+	int DamegeCount = 0;
 
 	//重力
 	float Gravity = 0.3f;
+
+	//リロード変数
+	bool Reload;
 
 	//当たり判定の矩形
 	Rect m_colRect;

@@ -15,5 +15,11 @@ public:
 
 	//’e‘q‚Ìc‚è’e”
 	int MagazineGraph[13];
+
+	//Reload‰æ‘œ
+	int Reload;
+
+	//“_–Å•Ï”
+	int Blinking;
 };
 

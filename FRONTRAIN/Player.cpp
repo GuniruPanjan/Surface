@@ -42,7 +42,9 @@ Player::Player():
 	LeftAnimTime(0),
 	DeadAnim(0),
 	DeadAnimTime(0),
-	DeadAnimCount(9)
+	DeadAnimCount(9),
+	DamegeCount(0),
+	Reload(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -94,6 +96,8 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.LeftAnimCount = 11;
 	player.RightAnimTime = 0;
 	player.LeftAnimTime = 0;
+	player.DamegeCount = 0;
+	player.Reload = false;
 
 	player.DeadAnimCount = 9;
 	player.DeadAnimTime = 0;
@@ -145,8 +149,6 @@ void Player::InitShot(Shot shot[])
 
 void Player::Update(Player& player,Map& map,Shield& shield)
 {
-	//常に重力を与える
-	/*player.PlayerY += player.Gravity;*/
 
 	//盾実装
 	//下キーを押した時
@@ -191,7 +193,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	//左キーを押したとき
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
-		if (player.HP >= 0)
+		if (player.HP > 0)
 		{
 
 			if (Left == false)
@@ -233,7 +235,7 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	//右キーを押したとき
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
-		if (player.HP >= 0)
+		if (player.HP > 0)
 		{
 			Left = true;
 
@@ -303,13 +305,16 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 
 	if (player.PlayerDamage == true)
 	{
-		Count++;
+		player.Count++;
+
+		player.DamegeCount++;
+
 	}
 	//4フレーム後
-	if (Count <= 224)
+	if (player.Count >= 224)
 	{
 		player.PlayerDamage = false;
-		Count = 0;
+		player.Count = 0;
 	}
 }
 
@@ -319,6 +324,10 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 	//右クリックで弾をリロード
 	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
 	{
+		player.Reload = true;
+	}
+	else if (player.Reload == true)
+	{
 		player.PlayerShotFlag = true;
 
 		player.BulletTime++;
@@ -326,10 +335,10 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		{
 			player.Bullet = 12;
 
+			player.Reload = false;
+
 			player.BulletTime = 0;
 		}
-
-		
 	}
 	//マウスキー(左クリック)が押されると発射
 	else if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -375,10 +384,6 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 				player.PlayerShotFlag = true;
 			}
 		}
-		else if (player.Bullet <= 0)
-		{
-			DrawString(100, 100, "弾切れ", GetColor(255, 255, 255));
-		}
 	}
 	else
 	{
@@ -395,23 +400,28 @@ void Player::Draw(Shield& shield, Player& player)
 {	
 
 	//プレイヤーよりマウスが右なら
-	if (player.MouseX >= player.PlayerX)
+
+	if (player.Count == 0 || player.DamegeCount >= 10)
 	{
+		if (player.MouseX >= player.PlayerX)
+		{
 
-		if (player.RightAnimCount == 6)player.RightAnimCount = 1;
+			if (player.RightAnimCount == 6)player.RightAnimCount = 1;
 
-		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.RightAnimCount], true);
+			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.RightAnimCount], true);
+		}
+		//プレイヤーよりマウスが左なら
+		if (player.MouseX < player.PlayerX)
+		{
+			if (player.LeftAnimCount == 6)player.LeftAnimCount = 10;
+
+			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.LeftAnimCount], true);
+
+		}
+
+		player.DamegeCount = 0;
+
 	}
-	//プレイヤーよりマウスが左なら
-	if (player.MouseX < player.PlayerX)
-	{
-		if (player.LeftAnimCount == 6)player.LeftAnimCount = 10;
-
-		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.LeftAnimCount], true);
-
-	}
-
-	
 
 	//プレイヤーの当たり判定の表示
 	//player.m_colRect.Draw(GetColor(0, 0, 255), false);
@@ -464,6 +474,10 @@ void Player::Draw(Shield& shield, Player& player)
 		DeleteGraph(shield.ShieldGraph);
 
 		player.PlayerShotFlag = true;
+
+		player.Right = true;
+		player.Left = true;
+
 
 		if (player.DeadAnimCount >= 13)
 		{

@@ -7,6 +7,10 @@ void HP::PlayerHPInit()
 
 	LoadDivGraph("date/弾倉.png", 13, 7, 2, 40, 60, MagazineGraph);
 
+	Reload = LoadGraph("date/Reload.png");
+
+	Blinking = 0;
+
 	HPCount = 0;
 }
 
@@ -70,6 +74,24 @@ void HP::PlayerHP(Player& player)
 	DrawFormatString(38, 432, GetColor(0, 0, 0), "%d", player.Bullet);
 	DrawFormatString(36, 430, GetColor(255, 255, 255), "%d", player.Bullet);
 
+	//プレイヤーの弾が切れたら描画する
+	if (player.Bullet == 0)
+	{
+		Blinking++;
+
+		if (Blinking >= 5)
+		{
+			DrawGraph(25, 430, Reload, true);
+
+			if (Blinking >= 20)
+			{
+				Blinking = 0;
+			}
+		}
+
+		
+	}
+	
 
 	//プレイヤー真上にHPが表示される
 	//DrawFormatString(player.PlayerX - 8, player.PlayerY - 30, GetColor(0, 255, 0), "%d",player.HP);
