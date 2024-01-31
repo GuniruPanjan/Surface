@@ -212,7 +212,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					else if (m_colRect.IsCollision(enemyShot[e].m_colRect) == true)
 					{
 						//shot‚ª•Ç‚É“–‚½‚Á‚½’e‚Ì‘¶İ‚ğÁ‚·
-						enemyShot[e].Flag = 0;
+						enemyShot[e].Flag = false;
 
 					}
 				}

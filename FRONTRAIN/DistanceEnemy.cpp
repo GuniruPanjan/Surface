@@ -497,12 +497,10 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 
 			shot[i].m_colRect.Draw(GetColor(0, 0, 255), false);
 
-			//‰æ–Êã‚És‚«‚·‚¬‚½‚çÁ‚·
+			//‰æ–ÊŠO‚És‚«‚·‚¬‚½‚çÁ‚·
 			if (shot[i].Y <= -10)
 			{
 				shot[i].Flag = false;
-
-				//DeleteGraph(shot[i].Graph);
 			}
 
 

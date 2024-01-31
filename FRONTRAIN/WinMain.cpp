@@ -1,11 +1,5 @@
-//#include "Player.h"
-//#include "WalkEnemy.h"
-//#include "Background.h"
 #include "DxLib.h"
-//#include "Map.h"
 #include "GraphMode.h"
-//#include "TimeCount.h"
-//#include "Point.h"
 #include "SceneMgr.h"
 #include "Font.h"
 
@@ -24,6 +18,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ChangeWindowMode(true);
 
 	SetWindowSize(graph.GraphModeWIDTH, graph.GraphModeHEIGHT);
+
+	//Windowの名前を変更する
+	SetWindowText("FRONT RAIN");
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 

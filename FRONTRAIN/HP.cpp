@@ -66,7 +66,10 @@ void HP::PlayerHP(Player& player)
 	DrawGraph(player.PlayerX - 10, player.PlayerY - 30, HPberGraph[HPCount], true);
 
 	//画面の左端に描く
-	DrawGraph(640 / 12, 410, MagazineGraph[player.Bullet], true);
+	DrawGraph(30, 410, MagazineGraph[player.Bullet], true);
+	DrawFormatString(38, 432, GetColor(0, 0, 0), "%d", player.Bullet);
+	DrawFormatString(36, 430, GetColor(255, 255, 255), "%d", player.Bullet);
+
 
 	//プレイヤー真上にHPが表示される
 	//DrawFormatString(player.PlayerX - 8, player.PlayerY - 30, GetColor(0, 255, 0), "%d",player.HP);
