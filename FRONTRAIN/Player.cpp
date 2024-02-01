@@ -324,9 +324,13 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 	//右クリックで弾をリロード
 	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
 	{
-		player.Reload = true;
+		if (player.Reload == false)
+		{
+			player.Reload = true;
+		}
+		
 	}
-	else if (player.Reload == true)
+	if (player.Reload == true)
 	{
 		player.PlayerShotFlag = true;
 

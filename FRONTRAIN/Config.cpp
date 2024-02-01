@@ -30,6 +30,8 @@ int CColor, CWhite, CYello;
 
 bool CRecord;
 
+int SceneTime;
+
 //初期化
 void Config_Initialize()
 {
@@ -53,6 +55,8 @@ void Config_Initialize()
 	CYello = GetColor(255, 255, 0);
 
 	CRecord = false;
+
+	SceneTime = 0;
 }
 
 //終了処理
@@ -68,6 +72,9 @@ void Config_Finalize()
 //更新
 void Config_Update(Point& point,TimeCount& timecount)
 {
+
+	SceneTime++;
+
 	settingfedo.UpdateInSetting();
 
 	//save.SaveDate(point, timecount);
@@ -92,7 +99,13 @@ void Config_Update(Point& point,TimeCount& timecount)
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
-			CRecord = true;
+			if (SceneTime >= 20)
+			{
+				CRecord = true;
+
+				SceneTime = 0;
+			}
+			
 		}
 	}
 
