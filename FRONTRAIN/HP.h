@@ -18,6 +18,7 @@ public:
 
 	//Reload‰æ‘œ
 	int Reload;
+	int ReloadGraph[21];
 
 	//“_–Å•Ï”
 	int Blinking;

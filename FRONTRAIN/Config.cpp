@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "SceneFedo.h"
 #include "Save.h"
+#include "Rect.h"
 
 SceneFedo settingfedo;
 
@@ -11,6 +12,9 @@ Save savedate;
 Point savepoint;
 TimeCount savetime;
 
+Rect m_Rect;
+Rect m_Mouse;
+
 static int mimageHandle[9];   //画像ハンドル格納用変数
 
 static int AnimCount;   //アニメーションカウント
@@ -18,6 +22,13 @@ static int AnimCount;   //アニメーションカウント
 static int Time;  //アニメーションタイム
 
 static bool Plus, Mainas;
+
+// マウスの座標を取得するための変数
+int CMouseX, CMouseY;
+
+int CColor, CWhite, CYello;
+
+bool CRecord;
 
 //初期化
 void Config_Initialize()
@@ -33,6 +44,15 @@ void Config_Initialize()
 	Plus = true;
 
 	Mainas = false;
+
+	CMouseX = 0;
+	CMouseY = 0;
+
+	CColor = 0;
+	CWhite = GetColor(255, 255, 255);
+	CYello = GetColor(255, 255, 0);
+
+	CRecord = false;
 }
 
 //終了処理
@@ -53,10 +73,29 @@ void Config_Update(Point& point,TimeCount& timecount)
 	//save.SaveDate(point, timecount);
 
 	//Zキーが押されていたら
-	if (CheckHitKey(KEY_INPUT_Z) != 0)
+	//if (CheckHitKey(KEY_INPUT_Z) != 0)
+	if(CRecord == true)
 	{
 		SceneMgr_ChageScene(eScene_Menu);//シーンをメニューに変更
 	}
+
+	//マウスの座標取得
+	GetMousePoint(&CMouseX, &CMouseY);
+
+	if (m_Rect.IsCollision(m_Mouse) == false)
+	{
+		CColor = CWhite;
+	}
+	else if (m_Rect.IsCollision(m_Mouse) == true)
+	{
+		CColor = CYello;
+		//左クリックを押したとき
+		if (GetMouseInput() & MOUSE_INPUT_LEFT)
+		{
+			CRecord = true;
+		}
+	}
+
 }
 
 //描画
@@ -99,10 +138,13 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	savedate.SaveLoad();
 
-	/*DrawFormatString(100, 100,GetColor(255, 255, 255), "スコア:%d", point.PointPoint);
-	DrawFormatString(100, 150, GetColor(255, 255, 255), "タイム:%d秒", timecount.SaveTime);
-	DrawFormatString(100, 200, GetColor(255, 255, 255), "距離:%dm", point.DistancePoint);*/
-
 	//DrawString(100, 240, "記録画面ですまだできてませんすいません", GetColor(255, 255, 255));
-	DrawString(100, 280, "Zキーを押すとメニュー画面に戻ります", GetColor(255, 255, 255));
+
+	m_Mouse.SetCenter(CMouseX, CMouseY + 5, 10, 10);
+
+	m_Rect.SetCenter(330, 290, 150, 30);
+	DrawString(260, 280, "メニュー画面", CColor);
+
+	/*m_Rect.Draw(GetColor(255, 0, 0), false);
+	m_Mouse.Draw(GetColor(255, 0, 0), false);*/
 }

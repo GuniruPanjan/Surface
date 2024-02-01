@@ -10,6 +10,7 @@
 
 Point pointsave;
 
+
 TimeCount timesave;
 
 static eScene mScene = eScene_Menu; //Œ»ƒV[ƒ“‚ÌŠÇ—•Ï”

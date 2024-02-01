@@ -7,6 +7,12 @@
 
 SceneFedo fedo;
 
+//当たり判定の矩形
+Rect m_colRectStart;   //Startボタンの判定
+Rect m_colRectExplanation;   //説明ボタンの判定
+Rect m_colRectRecord;    //記録ボタンの判定
+
+Rect m_colRectMouse;  //マウスの判定
 
 static int mimageHandle;  //画像ハンドル格納用変数
 
@@ -19,6 +25,16 @@ static int Time; //アニメーションタイム
 static bool Plus, Mainas;
 
 bool ContinueInit; //コンテニューしたときに初期化する
+
+bool Start, Explanaion, Record;
+
+//マウスの座標を取得するための変数
+int MouseX, MouseY;
+
+int StartColor, StartWhite, StartYello;
+int ExplanationColor, ExplanationWhite, ExplanationYello;
+int RecordColor, RecordWhite, RecordYello;
+
 
 //初期化
 void Menu_Initialize()
@@ -36,6 +52,28 @@ void Menu_Initialize()
 	Mainas = false;
 
 	ContinueInit = true;
+
+	Start = false;
+
+	Explanaion = false;
+
+	Record = false;
+
+	MouseX = 0;
+	MouseY = 0;
+
+	StartColor = 0;
+	ExplanationColor = 0;
+	RecordColor = 0;
+
+	StartWhite = GetColor(255, 255, 255);
+	ExplanationWhite = GetColor(255, 255, 255);
+	RecordWhite = GetColor(255, 255, 255);
+
+	StartYello = GetColor(255, 255, 0);
+	ExplanationYello = GetColor(255, 255, 0);
+	RecordYello = GetColor(255, 255, 0);
+
 }
 
 //終了処理
@@ -99,7 +137,8 @@ void Menu_Update()
 
 
 	//Aキーが押されていたら
-	if (CheckHitKey(KEY_INPUT_A) != 0)
+	//if (CheckHitKey(KEY_INPUT_A) != 0)
+	if(Start == true)
 	{
 
 		fedo.Out = 1;
@@ -108,19 +147,70 @@ void Menu_Update()
 
 	}
 	//Bキーが押されていたら
-	if (CheckHitKey(KEY_INPUT_B) != 0)
+	//if (CheckHitKey(KEY_INPUT_B) != 0)
+	if(Explanaion == true)
 	{
 		fedo.Out = 1;
 
 		fedo.Explanation = true;
 	}
 	//Cキーが押されていたら
-	if (CheckHitKey(KEY_INPUT_C) != 0)
+	//if (CheckHitKey(KEY_INPUT_C) != 0)
+	if(Record == true)
 	{
 		fedo.Out = 1;
 
 		fedo.Setting = true;
 		
+	}
+
+	//マウスの座標取得
+	GetMousePoint(&MouseX, &MouseY);
+
+	//ボタンとの当たり判定
+	if (m_colRectStart.IsCollision(m_colRectMouse) == true)
+	{
+		StartColor = StartYello;
+
+		//左クリックを押したとき
+		if (GetMouseInput() & MOUSE_INPUT_LEFT)
+		{
+			Start = true;
+		}
+	}
+	else if (m_colRectStart.IsCollision(m_colRectMouse) == false)
+	{
+		StartColor = StartWhite;
+	}
+
+	if (m_colRectExplanation.IsCollision(m_colRectMouse) == true)
+	{
+		ExplanationColor = ExplanationYello;
+
+		//左クリックを押したとき
+		if (GetMouseInput() & MOUSE_INPUT_LEFT)
+		{
+			Explanaion = true;
+		}
+	}
+	else if (m_colRectExplanation.IsCollision(m_colRectMouse) == false)
+	{
+		ExplanationColor = ExplanationWhite;
+	}
+
+	if (m_colRectRecord.IsCollision(m_colRectMouse) == true)
+	{
+		RecordColor = RecordYello;
+
+		//左クリックを押したとき
+		if (GetMouseInput() & MOUSE_INPUT_LEFT)
+		{
+			Record = true;
+		}
+	}
+	else if (m_colRectRecord.IsCollision(m_colRectMouse) == false)
+	{
+		RecordColor = RecordWhite;
 	}
 }
 
@@ -166,18 +256,29 @@ void Menu_Draw()
 
 	DrawGraph(0, 50, Graph[AnimCount], true);
 
-	fedo.StartUpdate();
-
 	SetFontSize(22);
 
+	//マウスの当たり判定取得
+	m_colRectMouse.SetCenter(MouseX, MouseY + 5, 10, 10);
+
 	ChangeFont("アプリ明朝", DX_CHARSET_DEFAULT);
-	DrawBox(248, 310, 390, 340, GetColor(255, 0, 0),false);
-	DrawString(250, 310, "AキーSTART", GetColor(255, 255, 255));
+	//DrawBox(248, 310, 390, 340, GetColor(255, 0, 0),false);
+	m_colRectStart.SetCenter(320, 320, 120, 30);
+	DrawString(285, 310, "START", StartColor);
 
-	DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
-	DrawString(250, 370, "Bキー操作説明", GetColor(255, 255, 255));
+	//DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
+	m_colRectExplanation.SetCenter(320, 380, 120, 30);
+	DrawString(280, 370, "操作説明", ExplanationColor);
 
-	DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
-	DrawString(250, 430, "Cキー記録", GetColor(255, 255, 255));
+	//DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
+    m_colRectRecord.SetCenter(320, 440, 60, 30);
+	DrawString(300, 430, "記録", RecordColor);
 
+	fedo.StartUpdate();
+
+
+	/*m_colRectStart.Draw(GetColor(255, 0, 0), false);
+	m_colRectExplanation.Draw(GetColor(255, 0, 0), false);
+	m_colRectRecord.Draw(GetColor(255, 0, 0), false);
+	m_colRectMouse.Draw(GetColor(255, 255, 0), false);*/
 }

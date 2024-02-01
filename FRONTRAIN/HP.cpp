@@ -7,6 +7,8 @@ void HP::PlayerHPInit()
 
 	LoadDivGraph("date/弾倉.png", 13, 7, 2, 40, 60, MagazineGraph);
 
+	LoadDivGraph("date/ReloadGraph.png", 21, 7, 3, 20, 60, ReloadGraph);
+
 	Reload = LoadGraph("date/Reload.png");
 
 	Blinking = 0;
@@ -74,6 +76,9 @@ void HP::PlayerHP(Player& player)
 	DrawFormatString(38, 432, GetColor(0, 0, 0), "%d", player.Bullet);
 	DrawFormatString(36, 430, GetColor(255, 255, 255), "%d", player.Bullet);
 
+	//Reloadタイムを描画する
+	DrawGraph(70, 410, ReloadGraph[player.BulletTime / 2], true);
+
 	//プレイヤーの弾が切れたら描画する
 	if (player.Bullet == 0)
 	{
@@ -92,7 +97,4 @@ void HP::PlayerHP(Player& player)
 		
 	}
 	
-
-	//プレイヤー真上にHPが表示される
-	//DrawFormatString(player.PlayerX - 8, player.PlayerY - 30, GetColor(0, 255, 0), "%d",player.HP);
 }
