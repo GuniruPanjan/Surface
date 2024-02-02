@@ -45,6 +45,12 @@ struct SkyEnemyStruct : public EnemyBase
 
 	//“G‚ªoŒ»‚·‚éƒtƒ‰ƒO
 	bool SkyEnemyflag = false;
+
+	//€‚ñ‚¾‚ÌSE—pŠi”[•Ï”
+	int SESkyEnemyDead;
+
+	//SE‚ğˆê‰ñ–Â‚ç‚·
+	bool SE;
 };
 
 class SkyEnemy : public EnemyBase

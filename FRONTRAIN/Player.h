@@ -57,6 +57,9 @@ struct Shot
 	//当たり判定の矩形
 	Rect m_colRect;
 
+	//SE用格納変数
+	int SEShot;
+
 };
 
 class WalkEnemy;
@@ -178,4 +181,10 @@ private:
 	int minDrawMapX = 0;   //最小の描画範囲X
 	int mapScrollX = 0;   //スクロール量X
 	int moveNumX = 0;    //総移動量X
+
+	//SE用格納変数
+	int SEReload, SEDamage;
+
+	//SEを一回鳴らす
+	bool SE = false;
 };

@@ -42,6 +42,14 @@ struct WalkEnemyStruct : public EnemyBase
 
 	//エネミーが出現するフラグ
 	bool WalkEnemyflag = false;
+
+	//SE用格納変数
+	int SEWalkEnemy;
+
+	int SEWalkEnemyDead1, SEWalkEnemyDead2;
+
+	//SEを一回だけ鳴らす
+	bool SE1,SE2;
 	
 };
 

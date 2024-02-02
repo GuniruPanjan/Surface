@@ -45,6 +45,9 @@ struct EnemyShot
 
 	//“–‚½‚è”»’è‚Ì‹éŒ`
 	Rect m_colRect;
+
+	//SE—pŠi”[•Ï”
+	int SEDistanceShot;
 };
 
 struct DistanceEnemyStruct : public EnemyBase
@@ -87,6 +90,13 @@ struct DistanceEnemyStruct : public EnemyBase
 	int AnimCount;
 	int AnimTime;
 
+	//SE—pŠi”[•Ï”
+	int SEDistanceEnemy;
+
+	int SEDistanceDead, SEDistanceDamage;
+
+	//SE‚ğˆê‰ñ–Â‚ç‚·
+	bool SE1, SE2;
 };
 class DistanceEnemy : public EnemyBase
 {

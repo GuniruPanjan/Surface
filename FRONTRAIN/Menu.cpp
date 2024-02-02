@@ -28,6 +28,12 @@ bool ContinueInit; //コンテニューしたときに初期化する
 
 bool Start, Explanaion, Record;
 
+//サウンド格納用変数
+int SoundMenu;
+
+//SE格納用変数
+int SEClickShot;
+
 //マウスの座標を取得するための変数
 int MouseX, MouseY;
 
@@ -66,6 +72,8 @@ void Menu_Initialize()
 	ExplanationColor = 0;
 	RecordColor = 0;
 
+	SoundMenu = LoadSoundMem("BGM/朝露.mp3");
+
 	StartWhite = GetColor(255, 255, 255);
 	ExplanationWhite = GetColor(255, 255, 255);
 	RecordWhite = GetColor(255, 255, 255);
@@ -74,6 +82,7 @@ void Menu_Initialize()
 	ExplanationYello = GetColor(255, 255, 0);
 	RecordYello = GetColor(255, 255, 0);
 
+	SEClickShot = LoadSoundMem("SE/狙撃銃発射.mp3");
 }
 
 //終了処理
@@ -113,6 +122,17 @@ void Menu_Update()
 	
 		SceneMgr_ChageScene(eScene_Game);//シーンをゲーム画面に変更
 
+		DeleteSoundMem(SoundMenu);
+
+		DeleteSoundMem(SEClickShot);
+
+		DeleteGraph(mimageHandle);
+
+		for (int i = 0; i < 9; i++)
+		{
+			DeleteGraph(Graph[i]);
+		}
+
 		ContinueInit = true;
 
 		
@@ -122,12 +142,34 @@ void Menu_Update()
 	{
 		SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
 
+		DeleteSoundMem(SoundMenu);
+
+		DeleteSoundMem(SEClickShot);
+
+		DeleteGraph(mimageHandle);
+
+		for (int i = 0; i < 9; i++)
+		{
+			DeleteGraph(Graph[i]);
+		}
+
 		ContinueInit = true;
 	}
 	//設定画面
 	if (fedo.end == 1 && fedo.Setting == true)
 	{
 		SceneMgr_ChageScene(eScene_Config);//シーンを設定画面に変更
+
+		DeleteSoundMem(SoundMenu);
+
+		DeleteSoundMem(SEClickShot);
+
+		DeleteGraph(mimageHandle);
+
+		for (int i = 0; i < 9; i++)
+		{
+			DeleteGraph(Graph[i]);
+		}
 
 		ContinueInit = true;
 
@@ -138,6 +180,7 @@ void Menu_Update()
 
 	//Aキーが押されていたら
 	//if (CheckHitKey(KEY_INPUT_A) != 0)
+	//クリックされたら
 	if(Start == true)
 	{
 
@@ -148,6 +191,7 @@ void Menu_Update()
 	}
 	//Bキーが押されていたら
 	//if (CheckHitKey(KEY_INPUT_B) != 0)
+	//クリックされたら
 	if(Explanaion == true)
 	{
 		fedo.Out = 1;
@@ -156,6 +200,7 @@ void Menu_Update()
 	}
 	//Cキーが押されていたら
 	//if (CheckHitKey(KEY_INPUT_C) != 0)
+	//クリックされたら
 	if(Record == true)
 	{
 		fedo.Out = 1;
@@ -176,6 +221,8 @@ void Menu_Update()
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
 			Start = true;
+
+			PlaySoundMem(SEClickShot, DX_PLAYTYPE_BACK, FALSE);
 		}
 	}
 	else if (m_colRectStart.IsCollision(m_colRectMouse) == false)
@@ -191,6 +238,9 @@ void Menu_Update()
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
 			Explanaion = true;
+
+			PlaySoundMem(SEClickShot, DX_PLAYTYPE_BACK, FALSE);
+
 		}
 	}
 	else if (m_colRectExplanation.IsCollision(m_colRectMouse) == false)
@@ -206,12 +256,18 @@ void Menu_Update()
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
 			Record = true;
+
+			PlaySoundMem(SEClickShot, DX_PLAYTYPE_BACK, FALSE);
+
 		}
 	}
 	else if (m_colRectRecord.IsCollision(m_colRectMouse) == false)
 	{
 		RecordColor = RecordWhite;
 	}
+
+	PlaySoundMem(SoundMenu, DX_PLAYTYPE_LOOP, FALSE);
+
 }
 
 //描画

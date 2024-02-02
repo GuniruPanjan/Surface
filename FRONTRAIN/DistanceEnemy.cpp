@@ -47,6 +47,15 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 	enemy.AnimCount = 0;
 
 	enemy.AnimTime = 0;
+
+	enemy.SEDistanceEnemy = LoadSoundMem("SE/中型ロボットの駆動音2.mp3");
+
+	enemy.SEDistanceDead = LoadSoundMem("SE/爆発2.mp3");
+
+	enemy.SEDistanceDamage = LoadSoundMem("SE/金属叩き.mp3");
+
+	enemy.SE1 = false;
+	enemy.SE2 = false;
 }
 
 void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
@@ -75,6 +84,7 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 		LoadDivGraph("date/火花(小)左.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
 		LoadDivGraph("date/火花(小)右.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
 
+		shot[i].SEDistanceShot = LoadSoundMem("SE/拳銃を撃つ.mp3");
 	}
 }
 
@@ -92,6 +102,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 
 				for (int i = 0; i < DenemySize; i++)
 				{
+
 					if (enemy[i].DistanceEnemyflag == false)
 					{
 						//現在時間を得る
@@ -180,7 +191,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 		if (enemy[i].DistanceEnemyflag == true)
 		{
 			//敵が生きている時
-			if (enemy[i].HP >= 0)
+			if (enemy[i].HP > 0)
 			{
 				//敵の移動処理
 				//右から
@@ -205,33 +216,23 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 			
 				}
 
-				//敵の攻撃行動
-				/*enemy[i].ShotEnemy = (GetNowCount() - enemy[i].Time) / 1000;
-
-				if (enemy[i].ShotEnemy == 4 * enemy[i].ShotDistance)
+				//プレイヤーが近くだったら攻撃行動実行
+				if (player.PlayerX - ScrollX + 320 >= enemy[i].DistanceEnemyX && player.PlayerX - ScrollX - 320 <= enemy[i].DistanceEnemyX)
 				{
-					enemy[i].EnemyShotFlag = false;
-
-					for (int j = 0; j < EnemyShotSize; j++)
+					enemy[i].Time++;
+					if (enemy[i].Time >= 4000)
 					{
-						enemyshot[j].Flag = false;
+						enemy[i].EnemyShotFlag = false;
+
+						for (int j = 0; j < EnemyShotSize; j++)
+						{
+							enemyshot[j].Flag = false;
+						}
+
+						enemy[i].Time = 0;
 					}
-
-					enemy[i].ShotDistance++;
-				}*/
-
-				enemy[i].Time++;
-				if (enemy[i].Time >= 4000)
-				{
-					enemy[i].EnemyShotFlag = false;
-
-					for (int j = 0; j < EnemyShotSize; j++)
-					{
-						enemyshot[j].Flag = false;
-					}
-
-					enemy[i].Time = 0;
 				}
+				
 
 
 
@@ -268,6 +269,8 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 					{
 						enemy[i].HP -= shot.Damage;
 						
+						PlaySoundMem(enemy[i].SEDistanceDamage, DX_PLAYTYPE_BACK, TRUE);
+
 						//接触している場合は当たった弾の存在を消す
 						shot.Flag = 0;
 
@@ -288,12 +291,15 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 //敵の攻撃行動
 void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield)
 {
+	
 	for (int i = 0; i < enemySize; i++)
 	{
 		if (enemy[i].EnemyShotFlag == false)
 		{
 			if (shot.Flag == false)
 			{
+				PlaySoundMem(shot.SEDistanceShot, DX_PLAYTYPE_BACK, TRUE);
+
 				shot.Flag = true;
 				shot.X = enemy[i].DistanceEnemyX;
 				shot.Y = enemy[i].DistanceEnemyY + enemy[i].DistanceEnemyHeight / 2;
@@ -321,7 +327,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 				break;
 			}
 		}
-	    enemy[i].EnemyShotFlag = true;
+		enemy[i].EnemyShotFlag = true;
 	}
 
 	if (shot.Flag == true)
@@ -372,6 +378,13 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	//エネミーが生きている時
 	if (enemy.HP > 0)
 	{
+		if (enemy.SE1 == false)
+		{
+			PlaySoundMem(enemy.SEDistanceEnemy, DX_PLAYTYPE_BACK, TRUE);
+
+			enemy.SE1 = true;
+		}
+
 		if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 		{
 			DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
@@ -391,7 +404,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				//プレイヤーよりエネミーが右にいる場合
 				if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 				{
-					if (shot[s].ShotSparkTime >= 10)
+					if (shot[s].ShotSparkTime >= 5)
 					{
 						shot[s].ShotSparkCountRight++;
 
@@ -403,7 +416,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				//プレイヤーよりエネミーが左にいる場合
 				if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
 				{
-					if (shot[s].ShotSparkTime >= 10)
+					if (shot[s].ShotSparkTime >= 5)
 					{
 						shot[s].ShotSparkCountLeft++;
 
@@ -420,13 +433,18 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 			
 		}
 
-
 		//エネミーの当たり判定の表示
 		//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
 	}
 	//敵が死んだ時
 	else if (enemy.HP <= 0)
 	{	
+		if (enemy.SE2 == false)
+		{
+			PlaySoundMem(enemy.SEDistanceDead, DX_PLAYTYPE_BACK, TRUE);
+
+			enemy.SE2 = true;
+		}
 
 		if (enemy.DistanceEnemyDead == false)
 		{
@@ -461,6 +479,8 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 					enemy.DistanceEnemyX = -30.0f;
 					enemy.DistanceEnemyY = -30.0f;
+
+					enemy.SE2 = false;
 
 					enemy.DistanceEnemyDead = true;
 

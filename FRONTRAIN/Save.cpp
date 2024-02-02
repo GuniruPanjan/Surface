@@ -8,7 +8,8 @@ Save::Save():
 	Start(false),
 	name(0),
 	White(0),
-	end(false)
+	end(false),
+	Soundname(0)
 {
 }
 
@@ -25,6 +26,8 @@ void Save::SaveInit()
 
 	name = MakeKeyInput(8, TRUE, FALSE, FALSE);
 	SetActiveKeyInput(name);
+
+	Soundname = LoadSoundMem("BGM/êÖñ âeäG.mp3");
 }
 
 void Save::SaveDate(Point& point,TimeCount& timecount)
@@ -67,9 +70,13 @@ void Save::SaveInput()
 		else
 		{
 			Start = true;
+
+			DeleteSoundMem(Soundname);
 		}
 		
 	}
+
+	PlaySoundMem(Soundname, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 

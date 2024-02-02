@@ -32,6 +32,12 @@ bool CRecord;
 
 int SceneTime;
 
+//サウンド用格納変数
+int SoundConfig;
+
+//SE用格納変数
+int SEClickConfig;
+
 //初期化
 void Config_Initialize()
 {
@@ -57,6 +63,11 @@ void Config_Initialize()
 	CRecord = false;
 
 	SceneTime = 0;
+
+	SoundConfig = LoadSoundMem("BGM/優しい窓辺.mp3");
+
+	SEClickConfig = LoadSoundMem("SE/決定ボタンを押す40.mp3");
+
 }
 
 //終了処理
@@ -84,6 +95,16 @@ void Config_Update(Point& point,TimeCount& timecount)
 	if(CRecord == true)
 	{
 		SceneMgr_ChageScene(eScene_Menu);//シーンをメニューに変更
+
+		DeleteSoundMem(SoundConfig);
+
+		DeleteSoundMem(SEClickConfig);
+
+		for (int i = 0; i < 9; i++)
+		{
+			DeleteGraph(mimageHandle[i]);//画像の解放
+		}
+
 	}
 
 	//マウスの座標取得
@@ -101,6 +122,8 @@ void Config_Update(Point& point,TimeCount& timecount)
 		{
 			if (SceneTime >= 20)
 			{
+				PlaySoundMem(SEClickConfig, DX_PLAYTYPE_BACK, FALSE);
+
 				CRecord = true;
 
 				SceneTime = 0;
@@ -108,6 +131,8 @@ void Config_Update(Point& point,TimeCount& timecount)
 			
 		}
 	}
+
+	PlaySoundMem(SoundConfig, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 

@@ -44,7 +44,10 @@ Player::Player():
 	DeadAnimTime(0),
 	DeadAnimCount(9),
 	DamegeCount(0),
-	Reload(false)
+	Reload(false),
+	SEReload(0),
+	SEDamage(0),
+	SE(false)
 {
 	//’e‰Šú‰»
 	memset(shot, 0, sizeof(shot));
@@ -102,9 +105,14 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.DeadAnimCount = 9;
 	player.DeadAnimTime = 0;
 
+	player.SE = false;
+
 	LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, player.DeadGraph);
 
 	LoadDivGraph("date/PlayerMove.png", 12, 6, 2, 20, 25, player.playerGraph);
+
+	player.SEReload = LoadSoundMem("SE/’e‘q‚É’e‚ğ‚ß‚é.mp3");
+	player.SEDamage = LoadSoundMem("SE/ÕŒ‚.mp3");
 
 	for (int i = 0; i < SHOT; i++)
 	{
@@ -125,6 +133,8 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 
 		LoadDivGraph("date/‰Î‰Ô(¬)‰E.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
 		LoadDivGraph("date/‰Î‰Ô(¬)¶.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
+
+		shot[i].SEShot = LoadSoundMem("SE/Œe‚ğŒ‚‚Â.mp3");
 
 	}
 	
@@ -305,6 +315,15 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 
 	if (player.PlayerDamage == true)
 	{
+		
+		if (player.SE == false)
+		{
+			PlaySoundMem(player.SEDamage, DX_PLAYTYPE_BACK, TRUE);
+
+			player.SE = true;
+		}
+		
+
 		player.Count++;
 
 		player.DamegeCount++;
@@ -313,6 +332,8 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 	//4ƒtƒŒ[ƒ€Œã
 	if (player.Count >= 224)
 	{
+		player.SE = false;
+
 		player.PlayerDamage = false;
 		player.Count = 0;
 	}
@@ -332,6 +353,8 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 	}
 	if (player.Reload == true)
 	{
+		//PlaySoundMem(player.SEReload,DX_PLAYTYPE_BACK, TRUE);
+
 		player.PlayerShotFlag = true;
 
 		player.BulletTime++;
@@ -350,11 +373,15 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		//’e‚ª“ü‚Á‚Ä‚¢‚é‚ÆŒ‚‚Ä‚é
 		if (player.Bullet > 0)
 		{
+			
+
 			if (player.PlayerShotFlag == false)
 			{
 
 				for (int i = 0; i < shotSize; i++)
 				{
+					PlaySoundMem(shot[i].SEShot, DX_PLAYTYPE_BACK, TRUE);
+
 					if (shot[i].Flag == false)
 					{
 						shot[i].Flag = true;
@@ -397,7 +424,6 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		}
 
 	}
-
 }
 
 void Player::Draw(Shield& shield, Player& player)

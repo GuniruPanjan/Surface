@@ -18,6 +18,12 @@ int EColor, EBlack, EYello;
 
 bool EMenu;
 
+//サウンド用格納変数
+int SoundExplanation;
+
+//SE用格納変数
+int SEClickExplanation;
+
 //初期化
 void Explanation_Initialize()
 {
@@ -31,6 +37,10 @@ void Explanation_Initialize()
 	EYello = GetColor(255, 255, 0);
 
 	EMenu = false;
+
+	SoundExplanation = LoadSoundMem("BGM/水面影絵.mp3");
+
+	SEClickExplanation = LoadSoundMem("SE/決定ボタンを押す40.mp3");
 }
 
 //終了処理
@@ -49,6 +59,10 @@ void Explanation_Update()
 	if(EMenu == true)
 	{
 		SceneMgr_ChageScene(eScene_Menu); //シーンをメニュー画面に変更
+
+		DeleteSoundMem(SoundExplanation);
+
+		DeleteSoundMem(SEClickExplanation);
 	}
 
 	//マウスの座標取得
@@ -62,6 +76,8 @@ void Explanation_Update()
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
 			EMenu = true;
+
+			PlaySoundMem(SEClickExplanation, DX_PLAYTYPE_BACK, FALSE);
 		}
 
 	}
@@ -69,6 +85,9 @@ void Explanation_Update()
 	{
 		EColor = EBlack;
 	}
+
+	PlaySoundMem(SoundExplanation, DX_PLAYTYPE_LOOP, FALSE);
+
 }
 
 //描画

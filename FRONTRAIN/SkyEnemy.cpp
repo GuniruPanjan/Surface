@@ -43,6 +43,10 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 
 	LoadDivGraph("date/SkyEnemy.png", 3, 3, 1, 15, 20, enemy.SkyHandle);
 
+	enemy.SESkyEnemyDead = LoadSoundMem("SE/se_tsubureru04.mp3");
+
+	enemy.SE = false;
+
 }
 
 void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy,Shield& shield)
@@ -134,6 +138,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			//“G‚ª¶‚«‚Ä‚¢‚éŽž
 			if (enemy[i].HP >= 0)
 			{
+
 				if (enemy[i].Flag == false)
 				{
 					enemy[i].Flag = true;
@@ -225,6 +230,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 	//“G‚ª¶‚«‚Ä‚¢‚éŽž
 	if (enemy.HP > 0)
 	{
+
 		if (enemy.Flag)
 		{
 			enemy.Time++;
@@ -265,6 +271,13 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY - 5, enemy.DeadAnimGraph[enemy.DeadAnimCount], true);
 
+			if (enemy.SE == false)
+			{
+				PlaySoundMem(enemy.SESkyEnemyDead, DX_PLAYTYPE_BACK, TRUE);
+
+				enemy.SE = true;
+			}
+			
 
 			if (enemy.SkyShotDead == true)
 			{
@@ -280,6 +293,8 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 				enemy.SkyEnemyX = -640.0f;
 				enemy.SkyEnemyY = -20.0f;
+
+				enemy.SE = false;
 
 				enemy.SkyEnemyDead = true;
 			}

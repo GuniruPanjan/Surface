@@ -44,6 +44,15 @@ bool Isflag = false;
 
 int DistanceDown = -1;
 
+//サウンド用格納変数
+int SoundGame;
+
+//SE用格納変数
+int PlayerSEDead1, PlayerSEDead2;
+
+//SEを一回鳴らす
+bool SE;
+
 //初期化
 void Game_Initialize()
 {
@@ -74,6 +83,14 @@ void Game_Initialize()
 	explanation.ExplanationInit();
 
 	save.SaveInit();
+
+	SoundGame = LoadSoundMem("BGM/戦闘bgm.m4a");
+
+	PlayerSEDead1 = LoadSoundMem("SE/狙撃銃発射.mp3");
+
+	PlayerSEDead2 = LoadSoundMem("SE/「ぐっ！」.mp3");
+
+	SE = false;
 }
 
 //終了処理
@@ -92,6 +109,8 @@ void Game_Update()
 	}
 	else if (save.Start == true)
 	{
+		PlaySoundMem(SoundGame, DX_PLAYTYPE_LOOP, FALSE);
+
 		if (scenefedo.LetGo == false)
 		{
 			scenefedo.a = 0;
@@ -128,7 +147,7 @@ void Game_Update()
 			player.ShotUpdate(player, shot, SHOT);
 			map.UpdateMap(player.ScrollX);
 		}
-		
+
 	}
 
 }
@@ -183,9 +202,18 @@ void Game_Draw()
 			//プレイヤーが死亡すると
 			if (player.HP <= 0)
 			{
+
 				scenefedo.DeadAnim();
 
 				scenefedo.WhiteOut();
+
+				if (SE == false)
+				{
+					PlaySoundMem(PlayerSEDead2, DX_PLAYTYPE_BACK, TRUE);
+					PlaySoundMem(PlayerSEDead1, DX_PLAYTYPE_BACK, TRUE);
+
+					SE = true;
+				}
 
 				if (save.end == false)
 				{
@@ -199,6 +227,8 @@ void Game_Draw()
 					scenefedo.DeadOut();
 
 					SceneMgr_ChageScene(eScene_GameOver);//シーンをゲームオーバー画面に変更
+
+					DeleteSoundMem(SoundGame);
 				}
 
 			}

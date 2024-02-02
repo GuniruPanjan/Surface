@@ -20,6 +20,12 @@ bool gameover;
 //マウスの座標を取得するための変数
 int  gmMouseX, gmMouseY;
 
+//サウンド用格納変数
+int SoundGameOver;
+
+//SE用格納変数
+int SEClickGameOver;
+
 //初期化
 void GameOver_Initialize()
 {
@@ -37,6 +43,10 @@ void GameOver_Initialize()
 	gmMouseY = 0;
 
 	gameover = false;
+
+	SoundGameOver = LoadSoundMem("BGM/英霊の墓.mp3");
+
+	SEClickGameOver = LoadSoundMem("SE/決定ボタンを押す40.mp3");
 }
 
 //終了処理
@@ -57,6 +67,10 @@ void GameOver_Update()
 	if(gameover == true)
 	{
 		SceneMgr_ChageScene(eScene_Config);//シーンをメニューに変更
+
+		DeleteSoundMem(SoundGameOver);
+
+		DeleteSoundMem(SEClickGameOver);
 	}
 
 	//マウスの座標取得
@@ -68,6 +82,8 @@ void GameOver_Update()
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
+			PlaySoundMem(SEClickGameOver, DX_PLAYTYPE_BACK, FALSE);
+
 			gameover = true;
 		}
 	}
@@ -76,13 +92,15 @@ void GameOver_Update()
 		GameOverColor = GameOverWhite;
 	}
 
+	PlaySoundMem(SoundGameOver, DX_PLAYTYPE_LOOP, FALSE);
+
 }
 
 void GameOver_Draw()
 {
 	DrawGraph(0, 0, mimageHandle, false);
 
-	DrawGraph(70, 90, GameOverHandle, true);
+	DrawGraph(70, 0, GameOverHandle, true);
 
 	//マウスの当たり判定取得
 	Mouse.SetCenter(gmMouseX, gmMouseY + 5, 10, 10);

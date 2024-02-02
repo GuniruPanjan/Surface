@@ -32,7 +32,8 @@ public:
 	int name; //セーブの名前入力保存変数宣言
 	int White;  //色の宣言
 
-	
+	//サウンド用格納変数
+	int Soundname;
 
 };
 
