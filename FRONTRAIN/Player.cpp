@@ -194,7 +194,7 @@ void Player::InitShot(Shot shot[])
 	
 }
 
-void Player::Update(Player& player,Map& map,Shield& shield)
+void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 {
 
 	//‚ŽÀ‘•
@@ -360,6 +360,23 @@ void Player::Update(Player& player,Map& map,Shield& shield)
 			player.SE = true;
 		}
 		
+		//‰æ–Ê‚ð—h‚ç‚·
+		if (player.Count > 1 && player.Count <= 100)
+		{
+			back.BackX = GetRand(10);
+
+			back.BackY = GetRand(10);
+
+			back.BackX = GetRand(-10);
+
+			back.BackY = GetRand(-10);
+		}
+		if (player.Count > 100)
+		{
+			back.BackX = 0;
+
+			back.BackY = 0;
+		}
 
 		player.Count++;
 

@@ -19,6 +19,8 @@ static int mimageHandle;  //画像ハンドル格納用変数
 
 static int Graph[9];   //画像ハンドル格納用変数
 
+static int ClickShot;
+
 static int AnimCount; //アニメーションカウント
 
 static int Time; //アニメーションタイム
@@ -84,6 +86,8 @@ void Menu_Initialize()
 	RecordYello = GetColor(255, 255, 0);
 
 	SEClickShot = LoadSoundMem("SE/狙撃銃発射.mp3");
+
+	ClickShot = LoadGraph("date/Destruction.png");
 }
 
 //終了処理
@@ -298,17 +302,30 @@ void Menu_Draw()
 	//マウスの当たり判定取得
 	m_colRectMouse.SetCenter(MouseX, MouseY + 5, 10, 10);
 
+	if (Start == true)
+	{
+		DrawGraph(210, 190, ClickShot, true);
+	}
+	if (Explanaion == true)
+	{
+		DrawGraph(210, 240, ClickShot, true);
+	}
+	if (Record == true)
+	{
+		DrawGraph(210, 300, ClickShot, true);
+	}
+
 	ChangeFont("アプリ明朝", DX_CHARSET_DEFAULT);
 	//DrawBox(248, 310, 390, 340, GetColor(255, 0, 0),false);
-	m_colRectStart.SetCenter(320, 320, 120, 30);
+	m_colRectStart.SetCenter(323, 320, 120, 30);
 	DrawString(285, 310, "START", StartColor);
 
 	//DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
-	m_colRectExplanation.SetCenter(320, 380, 120, 30);
+	m_colRectExplanation.SetCenter(323, 380, 120, 30);
 	DrawString(280, 370, "操作説明", ExplanationColor);
 
 	//DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
-    m_colRectRecord.SetCenter(320, 440, 60, 30);
+    m_colRectRecord.SetCenter(323, 440, 120, 30);
 	DrawString(300, 430, "記録", RecordColor);
 
 	fedo.StartUpdate();

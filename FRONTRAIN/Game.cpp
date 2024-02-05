@@ -158,7 +158,7 @@ void Game_Update()
 
 			point.UpdatePoint(player, player.ScrollX);
 
-			player.Update(player, map, shield);
+			player.Update(player, map, shield, Back);
 
 			for (int i = 0; i < SHOT; i++)
 			{
@@ -198,7 +198,7 @@ void Game_Draw()
 			timecount.DrawTime();
 			point.DrawPoint(player, player.ScrollX);
 
-			hp.PlayerHP(player);
+			hp.PlayerHP(player, Back);
 
 			player.Draw(shield, player);
 

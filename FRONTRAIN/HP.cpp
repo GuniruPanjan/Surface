@@ -36,51 +36,73 @@ void HP::PlayerHPInit()
 	HPCount = 0;
 }
 
-void HP::PlayerHP(Player& player)
+void HP::PlayerHP(Player& player, Background& back)
 {
 	if (player.HP == 10)
 	{
+		back.Red = 0;
+
 		HPCount = 9;
 	}
 	if (player.HP == 9)
 	{
+		back.Red = 10;
+
 		HPCount = 8;
 	}
 	if (player.HP == 8)
 	{
+		back.Red = 20;
+
 		HPCount = 7;
 	}
 	if (player.HP == 7)
 	{
+		back.Red = 30;
+
 		HPCount = 6;
 	}
 	if (player.HP == 6)
 	{
+		back.Red = 40;
+
 		HPCount = 5;
 	}
 	if (player.HP == 5)
 	{
+		back.Red = 50;
+
 		HPCount = 4;
 	}
 	if (player.HP == 4)
 	{
+		back.Red = 60;
+
 		HPCount = 3;
 	}
 	if (player.HP == 3)
 	{
+		back.Red = 70;
+
 		HPCount = 2;
 	}
 	if (player.HP == 2)
 	{
+		back.Red = 80;
+
 		HPCount = 1;
 	}
 	if (player.HP == 1)
 	{
+		back.Red = 90;
+
 		HPCount = 0;
 	}
 
 	if (player.HP <= 0)
 	{
+		back.Red = 100;
+
 		for (int i = 0; i < 10; i++)
 		{
 			DeleteGraph(HPberGraph[i]);
