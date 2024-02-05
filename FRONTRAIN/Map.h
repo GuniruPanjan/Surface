@@ -317,6 +317,7 @@ public:
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	};
 
+	void FinalizeMap();
 	void InitMap();
 	void UpdateMap(int ScrollX);
 	void DrawMap(int ScrollX,Shot& shot,Player& player,WalkEnemyStruct Wenemy[],SkyEnemyStruct Senemy[],DistanceEnemyStruct Denemy[],EnemyShot enemyShot[],int EnemyShotSize);

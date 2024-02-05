@@ -55,6 +55,12 @@ void GameOver_Finalize()
 	DeleteGraph(mimageHandle);   //画像の解放
 
 	DeleteGraph(GameOverHandle);  //画像の解放
+
+	DeleteSoundMem(SoundGameOver);
+
+	DeleteSoundMem(SEClickGameOver);
+
+	Scenefedo.FinalizeFedo();
 }
 
 //更新
@@ -62,15 +68,32 @@ void GameOver_Update()
 {
 	Scenefedo.UpdateIn();
 
+	if (Scenefedo.a >= 255)
+	{
+		Scenefedo.Update();
+	}
+	
+
+	if (Scenefedo.end == 1 && Scenefedo.Setting == true)
+	{
+		DeleteSoundMem(SoundGameOver);
+
+		DeleteSoundMem(SEClickGameOver);
+
+		DeleteGraph(mimageHandle);
+
+		DeleteGraph(GameOverHandle);
+
+		SceneMgr_ChageScene(eScene_Config);//シーンをメニューに変更
+	}
+
 	//SPACEキーが押されていたら
 	//if (CheckHitKey(KEY_INPUT_SPACE) != 0)
 	if(gameover == true)
 	{
-		SceneMgr_ChageScene(eScene_Config);//シーンをメニューに変更
+		Scenefedo.Out = 1;
 
-		DeleteSoundMem(SoundGameOver);
-
-		DeleteSoundMem(SEClickGameOver);
+		Scenefedo.Setting = true;
 	}
 
 	//マウスの座標取得

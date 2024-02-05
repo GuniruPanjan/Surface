@@ -17,6 +17,11 @@ Save::~Save()
 {
 }
 
+void Save::FinalizeSave()
+{
+	DeleteSoundMem(Soundname);
+}
+
 void Save::SaveInit()
 {
 	Start = false;

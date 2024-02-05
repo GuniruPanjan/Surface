@@ -39,6 +39,11 @@ Map::~Map()
 {
 }
 
+void Map::FinalizeMap()
+{
+	DeleteGraph(maped.Block);
+}
+
 void Map::InitMap()
 {
 	maped.Block = LoadGraph("date/ƒuƒƒbƒN.png");

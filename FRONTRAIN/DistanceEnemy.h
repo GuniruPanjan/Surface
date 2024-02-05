@@ -104,6 +104,8 @@ public:
 	DistanceEnemy();
 	~DistanceEnemy();
 
+	void FinalizeDistanceEnemy(DistanceEnemyStruct& enemy);
+	void FinalizeDistanceEnemyShot(EnemyShot shot[]);
 	void Init(DistanceEnemyStruct& enemy,DistanceEnemy& Denemy);
 	void EnemyShotInit(EnemyShot shot[]);
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[], int EnemyShotSize, Shield& shield);
@@ -117,5 +119,6 @@ public:
 	//ŠÔ‚ği‚ß‚é•Ï”
 	int T = 0;
 	int TUP = 0;
+	int TUP2 = 0;
 };
 

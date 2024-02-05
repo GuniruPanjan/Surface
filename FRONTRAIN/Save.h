@@ -16,6 +16,7 @@ public:
 	Save();
 	~Save();
 
+	void FinalizeSave();
 	void SaveInit();
 
 	void SaveDate(Point& point, TimeCount& timecount);

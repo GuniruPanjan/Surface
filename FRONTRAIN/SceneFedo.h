@@ -7,6 +7,7 @@ public:
 	SceneFedo();
 	~SceneFedo();
 
+	void FinalizeFedo();
 	void Init();
 	void Update();
 	void StartUpdate();

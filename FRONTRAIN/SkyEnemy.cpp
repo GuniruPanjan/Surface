@@ -11,6 +11,20 @@ SkyEnemy::~SkyEnemy()
 {
 }
 
+void SkyEnemy::FinalizeSky(SkyEnemyStruct& enemy)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		DeleteGraph(enemy.DeadAnimGraph[i]);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		DeleteGraph(enemy.SkyHandle[i]);
+	}
+
+	DeleteSoundMem(enemy.SESkyEnemyDead);
+}
+
 void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 {
 	Senemy.Attack = 1;
@@ -30,6 +44,8 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 	Senemy.T = 0;
 
 	Senemy.TUP = 30;
+
+	Senemy.TUP2 = 150;
 
 	enemy.S = 0;
 
@@ -93,13 +109,50 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 		}
 	}
 	//2分たった場合出現率アップ
-	else if (time->EnemyTime >= 120)
+	else if (time->EnemyTime >= 120 && time->EnemyTime < 300)
 	{
 		if (time->EnemyTime == (4 * Senemy.TUP))
 		{
 			if (Senemy.SkyEnemyAppearance == true)
 			{
 				Senemy.TUP++;
+
+				for (int i = 0; i < SenemySize; i++)
+				{
+					if (enemy[i].SkyEnemyflag == false)
+					{
+						enemy[i].SkyEnemyDead = false;
+
+						enemy[i].Flag = false;
+
+						enemy[i].SkyEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+
+						enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
+
+						enemy[i].SkyEnemyY = -10.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Senemy.SkyEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Senemy.SkyEnemyAppearance = true;
+		}
+	}
+	//5分たつと出現率アップ
+	else if (time->EnemyTime >= 300)
+	{
+		if (time->EnemyTime == (2 * Senemy.TUP2))
+		{
+			if (Senemy.SkyEnemyAppearance == true)
+			{
+				Senemy.TUP2++;
 
 				for (int i = 0; i < SenemySize; i++)
 				{

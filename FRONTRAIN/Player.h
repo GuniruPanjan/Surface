@@ -71,6 +71,7 @@ public:
 	Player();
 	~Player();
 
+	void FinalizePlayer(Player& player, Shot shot[], Shield& shield);
 	void Init(Shield& shield, Shot shot[],Player& player);
 	void InitShot(Shot shot[]);
 	void Update(Player& player, Map& map, Shield& shield);

@@ -59,6 +59,7 @@ public:
 	SkyEnemy();
 	~SkyEnemy();
 
+	void FinalizeSky(SkyEnemyStruct& enemy);
 	void Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy);
 	void Update(Player& player, Shot& shot, SkyEnemyStruct enemy[], int SenemySize, float ScrollX, TimeCount* time, SkyEnemy& Senemy, Shield& shield);
 	void Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point);
@@ -71,5 +72,6 @@ public:
 	//ŠÔ‚ği‚ß‚é•Ï”
 	int T = 0;
 	int TUP = 0;
+	int TUP2 = 0;
 };
 

@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "SceneFedo.h"
 #include "SceneExplanation.h"
+#include "Config.h"
 
 SceneFedo fedo;
 
@@ -95,7 +96,13 @@ void Menu_Finalize()
 		DeleteGraph(Graph[i]);
 	}
 
+	DeleteSoundMem(SoundMenu);
+
+	DeleteSoundMem(SEClickShot);
+
 	fedo.Init();
+
+	fedo.FinalizeFedo();
 }
 
 //更新
@@ -105,9 +112,6 @@ void Menu_Update()
 	//ContinueInitがtrueなら1回実行する
 	if (ContinueInit == true)
 	{
-		//ゲームシーンを初期化する
-		Game_Initialize();
-
 		fedo.Init();
 	}
 	
@@ -119,48 +123,24 @@ void Menu_Update()
 	//ゲームシーン
 	if (fedo.end == 1 && fedo.Start == true)
 	{
-	
-		SceneMgr_ChageScene(eScene_Game);//シーンをゲーム画面に変更
-
-		DeleteSoundMem(SoundMenu);
-
-		DeleteSoundMem(SEClickShot);
-
-		DeleteGraph(mimageHandle);
-
-		for (int i = 0; i < 9; i++)
-		{
-			DeleteGraph(Graph[i]);
-		}
 
 		ContinueInit = true;
 
-		
+		SceneMgr_ChageScene(eScene_Game);//シーンをゲーム画面に変更
 	}
 	//説明画面
 	if (fedo.end == 1 && fedo.Explanation == true)
 	{
-		SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
-
-		DeleteSoundMem(SoundMenu);
-
-		DeleteSoundMem(SEClickShot);
-
-		DeleteGraph(mimageHandle);
-
-		for (int i = 0; i < 9; i++)
-		{
-			DeleteGraph(Graph[i]);
-		}
 
 		ContinueInit = true;
+
+		SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
 	}
 	//設定画面
 	if (fedo.end == 1 && fedo.Setting == true)
 	{
-		SceneMgr_ChageScene(eScene_Config);//シーンを設定画面に変更
 
-		DeleteSoundMem(SoundMenu);
+		/*DeleteSoundMem(SoundMenu);
 
 		DeleteSoundMem(SEClickShot);
 
@@ -169,11 +149,12 @@ void Menu_Update()
 		for (int i = 0; i < 9; i++)
 		{
 			DeleteGraph(Graph[i]);
-		}
+		}*/
 
 		ContinueInit = true;
 
-		
+		SceneMgr_ChageScene(eScene_Config);//シーンを設定画面に変更
+
 	}
 
 

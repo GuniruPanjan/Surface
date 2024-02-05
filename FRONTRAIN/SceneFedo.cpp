@@ -25,6 +25,18 @@ SceneFedo::~SceneFedo()
 {
 }
 
+void SceneFedo::FinalizeFedo()
+{
+	DeleteGraph(handle);
+
+	DeleteGraph(WhiteHandle);
+
+	for (int i = 0; i < 9; i++)
+	{
+		DeleteGraph(EndHandle[i]);
+	}
+}
+
 void SceneFedo::Init()
 {
 	c = 0;

@@ -19,6 +19,18 @@ Explanation::~Explanation()
 {
 }
 
+void Explanation::FinalizeExplanation()
+{
+	DeleteGraph(UnderKey);
+	DeleteGraph(LeftKey);
+	DeleteGraph(RightKey);
+
+	DeleteGraph(LeftClick);
+	DeleteGraph(RightClick);
+	DeleteGraph(Mouse);
+
+}
+
 void Explanation::ExplanationInit()
 {
 	UK = 255;

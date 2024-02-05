@@ -14,6 +14,27 @@ WalkEnemy::~WalkEnemy()
 {
 }
 
+void WalkEnemy::FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize)
+{
+	for (int i = 0; i < WenemySize; i++)
+	{
+		for (int j = 0; j < 12; j++)
+		{
+			DeleteGraph(enemy[i].WalkEnemyGraph[j]);
+		}
+		for (int j = 0; j < 14; j++)
+		{
+			DeleteGraph(enemy[i].Handle[j]);
+		}
+
+		DeleteSoundMem(enemy[i].SEWalkEnemy);
+
+		DeleteSoundMem(enemy[i].SEWalkEnemyDead1);
+
+		DeleteSoundMem(enemy[i].SEWalkEnemyDead2);
+	}
+}
+
 void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 {
 	for (int i = 0; i < WenemySize; i++)
@@ -59,6 +80,8 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 	Wenemy.T = 0;
 
 	Wenemy.TUP = 20;
+
+	Wenemy.TUP2 = 75;
 
 }
 
@@ -109,7 +132,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 		}
 	}
 	//2分経過したら出現率アップ
-	else if (time->EnemyTime >= 120)
+	else if (time->EnemyTime >= 120 && time->EnemyTime < 300)
 	{
 		if (time->EnemyTime == (6 * Wenemy.TUP))
 		{
@@ -151,7 +174,51 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 			Wenemy.WalkEnemyAppearance = true;
 		}
 	}
-	
+	//5分経過したら出現率アップ
+	else if (time->EnemyTime >= 300)
+	{
+		if (time->EnemyTime == (4 * Wenemy.TUP2))
+		{
+			if (Wenemy.WalkEnemyAppearance == true)
+			{
+				Wenemy.TUP2++;
+
+				for (int i = 0; i < WenemySize; i++)
+				{
+					if (enemy[i].WalkEnemyflag == false)
+					{
+						enemy[i].WalkEnemyDead = false;
+
+						enemy[i].WalkEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].WalkEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].WalkEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+
+				}
+				Wenemy.WalkEnemyAppearance = false;
+			}
+
+		}
+		else
+		{
+			Wenemy.WalkEnemyAppearance = true;
+		}
+	}
+
+
 
 	for (int i = 0; i < WenemySize; i++)
 	{

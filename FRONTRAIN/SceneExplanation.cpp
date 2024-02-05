@@ -27,7 +27,7 @@ int SEClickExplanation;
 //初期化
 void Explanation_Initialize()
 {
-	ExplanationHandle = LoadGraph("date/操作説明.png"); //画像ロード
+	ExplanationHandle = LoadGraph("date/説明書.png"); //画像ロード
 
 	EMouseX = 0;
 	EMouseY = 0;
@@ -47,6 +47,12 @@ void Explanation_Initialize()
 void Explanation_Finalize()
 {
 	DeleteGraph(ExplanationHandle);//画像の解放
+
+	DeleteSoundMem(SoundExplanation);
+
+	DeleteSoundMem(SEClickExplanation);
+
+	Explanationfedo.FinalizeFedo();
 }
 
 //更新
@@ -58,11 +64,9 @@ void Explanation_Update()
 	//if (CheckHitKey(KEY_INPUT_Z) != 0)
 	if(EMenu == true)
 	{
+
 		SceneMgr_ChageScene(eScene_Menu); //シーンをメニュー画面に変更
 
-		DeleteSoundMem(SoundExplanation);
-
-		DeleteSoundMem(SEClickExplanation);
 	}
 
 	//マウスの座標取得

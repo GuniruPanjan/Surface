@@ -5,6 +5,7 @@ public:
 	Explanation();
 	~Explanation();
 
+	void FinalizeExplanation();
 	void ExplanationInit();
 	void ExplanationUpdate();
 	void ExplanationDraw();

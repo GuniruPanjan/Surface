@@ -1,6 +1,26 @@
 #include "HP.h"
 #include "Player.h"
 
+void HP::FinalizeHP()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(HPberGraph[i]);
+	}
+
+	for (int i = 0; i < 13; i++)
+	{
+		DeleteGraph(MagazineGraph[i]);
+	}
+
+	for (int i = 0; i < 21; i++)
+	{
+		DeleteGraph(ReloadGraph[i]);
+	}
+
+	DeleteGraph(Reload);
+}
+
 void HP::PlayerHPInit()
 {
 	LoadDivGraph("date/HPƒo[.png", 10, 10, 1, 20, 10, HPberGraph);

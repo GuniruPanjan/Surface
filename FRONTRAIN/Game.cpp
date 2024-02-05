@@ -96,6 +96,37 @@ void Game_Initialize()
 //I—¹ˆ—
 void Game_Finalize()
 {
+	player.FinalizePlayer(player, shot, shield);
+
+	WEnemy.FinalizeWalkEnemy(WenemyS, ENEMY_NOW);
+
+	map.FinalizeMap();
+	for (int i = 0; i < SKY_ENEMY_NOW; i++)
+	{
+		SEnemy.FinalizeSky(SenemyS[i]);
+	}
+	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
+	{
+		DEnemy.FinalizeDistanceEnemy(DenemyS[i]);
+	}
+
+	explanation.FinalizeExplanation();
+
+	DeleteSoundMem(SoundGame);
+
+	DeleteSoundMem(PlayerSEDead1);
+
+	DeleteSoundMem(PlayerSEDead2);
+
+	hp.FinalizeHP();
+
+	DEnemy.FinalizeDistanceEnemyShot(enemyshot);
+
+	Back.Finalize();
+
+	save.FinalizeSave();
+
+	scenefedo.FinalizeFedo();
 }
 
 //XVˆ—

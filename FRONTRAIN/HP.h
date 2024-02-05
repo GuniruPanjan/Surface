@@ -4,6 +4,7 @@ class Player;
 class HP
 {
 public:
+	void FinalizeHP();
 	void PlayerHPInit();
 	//プレイヤーのHP表示する関数
 	void PlayerHP(Player& player);

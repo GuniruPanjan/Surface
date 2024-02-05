@@ -11,6 +11,11 @@ Background::~Background()
 
 }
 
+void Background::Finalize()
+{
+	DeleteGraph(BackGroundGraph);
+}
+
 void Background::Init()
 {
 	BackGroundGraph = LoadGraph("date/îwåi.png");

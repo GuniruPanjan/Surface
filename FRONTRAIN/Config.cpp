@@ -23,6 +23,8 @@ static int Time;  //アニメーションタイム
 
 static bool Plus, Mainas;
 
+static bool ContinueInit;
+
 // マウスの座標を取得するための変数
 int CMouseX, CMouseY;
 
@@ -53,6 +55,8 @@ void Config_Initialize()
 
 	Mainas = false;
 
+	ContinueInit = false;
+
 	CMouseX = 0;
 	CMouseY = 0;
 
@@ -77,6 +81,12 @@ void Config_Finalize()
 	{
 		DeleteGraph(mimageHandle[i]);//画像の解放
 	}
+
+	DeleteSoundMem(SoundConfig);
+
+	DeleteSoundMem(SEClickConfig);
+
+	settingfedo.FinalizeFedo();
 	
 }
 
@@ -88,22 +98,13 @@ void Config_Update(Point& point,TimeCount& timecount)
 
 	settingfedo.UpdateInSetting();
 
-	//save.SaveDate(point, timecount);
 
 	//Zキーが押されていたら
 	//if (CheckHitKey(KEY_INPUT_Z) != 0)
 	if(CRecord == true)
 	{
+
 		SceneMgr_ChageScene(eScene_Menu);//シーンをメニューに変更
-
-		DeleteSoundMem(SoundConfig);
-
-		DeleteSoundMem(SEClickConfig);
-
-		for (int i = 0; i < 9; i++)
-		{
-			DeleteGraph(mimageHandle[i]);//画像の解放
-		}
 
 	}
 

@@ -59,6 +59,43 @@ Player::~Player()
 {
 }
 
+void Player::FinalizePlayer(Player& player, Shot shot[],Shield& shield)
+{
+	DeleteGraph(player.Aiming);
+
+	DeleteGraph(player.DeadAnim);
+
+	for (int i = 0; i < 14; i++)
+	{
+		DeleteGraph(player.DeadGraph[i]);
+	}
+
+	for (int i = 0; i < 12; i++)
+	{
+		DeleteGraph(player.playerGraph[i]);
+	}
+
+	for (int i = 0; i < SHOT; i++)
+	{
+		DeleteGraph(shot[i].Graph);
+
+		for (int j = 0; j < 2; j++)
+		{
+			DeleteGraph(shot[i].ShotAnimGraphRight[j]);
+
+			DeleteGraph(shot[i].ShotAnimGraphLeft[j]);
+
+			DeleteGraph(shot[i].ShotSparkGraphRight[j]);
+
+			DeleteGraph(shot[i].ShotSparkGraphLeft[j]);
+
+			DeleteSoundMem(shot[i].SEShot);
+		}
+	}
+
+	DeleteGraph(shield.ShieldGraph);
+}
+
 void Player::Init(Shield& shield,Shot shot[],Player& player)
 {
 	//DrawGraph(PlayerX, PlayerY, playerGraph, true);
