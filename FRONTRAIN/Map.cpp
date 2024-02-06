@@ -137,8 +137,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 	DrawMapChipNumY = STAGE_HEIGHT / MAPCHIP_HEIGHT;
 
 	//画面左上に描画するマップ座標をセット
-	MapDrawPointX = player.PlayerX - (DrawMapChipNumX / 2 - 1);
-	MapDrawPointY = player.PlayerY - (DrawMapChipNumY / 2 - 1);
+	MapDrawPointX = player.PlayerX - static_cast<float>((DrawMapChipNumX / 2 - 1));
+	MapDrawPointY = player.PlayerY - static_cast<float>((DrawMapChipNumY / 2 - 1));
 
 	//マップを描く
 	for (i = 0; i < DrawMapChipNumY; i++)
@@ -152,7 +152,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				DrawGraph(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 				//当たり判定の更新
-				m_colRect.SetCenter(j * MAPCHIP_WIDTH + 10 + ScrollX,i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH,MAPCHIP_HEIGHT);
+				m_colRect.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + 10 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 				//マップチップの当たり判定の表示
 				//m_colRect.Draw(GetColor(255, 255, 255), false);
@@ -229,7 +229,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 			if (g_MapChipFirst[i][j] == 2)
 			{
 				//当たり判定の更新
-				m_colBlockRect2.SetCenter(j * MAPCHIP_WIDTH - 5 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+				m_colBlockRect2.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH - 5 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 				//マップチップの当たり判定の表示
 				//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -265,7 +265,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 			if (g_MapChipFirst[i][j] == 3)
 			{
 				//当たり判定の更新
-				m_colBlockRect3.SetCenter(j * MAPCHIP_WIDTH + 25 + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+				m_colBlockRect3.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + 25 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 				//マップチップの当たり判定の表示
 				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -301,7 +301,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 			if (g_MapChipFirst[i][j] == 5)
 			{
 				//当たり判定の更新
-				m_colBlockRect3.SetCenter(j * MAPCHIP_WIDTH + ScrollX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+				m_colBlockRect3.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 				//マップチップの当たり判定の表示
 				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -352,7 +352,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapFiveX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(0, 255, 255), false);
@@ -424,7 +424,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_1[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -460,7 +460,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_1[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -514,7 +514,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapFiveX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(0, 255, 255), false);
@@ -586,7 +586,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_4[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -622,7 +622,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_4[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -658,7 +658,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_4[i][j] == 5)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFiveX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -711,7 +711,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapFiveX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapFiveX + 10, i* MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(0, 255, 255), false);
@@ -783,7 +783,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_8[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFiveX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -819,7 +819,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_8[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFiveX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -855,7 +855,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_8[i][j] == 4)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFiveX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 15, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 15), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -910,7 +910,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapFourX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapFourX + 10, i* MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(255, 0, 255), false);
@@ -982,7 +982,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_2[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFourX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapFourX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -1018,7 +1018,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_2[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFourX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1054,7 +1054,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_2[i][j] == 5)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFourX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1107,7 +1107,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapFourX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapFourX + 10, i* MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(255, 0, 255), false);
@@ -1179,7 +1179,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_5[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapFourX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapFourX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -1215,7 +1215,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_5[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFourX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1251,7 +1251,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_5[i][j] == 4)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFourX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 15, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 15), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1287,7 +1287,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_5[i][j] == 5)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapFourX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1343,7 +1343,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapSixX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapSixX + 10, i* MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(255, 255, 0), false);
@@ -1415,7 +1415,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_3[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -1451,7 +1451,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_3[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1487,7 +1487,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_3[i][j] == 5)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapSixX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1540,7 +1540,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapSixX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapSixX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(255, 255, 0), false);
@@ -1612,7 +1612,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_6[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -1648,7 +1648,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_6[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1684,7 +1684,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_6[i][j] == 5)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapSixX, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH - 10, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
@@ -1738,7 +1738,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					DrawGraph(MapSixX, i * MAPCHIP_HEIGHT + ScrollY, maped.Block, TRUE);
 
 					//当たり判定の更新
-					m_colRect.SetCenter(MapSixX + 10, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colRect.Draw(GetColor(255, 255, 0), false);
@@ -1810,7 +1810,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_9[i][j] == 2)
 				{
 					//当たり判定の更新
-					m_colBlockRect2.SetCenter(MapSixX - 5, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
@@ -1846,7 +1846,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				if (g_MapChip_9[i][j] == 3)
 				{
 					//当たり判定の更新
-					m_colBlockRect3.SetCenter(MapSixX + 25, i * MAPCHIP_HEIGHT + 10, MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
 					//マップチップの当たり判定の表示
 					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);

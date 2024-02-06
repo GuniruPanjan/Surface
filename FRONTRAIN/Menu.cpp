@@ -326,7 +326,7 @@ void Menu_Draw()
 	SetFontSize(22);
 
 	//ƒ}ƒEƒX‚Ì“–‚½‚è”»’èŽæ“¾
-	m_colRectMouse.SetCenter(MouseX, MouseY + 5, 10, 10);
+	m_colRectMouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast <float>(10), static_cast <float>(10));
 
 	if (Start == true)
 	{

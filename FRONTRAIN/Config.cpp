@@ -191,7 +191,7 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	savedate.SaveLoad();
 
-	m_Mouse.SetCenter(CMouseX, CMouseY + 5, 10, 10);
+	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), 10, 10);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(263, 275, Botton, true);

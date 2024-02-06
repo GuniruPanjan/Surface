@@ -111,7 +111,7 @@ void HP::PlayerHP(Player& player, Background& back)
 	}
 
 	//プレイヤーの真上に表示される
-	DrawGraph(player.PlayerX - 10, player.PlayerY - 30, HPberGraph[HPCount], true);
+	DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 30), HPberGraph[HPCount], true);
 
 	//画面の左端に描く
 	DrawGraph(30, 410, MagazineGraph[player.Bullet], true);

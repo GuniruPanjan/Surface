@@ -334,7 +334,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 
 
 				//当たり判定の更新
-				enemy[i].m_colRect.SetCenter(enemy[i].DistanceEnemyX + 10 + player.ScrollX, enemy[i].DistanceEnemyY + 10, enemy[i].DistanceEnemyWidth, enemy[i].DistanceEnemyHeight);
+				enemy[i].m_colRect.SetCenter(static_cast<float>(enemy[i].DistanceEnemyX + 10 + player.ScrollX), static_cast<float>(enemy[i].DistanceEnemyY + 10), static_cast<float>(enemy[i].DistanceEnemyWidth), static_cast<float>(enemy[i].DistanceEnemyHeight));
 
 				//プレイヤーの当たり判定
 				if (enemy[i].m_colRect.IsCollision(player.m_colRect) == false)
@@ -484,11 +484,11 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 		if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 		{
-			DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
+			DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.DistanceEnemyGraph, true);
 		}
 		else if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
 		{
-			DrawTurnGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.DistanceEnemyGraph, true);
+			DrawTurnGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.DistanceEnemyGraph, true);
 		}
 
 		for (int s = 0; s < SHOT; s++)
@@ -508,7 +508,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 						shot[s].ShotSparkTime = 0;
 					}
 
-					DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotSparkGraphRight[shot[s].ShotSparkCountRight], true);
+					DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotSparkGraphRight[shot[s].ShotSparkCountRight], true);
 				}
 				//プレイヤーよりエネミーが左にいる場合
 				if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
@@ -520,7 +520,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 						shot[s].ShotAnimTime = 0;
 					}
 
-					DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotSparkGraphLeft[shot[s].ShotSparkCountLeft], true);
+					DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotSparkGraphLeft[shot[s].ShotSparkCountLeft], true);
 				}
 			}
 
@@ -553,7 +553,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				enemy.AnimTime = 0;
 			}
 
-			DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyY - 3, enemy.Handle[enemy.AnimCount], true);
+			DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.Handle[enemy.AnimCount], true);
 
 
 			
@@ -607,10 +607,10 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 			shot[i].X += shot[i].PX;
 			shot[i].Y += shot[i].PY;
 
-			DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].Graph, true);
+			DrawGraph(static_cast<int>(shot[i].X + ScrollX), static_cast<int>(shot[i].Y), shot[i].Graph, true);
 
 			//あたり判定の更新
-			shot[i].m_colRect.SetCenter(shot[i].X + ScrollX, shot[i].Y, shot[i].Width, shot[i].Height);
+			shot[i].m_colRect.SetCenter(static_cast<float>(shot[i].X + ScrollX), static_cast<float>(shot[i].Y), static_cast<float>(shot[i].Width), static_cast<float>(shot[i].Height));
 
 			shot[i].m_colRect.Draw(GetColor(0, 0, 255), false);
 
@@ -636,7 +636,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 						shot[i].ShotSparkTime = 0;
 					}
 
-					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotSparkGraphRight[shot[i].ShotSparkRightCount], true);
+					DrawGraph(static_cast<int>(shot[i].X + ScrollX), static_cast<int>(shot[i].Y), shot[i].ShotSparkGraphRight[shot[i].ShotSparkRightCount], true);
 
 				}
 			}
@@ -653,7 +653,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 						shot[i].ShotSparkTime = 0;
 					}
 
-					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotSparkGraphLeft[shot[i].ShotSparkLeftCount], true);
+					DrawGraph(static_cast<int>(shot[i].X + ScrollX), static_cast<int>(shot[i].Y), shot[i].ShotSparkGraphLeft[shot[i].ShotSparkLeftCount], true);
 
 				}
 			}
@@ -676,7 +676,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 						shot[i].ShotHitTime = 0;
 					}
 
-					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotHitGraphLeft[shot[i].ShotHitLeftCount], true);
+					DrawGraph(static_cast<int>(shot[i].X + ScrollX), static_cast<int>(shot[i].Y), shot[i].ShotHitGraphLeft[shot[i].ShotHitLeftCount], true);
 				}
 				//プレイヤーが右だった場合
 				if (shot[i].X + ScrollX < player.PlayerX)
@@ -689,7 +689,7 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 						shot[i].ShotHitTime = 0;
 					}
 
-					DrawGraph(shot[i].X + ScrollX, shot[i].Y, shot[i].ShotHitGraphRight[shot[i].ShotHitRightCount], true);
+					DrawGraph(static_cast<int>(shot[i].X + ScrollX), static_cast<int>(shot[i].Y), shot[i].ShotHitGraphRight[shot[i].ShotHitRightCount], true);
 				}
 
 			}

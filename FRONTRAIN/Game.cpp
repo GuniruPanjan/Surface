@@ -164,7 +164,7 @@ void Game_Update()
 
 			timecount.UpdateTime(point);
 
-			point.UpdatePoint(player, player.ScrollX);
+			point.UpdatePoint(player, static_cast<int>(player.ScrollX));
 
 			player.Update(player, map, shield, Back);
 
@@ -184,7 +184,7 @@ void Game_Update()
 			explanation.ExplanationUpdate();
 
 			player.ShotUpdate(player, shot, SHOT);
-			map.UpdateMap(player.ScrollX);
+			map.UpdateMap(static_cast<int>(player.ScrollX));
 		}
 
 	}
@@ -204,7 +204,7 @@ void Game_Draw()
 			Back.Draw();
 
 			timecount.DrawTime();
-			point.DrawPoint(player, player.ScrollX);
+			point.DrawPoint(player, static_cast<int>(player.ScrollX));
 
 			hp.PlayerHP(player, Back);
 
@@ -216,7 +216,7 @@ void Game_Draw()
 
 			}
 
-			DEnemy.DrawShot(enemyshot, ENEMY_SHOT, player.ScrollX, player, shield);
+			DEnemy.DrawShot(enemyshot, ENEMY_SHOT, static_cast<int>(player.ScrollX), player, shield);
 
 
 			WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player, shot);
@@ -233,7 +233,7 @@ void Game_Draw()
 
 			for (int i = 0; i < SHOT; i++)
 			{
-				map.DrawMap(player.ScrollX, shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot, ENEMY_SHOT);
+				map.DrawMap(static_cast<int>(player.ScrollX), shot[i], player, WenemyS, SenemyS, DenemyS, enemyshot, ENEMY_SHOT);
 			}
 
 			explanation.ExplanationDraw();

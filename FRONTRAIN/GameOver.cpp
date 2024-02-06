@@ -140,7 +140,7 @@ void GameOver_Draw()
 	DrawGraph(70, 0, GameOverHandle, true);
 
 	//ƒ}ƒEƒX‚Ì“–‚½‚è”»’èŽæ“¾
-	Mouse.SetCenter(gmMouseX, gmMouseY + 5, 10, 10);
+	Mouse.SetCenter(static_cast<float>(gmMouseX), static_cast<float>(gmMouseY + 5), static_cast<float>(10), static_cast<float>(10));
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(40, 400, Botton, true);

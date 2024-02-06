@@ -326,7 +326,7 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 				if (player.PlayerX >= graph.GraphModeWIDTH / 4)
 				{
 					player.PlayerRight = true;
-					player.PlayerX = graph.GraphModeWIDTH / 4;
+					player.PlayerX = static_cast<float>(graph.GraphModeWIDTH / 4);
 				}
 			}
 		}
