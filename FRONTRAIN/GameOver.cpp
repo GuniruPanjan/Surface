@@ -9,11 +9,15 @@ SceneFedo Scenefedo;
 Rect m_colRect;
 Rect Mouse;
 
-int GameOverColor, GameOverWhite, GameOverYello;
+int GameOverColor, GameOverblack, GameOverYello;
 
 static int mimageHandle;  //画像ハンドル格納用変数
 
 static int GameOverHandle;  //画像ハンドル格納用変数
+
+static int Botton;   //ボタン画像格納用変数
+
+static int b;   //画像透過用変数
 
 bool gameover;
 
@@ -36,13 +40,17 @@ void GameOver_Initialize()
 	Scenefedo.Init();
 
 	GameOverColor = 0;
-	GameOverWhite = GetColor(255, 255, 255);
+	GameOverblack = GetColor(0, 0, 0);
 	GameOverYello = GetColor(255, 255, 0);
 
 	gmMouseX = 0;
 	gmMouseY = 0;
 
 	gameover = false;
+
+	Botton = LoadGraph("date/ボタン.png");
+
+	b = 255;
 
 	SoundGameOver = LoadSoundMem("BGM/英霊の墓.mp3");
 
@@ -59,6 +67,8 @@ void GameOver_Finalize()
 	DeleteSoundMem(SoundGameOver);
 
 	DeleteSoundMem(SEClickGameOver);
+
+	DeleteGraph(Botton);
 
 	Scenefedo.FinalizeFedo();
 }
@@ -102,6 +112,8 @@ void GameOver_Update()
 	if (m_colRect.IsCollision(Mouse) == true)
 	{
 		GameOverColor = GameOverYello;
+
+		b = 120;
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
@@ -112,7 +124,9 @@ void GameOver_Update()
 	}
 	else if (m_colRect.IsCollision(Mouse) == false)
 	{
-		GameOverColor = GameOverWhite;
+		GameOverColor = GameOverblack;
+
+		b = 255;
 	}
 
 	PlaySoundMem(SoundGameOver, DX_PLAYTYPE_LOOP, FALSE);
@@ -128,9 +142,12 @@ void GameOver_Draw()
 	//マウスの当たり判定取得
 	Mouse.SetCenter(gmMouseX, gmMouseY + 5, 10, 10);
 
-	//DrawString(0, 0, "ゲームオーバー画面です", GetColor(255, 255, 255));
-	m_colRect.SetCenter(63, 410, 50, 25);
-	DrawString(40, 400, "記録", GameOverColor);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
+	DrawGraph(40, 400, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	m_colRect.SetCenter(100, 415, 120, 30);
+	DrawString(77, 405, "記録", GameOverColor);
 
 	/*m_colRect.Draw(GetColor(255, 0, 0), false);
 	Mouse.Draw(GetColor(255, 0, 0), false);*/

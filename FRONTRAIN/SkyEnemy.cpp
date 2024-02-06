@@ -25,7 +25,7 @@ void SkyEnemy::FinalizeSky(SkyEnemyStruct& enemy)
 	DeleteSoundMem(enemy.SESkyEnemyDead);
 }
 
-void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
+void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 {
 	Senemy.Attack = 1;
 	Senemy.HP = 1;
@@ -59,7 +59,9 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy)
 
 	LoadDivGraph("date/SkyEnemy.png", 3, 3, 1, 15, 20, enemy.SkyHandle);
 
-	enemy.SESkyEnemyDead = LoadSoundMem("SE/se_tsubureru04.mp3");
+	//enemy.SESkyEnemyDead = LoadSoundMem("SE/se_tsubureru04.mp3");
+
+	enemy.SESkyEnemyDead = date.SkyEnemyDead;
 
 	enemy.SE = false;
 

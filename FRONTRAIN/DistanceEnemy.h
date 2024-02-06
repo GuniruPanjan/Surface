@@ -106,8 +106,8 @@ public:
 
 	void FinalizeDistanceEnemy(DistanceEnemyStruct& enemy);
 	void FinalizeDistanceEnemyShot(EnemyShot shot[]);
-	void Init(DistanceEnemyStruct& enemy,DistanceEnemy& Denemy);
-	void EnemyShotInit(EnemyShot shot[]);
+	void Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, EnemyLoadDate& date);
+	void EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date);
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[], int EnemyShotSize, Shield& shield);
 	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield);
 	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph, Shot shot[]);

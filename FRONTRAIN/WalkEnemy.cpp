@@ -14,7 +14,7 @@ WalkEnemy::~WalkEnemy()
 {
 }
 
-void WalkEnemy::FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize)
+void WalkEnemy::FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize,EnemyLoadDate& date)
 {
 	for (int i = 0; i < WenemySize; i++)
 	{
@@ -35,7 +35,7 @@ void WalkEnemy::FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize)
 	}
 }
 
-void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
+void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,EnemyLoadDate& date)
 {
 	for (int i = 0; i < WenemySize; i++)
 	{
@@ -56,16 +56,25 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize)
 
 		LoadDivGraph("date/WalkEnemy.png", 12, 6, 2, 20, 25, enemy[i].WalkEnemyGraph);
 
+		//enemy[i].WalkEnemyGraph = date.WalkEnemyGraph;
+
 		LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, enemy[i].Handle);
 
 		enemy[i].AnimCount = 9;
 
 		enemy[i].AnimTimeDead = 0;
 
-		enemy[i].SEWalkEnemy = LoadSoundMem("SE/se_blood03.mp3");
+		//enemy[i].SEWalkEnemy = LoadSoundMem("SE/se_blood03.mp3");
 
-		enemy[i].SEWalkEnemyDead1 = LoadSoundMem("SE/”š”­1.mp3");
-		enemy[i].SEWalkEnemyDead2 = LoadSoundMem("SE/Œš•¨‚ª­‚µ•ö‚ê‚é2.mp3");
+		enemy[i].SEWalkEnemy = date.WalkEnemySound;
+
+		//enemy[i].SEWalkEnemyDead1 = LoadSoundMem("SE/”š”­1.mp3");
+
+		enemy[i].SEWalkEnemyDead1 = date.WalkEnmeyDeadSound1;
+
+		//enemy[i].SEWalkEnemyDead2 = LoadSoundMem("SE/Œš•¨‚ª­‚µ•ö‚ê‚é2.mp3");
+
+		enemy[i].SEWalkEnemyDead2 = date.WalkEnmeyDeadSound2;
 
 		enemy[i].SE1 = false;
 		enemy[i].SE2 = false;

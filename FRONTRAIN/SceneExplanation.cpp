@@ -11,6 +11,10 @@ Rect m_EMouse;
 
 static int ExplanationHandle;  //画像ハンドル格納用変数
 
+static int Botton;    //ボタン画像格納用変数
+
+static int b;    //画像透過用変数
+
 // マウスの座標を取得するための変数
 int EMouseX, EMouseY;
 
@@ -32,6 +36,10 @@ void Explanation_Initialize()
 	EMouseX = 0;
 	EMouseY = 0;
 
+	Botton = LoadGraph("date/ボタン.png");
+
+	b = 255;
+
 	EColor = 0;
 	EBlack = GetColor(0, 0, 0);
 	EYello = GetColor(255, 255, 0);
@@ -51,6 +59,8 @@ void Explanation_Finalize()
 	DeleteSoundMem(SoundExplanation);
 
 	DeleteSoundMem(SEClickExplanation);
+
+	DeleteGraph(Botton);
 
 	Explanationfedo.FinalizeFedo();
 }
@@ -76,6 +86,8 @@ void Explanation_Update()
 	{
 		EColor = EYello;
 
+		b = 120;
+
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
@@ -88,6 +100,8 @@ void Explanation_Update()
 	else if (m_ERect.IsCollision(m_EMouse) == false)
 	{
 		EColor = EBlack;
+
+		b = 255;
 	}
 
 	PlaySoundMem(SoundExplanation, DX_PLAYTYPE_LOOP, FALSE);
@@ -101,8 +115,12 @@ void Explanation_Draw()
 
 	m_EMouse.SetCenter(EMouseX, EMouseY + 5, 10, 10);
 
-	m_ERect.SetCenter(200, 410, 150, 30);
-	DrawString(130, 400, "メニュー画面", EColor);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
+	DrawGraph(120, 395, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	m_ERect.SetCenter(180, 410, 120, 30);
+	DrawString(135, 400, "メニュー", EColor);
 
 	/*m_ERect.Draw(GetColor(255, 0, 0), false);
 	m_EMouse.Draw(GetColor(255, 0, 0), false);*/

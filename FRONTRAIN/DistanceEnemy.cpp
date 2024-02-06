@@ -48,7 +48,7 @@ void DistanceEnemy::FinalizeDistanceEnemyShot(EnemyShot shot[])
 	}
 }
 
-void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
+void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, EnemyLoadDate& date)
 {
 	Denemy.Attack = 2;
 	Denemy.HP = 5;
@@ -79,7 +79,9 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 
 	enemy.m_DeadAnimFrame;
 
-	enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
+	//enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
+
+	enemy.DistanceEnemyGraph = date.DistanceEnemyGraph;
 
 	LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, enemy.Handle);
 
@@ -87,17 +89,23 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy)
 
 	enemy.AnimTime = 0;
 
-	enemy.SEDistanceEnemy = LoadSoundMem("SE/’†Œ^ƒƒ{ƒbƒg‚Ì‹ì“®‰¹2.mp3");
+	//enemy.SEDistanceEnemy = LoadSoundMem("SE/’†Œ^ƒƒ{ƒbƒg‚Ì‹ì“®‰¹2.mp3");
 
-	enemy.SEDistanceDead = LoadSoundMem("SE/”š”­2.mp3");
+	enemy.SEDistanceEnemy = date.DistanceEnmeySound;
 
-	enemy.SEDistanceDamage = LoadSoundMem("SE/‹à‘®’@‚«.mp3");
+	//enemy.SEDistanceDead = LoadSoundMem("SE/”š”­2.mp3");
+
+	enemy.SEDistanceDead = date.DistanceEnemyDeadSound;
+
+	//enemy.SEDistanceDamage = LoadSoundMem("SE/‹à‘®’@‚«.mp3");
+
+	enemy.SEDistanceDamage = date.DistanceEnemyDamageSound;
 
 	enemy.SE1 = false;
 	enemy.SE2 = false;
 }
 
-void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
+void DistanceEnemy::EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date)
 {
 	for (int i = 0; i < ENEMY_SHOT; i++)
 	{
@@ -105,7 +113,9 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 
 		shot[i].ShotDamage = 2;
 
-		shot[i].Graph = LoadGraph("date/e’e.png");
+		//shot[i].Graph = LoadGraph("date/e’e.png");
+
+		shot[i].Graph = date.ShotDistance;
 
 		shot[i].ShotHitTime = 0;
 
@@ -123,7 +133,9 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[])
 		LoadDivGraph("date/‰Î‰Ô(¬)¶.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
 		LoadDivGraph("date/‰Î‰Ô(¬)‰E.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
 
-		shot[i].SEDistanceShot = LoadSoundMem("SE/Œe‚ğŒ‚‚Â.mp3");
+		//shot[i].SEDistanceShot = LoadSoundMem("SE/Œe‚ğŒ‚‚Â.mp3");
+
+		shot[i].SEDistanceShot = date.DistanceEnemyShotSound;
 	}
 }
 

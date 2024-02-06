@@ -14,5 +14,7 @@ public:
 	
 	int BackX,BackY;
 	int Red;
+
+	int WaveCount;
 };
 

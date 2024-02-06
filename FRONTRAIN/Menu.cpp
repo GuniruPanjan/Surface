@@ -31,6 +31,10 @@ bool ContinueInit; //コンテニューしたときに初期化する
 
 bool Start, Explanaion, Record;
 
+static int Botton;     //Bottonの画像を入れるハンドル
+
+static int b, b2, b3;     //画像透過変数
+
 //サウンド格納用変数
 int SoundMenu;
 
@@ -40,9 +44,9 @@ int SEClickShot;
 //マウスの座標を取得するための変数
 int MouseX, MouseY;
 
-int StartColor, StartWhite, StartYello;
-int ExplanationColor, ExplanationWhite, ExplanationYello;
-int RecordColor, RecordWhite, RecordYello;
+int StartColor, Startblack, StartYello;
+int ExplanationColor, Explanationblack, ExplanationYello;
+int RecordColor, Recordblack, RecordYello;
 
 
 //初期化
@@ -68,6 +72,12 @@ void Menu_Initialize()
 
 	Record = false;
 
+	b = 255;
+
+	b2 = 255;
+
+	b3 = 255;
+
 	MouseX = 0;
 	MouseY = 0;
 
@@ -75,11 +85,13 @@ void Menu_Initialize()
 	ExplanationColor = 0;
 	RecordColor = 0;
 
+	Botton = LoadGraph("date/ボタン.png");
+
 	SoundMenu = LoadSoundMem("BGM/朝露.mp3");
 
-	StartWhite = GetColor(255, 255, 255);
-	ExplanationWhite = GetColor(255, 255, 255);
-	RecordWhite = GetColor(255, 255, 255);
+	Startblack = GetColor(0, 0, 0);
+	Explanationblack = GetColor(0, 0, 0);
+	Recordblack = GetColor(0, 0, 0);
 
 	StartYello = GetColor(255, 255, 0);
 	ExplanationYello = GetColor(255, 255, 0);
@@ -103,6 +115,8 @@ void Menu_Finalize()
 	DeleteSoundMem(SoundMenu);
 
 	DeleteSoundMem(SEClickShot);
+
+	DeleteGraph(Botton);
 
 	fedo.Init();
 
@@ -202,6 +216,8 @@ void Menu_Update()
 	{
 		StartColor = StartYello;
 
+		b = 120;
+
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
@@ -212,12 +228,16 @@ void Menu_Update()
 	}
 	else if (m_colRectStart.IsCollision(m_colRectMouse) == false)
 	{
-		StartColor = StartWhite;
+		StartColor = Startblack;
+
+		b = 255;
 	}
 
 	if (m_colRectExplanation.IsCollision(m_colRectMouse) == true)
 	{
 		ExplanationColor = ExplanationYello;
+
+		b2 = 120;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -230,12 +250,16 @@ void Menu_Update()
 	}
 	else if (m_colRectExplanation.IsCollision(m_colRectMouse) == false)
 	{
-		ExplanationColor = ExplanationWhite;
+		ExplanationColor = Explanationblack;
+
+		b2 = 255;
 	}
 
 	if (m_colRectRecord.IsCollision(m_colRectMouse) == true)
 	{
 		RecordColor = RecordYello;
+
+		b3 = 120;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -248,7 +272,9 @@ void Menu_Update()
 	}
 	else if (m_colRectRecord.IsCollision(m_colRectMouse) == false)
 	{
-		RecordColor = RecordWhite;
+		RecordColor = Recordblack;
+
+		b3 = 255;
 	}
 
 	PlaySoundMem(SoundMenu, DX_PLAYTYPE_LOOP, FALSE);
@@ -317,14 +343,26 @@ void Menu_Draw()
 
 	ChangeFont("アプリ明朝", DX_CHARSET_DEFAULT);
 	//DrawBox(248, 310, 390, 340, GetColor(255, 0, 0),false);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
+	DrawGraph(263, 305, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	m_colRectStart.SetCenter(323, 320, 120, 30);
 	DrawString(285, 310, "START", StartColor);
 
 	//DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
+	DrawGraph(263, 365, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	m_colRectExplanation.SetCenter(323, 380, 120, 30);
-	DrawString(280, 370, "操作説明", ExplanationColor);
+	DrawString(277, 370, "操作説明", ExplanationColor);
 
 	//DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b3);
+	DrawGraph(263, 425, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
     m_colRectRecord.SetCenter(323, 440, 120, 30);
 	DrawString(300, 430, "記録", RecordColor);
 

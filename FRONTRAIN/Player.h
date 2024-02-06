@@ -59,7 +59,7 @@ struct Shot
 	Rect m_colRect;
 
 	//SE用格納変数
-	int SEShot;
+	int SEShot = 0;
 
 };
 
@@ -73,8 +73,8 @@ public:
 	~Player();
 
 	void FinalizePlayer(Player& player, Shot shot[], Shield& shield);
-	void Init(Shield& shield, Shot shot[],Player& player);
-	void InitShot(Shot shot[]);
+	void Init(Shield& shield, Player& player);
+	void InitShot(Shot shot[], Player& player);
 	void Update(Player& player, Map& map, Shield& shield, Background& back);
 	//プレイヤーの当たり判定を取得する
 	Rect GetColRect() { return m_colRect; }
@@ -185,7 +185,7 @@ private:
 	int moveNumX = 0;    //総移動量X
 
 	//SE用格納変数
-	int SEReload, SEDamage;
+	int SEReload, SEDamage,SEShotMem;
 
 	//SEを一回鳴らす
 	bool SE = false;

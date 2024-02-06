@@ -14,6 +14,7 @@
 #include "SceneFedo.h"
 #include "Save.h"
 #include "Explanation.h"
+#include "EnemyBase.h"
 
 Player player;
 HP hp;
@@ -40,6 +41,9 @@ SceneFedo scenefedo;
 
 Save save;
 
+EnemyBase Base;
+EnemyLoadDate date;
+
 bool Isflag = false;
 
 int DistanceDown = -1;
@@ -56,26 +60,28 @@ bool SE;
 //èâä˙âª
 void Game_Initialize()
 {
+	Base.Init(date);
+
 	Back.Init();
 
 
 	point.InitPoint();
 	hp.PlayerHPInit();
-	player.Init(shield, shot, player);
+	player.Init(shield, player);
 
-	player.InitShot(shot);
+	player.InitShot(shot, player);
 
-	DEnemy.EnemyShotInit(enemyshot);
+	DEnemy.EnemyShotInit(enemyshot, date);
 
-	WEnemy.Init(WenemyS, WEnemy, ENEMY_NOW);
+	WEnemy.Init(WenemyS, WEnemy, ENEMY_NOW, date);
 
 	for (int i = 0; i < SKY_ENEMY_NOW; i++)
 	{
-		SEnemy.Init(SenemyS[i], SEnemy);
+		SEnemy.Init(SenemyS[i], SEnemy, date);
 	}
 	for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
 	{
-		DEnemy.Init(DenemyS[i], DEnemy);
+		DEnemy.Init(DenemyS[i], DEnemy, date);
 	}
 	map.InitMap();
 
@@ -96,9 +102,11 @@ void Game_Initialize()
 //èIóπèàóù
 void Game_Finalize()
 {
+	Base.Finalize(date);
+
 	player.FinalizePlayer(player, shot, shield);
 
-	WEnemy.FinalizeWalkEnemy(WenemyS, ENEMY_NOW);
+	WEnemy.FinalizeWalkEnemy(WenemyS, ENEMY_NOW, date);
 
 	map.FinalizeMap();
 	for (int i = 0; i < SKY_ENEMY_NOW; i++)

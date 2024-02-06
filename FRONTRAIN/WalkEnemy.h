@@ -44,12 +44,12 @@ struct WalkEnemyStruct : public EnemyBase
 	bool WalkEnemyflag = false;
 
 	//SEópäiî[ïœêî
-	int SEWalkEnemy;
+	int SEWalkEnemy = 0;
 
-	int SEWalkEnemyDead1, SEWalkEnemyDead2;
+	int SEWalkEnemyDead1 = 0, SEWalkEnemyDead2 = 0;
 
 	//SEÇàÍâÒÇæÇØñ¬ÇÁÇ∑
-	bool SE1,SE2;
+	bool SE1 = false, SE2 = false;
 	
 };
 
@@ -59,8 +59,8 @@ public:
 	WalkEnemy();
 	~WalkEnemy();
 
-	void FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize);
-	void Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy, int WenemySize);
+	void FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize, EnemyLoadDate& date);
+	void Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy, int WenemySize, EnemyLoadDate& date);
 	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
 	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize, Player& player, Shot shot[]);
 

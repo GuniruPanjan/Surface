@@ -25,10 +25,14 @@ static bool Plus, Mainas;
 
 static bool ContinueInit;
 
+static int Botton;   //ボタンの画像格納用変数
+
+static int b;   //画像透過用変数
+
 // マウスの座標を取得するための変数
 int CMouseX, CMouseY;
 
-int CColor, CWhite, CYello;
+int CColor, Cblack, CYello;
 
 bool CRecord;
 
@@ -61,8 +65,12 @@ void Config_Initialize()
 	CMouseY = 0;
 
 	CColor = 0;
-	CWhite = GetColor(255, 255, 255);
+	Cblack = GetColor(0, 0, 0);
 	CYello = GetColor(255, 255, 0);
+
+	Botton = LoadGraph("date/ボタン.png");
+
+	b = 255;
 
 	CRecord = false;
 
@@ -85,6 +93,8 @@ void Config_Finalize()
 	DeleteSoundMem(SoundConfig);
 
 	DeleteSoundMem(SEClickConfig);
+
+	DeleteGraph(Botton);
 
 	settingfedo.FinalizeFedo();
 	
@@ -113,11 +123,15 @@ void Config_Update(Point& point,TimeCount& timecount)
 
 	if (m_Rect.IsCollision(m_Mouse) == false)
 	{
-		CColor = CWhite;
+		CColor = Cblack;
+
+		b = 255;
 	}
 	else if (m_Rect.IsCollision(m_Mouse) == true)
 	{
 		CColor = CYello;
+
+		b = 120;
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
@@ -177,12 +191,14 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	savedate.SaveLoad();
 
-	//DrawString(100, 240, "記録画面ですまだできてませんすいません", GetColor(255, 255, 255));
-
 	m_Mouse.SetCenter(CMouseX, CMouseY + 5, 10, 10);
 
-	m_Rect.SetCenter(330, 290, 150, 30);
-	DrawString(260, 280, "メニュー画面", CColor);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
+	DrawGraph(263, 275, Botton, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	m_Rect.SetCenter(323, 290, 120, 30);
+	DrawString(280, 280, "メニュー", CColor);
 
 	/*m_Rect.Draw(GetColor(255, 0, 0), false);
 	m_Mouse.Draw(GetColor(255, 0, 0), false);*/

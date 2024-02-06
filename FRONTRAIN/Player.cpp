@@ -47,6 +47,7 @@ Player::Player():
 	Reload(false),
 	SEReload(0),
 	SEDamage(0),
+	SEShotMem(0),
 	SE(false)
 {
 	//弾初期化
@@ -96,7 +97,7 @@ void Player::FinalizePlayer(Player& player, Shot shot[],Shield& shield)
 	DeleteGraph(shield.ShieldGraph);
 }
 
-void Player::Init(Shield& shield,Shot shot[],Player& player)
+void Player::Init(Shield& shield ,Player& player)
 {
 	//DrawGraph(PlayerX, PlayerY, playerGraph, true);
 
@@ -141,6 +142,8 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 
 	player.DeadAnimCount = 9;
 	player.DeadAnimTime = 0;
+	player.ShotGraph = LoadGraph("date/銃弾.png");
+	player.SEShotMem = LoadSoundMem("SE/拳銃を撃つ.mp3");
 
 	player.SE = false;
 
@@ -151,9 +154,33 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 	player.SEReload = LoadSoundMem("SE/弾倉に弾を込める.mp3");
 	player.SEDamage = LoadSoundMem("SE/衝撃.mp3");
 
+	shield.LeftFlag = false;
+	shield.RightFlag = false;
+	shield.ShieldGraph = LoadGraph("date/Shiled.png");
+	shield.ShieldWidth = 3;
+	shield.ShieldHeight = 30;
+}
+
+void Player::InitShot(Shot shot[],Player& player)
+{
 	for (int i = 0; i < SHOT; i++)
 	{
-		shot[i].Graph = LoadGraph("date/銃弾.png");
+		for (int j = 0; j < 2; j++)
+		{
+			shot[i].ShotAnimGraphLeft[j] = 0;
+			shot[i].ShotAnimGraphRight[j] = 0;
+			shot[i].ShotSparkGraphLeft[j] = 0;
+			shot[i].ShotSparkGraphRight[j] = 0;
+		}
+
+		shot[i].X = -50;
+		shot[i].Y = -50;
+
+		shot[i].Flag = false;
+
+		shot[i].Damage = 3;
+
+		shot[i].Graph = player.ShotGraph;
 
 		shot[i].ShotAnimCountRight = 0;
 		shot[i].ShotAnimCountLeft = 0;
@@ -171,25 +198,7 @@ void Player::Init(Shield& shield,Shot shot[],Player& player)
 		LoadDivGraph("date/火花(小)右.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
 		LoadDivGraph("date/火花(小)左.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
 
-		shot[i].SEShot = LoadSoundMem("SE/拳銃を撃つ.mp3");
-
-	}
-	
-
-	shield.LeftFlag = false;
-	shield.RightFlag = false;
-	shield.ShieldGraph = LoadGraph("date/Shiled.png");
-	shield.ShieldWidth = 3;
-	shield.ShieldHeight = 30;
-}
-
-void Player::InitShot(Shot shot[])
-{
-	for (int i = 0; i < SHOT; i++)
-	{
-		shot[i].Flag = false;
-
-		shot[i].Damage = 3;
+		shot[i].SEShot = player.SEShotMem;
 	}
 	
 }
@@ -396,33 +405,37 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 
 void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 {
-	//右クリックで弾をリロード
-	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	//弾が満タンだとリロードできない
+	if (player.Bullet < 12)
 	{
-		if (player.Reload == false)
+		//右クリックで弾をリロード
+		if (GetMouseInput() & MOUSE_INPUT_RIGHT)
 		{
-			player.Reload = true;
+			if (player.Reload == false)
+			{
+				player.Reload = true;
+			}
+
 		}
-		
-	}
-	if (player.Reload == true)
-	{
-		//PlaySoundMem(player.SEReload,DX_PLAYTYPE_BACK, TRUE);
-
-		player.PlayerShotFlag = true;
-
-		player.BulletTime++;
-		if (player.BulletTime >= 40)
+		if (player.Reload == true)
 		{
-			player.Bullet = 12;
+			//PlaySoundMem(player.SEReload,DX_PLAYTYPE_BACK, TRUE);
 
-			player.Reload = false;
+			player.PlayerShotFlag = true;
 
-			player.BulletTime = 0;
+			player.BulletTime++;
+			if (player.BulletTime >= 40)
+			{
+				player.Bullet = 12;
+
+				player.Reload = false;
+
+				player.BulletTime = 0;
+			}
 		}
 	}
 	//マウスキー(左クリック)が押されると発射
-	else if (GetMouseInput() & MOUSE_INPUT_LEFT)
+	if (GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
 		//弾が入っていると撃てる
 		if (player.Bullet > 0)
