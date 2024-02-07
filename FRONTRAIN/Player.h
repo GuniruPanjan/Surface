@@ -3,7 +3,7 @@
 #include "Map.h"
 #include "WalkEnemy.h"
 #include "Background.h"
-#define SHOT 30
+#define SHOT 20
 
 struct Shield
 {

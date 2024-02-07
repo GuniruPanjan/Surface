@@ -15,6 +15,7 @@ struct SkyEnemyStruct : public EnemyBase
 	//敵の現在地
 	float SkyEnemyX = 0.0f;
 	float SkyEnemyY = 0.0f;
+	float SkyEnemyDeadY = 0.0f;
 	int SkyHandle[3];
 
 	//アニメーション画像表示の変数
@@ -26,6 +27,8 @@ struct SkyEnemyStruct : public EnemyBase
 	int DeadAnimGraph[4];
 	int DeadAnimCount;
 	int DeadAnimTime;
+	//ポイントの画像を入れる変数
+	int DeadPoint = 0;
 
 	//敵の大きさ
 	int SkyEnemyWidth = 15;
@@ -42,6 +45,7 @@ struct SkyEnemyStruct : public EnemyBase
 	bool SkyEnemyDead = false;
 	//敵が弾で死んだ判定
 	bool SkyShotDead = false;
+	bool SkyShotDeadPoint = false;
 
 	//敵が出現するフラグ
 	bool SkyEnemyflag = false;

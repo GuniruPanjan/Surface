@@ -44,6 +44,10 @@ void EnemyBase::Finalize(EnemyLoadDate& date)
 	DeleteGraph(date.DistanceEnemyGraph);
 	DeleteGraph(date.ShotDistance);
 
+	DeleteGraph(date.WalkPoint);
+	DeleteGraph(date.SkyPoint);
+	DeleteGraph(date.DistancePoint);
+
 	DeleteSoundMem(date.WalkEnemySound);
 	DeleteSoundMem(date.WalkEnmeyDeadSound1);
 	DeleteSoundMem(date.WalkEnmeyDeadSound2);
@@ -91,5 +95,11 @@ void EnemyBase::Init(EnemyLoadDate& date)
 	//LoadDivGraph("date/âŒâ‘(è¨)âE.png", 2, 2, 1, 5, 5, date.ShotSparkGraphRight);
 
 	date.DistanceEnemyShotSound = LoadSoundMem("SE/ë_åÇèeî≠éÀ.mp3");
+
+	date.WalkPoint = LoadGraph("date/100pt.png");
+
+	date.SkyPoint = LoadGraph("date/50pt.png");
+
+	date.DistancePoint = LoadGraph("date/120pt.png");
 }
 

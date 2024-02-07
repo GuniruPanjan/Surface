@@ -496,10 +496,9 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 void Player::Draw(Shield& shield, Player& player)
 {	
 
-	//プレイヤーよりマウスが右なら
-
 	if (player.Count == 0 || player.DamegeCount >= 10)
 	{
+		//プレイヤーよりマウスが右なら
 		if (player.MouseX >= player.PlayerX)
 		{
 

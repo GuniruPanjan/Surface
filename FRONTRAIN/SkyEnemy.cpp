@@ -32,6 +32,7 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 	
 	enemy.SkyEnemyX = 0.0f;
 	enemy.SkyEnemyY = 0.0f;
+	enemy.SkyEnemyDeadY = 0.0f;
 
 	enemy.SkyEnemyDead = false;
 
@@ -54,6 +55,10 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 	enemy.DeadAnimCount = 0;
 
 	enemy.DeadAnimTime = 0;
+
+	enemy.DeadPoint = date.SkyPoint;
+
+	enemy.SkyShotDeadPoint = false;
 
 	LoadDivGraph("date/Ž€–SŒŒ‚µ‚Ô‚«.png", 4, 4, 1, 15, 15, enemy.DeadAnimGraph);
 
@@ -255,6 +260,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 					shot.Flag = 0;
 
 					enemy[i].SkyShotDead = true;
+					enemy[i].SkyShotDeadPoint = true;
 
 				}
 			}
@@ -330,9 +336,14 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 			{
 				PlaySoundMem(enemy.SESkyEnemyDead, DX_PLAYTYPE_BACK, TRUE);
 
+				enemy.SkyEnemyDeadY = enemy.SkyEnemyY;
+
 				enemy.SE = true;
 			}
-			
+			if (enemy.SkyShotDeadPoint == true)
+			{
+				DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
+			}
 
 			if (enemy.SkyShotDead == true)
 			{
@@ -352,6 +363,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 				enemy.SE = false;
 
 				enemy.SkyEnemyDead = true;
+				enemy.SkyShotDeadPoint = false;
 			}
 			
 		}

@@ -55,6 +55,7 @@ struct DistanceEnemyStruct : public EnemyBase
 	//敵の現在地
 	float DistanceEnemyX = 0.0f;
 	float DistanceEnemyY = 0.0f;
+	float DistanceEnemyDeadY = 0.0f;
 	int DistanceEnemyGraph = -1;
 
 	//敵の大きさ
@@ -62,11 +63,12 @@ struct DistanceEnemyStruct : public EnemyBase
 	int DistanceEnemyHeight = 20;
 
 	//敵のスピード
-	float DistanceEnemySpeed = 0.02f;
+	float DistanceEnemySpeed = 0.0f;
 	//敵の死亡判定
 	bool DistanceEnemyDead = false;
 	//敵が弾で死んだ判定
 	bool DistanceShotDead = false;
+	bool DistanceShotDeadPoint = false;
 
 	//敵が出現するフラグ
 	bool DistanceEnemyflag = false;
@@ -79,6 +81,9 @@ struct DistanceEnemyStruct : public EnemyBase
 
 	//敵が死んだ時のアニメーションフレーム
 	int m_DeadAnimFrame;
+
+	//ポイントの画像を入れる変数
+	int DeadPoint = 0;
 
 	//前のフレームで撃ったかどうか
 	bool EnemyShotFlag = false;

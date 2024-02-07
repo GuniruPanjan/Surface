@@ -190,6 +190,9 @@ void Config_Draw(Point& point,TimeCount& timecount)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 125);
 
 	savedate.SaveLoad();
+	savedate.SaveHiscoreLoad();
+
+	DrawFormatString(100, 20, GetColor(255, 255, 255), "ç°âÒÇÃÉXÉRÉA");
 
 	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), 10, 10);
 

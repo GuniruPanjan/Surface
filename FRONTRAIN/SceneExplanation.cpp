@@ -31,7 +31,7 @@ int SEClickExplanation;
 //初期化
 void Explanation_Initialize()
 {
-	ExplanationHandle = LoadGraph("date/説明書.png"); //画像ロード
+	ExplanationHandle = LoadGraph("date/ゲーム説明.png"); //画像ロード
 
 	EMouseX = 0;
 	EMouseY = 0;
@@ -111,7 +111,7 @@ void Explanation_Update()
 //描画
 void Explanation_Draw()
 {
-	DrawGraph(0, 0, ExplanationHandle, TRUE);
+	DrawGraph(-93, 0, ExplanationHandle, TRUE);
 
 	m_EMouse.SetCenter(EMouseX, EMouseY + 5, 10, 10);
 

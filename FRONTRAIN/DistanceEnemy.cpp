@@ -53,8 +53,11 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 	Denemy.Attack = 2;
 	Denemy.HP = 5;
 
+	enemy.DistanceEnemySpeed = 0.04f;
+
 	enemy.DistanceEnemyX = -30.0f;
 	enemy.DistanceEnemyY = -30.0f;
+	enemy.DistanceEnemyDeadY = -30.0f;
 
 	enemy.DistanceEnemyDead = false;
 
@@ -78,6 +81,10 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 	enemy.EnemyShotFlag = true;
 
 	enemy.m_DeadAnimFrame;
+
+	enemy.DeadPoint = date.DistancePoint;
+
+	enemy.DistanceShotDeadPoint = false;
 
 	//enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
 
@@ -374,6 +381,8 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 						if (enemy[i].HP <= 0)
 						{
 							enemy[i].DistanceShotDead = true;
+
+							enemy[i].DistanceShotDeadPoint = true;
 						}
 
 					}
@@ -540,6 +549,8 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 		{
 			PlaySoundMem(enemy.SEDistanceDead, DX_PLAYTYPE_BACK, TRUE);
 
+			enemy.DistanceEnemyDeadY = enemy.DistanceEnemyY;
+
 			enemy.SE2 = true;
 		}
 
@@ -555,33 +566,38 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 			DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.Handle[enemy.AnimCount], true);
 
+			if (enemy.DistanceShotDeadPoint == true)
+			{
+				DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
+			}
 
-			
-				if (enemy.DistanceShotDead == true)
-				{
-					point.DenemyPoint += 120;
+			if (enemy.DistanceShotDead == true)
+			{
+				point.DenemyPoint += 120;
 
-					enemy.DistanceShotDead = false;
-				}
+				enemy.DistanceShotDead = false;
+			}
 
-				enemy.DistanceEnemyflag = false;
+			enemy.DistanceEnemyflag = false;
 
-				if (enemy.AnimCount == 13)
-				{
+			if (enemy.AnimCount == 13)
+			{
 
-					/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
-						, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
+				/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
+					, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
 
-					enemy.HP = 5;
+				enemy.HP = 5;
 
-					enemy.DistanceEnemyX = -30.0f;
-					enemy.DistanceEnemyY = -30.0f;
+				enemy.DistanceEnemyX = -30.0f;
+				enemy.DistanceEnemyY = -30.0f;
 
-					enemy.SE2 = false;
+				enemy.SE2 = false;
 
-					enemy.DistanceEnemyDead = true;
+				enemy.DistanceEnemyDead = true;
 
-				}
+				enemy.DistanceShotDeadPoint = false;
+
+			}
 
 			
 		}

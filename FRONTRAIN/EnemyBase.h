@@ -30,6 +30,9 @@ struct EnemyLoadDate
 
 	//DistanceエネミーのShotの音格納用変数
 	int DistanceEnemyShotSound;
+
+	//エネミーを倒したときのポイント表示
+	int WalkPoint, SkyPoint, DistancePoint;
 };
 
 class EnemyBase

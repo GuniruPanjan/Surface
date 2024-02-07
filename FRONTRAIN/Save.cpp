@@ -1,7 +1,7 @@
 #include "Save.h"
 #include "DxLib.h"
 #include<stdio.h>
-#include<stdlib.h>
+//#include<stdlib.h>
 #include<time.h>
 
 Save::Save():
@@ -9,7 +9,8 @@ Save::Save():
 	name(0),
 	White(0),
 	end(false),
-	Soundname(0)
+	Soundname(0),
+	hiscore(0)
 {
 }
 
@@ -39,14 +40,33 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 {
 	save_date = { point.DistancePoint, point.PointPoint, timecount.SaveTime };
 
-	FILE *fp;
+	save_hiscore = { point.DistancePoint, point.PointPoint, timecount.SaveTime };
+
+	FILE* fp;
+	FILE* HiFp;
 
 	fopen_s(&fp, "save.txt", "wb");
+
+	fopen_s(&HiFp, "Hiscore.txt", "wb");
 
 	if (fp == NULL)
 	{
 		//ファイル読み込みエラー
 		MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
+	}
+	if (HiFp == NULL)
+	{
+		//ファイル読み込みエラー
+		MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
+	}
+	if (HiFp != NULL)
+	{
+		fscanf_s(HiFp, "%d", &hiscore);
+	}
+	if (hiscore < point.DistancePoint)
+	{
+		//fopen_s(&HiFp, "Hiscore.txt", "w");
+		fwrite(&save_hiscore, sizeof(save_hiscore), 1, HiFp);    //save_date構造体の中身を出力
 	}
 
 	//fprintf(fp, "スコア:%d\nタイム:%d秒\n距離:%dm", point.PointPoint, timecount.SaveTime, point.DistancePoint);
@@ -54,6 +74,8 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	fwrite(&save_date, sizeof(save_date), 1, fp);   //save_date構造体の中身を出力
 
 	fclose(fp);
+
+	fclose(HiFp);
 }
 
 void Save::SaveInput()
@@ -87,7 +109,7 @@ void Save::SaveInput()
 
 void Save::SaveLoad()
 {
-	FILE *fp;
+	FILE* fp;
 
 	fopen_s(&fp, "save.txt", "rb");
 
@@ -104,4 +126,25 @@ void Save::SaveLoad()
 	DrawFormatString(100, 150, GetColor(255, 255, 255), "タイム:%d秒", save_date.Time);
 	DrawFormatString(100, 200, GetColor(255, 255, 255), "距離:%dm", save_date.Distance);
 
+}
+
+void Save::SaveHiscoreLoad()
+{
+	FILE* HiFp;
+
+	fopen_s(&HiFp, "Hiscore.txt", "rb");
+
+	if (HiFp == NULL)
+	{
+		//ファイル読み込みエラー
+		MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
+	}
+
+	fread(&save_hiscore, sizeof(save_hiscore), 1, HiFp);
+
+	fclose(HiFp);
+
+	DrawFormatString(400, 100, GetColor(255, 255, 255), "ハイスコア:%d", save_hiscore.Point);
+	DrawFormatString(400, 150, GetColor(255, 255, 255), "タイム:%d秒", save_hiscore.Time);
+	DrawFormatString(400, 200, GetColor(255, 255, 255), "距離:%dm", save_hiscore.Distance);
 }

@@ -10,6 +10,14 @@ typedef struct
 	int Time;         //経過時間
 }save_data_t;
 
+//ハイスコア用の構造体
+typedef struct
+{
+	int Distance;    //移動時間
+	int Point;       //ポイント
+	int Time;        //経過時間
+}save_hiscore_t;
+
 class Save
 {
 public:
@@ -24,14 +32,19 @@ public:
 	void SaveInput();
 
 	void SaveLoad();
+	void SaveHiscoreLoad();
 
 	save_data_t save_date;
+
+	save_hiscore_t save_hiscore;
 
 	bool Start = false;
 	bool end = false;
 
 	int name; //セーブの名前入力保存変数宣言
 	int White;  //色の宣言
+
+	int hiscore = 0;   //ハイスコア
 
 	//サウンド用格納変数
 	int Soundname;

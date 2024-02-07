@@ -14,18 +14,20 @@ struct WalkEnemyStruct : public EnemyBase
 	//敵の現在地
 	float WalkEnemyX = 0.0f; 
     float WalkEnemyY = 0.0f;
-	int WalkEnemyGraph[12];
+	float WalkEnemyDeadY = 0.0f;
+	int WalkEnemyGraph[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
 	//敵の大きさ
 	int WalkEnemyWidth = 20;
 	int WalkEnemyHeight = 20;
 
 	//エネミーのスピード
-	float WalkEnemySpeed = 0.04f;
+	float WalkEnemySpeed = 0.0f;
 	//エネミーの死亡判定
 	bool WalkEnemyDead = false;
 	//敵が弾で死んだ判定
 	bool WalkShotDead = false;
+	bool WalkShotDeadPoint = false;
 
 	//アニメーションタイム
 	int AnimTime = 0;
@@ -34,7 +36,9 @@ struct WalkEnemyStruct : public EnemyBase
 	int LeftAnim = 0;
 
 	//死んだアニメーション
-	int Handle[14];
+	int Handle[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	//ポイントの画像を入れる変数
+	int DeadPoint = 0;
 
 	//アニメーションタイム
 	int AnimCount = 0;
