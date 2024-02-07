@@ -35,6 +35,8 @@ static int Botton;     //Bottonの画像を入れるハンドル
 
 static int b, b2, b3;     //画像透過変数
 
+static int Count;
+
 //サウンド格納用変数
 int SoundMenu;
 
@@ -84,6 +86,8 @@ void Menu_Initialize()
 	StartColor = 0;
 	ExplanationColor = 0;
 	RecordColor = 0;
+
+	Count = 0;
 
 	Botton = LoadGraph("date/ボタン.png");
 
@@ -147,15 +151,17 @@ void Menu_Update()
 		SceneMgr_ChageScene(eScene_Game);//シーンをゲーム画面に変更
 	}
 	//説明画面
-	if (fedo.end == 1 && fedo.Explanation == true)
+	if (fedo.Explanation == true)
 	{
+		if (Count >= 60)
+		{
+			ContinueInit = true;
 
-		ContinueInit = true;
-
-		SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
+			SceneMgr_ChageScene(eScene_Explanation); //シーンを説明画面に変更
+		}
 	}
 	//設定画面
-	if (fedo.end == 1 && fedo.Setting == true)
+	if (fedo.Setting == true)
 	{
 
 		/*DeleteSoundMem(SoundMenu);
@@ -169,9 +175,13 @@ void Menu_Update()
 			DeleteGraph(Graph[i]);
 		}*/
 
-		ContinueInit = true;
+		if (Count >= 60)
+		{
+			ContinueInit = true;
 
-		SceneMgr_ChageScene(eScene_Config);//シーンを設定画面に変更
+			SceneMgr_ChageScene(eScene_Config);//シーンを設定画面に変更
+		}
+		
 
 	}
 
@@ -193,7 +203,9 @@ void Menu_Update()
 	//クリックされたら
 	if(Explanaion == true)
 	{
-		fedo.Out = 1;
+		//fedo.Out = 1;
+
+		Count++;
 
 		fedo.Explanation = true;
 	}
@@ -202,7 +214,9 @@ void Menu_Update()
 	//クリックされたら
 	if(Record == true)
 	{
-		fedo.Out = 1;
+		//fedo.Out = 1;
+
+		Count++;
 
 		fedo.Setting = true;
 		
@@ -242,6 +256,7 @@ void Menu_Update()
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
 		{
+
 			Explanaion = true;
 
 			PlaySoundMem(SEClickShot, DX_PLAYTYPE_BACK, FALSE);
@@ -364,7 +379,7 @@ void Menu_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
     m_colRectRecord.SetCenter(323, 440, 120, 30);
-	DrawString(300, 430, "記録", RecordColor);
+	DrawString(300, 430, "スコア", RecordColor);
 
 	fedo.StartUpdate();
 

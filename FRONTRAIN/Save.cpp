@@ -47,7 +47,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 	fopen_s(&fp, "save.txt", "wb");
 
-	fopen_s(&HiFp, "Hiscore.txt", "wb");
+	fopen_s(&HiFp, "Hiscore.txt", "rb");
 
 	if (fp == NULL)
 	{
@@ -61,11 +61,13 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	}
 	if (HiFp != NULL)
 	{
+		//fopen_s(&HiFp, "Hiscore.txt", "r");
 		fscanf_s(HiFp, "%d", &hiscore);
+		fclose(HiFp);
 	}
 	if (hiscore < point.DistancePoint)
 	{
-		//fopen_s(&HiFp, "Hiscore.txt", "w");
+		fopen_s(&HiFp, "Hiscore.txt", "wb");
 		fwrite(&save_hiscore, sizeof(save_hiscore), 1, HiFp);    //save_date\‘¢‘Ì‚Ì’†g‚ðo—Í
 	}
 

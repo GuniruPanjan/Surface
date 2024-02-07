@@ -194,6 +194,8 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	DrawFormatString(100, 20, GetColor(255, 255, 255), "今回のスコア");
 
+	DrawFormatString(400, 20, GetColor(255, 255, 255), "ハイスコア");
+
 	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), 10, 10);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
@@ -201,7 +203,7 @@ void Config_Draw(Point& point,TimeCount& timecount)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	m_Rect.SetCenter(323, 290, 120, 30);
-	DrawString(280, 280, "メニュー", CColor);
+	DrawString(280, 280, "タイトル", CColor);
 
 	/*m_Rect.Draw(GetColor(255, 0, 0), false);
 	m_Mouse.Draw(GetColor(255, 0, 0), false);*/

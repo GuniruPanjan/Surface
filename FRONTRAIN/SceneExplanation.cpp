@@ -120,7 +120,7 @@ void Explanation_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	m_ERect.SetCenter(180, 410, 120, 30);
-	DrawString(135, 400, "メニュー", EColor);
+	DrawString(135, 400, "タイトル", EColor);
 
 	/*m_ERect.Draw(GetColor(255, 0, 0), false);
 	m_EMouse.Draw(GetColor(255, 0, 0), false);*/
