@@ -221,7 +221,7 @@ void Game_Draw()
 			DEnemy.DrawShot(enemyshot, ENEMY_SHOT, static_cast<int>(player.ScrollX), player, shield);
 
 
-			WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player, shot);
+			WEnemy.Draw(player.ScrollX, WenemyS, point, ENEMY_NOW, player, shot, &timecount);
 
 
 			for (int i = 0; i < SKY_ENEMY_NOW; i++)
@@ -230,7 +230,7 @@ void Game_Draw()
 			}
 			for (int i = 0; i < DISTANCE_ENEMY_NOW; i++)
 			{
-				DEnemy.Draw(player.ScrollX, DenemyS[i], point, player, DistanceDown, shot);
+				DEnemy.Draw(player.ScrollX, DenemyS[i], point, player, DistanceDown, shot, &timecount);
 			}
 
 			for (int i = 0; i < SHOT; i++)

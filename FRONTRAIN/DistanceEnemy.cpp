@@ -110,6 +110,9 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 
 	enemy.SE1 = false;
 	enemy.SE2 = false;
+
+	Denemy.HPUP = 8;
+	Denemy.HPUP2 = 15;
 }
 
 void DistanceEnemy::EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date)
@@ -479,7 +482,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 	}
 }
 
-void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player,int DownAnimGraph,Shot shot[])
+void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player,int DownAnimGraph,Shot shot[], TimeCount* time)
 {
 	//エネミーが生きている時
 	if (enemy.HP > 0)
@@ -586,7 +589,22 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
 					, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
 
-				enemy.HP = 5;
+				//2分以下だった場合
+				if (time->EnemyTime < 120)
+				{
+					enemy.HP = 5;
+				}
+				//2分たった場合は耐久力アップ
+				else if (time->EnemyTime >= 120 && time->EnemyTime < 300)
+				{
+					enemy.HP = HPUP;
+				}
+				//5分たつと耐久力アップ
+				else if (time->EnemyTime >= 300)
+				{
+					enemy.HP = HPUP2;
+				}
+				
 
 				enemy.DistanceEnemyX = -30.0f;
 				enemy.DistanceEnemyY = -30.0f;

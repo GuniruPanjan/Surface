@@ -6,7 +6,9 @@
 WalkEnemy::WalkEnemy():
 	T(0),
 	TUP(20),
-	WalkEnemyAppearance(true)
+	WalkEnemyAppearance(true),
+	HPUP(10),
+	HPUP2(20)
 {
 }
 
@@ -99,6 +101,10 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 
 	Wenemy.TUP2 = 75;
 
+	Wenemy.HPUP = 10;
+
+	Wenemy.HPUP2 = 20;
+
 }
 
 void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int WenemySize, float ScrollX, TimeCount* time, WalkEnemy& Wenemy)
@@ -150,6 +156,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	//2分経過したら出現率アップ
 	else if (time->EnemyTime >= 120 && time->EnemyTime < 300)
 	{
+
 		if (time->EnemyTime == (6 * Wenemy.TUP))
 		{
 			if (Wenemy.WalkEnemyAppearance == true)
@@ -193,6 +200,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	//5分経過したら出現率アップ
 	else if (time->EnemyTime >= 300)
 	{
+
 		if (time->EnemyTime == (4 * Wenemy.TUP2))
 		{
 			if (Wenemy.WalkEnemyAppearance == true)
@@ -311,7 +319,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 	
 }
 
-void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int WenemySize,Player& player,Shot shot[])
+void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int WenemySize,Player& player,Shot shot[], TimeCount* time)
 {
 	for (int i = 0; i < WenemySize; i++)
 	{
@@ -446,7 +454,22 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				if (enemy[i].AnimCount == 13)
 				{
-					enemy[i].HP = 6;
+					//2分以下の場合
+					if (time->EnemyTime < 120)
+					{
+						enemy[i].HP = 6;
+					}
+					//2分経過したら体力アップ
+					else if (time->EnemyTime >= 120 && time->EnemyTime < 300)
+					{
+						enemy[i].HP = HPUP;
+					}
+					//5分経過したら体力アップ
+					else if (time->EnemyTime >= 300)
+					{
+						enemy[i].HP = HPUP2;
+					}
+					
 
 					enemy[i].WalkEnemyX = -30.0f;
 					enemy[i].WalkEnemyY = -30.0f;

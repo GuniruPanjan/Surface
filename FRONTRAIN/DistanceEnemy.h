@@ -115,7 +115,7 @@ public:
 	void EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date);
 	void Update(Player& player, Shot& shot, DistanceEnemyStruct enemy[], int DenemySize, float ScrollX, TimeCount* time, DistanceEnemy& Denemy, EnemyShot enemyshot[], int EnemyShotSize, Shield& shield);
 	void EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot, int enemySize, Player& player, float ScrollX, Shield& shield);
-	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph, Shot shot[]);
+	void Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point, Player& player, int DownAnimGraph, Shot shot[], TimeCount* time);
 	void DrawShot(EnemyShot shot[], int EnemyShotSize, int ScrollX, Player& player, Shield& shield);
 
 	//敵の出現フラグ
@@ -125,5 +125,9 @@ public:
 	int T = 0;
 	int TUP = 0;
 	int TUP2 = 0;
+
+	//耐久力アップ
+	int HPUP = 0;
+	int HPUP2 = 0;
 };
 

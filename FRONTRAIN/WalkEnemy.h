@@ -66,7 +66,7 @@ public:
 	void FinalizeWalkEnemy(WalkEnemyStruct enemy[], int WenemySize, EnemyLoadDate& date);
 	void Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy, int WenemySize, EnemyLoadDate& date);
 	void Update(Player& player, Shot& shot, WalkEnemyStruct enemy[],int WenemySize,float ScrollX,TimeCount* time,WalkEnemy& Wenemy);
-	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize, Player& player, Shot shot[]);
+	void Draw(float ScrollX, WalkEnemyStruct enemy[], Point& point, int WenemySize, Player& player, Shot shot[], TimeCount* time);
 
 	EnemyBase Base;
 	WalkEnemyStruct WenemyS[ENEMY_NOW];
@@ -78,5 +78,10 @@ public:
 	int T = 0;
 	int TUP = 0;
 	int TUP2 = 0;
+
+
+	//ëœãvóÕëùâ¡
+	int HPUP = 0;
+	int HPUP2 = 0;
 };
 
