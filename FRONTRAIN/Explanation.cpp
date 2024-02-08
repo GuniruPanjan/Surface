@@ -106,24 +106,24 @@ void Explanation::ExplanationDraw()
 {
 	//下キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, UK);
-	DrawGraph(500, 400, UnderKey, true);
+	DrawGraph(500, 410, UnderKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, UK);
 
-	DrawFormatString(503, 440, GetColor(255, 255, 255), "盾");
+	DrawFormatString(503, 450, GetColor(255, 255, 255), "盾");
 
 	//右キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, RK);
-	DrawGraph(530, 400, RightKey, true);
+	DrawGraph(530, 410, RightKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, RK);
 
-	DrawFormatString(570, 400, GetColor(255, 255, 255), "右移動");
+	DrawFormatString(570, 410, GetColor(255, 255, 255), "右移動");
 
 	//左キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, LK);
-	DrawGraph(470, 400, LeftKey, true);
+	DrawGraph(470, 410, LeftKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, LK);
 
-	DrawFormatString(400, 400, GetColor(255, 255, 255), "左移動");
+	DrawFormatString(400, 410, GetColor(255, 255, 255), "左移動");
 
 	//マウス描画
 	DrawGraph(146, 400, Graph, true);
