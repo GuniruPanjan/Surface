@@ -29,7 +29,10 @@ public:
 
 	void SaveDate(Point& point, TimeCount& timecount);
 
+	int GetHiScore(void);
+
 	void SaveInput();
+	void NameOutPut();
 
 	void SaveLoad();
 	void SaveHiscoreLoad();
@@ -43,6 +46,8 @@ public:
 
 	int name; //セーブの名前入力保存変数宣言
 	int White;  //色の宣言
+
+	char String[20];  //名前出力
 
 	int hiscore = 0;   //ハイスコア
 

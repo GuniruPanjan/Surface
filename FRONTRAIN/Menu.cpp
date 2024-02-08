@@ -363,7 +363,7 @@ void Menu_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	m_colRectStart.SetCenter(323, 320, 120, 30);
-	DrawString(285, 310, "START", StartColor);
+	DrawString(285, 307, "START", StartColor);
 
 	//DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
@@ -371,7 +371,7 @@ void Menu_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	m_colRectExplanation.SetCenter(323, 380, 120, 30);
-	DrawString(277, 370, "操作説明", ExplanationColor);
+	DrawString(277, 367, "操作説明", ExplanationColor);
 
 	//DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b3);
@@ -379,7 +379,7 @@ void Menu_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
     m_colRectRecord.SetCenter(323, 440, 120, 30);
-	DrawString(300, 430, "スコア", RecordColor);
+	DrawString(290, 428, "スコア", RecordColor);
 
 	fedo.StartUpdate();
 

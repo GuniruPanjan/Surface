@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 EnemyBase::EnemyBase():
-	HP(10),
+	HP(6),
 	Speed(2),
 	Attack(2),
 	EnemyW(0),

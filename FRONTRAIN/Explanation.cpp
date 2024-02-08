@@ -106,29 +106,29 @@ void Explanation::ExplanationDraw()
 {
 	//下キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, UK);
-	DrawGraph(515, 430, UnderKey, true);
+	DrawGraph(500, 400, UnderKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, UK);
 
-	DrawFormatString(518, 460, GetColor(255, 255, 255), "盾");
+	DrawFormatString(503, 440, GetColor(255, 255, 255), "盾");
 
 	//右キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, RK);
 	DrawGraph(530, 400, RightKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, RK);
 
-	DrawFormatString(560, 400, GetColor(255, 255, 255), "右移動");
+	DrawFormatString(570, 400, GetColor(255, 255, 255), "右移動");
 
 	//左キー描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, LK);
-	DrawGraph(500, 400, LeftKey, true);
+	DrawGraph(470, 400, LeftKey, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, LK);
 
-	DrawFormatString(430, 400, GetColor(255, 255, 255), "左移動");
+	DrawFormatString(400, 400, GetColor(255, 255, 255), "左移動");
 
 	//マウス描画
-	DrawGraph(150, 400, Graph, true);
-	DrawFormatString(90, 410, GetColor(255, 255, 255), "ショット");
-	DrawFormatString(200, 410, GetColor(255, 255, 255), "リロード");
+	DrawGraph(146, 400, Graph, true);
+	DrawFormatString(93, 410, GetColor(255, 255, 255), "ショット");
+	DrawFormatString(203, 410, GetColor(255, 255, 255), "リロード");
 
 
 }

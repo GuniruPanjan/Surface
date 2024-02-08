@@ -89,7 +89,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 
 	Wenemy.Attack = 2;
 
-	Wenemy.HP = 10;
+	Wenemy.HP = 6;
 
 	Wenemy.WalkEnemyAppearance = true;
 
@@ -446,7 +446,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				if (enemy[i].AnimCount == 13)
 				{
-					enemy[i].HP = 10;
+					enemy[i].HP = 6;
 
 					enemy[i].WalkEnemyX = -30.0f;
 					enemy[i].WalkEnemyY = -30.0f;

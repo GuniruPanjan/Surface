@@ -27,6 +27,7 @@ void Save::SaveInit()
 {
 	Start = false;
 	end = false;
+	
 
 	White = GetColor(255, 255, 255); //白色を代入
 
@@ -42,12 +43,17 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 	save_hiscore = { point.DistancePoint, point.PointPoint, timecount.SaveTime };
 
+	hiscore = GetHiScore();
+
 	FILE* fp;
 	FILE* HiFp;
+	FILE* HiUp;
 
 	fopen_s(&fp, "save.txt", "wb");
 
-	fopen_s(&HiFp, "Hiscore.txt", "rb");
+	fopen_s(&HiFp, "Hiscore.txt", "wb");
+
+	fopen_s(&HiUp, "HiUp.txt", "r");
 
 	if (fp == NULL)
 	{
@@ -59,16 +65,19 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 		//ファイル読み込みエラー
 		MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
 	}
-	if (HiFp != NULL)
+	if (HiUp != NULL)
 	{
-		//fopen_s(&HiFp, "Hiscore.txt", "r");
-		fscanf_s(HiFp, "%d", &hiscore);
-		fclose(HiFp);
+		fscanf_s(HiUp, "%d", &hiscore);
+		fclose(HiUp);
 	}
-	if (hiscore < point.DistancePoint)
+	if (HiUp == NULL || hiscore < point.DistancePoint)
 	{
-		fopen_s(&HiFp, "Hiscore.txt", "wb");
+		fopen_s(&HiUp, "HiUp.txt", "w");
+		fprintf(HiUp, "%d", point.DistancePoint);
+		fclose(HiUp);
+		//fopen_s(&HiFp, "Hiscore.txt", "wb");
 		fwrite(&save_hiscore, sizeof(save_hiscore), 1, HiFp);    //save_date構造体の中身を出力
+		
 	}
 
 	//fprintf(fp, "スコア:%d\nタイム:%d秒\n距離:%dm", point.PointPoint, timecount.SaveTime, point.DistancePoint);
@@ -80,6 +89,21 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	fclose(HiFp);
 }
 
+int Save::GetHiScore(void)
+{
+	FILE* HiUp;
+
+	fopen_s(&HiUp, "HiUp.txt", "r");
+
+	if (HiUp == NULL)
+		return 0;
+
+	fscanf_s(HiUp, "%d", &hiscore);
+	fclose(HiUp);
+	return hiscore;
+	
+}
+
 void Save::SaveInput()
 {
 	DrawFormatString(120, 100, White, "8文字以内で名前を入力してください");
@@ -87,10 +111,10 @@ void Save::SaveInput()
 	DrawKeyInputModeString(640, 480);
 	DrawKeyInputString(250, 150, name);
 
-	DrawFormatString(100, 300, White, "決まったらマウス右クリックしてください");
+	DrawFormatString(100, 300, White, "決まったらエンターキーを押してください");
 
-	//マウスの右クリックが押されたら
-	if (GetMouseInput() & MOUSE_INPUT_RIGHT)
+	//エンターキーが押されたら
+	if(CheckHitKey(KEY_INPUT_RETURN))
 	{
 		if (name == NULL)
 		{
@@ -107,6 +131,13 @@ void Save::SaveInput()
 
 	PlaySoundMem(Soundname, DX_PLAYTYPE_LOOP, FALSE);
 
+}
+
+void Save::NameOutPut()
+{
+
+	//入力された文字列を取得
+	GetKeyInputString(String, name);
 }
 
 void Save::SaveLoad()

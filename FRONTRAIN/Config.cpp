@@ -203,7 +203,7 @@ void Config_Draw(Point& point,TimeCount& timecount)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	m_Rect.SetCenter(323, 290, 120, 30);
-	DrawString(280, 280, "タイトル", CColor);
+	DrawString(276, 276, "タイトル", CColor);
 
 	/*m_Rect.Draw(GetColor(255, 0, 0), false);
 	m_Mouse.Draw(GetColor(255, 0, 0), false);*/

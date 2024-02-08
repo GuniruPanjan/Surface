@@ -36,7 +36,7 @@ void HP::PlayerHPInit()
 	HPCount = 0;
 }
 
-void HP::PlayerHP(Player& player, Background& back)
+void HP::PlayerHP(Player& player, Background& back, Save& save)
 {
 	if (player.HP == 10)
 	{
@@ -112,7 +112,10 @@ void HP::PlayerHP(Player& player, Background& back)
 
 	//プレイヤーの真上に表示される
 	DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 30), HPberGraph[HPCount], true);
+	SetFontSize(15);
+	DrawFormatString(static_cast<int>(player.PlayerX - 30), static_cast<int>(player.PlayerY - 50), GetColor(255, 255, 255), "%s", save.String);
 
+	SetFontSize(20);
 	//画面の左端に描く
 	DrawGraph(30, 410, MagazineGraph[player.Bullet], true);
 	DrawFormatString(38, 432, GetColor(0, 0, 0), "%d", player.Bullet);

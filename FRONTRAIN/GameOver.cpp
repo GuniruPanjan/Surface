@@ -146,8 +146,10 @@ void GameOver_Draw()
 	DrawGraph(40, 400, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+	SetFontSize(22);
+
 	m_colRect.SetCenter(100, 415, 120, 30);
-	DrawString(77, 405, "スコア", GameOverColor);
+	DrawString(65, 402, "スコア", GameOverColor);
 
 	/*m_colRect.Draw(GetColor(255, 0, 0), false);
 	Mouse.Draw(GetColor(255, 0, 0), false);*/

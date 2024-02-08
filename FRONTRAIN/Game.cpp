@@ -206,7 +206,9 @@ void Game_Draw()
 			timecount.DrawTime();
 			point.DrawPoint(player, static_cast<int>(player.ScrollX));
 
-			hp.PlayerHP(player, Back);
+			save.NameOutPut();
+
+			hp.PlayerHP(player, Back, save);
 
 			player.Draw(shield, player);
 

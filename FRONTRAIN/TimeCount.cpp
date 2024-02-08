@@ -45,7 +45,7 @@ void TimeCount::DrawTime()
 	SaveTime = (GetNowCount() - time) / 1000;
 
 	//影落とし
-	DrawFormatString(242, 2, GetColor(0, 0, 0), "タイム : %d", SaveTime);
-	DrawFormatString(240, 0, GetColor(255, 255, 255), "タイム : %d", SaveTime);
+	DrawFormatString(242, 12, GetColor(0, 0, 0), "タイム : %d", SaveTime);
+	DrawFormatString(240, 10, GetColor(255, 255, 255), "タイム : %d", SaveTime);
 
 }

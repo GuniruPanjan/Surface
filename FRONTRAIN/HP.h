@@ -1,5 +1,6 @@
 #pragma once
 #include "Background.h"
+#include "Save.h"
 class Player;
 
 class HP
@@ -8,7 +9,7 @@ public:
 	void FinalizeHP();
 	void PlayerHPInit();
 	//プレイヤーのHP表示する関数
-	void PlayerHP(Player& player, Background& back);
+	void PlayerHP(Player& player, Background& back, Save& save);
 
 	//HPバーの変数
 	int HPberGraph[10];
