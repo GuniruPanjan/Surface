@@ -11,7 +11,8 @@ Point::Point():
 	MovePoint(0),
 	PlayerMove(0),
 	DistancePoint(0),
-	PointPoint(0)
+	PointPoint(0),
+	PointShop(0)
 {
 
 }
@@ -30,6 +31,7 @@ void Point::InitPoint()
 
 	DistancePoint = 0;
 	PointPoint = 0;
+	PointShop = 0;
 }
 
 void Point::UpdatePoint(Player& player,int ScrollX)
@@ -40,13 +42,14 @@ void Point::UpdatePoint(Player& player,int ScrollX)
 
 		PlayerMove++;
 	}
+
+	DistancePoint = -ScrollX / 100;
+
+	PointPoint = PointNow + WenemyPoint + SenemyPoint + DenemyPoint + MovePoint + PointShop;
 }
 
 void Point::DrawPoint(Player& player,int ScrollX)
 {
-	DistancePoint = -ScrollX / 100;
-
-	PointPoint = PointNow + WenemyPoint + SenemyPoint + DenemyPoint + MovePoint;
 
 	//‰e—Ž‚Æ‚µ
 	DrawFormatString(432, 32, GetColor(0, 0, 0), "ˆÚ“®‹——£ : %dm", DistancePoint);

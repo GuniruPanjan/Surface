@@ -208,12 +208,13 @@ void Game_Draw()
 
 			save.NameOutPut();
 
-			hp.PlayerHP(player, Back, save);
+			hp.PlayerHP(player, Back, save, point, shot);
 
 			player.Draw(shield, player);
 
 			for (int i = 0; i < SHOT; i++)
 			{
+
 				player.DrawShot(shot[i]);
 
 			}

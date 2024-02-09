@@ -3,7 +3,7 @@
 
 void HP::FinalizeHP()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		DeleteGraph(HPberGraph[i]);
 	}
@@ -19,11 +19,17 @@ void HP::FinalizeHP()
 	}
 
 	DeleteGraph(Reload);
+
+	DeleteGraph(Botton);
 }
 
 void HP::PlayerHPInit()
 {
-	LoadDivGraph("date/HPバー.png", 10, 10, 1, 20, 10, HPberGraph);
+	//LoadDivGraph("date/HPバー.png", 10, 10, 1, 20, 10, HPberGraph);
+
+	LoadDivGraph("date/HPber.png", 11, 11, 1, 50, 25, HPberGraph);
+
+	Botton = LoadGraph("date/ボタン.png");
 
 	LoadDivGraph("date/弾倉.png", 13, 7, 2, 40, 60, MagazineGraph);
 
@@ -31,89 +37,127 @@ void HP::PlayerHPInit()
 
 	Reload = LoadGraph("date/Reload.png");
 
+	GreenColor = GetColor(0, 255, 0);
+
+	RedColor = GetColor(255, 0, 0);
+
+	YelloColor = GetColor(255, 255, 0);
+
+	HPColor = 0;
+
+	AttackColor = 0;
+
 	Blinking = 0;
 
 	HPCount = 0;
+
+	b = 255;
+
+	b2 = 255;
 }
 
-void HP::PlayerHP(Player& player, Background& back, Save& save)
+void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Shot shot[])
 {
-	if (player.HP == 10)
-	{
-		back.Red = 0;
+	GetMousePoint(&MouseX, &MouseY);
 
-		HPCount = 9;
-	}
-	if (player.HP == 9)
-	{
-		back.Red = 10;
+	m_Mouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast<float>(10), static_cast<float>(10));
 
-		HPCount = 8;
-	}
-	if (player.HP == 8)
-	{
-		back.Red = 20;
+	//プレイヤー強化画面
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 120);
+	DrawBox(10, 10, 200, 200, GetColor(0, 0, 0), true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		HPCount = 7;
-	}
-	if (player.HP == 7)
-	{
-		back.Red = 30;
+	//HP回復
+	DrawString(15, 20, "HP全回復", GreenColor, true);
+	DrawString(110, 20, "5000pt", GetColor(255, 255, 255), true);
 
-		HPCount = 6;
-	}
-	if (player.HP == 6)
+	if (point.PointPoint >= 5000 && player.HP < 10)
 	{
-		back.Red = 40;
+		//当たり判定取得
+		m_HP.SetCenter(90, 75, 120, 30);
 
-		HPCount = 5;
+		if (m_HP.IsCollision(m_Mouse) == false)
+		{
+			b = 255;
+			HPColor = GreenColor;
+		}
+		else if (m_HP.IsCollision(m_Mouse) == true)
+		{
+			b = 120;
+			HPColor = YelloColor;
+			//左クリックを押したとき
+			if (GetMouseInput() & MOUSE_INPUT_LEFT)
+			{
+				player.HP = 10;
+
+				point.PointShop -= 5000;
+			}
+		}
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
+		DrawGraph(30, 60, Botton, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		//影落とし
+		//DrawString(72, 65, "回復", GetColor(0, 0, 0), true);
+		DrawString(70, 63, "回復", HPColor, true);
 	}
-	if (player.HP == 5)
+	
+
+	DrawString(15, 100, "攻撃力UP", RedColor, true);
+	DrawString(110, 100, "5000pt", GetColor(255, 255, 255), true);
+
+	if (point.PointPoint >= 5000)
 	{
-		back.Red = 50;
+		//当たり判定取得
+		m_Attack.SetCenter(90, 155, 120, 30);
 
-		HPCount = 4;
-	}
-	if (player.HP == 4)
-	{
-		back.Red = 60;
+		if (m_Attack.IsCollision(m_Mouse) == false)
+		{
+			b2 = 255;
+			AttackColor = RedColor;
+		}
+		else if (m_Attack.IsCollision(m_Mouse) == true)
+		{
+			b2 = 120;
+			AttackColor = YelloColor;
+			//左クリックを押したとき
+			if (GetMouseInput() & MOUSE_INPUT_LEFT)
+			{
+				for (int i = 0; i < SHOT; i++)
+				{
+					shot[i].Damage += 1;
 
-		HPCount = 3;
-	}
-	if (player.HP == 3)
-	{
-		back.Red = 70;
+				}
+					point.PointShop -= 5000;
+				
+			}
+		}
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
+		DrawGraph(30, 140, Botton, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		HPCount = 2;
+		//影落とし
+		//DrawString(47, 145, "攻撃力UP", GetColor(0, 0, 0), true);
+		DrawString(45, 143, "攻撃力UP", AttackColor, true);
 	}
-	if (player.HP == 2)
-	{
-		back.Red = 80;
-
-		HPCount = 1;
-	}
-	if (player.HP == 1)
-	{
-		back.Red = 90;
-
-		HPCount = 0;
-	}
+	
 
 	if (player.HP <= 0)
 	{
 		back.Red = 100;
 
-		for (int i = 0; i < 10; i++)
-		{
-			DeleteGraph(HPberGraph[i]);
-		}
+		//for (int i = 0; i < 10; i++)
+		//{
+		//	DeleteGraph(HPberGraph[i]);
+		//}
 		
 	}
 
 	//プレイヤーの真上に表示される
-	DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 30), HPberGraph[HPCount], true);
+	//DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 30), HPberGraph[HPCount], true);
 	SetFontSize(15);
 	DrawFormatString(static_cast<int>(player.PlayerX - 30), static_cast<int>(player.PlayerY - 50), GetColor(255, 255, 255), "%s", save.String);
+	DrawFormatString(310, 410, GetColor(255, 255, 255), "%s", save.String);
+	DrawGraph(310, 430, HPberGraph[player.HP], true);
 
 	SetFontSize(20);
 	//画面の左端に描く
@@ -142,4 +186,8 @@ void HP::PlayerHP(Player& player, Background& back, Save& save)
 		
 	}
 	
+	//m_HP.Draw(GetColor(255, 0, 0), false);
+	//m_Attack.Draw(GetColor(255, 0, 0), false);
+	//m_Mouse.Draw(GetColor(255, 0, 0), false);
+
 }

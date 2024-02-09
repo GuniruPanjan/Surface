@@ -13,7 +13,7 @@ public:
 	void UpdatePoint(Player& player, int ScrollX);
 	void DrawPoint(Player& player, int ScrollX);
 
-	int PointNow, WenemyPoint,SenemyPoint,DenemyPoint;
+	int PointNow, WenemyPoint, SenemyPoint, DenemyPoint, PointShop;
 
 	int PointPoint;
 	int DistancePoint;

@@ -31,7 +31,7 @@ int SEClickExplanation;
 //初期化
 void Explanation_Initialize()
 {
-	ExplanationHandle = LoadGraph("date/ゲーム説明.png"); //画像ロード
+	ExplanationHandle = LoadGraph("date/ゲーム画面.png"); //画像ロード
 
 	EMouseX = 0;
 	EMouseY = 0;
