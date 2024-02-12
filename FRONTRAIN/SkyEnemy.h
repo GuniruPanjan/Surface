@@ -46,12 +46,14 @@ struct SkyEnemyStruct : public EnemyBase
 	//“G‚ª’e‚Å€‚ñ‚¾”»’è
 	bool SkyShotDead = false;
 	bool SkyShotDeadPoint = false;
+	bool SkyShotDeadSE = false;
 
 	//“G‚ªoŒ»‚·‚éƒtƒ‰ƒO
 	bool SkyEnemyflag = false;
 
 	//€‚ñ‚¾‚ÌSE—pŠi”[•Ï”
 	int SESkyEnemyDead;
+	int DeadPointSE = 0;
 
 	//SE‚ğˆê‰ñ–Â‚ç‚·
 	bool SE;

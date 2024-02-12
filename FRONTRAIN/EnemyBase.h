@@ -33,6 +33,9 @@ struct EnemyLoadDate
 
 	//エネミーを倒したときのポイント表示
 	int WalkPoint, SkyPoint, DistancePoint;
+
+	//エネミーを倒したときのポイント獲得音
+	int LoadSEPoint;
 };
 
 class EnemyBase

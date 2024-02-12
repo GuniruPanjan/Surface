@@ -57,8 +57,10 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 	enemy.DeadAnimTime = 0;
 
 	enemy.DeadPoint = date.SkyPoint;
+	enemy.DeadPointSE = date.LoadSEPoint;
 
 	enemy.SkyShotDeadPoint = false;
+	enemy.SkyShotDeadSE = false;
 
 	LoadDivGraph("date/死亡血しぶき.png", 4, 4, 1, 15, 15, enemy.DeadAnimGraph);
 
@@ -213,9 +215,9 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 
 					tb = sqrt(tbx * tbx + tby * tby);
 
-					//1フレームあたり7ドットで動く
-					enemy[i].PX = tbx / tb * 7;
-					enemy[i].PY = tby / tb * 7;
+					//1フレームあたり6ドットで動く
+					enemy[i].PX = tbx / tb * 6;
+					enemy[i].PY = tby / tb * 6;
 
 					//一体だしたので抜ける
 					break;
@@ -340,8 +342,18 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 				enemy.SE = true;
 			}
+			//ポイント獲得表示
 			if (enemy.SkyShotDeadPoint == true)
 			{
+				//1回だけ実行
+				if (enemy.SkyShotDeadSE == false)
+				{
+					PlaySoundMem(enemy.DeadPointSE, DX_PLAYTYPE_BACK, TRUE);
+
+					enemy.SkyShotDeadSE = true;
+				}
+				
+
 				DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
 			}
 
@@ -364,6 +376,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 				enemy.SkyEnemyDead = true;
 				enemy.SkyShotDeadPoint = false;
+				enemy.SkyShotDeadSE = false;
 			}
 			
 		}

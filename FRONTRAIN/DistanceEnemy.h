@@ -69,6 +69,7 @@ struct DistanceEnemyStruct : public EnemyBase
 	//“G‚ª’e‚Å€‚ñ‚¾”»’è
 	bool DistanceShotDead = false;
 	bool DistanceShotDeadPoint = false;
+	bool DistanceShotDeadSE = false;
 
 	//“G‚ªoŒ»‚·‚éƒtƒ‰ƒO
 	bool DistanceEnemyflag = false;
@@ -99,6 +100,8 @@ struct DistanceEnemyStruct : public EnemyBase
 	int SEDistanceEnemy;
 
 	int SEDistanceDead, SEDistanceDamage;
+
+	int DeadPointSE;
 
 	//SE‚ğˆê‰ñ–Â‚ç‚·
 	bool SE1, SE2;

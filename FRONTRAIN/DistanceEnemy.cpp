@@ -83,8 +83,10 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 	enemy.m_DeadAnimFrame;
 
 	enemy.DeadPoint = date.DistancePoint;
+	enemy.DeadPointSE = date.LoadSEPoint;
 
 	enemy.DistanceShotDeadPoint = false;
+	enemy.DistanceShotDeadSE = false;
 
 	//enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
 
@@ -569,8 +571,18 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 			DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.Handle[enemy.AnimCount], true);
 
+			//ポイント獲得表示
 			if (enemy.DistanceShotDeadPoint == true)
 			{
+				//1回だけ実行
+				if (enemy.DistanceShotDeadSE == false)
+				{
+					PlaySoundMem(enemy.DeadPointSE, DX_PLAYTYPE_BACK, TRUE);
+
+					enemy.DistanceShotDeadSE = true;
+				}
+			
+
 				DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
 			}
 
@@ -614,6 +626,8 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				enemy.DistanceEnemyDead = true;
 
 				enemy.DistanceShotDeadPoint = false;
+
+				enemy.DistanceShotDeadSE = false;
 
 			}
 

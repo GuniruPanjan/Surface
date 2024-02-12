@@ -16,7 +16,20 @@ typedef struct
 	int Distance;    //移動時間
 	int Point;       //ポイント
 	int Time;        //経過時間
+	
 }save_hiscore_t;
+
+//名前を保存する構造体
+typedef struct
+{
+	char* Name[256];     //名前保存
+}Name_t;
+
+//名前表示する構造体
+typedef struct
+{
+	char* NameDisplay[256];
+}NameDis_t;
 
 class Save
 {
@@ -41,13 +54,17 @@ public:
 
 	save_hiscore_t save_hiscore;
 
+	Name_t NameSave;
+
+	NameDis_t NameDisplay;
+
 	bool Start = false;
 	bool end = false;
 
 	int name; //セーブの名前入力保存変数宣言
 	int White;  //色の宣言
 
-	char String[20];  //名前出力
+	char String[256];  //名前出力
 
 	int hiscore = 0;   //ハイスコア
 
@@ -55,4 +72,3 @@ public:
 	int Soundname;
 
 };
-

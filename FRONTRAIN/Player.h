@@ -60,6 +60,7 @@ struct Shot
 
 	//SE用格納変数
 	int SEShot = 0;
+	int SENotShot = 0;
 
 };
 
@@ -123,6 +124,9 @@ public:
 	//リロード変数
 	bool Reload;
 
+	//前のフレームでショットを撃ったかどうか
+	bool PlayerShotFlag;
+
 	//当たり判定の矩形
 	Rect m_colRect;
 
@@ -139,6 +143,10 @@ private:
 	//プレイヤーアニメーション
 	int RightAnimTime;
 	int LeftAnimTime;
+
+	//プレイヤーの腕
+	int PlayerArm;
+	bool PlayerArmFlag;
 
 	//死亡画像
 	int DeadGraph[14];
@@ -165,9 +173,6 @@ private:
 	int PlayerW;
 	int PlayerH;
 
-	//前のフレームでショットを撃ったかどうか
-	bool PlayerShotFlag;
-
 	//弾の画像サイズ
 	int ShotGraph;
 	int W, H;
@@ -185,7 +190,8 @@ private:
 	int moveNumX = 0;    //総移動量X
 
 	//SE用格納変数
-	int SEReload, SEDamage,SEShotMem;
+	int SEReload, SEDamage, SEShotMem, SENotShotMem;
+	int SEReloadCan;
 
 	//SEを一回鳴らす
 	bool SE = false;

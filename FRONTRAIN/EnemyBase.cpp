@@ -56,6 +56,7 @@ void EnemyBase::Finalize(EnemyLoadDate& date)
 	DeleteSoundMem(date.DistanceEnemyDeadSound);
 	DeleteSoundMem(date.DistanceEnemyDamageSound);
 	DeleteSoundMem(date.DistanceEnemyShotSound);
+	DeleteSoundMem(date.LoadSEPoint);
 }
 
 void EnemyBase::Init(EnemyLoadDate& date)
@@ -101,5 +102,7 @@ void EnemyBase::Init(EnemyLoadDate& date)
 	date.SkyPoint = LoadGraph("date/50pt.png");
 
 	date.DistancePoint = LoadGraph("date/120pt.png");
+
+	date.LoadSEPoint = LoadSoundMem("SE/se_coin_get1.mp3");
 }
 

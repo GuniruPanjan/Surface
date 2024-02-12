@@ -28,6 +28,7 @@ struct WalkEnemyStruct : public EnemyBase
 	//敵が弾で死んだ判定
 	bool WalkShotDead = false;
 	bool WalkShotDeadPoint = false;
+	bool WalkShotDeadSE = false;
 
 	//アニメーションタイム
 	int AnimTime = 0;
@@ -51,6 +52,8 @@ struct WalkEnemyStruct : public EnemyBase
 	int SEWalkEnemy = 0;
 
 	int SEWalkEnemyDead1 = 0, SEWalkEnemyDead2 = 0;
+
+	int DeadPointSe = 0;
 
 	//SEを一回だけ鳴らす
 	bool SE1 = false, SE2 = false;

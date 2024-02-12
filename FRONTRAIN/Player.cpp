@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "GraphMode.h"
 #include<math.h>
+//#define PI 3.1415926535897932384626433832795f
 
 
 
@@ -48,7 +49,9 @@ Player::Player():
 	SEReload(0),
 	SEDamage(0),
 	SEShotMem(0),
-	SE(false)
+	SE(false),
+	PlayerArm(0),
+	PlayerArmFlag(false)
 {
 	//弾初期化
 	memset(shot, 0, sizeof(shot));
@@ -91,10 +94,15 @@ void Player::FinalizePlayer(Player& player, Shot shot[],Shield& shield)
 			DeleteGraph(shot[i].ShotSparkGraphLeft[j]);
 
 			DeleteSoundMem(shot[i].SEShot);
+
+			DeleteSoundMem(shot[i].SENotShot);
 		}
 	}
+	DeleteSoundMem(player.SEReload);
+	DeleteSoundMem(player.SEDamage);
 
 	DeleteGraph(shield.ShieldGraph);
+	DeleteGraph(player.PlayerArm);
 }
 
 void Player::Init(Shield& shield ,Player& player)
@@ -106,6 +114,9 @@ void Player::Init(Shield& shield ,Player& player)
 	player.Aiming = LoadGraph("date/標準.png");
 
 	player.DeadAnim = LoadGraph("date/墓.png");
+
+	player.PlayerArm = LoadGraph("date/腕.png");
+	player.PlayerArmFlag = false;
 
 	player.HP = 10;
 	player.Speed = 1.0f;
@@ -144,6 +155,7 @@ void Player::Init(Shield& shield ,Player& player)
 	player.DeadAnimTime = 0;
 	player.ShotGraph = LoadGraph("date/銃弾.png");
 	player.SEShotMem = LoadSoundMem("SE/拳銃を撃つ.mp3");
+	player.SENotShotMem = LoadSoundMem("SE/拳銃の弾切れ.mp3");
 
 	player.SE = false;
 
@@ -151,8 +163,9 @@ void Player::Init(Shield& shield ,Player& player)
 
 	LoadDivGraph("date/PlayerMove.png", 12, 6, 2, 20, 25, player.playerGraph);
 
-	player.SEReload = LoadSoundMem("SE/弾倉に弾を込める.mp3");
+	player.SEReload = LoadSoundMem("SE/決定ボタンを押す31.mp3");
 	player.SEDamage = LoadSoundMem("SE/衝撃.mp3");
+	player.SEReloadCan = player.SEReload;
 
 	shield.LeftFlag = false;
 	shield.RightFlag = false;
@@ -199,6 +212,7 @@ void Player::InitShot(Shot shot[],Player& player)
 		LoadDivGraph("date/火花(小)左.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
 
 		shot[i].SEShot = player.SEShotMem;
+		shot[i].SENotShot = player.SENotShotMem;
 	}
 	
 }
@@ -413,6 +427,8 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		{
 			if (player.Reload == false)
 			{
+				PlaySoundMem(player.SEReloadCan, DX_PLAYTYPE_BACK, TRUE);
+
 				player.Reload = true;
 			}
 
@@ -482,6 +498,15 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 				player.PlayerShotFlag = true;
 			}
 		}
+		else if (player.Bullet <= 0)
+		{
+			//弾切れなら音を出す
+			for (int i = 0; i < shotSize; i++)
+			{
+				PlaySoundMem(shot[i].SENotShot, DX_PLAYTYPE_BACK, TRUE);
+			}
+		
+		}
 	}
 	else
 	{
@@ -505,6 +530,8 @@ void Player::Draw(Shield& shield, Player& player)
 			if (player.RightAnimCount == 6)player.RightAnimCount = 1;
 
 			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.RightAnimCount], true);
+
+			player.PlayerArmFlag = false;
 		}
 		//プレイヤーよりマウスが左なら
 		if (player.MouseX < player.PlayerX)
@@ -513,11 +540,28 @@ void Player::Draw(Shield& shield, Player& player)
 
 			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.LeftAnimCount], true);
 
+			player.PlayerArmFlag = true;
+
 		}
 
 		player.DamegeCount = 0;
 
 	}
+	//プレイヤーの腕表示
+	//DrawGraph(player.PlayerX - 5, player.PlayerY - 10, player.PlayerArm, true);
+	//プレイヤーの腕角度を求める
+	//double a, b, c, bc, angle,abc,angleL;
+	//a = player.MouseX - player.PlayerX;
+	//b = player.MouseY - player.PlayerY;
+	//c = sqrt(a * a + b * b);
+
+	//abc = ((a * a) + (c * c) - (b * b));
+
+	//angleL = (2 * (a * c));
+
+	//angle = abc / angleL;
+
+	//DrawRotaGraph(player.PlayerX, player.PlayerY - 3, 1.0f, angle, player.PlayerArm, true, player.PlayerArmFlag, 3);
 
 	//プレイヤーの当たり判定の表示
 	//player.m_colRect.Draw(GetColor(0, 0, 255), false);

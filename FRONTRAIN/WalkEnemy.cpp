@@ -8,7 +8,7 @@ WalkEnemy::WalkEnemy():
 	TUP(20),
 	WalkEnemyAppearance(true),
 	HPUP(10),
-	HPUP2(20)
+	HPUP2(18)
 {
 }
 
@@ -70,8 +70,10 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 		enemy[i].AnimTimeDead = 0;
 
 		enemy[i].DeadPoint = date.WalkPoint;
+		enemy[i].DeadPointSe = date.LoadSEPoint;
 
 		enemy[i].WalkShotDeadPoint = false;
+		enemy[i].WalkShotDeadSE = false;
 
 		//enemy[i].SEWalkEnemy = LoadSoundMem("SE/se_blood03.mp3");
 
@@ -103,7 +105,7 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 
 	Wenemy.HPUP = 10;
 
-	Wenemy.HPUP2 = 20;
+	Wenemy.HPUP2 = 18;
 
 }
 
@@ -437,8 +439,18 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 					enemy[i].SE2 = true;
 				}
+				//ポイント獲得表示
 				if (enemy[i].WalkShotDeadPoint == true)
 				{
+					//1回だけ実行
+					if (enemy[i].WalkShotDeadSE == false)
+					{
+						PlaySoundMem(enemy[i].DeadPointSe, DX_PLAYTYPE_BACK, TRUE);
+
+						enemy[i].WalkShotDeadSE = true;
+					}
+					
+
 					DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyDeadY -= 1.0f, enemy[i].DeadPoint, true);
 				}
 
@@ -480,6 +492,8 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 					enemy[i].WalkEnemyDead = true;
 
 				    enemy[i].WalkShotDeadPoint = false;
+
+					enemy[i].WalkShotDeadSE = false;
 				}
 
 				

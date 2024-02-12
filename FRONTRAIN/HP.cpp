@@ -21,6 +21,9 @@ void HP::FinalizeHP()
 	DeleteGraph(Reload);
 
 	DeleteGraph(Botton);
+
+	DeleteSoundMem(PointHPChange);
+	DeleteSoundMem(PointAttackChange);
 }
 
 void HP::PlayerHPInit()
@@ -54,6 +57,22 @@ void HP::PlayerHPInit()
 	b = 255;
 
 	b2 = 255;
+
+	AttackShop = 0;
+	AttackCount = 1;
+
+	FirstBuy = 3000;
+	SecondBuy = 6000;
+	ThirdBuy = 10000;
+
+	PointHPChange = LoadSoundMem("SE/回復魔法3.mp3");
+	PointAttackChange = LoadSoundMem("SE/se_powerup.mp3");
+
+	PointHPChangeUse = PointHPChange;
+	PointAttackChangeUse = PointAttackChange;
+
+	PointHP = false;
+	PointAttack = false;
 }
 
 void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Shot shot[])
@@ -61,6 +80,21 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	GetMousePoint(&MouseX, &MouseY);
 
 	m_Mouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast<float>(10), static_cast<float>(10));
+
+	//攻撃力を強化するたびに必要なポイントを増やしていく
+	if (AttackCount == 1)
+	{
+		AttackShop = FirstBuy;
+	}
+	if (AttackCount == 2)
+	{
+		AttackShop = SecondBuy;
+	}
+	if (AttackCount == 3)
+	{
+		AttackShop = ThirdBuy;
+	}
+
 
 	//プレイヤー強化画面
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 120);
@@ -85,9 +119,16 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 		{
 			b = 120;
 			HPColor = YelloColor;
+			//ボタンに当たっているときに弾が撃てないようにする
+			player.PlayerShotFlag = true;
+
 			//左クリックを押したとき
 			if (GetMouseInput() & MOUSE_INPUT_LEFT)
 			{
+				PlaySoundMem(PointHPChangeUse, DX_PLAYTYPE_BACK, TRUE);
+
+				PointHP = true;
+
 				player.HP = 10;
 
 				point.PointShop -= 5000;
@@ -103,9 +144,10 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	
 
 	DrawString(15, 100, "攻撃力UP", RedColor, true);
-	DrawString(110, 100, "5000pt", GetColor(255, 255, 255), true);
+	//DrawString(110, 100, "%dpt", AttackShop, GetColor(255, 255, 255));
+	DrawFormatString(110, 100, GetColor(255, 255, 255), "%dpt", AttackShop);
 
-	if (point.PointPoint >= 5000)
+	if (point.PointPoint >= AttackShop)
 	{
 		//当たり判定取得
 		m_Attack.SetCenter(90, 155, 120, 30);
@@ -119,15 +161,25 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 		{
 			b2 = 120;
 			AttackColor = YelloColor;
+
+			//ボタンに当たっているときに弾が撃てないようにする
+			player.PlayerShotFlag = true;
+
 			//左クリックを押したとき
 			if (GetMouseInput() & MOUSE_INPUT_LEFT)
 			{
 				for (int i = 0; i < SHOT; i++)
 				{
+					PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
+
+
 					shot[i].Damage += 1;
 
 				}
-					point.PointShop -= 5000;
+
+				AttackCount += 1;
+
+				point.PointShop -= AttackShop;
 				
 			}
 		}

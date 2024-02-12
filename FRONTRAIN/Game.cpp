@@ -48,6 +48,9 @@ bool Isflag = false;
 
 int DistanceDown = -1;
 
+//回復の描画処理
+int Green = 0;
+
 //サウンド用格納変数
 int SoundGame;
 
@@ -97,6 +100,8 @@ void Game_Initialize()
 	PlayerSEDead2 = LoadSoundMem("SE/「ぐっ！」.mp3");
 
 	SE = false;
+
+	Green = 0;
 }
 
 //終了処理
@@ -135,11 +140,15 @@ void Game_Finalize()
 	save.FinalizeSave();
 
 	scenefedo.FinalizeFedo();
+
+	SetMouseDispFlag(TRUE);
 }
 
 //更新処理
 void Game_Update()
 {
+	SetMouseDispFlag(FALSE);
+
 	if (save.Start == false)
 	{
 		scenefedo.UpdateIn();
@@ -240,6 +249,22 @@ void Game_Draw()
 			}
 
 			explanation.ExplanationDraw();
+
+			//HPを回復すると描画する
+			if (hp.PointHP == true)
+			{
+				Green = 120;
+
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, Green);
+				DrawBox(0, 0, 640, 480, GetColor(0, 255, 0), true);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Green);
+
+				hp.PointHP = false;
+			}
+			if (Green >= 0)
+			{
+				Green--;
+			}
 
 			//プレイヤーが死亡すると
 			if (player.HP <= 0)

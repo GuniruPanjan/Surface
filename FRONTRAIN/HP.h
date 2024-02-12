@@ -24,6 +24,11 @@ public:
 	int GreenColor, RedColor, YelloColor;
 	int HPColor, AttackColor;
 
+	//ショップに必要なポイント
+	int AttackShop, AttackCount;
+	//買うたびにポイントを多くするための変数
+	int FirstBuy, SecondBuy, ThirdBuy;
+
 	//当たり判定で暗くする
 	int b, b2;
 
@@ -33,6 +38,14 @@ public:
 	//Reload画像
 	int Reload;
 	int ReloadGraph[21];
+
+	//ポイント変換音
+	int PointHPChange, PointAttackChange;
+	int PointHPChangeUse, PointAttackChangeUse;
+
+	//ポイントを変換したかどうかの判断
+	bool PointHP = false;
+	bool PointAttack = false;
 
 	//点滅変数
 	int Blinking;
