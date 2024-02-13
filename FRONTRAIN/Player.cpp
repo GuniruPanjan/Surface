@@ -337,10 +337,10 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 				player.PlayerX += player.Speed;
 
 				//真ん中から先に行くと画面がついてくる
-				if (player.PlayerX >= graph.GraphModeWIDTH / 4)
+				if (player.PlayerX >= graph.GraphModeWIDTH / 6)
 				{
 					player.PlayerRight = true;
-					player.PlayerX = static_cast<float>(graph.GraphModeWIDTH / 4);
+					player.PlayerX = static_cast<float>(graph.GraphModeWIDTH / 6);
 				}
 			}
 		}
@@ -524,9 +524,17 @@ void Player::Draw(Shield& shield, Player& player)
 	//キーが押されてないとき
 	if (CheckHitKey(KEY_INPUT_LEFT) == false && CheckHitKey(KEY_INPUT_RIGHT) == false)
 	{
-		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[0], true);
+		//ダメージをくらった時点滅させる
+		if (player.Count == 0 || player.DamegeCount >= 10)
+		{
+			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[0], true);
+
+			player.DamegeCount = 0;
+		}
+
 	}
 	//キーが押されていたら
+	//ダメージを食らったとき点滅させる
 	else if (player.Count == 0 || player.DamegeCount >= 10)
 	{
 		//プレイヤーよりマウスが右なら

@@ -61,7 +61,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 	fopen_s(&HiUp, "HiUp.txt", "r");
 
-	fopen_s(&FNameDis, "NameDis", "w");
+	fopen_s(&FNameDis, "NameDis.txt", "w");
 
 	if (fp == NULL)
 	{
@@ -165,7 +165,7 @@ void Save::SaveLoad()
 	FILE* FNameDis;
 
 	fopen_s(&fp, "save.txt", "rb");
-	fopen_s(&FNameDis, "NameDis", "r");
+	fopen_s(&FNameDis, "NameDis.txt", "r");
 
 	if (fp == NULL)
 	{

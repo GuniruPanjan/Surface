@@ -3,7 +3,7 @@
 class GraphMode
 {
 public:
-	int GraphModeHEIGHT = 720;
-	int GraphModeWIDTH = 1280;
+	int GraphModeHEIGHT = 1080;
+	int GraphModeWIDTH = 1920;
 };
 
