@@ -515,32 +515,45 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				//プレイヤーよりエネミーが右にいる場合
 				if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 				{
-					if (shot[s].ShotSparkTime >= 5)
+					if (shot[s].ShotSparkTime >= 10)
 					{
 						shot[s].ShotSparkCountRight++;
 
 						shot[s].ShotSparkTime = 0;
 					}
-
+					
+				
 					DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotSparkGraphRight[shot[s].ShotSparkCountRight], true);
+
+					if (shot[s].ShotSparkCountRight >= 3)
+					{
+						shot[s].X = -30;
+					}
+			
+					
 				}
 				//プレイヤーよりエネミーが左にいる場合
 				if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
 				{
-					if (shot[s].ShotSparkTime >= 5)
+					if (shot[s].ShotSparkTime >= 10)
 					{
 						shot[s].ShotSparkCountLeft++;
 
 						shot[s].ShotAnimTime = 0;
 					}
 
+					
 					DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotSparkGraphLeft[shot[s].ShotSparkCountLeft], true);
+
+					if (shot[s].ShotSparkCountLeft >= 3)
+					{
+						shot[s].X = -30;
+					}
+
 				}
 			}
-
 			shot[s].ShotSparkCountRight = 0;
 			shot[s].ShotSparkCountLeft = 0;
-
 			
 		}
 
@@ -620,6 +633,9 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 				enemy.DistanceEnemyX = -30.0f;
 				enemy.DistanceEnemyY = -30.0f;
+
+				//死んだ場合当たり判定を終わらせる
+				enemy.m_colRect.SetCenter(0, 0, 0, 0);
 
 				enemy.SE2 = false;
 

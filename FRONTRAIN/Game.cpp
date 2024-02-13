@@ -50,6 +50,8 @@ int DistanceDown = -1;
 
 //回復の描画処理
 int Green = 0;
+//Attackの描画処理
+int Yello = 0;
 
 //サウンド用格納変数
 int SoundGame;
@@ -102,6 +104,7 @@ void Game_Initialize()
 	SE = false;
 
 	Green = 0;
+	Yello = 0;
 }
 
 //終了処理
@@ -265,6 +268,21 @@ void Game_Draw()
 			{
 				Green--;
 			}
+			//Attackを強化すると描画する
+			if (hp.PointAttack == true)
+			{
+				Yello = 120;
+
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, Yello);
+				DrawBox(0, 0, 640, 480, GetColor(255, 255, 0), true);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Yello);
+
+				hp.PointAttack = false;
+			}
+			if (Yello >= 0)
+			{
+				Yello--;
+			}
 
 			//プレイヤーが死亡すると
 			if (player.HP <= 0)
@@ -299,6 +317,9 @@ void Game_Draw()
 				}
 
 			}
+
+			//標準の画像描画
+			DrawGraph(player.MouseX - 10, player.MouseY - 10, player.Aiming, true);
 		}
 	}
 	

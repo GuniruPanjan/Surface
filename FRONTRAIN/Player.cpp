@@ -521,7 +521,13 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 void Player::Draw(Shield& shield, Player& player)
 {	
 
-	if (player.Count == 0 || player.DamegeCount >= 10)
+	//キーが押されてないとき
+	if (CheckHitKey(KEY_INPUT_LEFT) == false && CheckHitKey(KEY_INPUT_RIGHT) == false)
+	{
+		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[0], true);
+	}
+	//キーが押されていたら
+	else if (player.Count == 0 || player.DamegeCount >= 10)
 	{
 		//プレイヤーよりマウスが右なら
 		if (player.MouseX >= player.PlayerX)
@@ -547,6 +553,7 @@ void Player::Draw(Shield& shield, Player& player)
 		player.DamegeCount = 0;
 
 	}
+
 	//プレイヤーの腕表示
 	//DrawGraph(player.PlayerX - 5, player.PlayerY - 10, player.PlayerArm, true);
 	//プレイヤーの腕角度を求める
@@ -565,8 +572,6 @@ void Player::Draw(Shield& shield, Player& player)
 
 	//プレイヤーの当たり判定の表示
 	//player.m_colRect.Draw(GetColor(0, 0, 255), false);
-	//標準の画像描画
-	DrawGraph(MouseX - 10, MouseY - 10, Aiming, true);
 
 	//左に盾を構える
 	if (shield.LeftFlag == true)

@@ -147,50 +147,59 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	//DrawString(110, 100, "%dpt", AttackShop, GetColor(255, 255, 255));
 	DrawFormatString(110, 100, GetColor(255, 255, 255), "%dpt", AttackShop);
 
-	if (point.PointPoint >= AttackShop)
+	if (AttackCount <= 3)
 	{
-		//当たり判定取得
-		m_Attack.SetCenter(90, 155, 120, 30);
-
-		if (m_Attack.IsCollision(m_Mouse) == false)
+		if (point.PointPoint >= AttackShop)
 		{
-			b2 = 255;
-			AttackColor = RedColor;
-		}
-		else if (m_Attack.IsCollision(m_Mouse) == true)
-		{
-			b2 = 120;
-			AttackColor = YelloColor;
+			//当たり判定取得
+			m_Attack.SetCenter(90, 155, 120, 30);
 
-			//ボタンに当たっているときに弾が撃てないようにする
-			player.PlayerShotFlag = true;
-
-			//左クリックを押したとき
-			if (GetMouseInput() & MOUSE_INPUT_LEFT)
+			if (m_Attack.IsCollision(m_Mouse) == false)
 			{
-				for (int i = 0; i < SHOT; i++)
+				b2 = 255;
+				AttackColor = RedColor;
+			}
+			else if (m_Attack.IsCollision(m_Mouse) == true)
+			{
+				b2 = 120;
+				AttackColor = YelloColor;
+
+				//ボタンに当たっているときに弾が撃てないようにする
+				player.PlayerShotFlag = true;
+
+				//左クリックを押したとき
+				if (GetMouseInput() & MOUSE_INPUT_LEFT)
 				{
-					PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
+					for (int i = 0; i < SHOT; i++)
+					{
+						PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
 
+						shot[i].Damage += 1;
 
-					shot[i].Damage += 1;
+					}
+
+					PointAttack = true;
+
+					AttackCount += 1;
+
+					point.PointShop -= AttackShop;
 
 				}
-
-				AttackCount += 1;
-
-				point.PointShop -= AttackShop;
-				
 			}
-		}
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
-		DrawGraph(30, 140, Botton, true);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
+			DrawGraph(30, 140, Botton, true);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		//影落とし
-		//DrawString(47, 145, "攻撃力UP", GetColor(0, 0, 0), true);
-		DrawString(45, 143, "攻撃力UP", AttackColor, true);
+			//影落とし
+			//DrawString(47, 145, "攻撃力UP", GetColor(0, 0, 0), true);
+			DrawString(45, 143, "攻撃力UP", AttackColor, true);
+		}
 	}
+	else if (AttackCount >= 4)
+	{
+		DrawString(10, 143, "これ以上強化できない", GetColor(255, 255, 255), true);
+	}
+	
 	
 
 	if (player.HP <= 0)

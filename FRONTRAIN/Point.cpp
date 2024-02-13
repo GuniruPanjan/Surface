@@ -38,7 +38,7 @@ void Point::UpdatePoint(Player& player,int ScrollX)
 {
 	if (-ScrollX == 1000 * PlayerMove)
 	{
-		MovePoint += 10;
+		MovePoint += 100;
 
 		PlayerMove++;
 	}

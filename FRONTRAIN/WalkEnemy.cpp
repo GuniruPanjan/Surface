@@ -343,7 +343,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				if (enemy[i].RightAnim == 6)enemy[i].RightAnim = 10;
 
-				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].WalkEnemyGraph[enemy[i].RightAnim], true);
+				DrawGraph(static_cast<int>(enemy[i].WalkEnemyX + ScrollX), static_cast<int>(enemy[i].WalkEnemyY - 5), enemy[i].WalkEnemyGraph[enemy[i].RightAnim], true);
 			}
 			//プレイヤーよりエネミーが左にいる場合
 			if (enemy[i].WalkEnemyX + player.ScrollX < player.PlayerX)
@@ -358,7 +358,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 
 				if (enemy[i].LeftAnim == 6)enemy[i].LeftAnim = 1;
 
-				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].WalkEnemyGraph[enemy[i].LeftAnim], true);
+				DrawGraph(static_cast<int>(enemy[i].WalkEnemyX + ScrollX), static_cast<int>(enemy[i].WalkEnemyY - 5), enemy[i].WalkEnemyGraph[enemy[i].LeftAnim], true);
 			}
 
 			for (int s = 0; s < SHOT; s++)
@@ -378,7 +378,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 							shot[s].ShotAnimTime = 0;
 						}
 
-						DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotAnimGraphRight[shot[s].ShotAnimCountRight], true);
+						DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotAnimGraphRight[shot[s].ShotAnimCountRight], true);
 
 					}
 					//プレイヤーよりエネミーが左にいる場合
@@ -391,7 +391,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 							shot[s].ShotAnimTime = 0;
 						}
 
-						DrawGraph(shot[s].X, shot[s].Y, shot[s].ShotAnimGraphLeft[shot[s].ShotAnimCountLeft], true);
+						DrawGraph(static_cast<int>(shot[s].X), static_cast<int>(shot[s].Y), shot[s].ShotAnimGraphLeft[shot[s].ShotAnimCountLeft], true);
 
 					}
 

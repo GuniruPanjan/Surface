@@ -178,6 +178,7 @@
     <ClInclude Include="graphic.h" />
     <ClInclude Include="GraphMode.h" />
     <ClInclude Include="HP.h" />
+    <ClInclude Include="icon\icon.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
@@ -191,6 +192,12 @@
     <ClInclude Include="TimeCount.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WalkEnemy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon\icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon\FRONT RAIN.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

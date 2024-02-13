@@ -127,6 +127,12 @@ public:
 	//前のフレームでショットを撃ったかどうか
 	bool PlayerShotFlag;
 
+	//照準の画像を入れる変数
+	int Aiming;
+
+	//マウスの座標取得
+	int MouseX, MouseY;
+
 	//当たり判定の矩形
 	Rect m_colRect;
 
@@ -156,14 +162,8 @@ private:
 	int DeadAnimTime;
 	int DeadAnimCount;
 
-	//照準の画像を入れる変数
-	int Aiming;
-
 	//照準の画像サイズ
 	int AimingW, AimingH;
-
-	//マウスの座標取得
-	int MouseX, MouseY;
 
 	//移動する判定
 	bool Left;

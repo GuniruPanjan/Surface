@@ -2,14 +2,17 @@
 #include "GraphMode.h"
 #include "SceneMgr.h"
 #include "Font.h"
+#include "icon/icon.h"
 
 Font font;
 
 // プログラムは WinMain から始まります
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-
 {
+	//Windowの名前を変更する
+	SetWindowText("FRONT RAIN");
+	SetWindowIconID(IDI_ICON1);    //ウィンドウアイコンの設定
 
 	GraphMode graph;
 
@@ -18,9 +21,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ChangeWindowMode(true);
 
 	SetWindowSize(graph.GraphModeWIDTH, graph.GraphModeHEIGHT);
-
-	//Windowの名前を変更する
-	SetWindowText("FRONT RAIN");
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 
