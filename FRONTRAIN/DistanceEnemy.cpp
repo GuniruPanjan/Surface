@@ -364,6 +364,7 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 						player.PlayerDamage = true;
 					}
 
+					//敵を消滅させる
 					enemy[i].HP = -1;
 				}
 
@@ -430,7 +431,7 @@ void DistanceEnemy::EnemyShotUpdate(DistanceEnemyStruct enemy[], EnemyShot& shot
 
 				sb = sqrt(sbx * sbx + sby * sby);
 
-				//1フレームあたり10ドットで動く
+				//1フレームあたり5ドットで動く
 				shot.PX = sbx / sb * 5;
 				shot.PY = sby / sb * 5;
 
@@ -495,11 +496,12 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 			enemy.SE1 = true;
 		}
-
+		//プレイヤーより右なら
 		if (enemy.DistanceEnemyX + ScrollX > player.PlayerX)
 		{
 			DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.DistanceEnemyGraph, true);
 		}
+		//プレイヤーより左なら
 		else if (enemy.DistanceEnemyX + ScrollX < player.PlayerX)
 		{
 			DrawTurnGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyY - 3), enemy.DistanceEnemyGraph, true);
@@ -563,6 +565,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 	//敵が死んだ時
 	else if (enemy.HP <= 0)
 	{	
+		//死んだ時の演出
 		if (enemy.SE2 == false)
 		{
 			PlaySoundMem(enemy.SEDistanceDead, DX_PLAYTYPE_BACK, TRUE);
@@ -652,6 +655,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 		
 
 	}
+	//演出が終わったらアニメーションを戻す
 	if (enemy.DistanceEnemyDead == true)
 	{
 		enemy.AnimCount = 0;

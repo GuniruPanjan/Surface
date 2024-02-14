@@ -560,6 +560,14 @@ void Player::Draw(Shield& shield, Player& player)
 
 		player.DamegeCount = 0;
 
+		//ダメージを喰らった4フレーム後
+		if (player.Count >= 224)
+		{
+			//アニメーションを戻す
+			player.LeftAnimCount = 6;
+			player.RightAnimCount = 6;
+		}
+
 	}
 
 	//プレイヤーの腕表示
@@ -608,6 +616,7 @@ void Player::Draw(Shield& shield, Player& player)
 	//プレイヤーが死亡したら
 	if (player.HP <= 0)
 	{
+		//死んだときの演出
 		player.DeadAnimTime++;
 		if (player.DeadAnimTime >= 5)
 		{

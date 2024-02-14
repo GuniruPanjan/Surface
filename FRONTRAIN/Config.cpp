@@ -121,12 +121,14 @@ void Config_Update(Point& point,TimeCount& timecount)
 	//マウスの座標取得
 	GetMousePoint(&CMouseX, &CMouseY);
 
+	//ボタンに触れていないとき
 	if (m_Rect.IsCollision(m_Mouse) == false)
 	{
 		CColor = Cblack;
 
 		b = 255;
 	}
+	//ボタンに触れているとき
 	else if (m_Rect.IsCollision(m_Mouse) == true)
 	{
 		CColor = CYello;

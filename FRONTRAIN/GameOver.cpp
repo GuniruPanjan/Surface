@@ -109,6 +109,7 @@ void GameOver_Update()
 	//マウスの座標取得
 	GetMousePoint(&gmMouseX, &gmMouseY);
 
+	//ボタンに触れているとき
 	if (m_colRect.IsCollision(Mouse) == true)
 	{
 		GameOverColor = GameOverYello;
@@ -122,6 +123,7 @@ void GameOver_Update()
 			gameover = true;
 		}
 	}
+	//ボタンに触れていないとき
 	else if (m_colRect.IsCollision(Mouse) == false)
 	{
 		GameOverColor = GameOverblack;

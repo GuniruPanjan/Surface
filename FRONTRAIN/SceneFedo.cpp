@@ -145,6 +145,7 @@ void SceneFedo::WhiteOut()
 	//	
 	//}
 
+	//プレイヤーが死んだ時画面をホワイトアウトする
 	WhiteCount += 3;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, WhiteCount);
@@ -154,6 +155,7 @@ void SceneFedo::WhiteOut()
 
 void SceneFedo::DeadAnim()
 {
+	//プレイヤーが死んだ時のアニメーション
 	AnimTime++;
 	if (AnimTime >= 6)
 	{

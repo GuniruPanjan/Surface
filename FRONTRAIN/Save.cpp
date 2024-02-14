@@ -55,6 +55,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	FILE* FName;
 	FILE* FNameDis;
 
+	//ファイル読み込み
 	fopen_s(&fp, "save.txt", "wb");
 
 	//fopen_s(&HiFp, "Hiscore.txt", "wb");
@@ -78,6 +79,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 		fscanf_s(HiUp, "%d", &hiscore);
 		fclose(HiUp);
 	}
+	//ファイルへの書き込みを行う
 	if (HiUp == NULL || hiscore < point.PointPoint)
 	{
 		fopen_s(&HiUp, "HiUp.txt", "w");
@@ -112,11 +114,13 @@ int Save::GetHiScore(void)
 {
 	FILE* HiUp;
 
+	//ファイル読み込み
 	fopen_s(&HiUp, "HiUp.txt", "r");
 
 	if (HiUp == NULL)
 		return 0;
 
+	//ハイスコア読み込み
 	fscanf_s(HiUp, "%d", &hiscore);
 	fclose(HiUp);
 	return hiscore;
@@ -127,6 +131,7 @@ void Save::SaveInput()
 {
 	DrawFormatString(120, 100, White, "8文字以内で名前を入力してください");
 
+	//名前を入力
 	DrawKeyInputModeString(640, 480);
 	DrawKeyInputString(250, 150, name);
 
@@ -164,6 +169,7 @@ void Save::SaveLoad()
 	FILE* fp;
 	FILE* FNameDis;
 
+	//ファイルの読み込み
 	fopen_s(&fp, "save.txt", "rb");
 	fopen_s(&FNameDis, "NameDis.txt", "r");
 
@@ -176,13 +182,14 @@ void Save::SaveLoad()
 	fread(&save_date, sizeof(save_date), 1, fp);
 	fread(&NameDisplay, sizeof(NameDisplay), 1, FNameDis);
 
-	fclose(fp);
-	fclose(FNameDis);
-
+	//ファイルのデータを出力
 	DrawFormatString(100, 60, GetColor(255, 255, 255), "%s", NameDisplay.NameDisplay);
 	DrawFormatString(100, 100, GetColor(255, 255, 255), "スコア:%d", save_date.Point);
 	DrawFormatString(100, 150, GetColor(255, 255, 255), "タイム:%d秒", save_date.Time);
 	DrawFormatString(100, 200, GetColor(255, 255, 255), "距離:%dm", save_date.Distance);
+
+	fclose(fp);
+	fclose(FNameDis);
 
 }
 
@@ -192,6 +199,7 @@ void Save::SaveHiscoreLoad()
 	FILE* FName;
 
 	//char charname[20];
+	//ファイル読み込み
 	fopen_s(&HiFp, "Hiscore.txt", "rb");
 	fopen_s(&FName, "Name.txt", "r");
 
@@ -208,6 +216,7 @@ void Save::SaveHiscoreLoad()
 	//入力された文字列を取得
 	//GetKeyInputString(charname, save_hiscore.Name);
 
+	//ファイルのデータを出力
 	DrawFormatString(400, 60, GetColor(255, 255, 255), "%s", NameSave.Name);
 	DrawFormatString(400, 100, GetColor(255, 255, 255), "ハイスコア:%d", save_hiscore.Point);
 	DrawFormatString(400, 150, GetColor(255, 255, 255), "タイム:%d秒", save_hiscore.Time);

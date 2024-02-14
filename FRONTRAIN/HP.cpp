@@ -61,9 +61,11 @@ void HP::PlayerHPInit()
 	AttackShop = 0;
 	AttackCount = 1;
 
-	FirstBuy = 3000;
-	SecondBuy = 6000;
-	ThirdBuy = 10000;
+	FirstBuy = 2500;
+	SecondBuy = 5000;
+	ThirdBuy = 8000;
+
+	HPBuy = 3000;
 
 	PointHPChange = LoadSoundMem("SE/âÒïúñÇñ@3.mp3");
 	PointAttackChange = LoadSoundMem("SE/se_powerup.mp3");
@@ -103,9 +105,10 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 	//HPâÒïú
 	DrawString(15, 20, "HPëSâÒïú", GreenColor, true);
-	DrawString(110, 20, "5000pt", GetColor(255, 255, 255), true);
+	//DrawString(110, 20, "5000pt", GetColor(255, 255, 255), true);
+	DrawFormatString(110, 20, GetColor(255, 255, 255), "%dpt", HPBuy);
 
-	if (point.PointPoint >= 5000 && player.HP < 10)
+	if (point.PointPoint >= HPBuy && player.HP < 10)
 	{
 		//ìñÇΩÇËîªíËéÊìæ
 		m_HP.SetCenter(90, 75, 120, 30);
@@ -131,7 +134,7 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 				player.HP = 10;
 
-				point.PointShop -= 5000;
+				point.PointShop -= HPBuy;
 			}
 		}
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
@@ -144,7 +147,6 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	
 
 	DrawString(15, 100, "çUåÇóÕUP", RedColor, true);
-	//DrawString(110, 100, "%dpt", AttackShop, GetColor(255, 255, 255));
 	DrawFormatString(110, 100, GetColor(255, 255, 255), "%dpt", AttackShop);
 
 	if (AttackCount <= 3)
@@ -197,19 +199,56 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	}
 	else if (AttackCount >= 4)
 	{
+		SetFontSize(18);
 		DrawString(10, 143, "Ç±ÇÍà»è„ã≠âªÇ≈Ç´Ç»Ç¢", GetColor(255, 255, 255), true);
+		SetFontSize(20);
 	}
 	
 	
-
+	//îwåiâÊñ Çê‘Ç≠Ç∑ÇÈ
+	if (player.HP == 10)
+	{
+		back.Red = 0;
+	}
+	if (player.HP == 9)
+	{
+		back.Red = 10;
+	}
+	if (player.HP == 8)
+	{
+		back.Red = 20;
+	}
+	if (player.HP == 7)
+	{
+		back.Red = 30;
+	}
+	if (player.HP == 6)
+	{
+		back.Red = 40;
+	}
+	if (player.HP == 5)
+	{
+		back.Red = 50;
+	}
+	if (player.HP == 4)
+	{
+		back.Red = 60;
+	}
+	if (player.HP == 3)
+	{
+		back.Red = 70;
+	}
+	if (player.HP == 2)
+	{
+		back.Red = 80;
+	}
+	if (player.HP == 1)
+	{
+		back.Red = 90;
+	}
 	if (player.HP <= 0)
 	{
 		back.Red = 100;
-
-		//for (int i = 0; i < 10; i++)
-		//{
-		//	DeleteGraph(HPberGraph[i]);
-		//}
 		
 	}
 

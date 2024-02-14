@@ -283,6 +283,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 						player.PlayerDamage = true;
 					}
 
+					//エネミーを消滅させる
 					enemy[i].HP = -1;
 					
 				}
@@ -411,7 +412,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 		else if (enemy[i].HP <= 0)
 		{
 			
-
+			//死んだ時の演出
 			if (enemy[i].SE1 == false)
 			{
 				PlaySoundMem(enemy[i].SEWalkEnemyDead1, DX_PLAYTYPE_BACK, TRUE);
@@ -500,6 +501,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 			}
 
 		}
+		//演出が終わったらアニメーションを戻す
 		if (enemy[i].WalkEnemyDead == true)
 		{
 			enemy[i].AnimCount = 9;

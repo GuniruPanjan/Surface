@@ -27,6 +27,7 @@ void TimeCount::InitTime()
 
 void TimeCount::UpdateTime(Point& point)
 {
+	//経過時間を得る
 	timenow = (GetNowCount() - time) / 1000;
 
 	if (GetNowCount() - time <= 1000)
@@ -36,12 +37,14 @@ void TimeCount::UpdateTime(Point& point)
 
 	point.PointNow = timenow * 10;
 
+	//エネミーが出現する時間を計測
 	EnemyTime = ((GetNowCount() - time) / 1000);
 	
 }
 
 void TimeCount::DrawTime()
 {
+	//時間を保存するための代入
 	SaveTime = (GetNowCount() - time) / 1000;
 
 	//影落とし

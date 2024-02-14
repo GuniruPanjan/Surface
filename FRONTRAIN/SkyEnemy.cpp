@@ -244,7 +244,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 					player.PlayerDamage = true;
 				}
 				
-
+				//敵を消滅させる
 				enemy[i].HP = -1;
 			}
 
@@ -293,7 +293,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 	//敵が生きている時
 	if (enemy.HP > 0)
 	{
-
+		//敵のアニメーション
 		if (enemy.Flag)
 		{
 			enemy.Time++;
@@ -320,6 +320,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 	//敵が死んだ時
 	else if (enemy.HP <= 0)
 	{
+		//死んだ時の演出
 		if (enemy.SkyEnemyDead == false)
 		{
 			enemy.m_colRect.SetCenter(0, 0, 0, 0);
@@ -381,6 +382,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 			
 		}
 	}
+	//演出が終わったらアニメーションを戻す
 	if (enemy.SkyEnemyDead == true)
 	{
 		enemy.DeadAnimCount = 0;

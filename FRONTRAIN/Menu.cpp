@@ -187,8 +187,7 @@ void Menu_Update()
 
 
 
-	//Aキーが押されていたら
-	//if (CheckHitKey(KEY_INPUT_A) != 0)
+
 	//クリックされたら
 	if(Start == true)
 	{
@@ -198,8 +197,7 @@ void Menu_Update()
 		fedo.Start = true;
 
 	}
-	//Bキーが押されていたら
-	//if (CheckHitKey(KEY_INPUT_B) != 0)
+
 	//クリックされたら
 	if(Explanaion == true)
 	{
@@ -209,8 +207,7 @@ void Menu_Update()
 
 		fedo.Explanation = true;
 	}
-	//Cキーが押されていたら
-	//if (CheckHitKey(KEY_INPUT_C) != 0)
+
 	//クリックされたら
 	if(Record == true)
 	{
@@ -240,13 +237,14 @@ void Menu_Update()
 			PlaySoundMem(SEClickShot, DX_PLAYTYPE_BACK, FALSE);
 		}
 	}
+	//ボタンに触れていないとき
 	else if (m_colRectStart.IsCollision(m_colRectMouse) == false)
 	{
 		StartColor = Startblack;
 
 		b = 255;
 	}
-
+	//ボタンに触れているとき
 	if (m_colRectExplanation.IsCollision(m_colRectMouse) == true)
 	{
 		ExplanationColor = ExplanationYello;
@@ -263,13 +261,14 @@ void Menu_Update()
 
 		}
 	}
+	//ボタンに触れていないとき
 	else if (m_colRectExplanation.IsCollision(m_colRectMouse) == false)
 	{
 		ExplanationColor = Explanationblack;
 
 		b2 = 255;
 	}
-
+	//ボタンに触れているとき
 	if (m_colRectRecord.IsCollision(m_colRectMouse) == true)
 	{
 		RecordColor = RecordYello;
@@ -285,6 +284,7 @@ void Menu_Update()
 
 		}
 	}
+	//ボタンに触れていないとき
 	else if (m_colRectRecord.IsCollision(m_colRectMouse) == false)
 	{
 		RecordColor = Recordblack;
@@ -343,6 +343,7 @@ void Menu_Draw()
 	//マウスの当たり判定取得
 	m_colRectMouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast <float>(10), static_cast <float>(10));
 
+	//クリックした時の演出
 	if (Start == true)
 	{
 		DrawGraph(210, 190, ClickShot, true);
@@ -383,7 +384,7 @@ void Menu_Draw()
 
 	fedo.StartUpdate();
 
-
+	//ボタンのあたり判定表示
 	/*m_colRectStart.Draw(GetColor(255, 0, 0), false);
 	m_colRectExplanation.Draw(GetColor(255, 0, 0), false);
 	m_colRectRecord.Draw(GetColor(255, 0, 0), false);

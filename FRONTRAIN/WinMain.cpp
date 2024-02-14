@@ -4,6 +4,7 @@
 #include "Font.h"
 #include "icon/icon.h"
 
+//フォント変更する
 Font font;
 
 // プログラムは WinMain から始まります
@@ -81,7 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 
-	SceneMgr_Finalize();
+	SceneMgr_Finalize();    //終了処理
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

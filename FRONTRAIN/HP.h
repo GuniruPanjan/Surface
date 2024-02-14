@@ -28,6 +28,8 @@ public:
 	int AttackShop, AttackCount;
 	//”ƒ‚¤‚½‚Ñ‚Éƒ|ƒCƒ“ƒg‚ğ‘½‚­‚·‚é‚½‚ß‚Ì•Ï”
 	int FirstBuy, SecondBuy, ThirdBuy;
+	//HP‚ğ‰ñ•œ‚·‚é‚½‚ß‚Ì•Ï”
+	int HPBuy;
 
 	//“–‚½‚è”»’è‚ÅˆÃ‚­‚·‚é
 	int b, b2;

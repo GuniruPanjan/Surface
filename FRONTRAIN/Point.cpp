@@ -36,6 +36,7 @@ void Point::InitPoint()
 
 void Point::UpdatePoint(Player& player,int ScrollX)
 {
+	//プレイヤーの移動距離の算出
 	if (-ScrollX == 1000 * PlayerMove)
 	{
 		MovePoint += 100;
@@ -45,6 +46,7 @@ void Point::UpdatePoint(Player& player,int ScrollX)
 
 	DistancePoint = -ScrollX / 100;
 
+	//総合ポイント
 	PointPoint = PointNow + WenemyPoint + SenemyPoint + DenemyPoint + MovePoint + PointShop;
 }
 
