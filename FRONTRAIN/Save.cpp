@@ -1,7 +1,6 @@
 #include "Save.h"
 #include "DxLib.h"
 #include<stdio.h>
-//#include<stdlib.h>
 #include<time.h>
 
 Save::Save():
@@ -10,7 +9,12 @@ Save::Save():
 	White(0),
 	end(false),
 	Soundname(0),
-	hiscore(0)
+	hiscore(0),
+	NameSave(),
+	NameDisplay(),
+	String(),
+	save_date(),
+	save_hiscore()
 {
 }
 

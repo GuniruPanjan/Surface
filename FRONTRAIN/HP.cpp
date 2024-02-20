@@ -28,7 +28,6 @@ void HP::FinalizeHP()
 
 void HP::PlayerHPInit()
 {
-	//LoadDivGraph("date/HPƒo[.png", 10, 10, 1, 20, 10, HPberGraph);
 
 	LoadDivGraph("date/HPber.png", 11, 11, 1, 50, 25, HPberGraph);
 
@@ -105,7 +104,6 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 	//HP‰ñ•œ
 	DrawString(15, 20, "HP‘S‰ñ•œ", GreenColor, true);
-	//DrawString(110, 20, "5000pt", GetColor(255, 255, 255), true);
 	DrawFormatString(110, 20, GetColor(255, 255, 255), "%dpt", HPBuy);
 
 	if (point.PointPoint >= HPBuy && player.HP < 10)
@@ -140,8 +138,6 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 		DrawGraph(30, 60, Botton, true);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-		//‰e—Ž‚Æ‚µ
-		//DrawString(72, 65, "‰ñ•œ", GetColor(0, 0, 0), true);
 		DrawString(70, 63, "‰ñ•œ", HPColor, true);
 	}
 	
@@ -176,7 +172,7 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 					{
 						PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
 
-						shot[i].Damage += 1;
+						shot[i].Damage += 2;
 
 					}
 
@@ -192,8 +188,6 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 			DrawGraph(30, 140, Botton, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-			//‰e—Ž‚Æ‚µ
-			//DrawString(47, 145, "UŒ‚—ÍUP", GetColor(0, 0, 0), true);
 			DrawString(45, 143, "UŒ‚—ÍUP", AttackColor, true);
 		}
 	}
@@ -253,7 +247,6 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	}
 
 	//ƒvƒŒƒCƒ„[‚Ì^ã‚É•\Ž¦‚³‚ê‚é
-	//DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 30), HPberGraph[HPCount], true);
 	SetFontSize(15);
 	DrawFormatString(static_cast<int>(player.PlayerX - 30), static_cast<int>(player.PlayerY - 50), GetColor(255, 255, 255), "%s", save.String);
 	DrawFormatString(310, 410, GetColor(255, 255, 255), "%s", save.String);
@@ -285,9 +278,5 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 		
 	}
-	
-	//m_HP.Draw(GetColor(255, 0, 0), false);
-	//m_Attack.Draw(GetColor(255, 0, 0), false);
-	//m_Mouse.Draw(GetColor(255, 0, 0), false);
 
 }

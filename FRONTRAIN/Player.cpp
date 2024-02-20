@@ -3,7 +3,6 @@
 #include "DxLib.h"
 #include "GraphMode.h"
 #include<math.h>
-//#define PI 3.1415926535897932384626433832795f
 
 
 
@@ -272,22 +271,33 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 				if (player.MouseX >= player.PlayerX)
 				{
 					player.RightAnimTime++;
-					if (player.RightAnimTime >= 10)
-					{
-						player.RightAnimCount++;
 
-						player.RightAnimTime = 0;
+					//ダメージを喰らったら
+					if (player.Count == 0 || player.DamegeCount >= 10)
+					{
+						if (player.RightAnimTime >= 10)
+						{
+							player.RightAnimCount++;
+
+							player.RightAnimTime = 0;
+						}
 					}
+					
 				}
 				//標準がプレイヤーより左なら
 				else if (player.MouseX < player.PlayerX)
 				{
 					player.LeftAnimTime++;
-					if (player.LeftAnimTime >= 10)
-					{
-						player.LeftAnimCount--;
 
-						player.LeftAnimTime = 0;
+					//ダメージを喰らったら
+					if (player.Count == 0 || player.DamegeCount >= 10)
+					{
+						if (player.LeftAnimTime >= 10)
+						{
+							player.LeftAnimCount--;
+
+							player.LeftAnimTime = 0;
+						}
 					}
 				}
 
@@ -315,22 +325,32 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 				if (player.MouseX >= player.PlayerX)
 				{
 					player.RightAnimTime++;
-					if (player.RightAnimTime >= 10)
-					{
-						player.RightAnimCount++;
 
-						player.RightAnimTime = 0;
+					//ダメージを喰らったら
+					if (player.Count == 0 || player.DamegeCount >= 10)
+					{
+						if (player.RightAnimTime >= 10)
+						{
+							player.RightAnimCount++;
+
+							player.RightAnimTime = 0;
+						}
 					}
 				}
 				//標準がプレイヤーより左なら
 				else if (player.MouseX < player.PlayerX)
 				{
 					player.LeftAnimTime++;
-					if (player.LeftAnimTime >= 10)
-					{
-						player.LeftAnimCount--;
 
-						player.LeftAnimTime = 0;
+					//ダメージを喰らったら
+					if (player.Count == 0 || player.DamegeCount >= 10)
+					{
+						if (player.LeftAnimTime >= 10)
+						{
+							player.LeftAnimCount--;
+
+							player.LeftAnimTime = 0;
+						}
 					}
 				}
 
@@ -368,7 +388,7 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 	}
 	
 	//当たり判定の更新
-	m_colRect.SetCenter(player.PlayerX, player.PlayerY - 1, player.PlayerWidth - 2, player.PlayerHeight);
+	m_colRect.SetCenter(static_cast<float>(player.PlayerX), static_cast<float>(player.PlayerY - 1), static_cast<float>(player.PlayerWidth - 2), static_cast<float>(player.PlayerHeight));
 	
 	//マウスの座標取得
 	GetMousePoint(&player.MouseX, &player.MouseY);
@@ -411,6 +431,10 @@ void Player::Update(Player& player,Map& map,Shield& shield,Background& back)
 	{
 		player.SE = false;
 
+		//アニメーションを戻す
+		player.LeftAnimCount = 10;
+		player.RightAnimCount = 1;
+
 		player.PlayerDamage = false;
 		player.Count = 0;
 	}
@@ -435,8 +459,6 @@ void Player::ShotUpdate(Player& player,Shot shot[], int shotSize)
 		}
 		if (player.Reload == true)
 		{
-			//PlaySoundMem(player.SEReload,DX_PLAYTYPE_BACK, TRUE);
-
 			player.PlayerShotFlag = true;
 
 			player.BulletTime++;
@@ -527,7 +549,7 @@ void Player::Draw(Shield& shield, Player& player)
 		//ダメージをくらった時点滅させる
 		if (player.Count == 0 || player.DamegeCount >= 10)
 		{
-			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[0], true);
+			DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 15), player.playerGraph[0], true);
 
 			player.DamegeCount = 0;
 		}
@@ -543,7 +565,7 @@ void Player::Draw(Shield& shield, Player& player)
 
 			if (player.RightAnimCount == 6)player.RightAnimCount = 1;
 
-			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.RightAnimCount], true);
+			DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 15), player.playerGraph[player.RightAnimCount], true);
 
 			player.PlayerArmFlag = false;
 		}
@@ -552,7 +574,7 @@ void Player::Draw(Shield& shield, Player& player)
 		{
 			if (player.LeftAnimCount == 6)player.LeftAnimCount = 10;
 
-			DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.playerGraph[player.LeftAnimCount], true);
+			DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 15), player.playerGraph[player.LeftAnimCount], true);
 
 			player.PlayerArmFlag = true;
 
@@ -560,56 +582,23 @@ void Player::Draw(Shield& shield, Player& player)
 
 		player.DamegeCount = 0;
 
-		//ダメージを喰らった4フレーム後
-		if (player.Count >= 224)
-		{
-			//アニメーションを戻す
-			player.LeftAnimCount = 6;
-			player.RightAnimCount = 6;
-		}
-
 	}
-
-	//プレイヤーの腕表示
-	//DrawGraph(player.PlayerX - 5, player.PlayerY - 10, player.PlayerArm, true);
-	//プレイヤーの腕角度を求める
-	//double a, b, c, bc, angle,abc,angleL;
-	//a = player.MouseX - player.PlayerX;
-	//b = player.MouseY - player.PlayerY;
-	//c = sqrt(a * a + b * b);
-
-	//abc = ((a * a) + (c * c) - (b * b));
-
-	//angleL = (2 * (a * c));
-
-	//angle = abc / angleL;
-
-	//DrawRotaGraph(player.PlayerX, player.PlayerY - 3, 1.0f, angle, player.PlayerArm, true, player.PlayerArmFlag, 3);
-
-	//プレイヤーの当たり判定の表示
-	//player.m_colRect.Draw(GetColor(0, 0, 255), false);
 
 	//左に盾を構える
 	if (shield.LeftFlag == true)
 	{
-		//shield.RightFlag = false;
-
-		DrawGraph(player.PlayerX - 12, player.PlayerY - 20, shield.ShieldGraph, true);
+		DrawGraph(static_cast<int>(player.PlayerX - 12), static_cast<int>(player.PlayerY - 20), shield.ShieldGraph, true);
 		//当たり判定の更新
-		shield.m_colRect.SetCenter(player.PlayerX - 13, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
+		shield.m_colRect.SetCenter(static_cast<float>(player.PlayerX - 13), static_cast<float>(player.PlayerY - 5), static_cast<float>(shield.ShieldWidth + 3), static_cast<float>(shield.ShieldHeight));
 
-		//shield.m_colRect.Draw(GetColor(0, 0, 255), false);
 	}
 	//右に盾を構える
 	if (shield.RightFlag == true)
 	{
-		//shield.LeftFlag = false;
 
-		DrawGraph(player.PlayerX + 10, player.PlayerY - 20, shield.ShieldGraph, true);
+		DrawGraph(static_cast<int>(player.PlayerX + 10), static_cast<int>(player.PlayerY - 20), shield.ShieldGraph, true);
 		//当たり判定の更新
-		shield.m_colRect.SetCenter(player.PlayerX + 12, player.PlayerY - 5, shield.ShieldWidth + 3, shield.ShieldHeight);
-
-		//shield.m_colRect.Draw(GetColor(0, 0, 255), false);
+		shield.m_colRect.SetCenter(static_cast<float>(player.PlayerX + 12), static_cast<float>(player.PlayerY - 5), static_cast<float>(shield.ShieldWidth + 3), static_cast<float>(shield.ShieldHeight));
 
 	}
 
@@ -625,7 +614,7 @@ void Player::Draw(Shield& shield, Player& player)
 			player.DeadAnimTime = 0;
 		}
 
-		DrawGraph(player.PlayerX - 10, player.PlayerY - 15, player.DeadGraph[player.DeadAnimCount], true);
+		DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 15), player.DeadGraph[player.DeadAnimCount], true);
 
 
 		for (int i = 0; i < 12; i++)
@@ -643,7 +632,7 @@ void Player::Draw(Shield& shield, Player& player)
 
 		if (player.DeadAnimCount >= 13)
 		{
-			DrawGraph(player.PlayerX - 10, player.PlayerY - 17, player.DeadAnim, true);
+			DrawGraph(static_cast<int>(player.PlayerX - 10), static_cast<int>(player.PlayerY - 17), player.DeadAnim, true);
 		}
 		
 
@@ -657,21 +646,18 @@ void Player::DrawShot(Shot& shot)
 	//発射してる弾数だけ
 	if (shot.Flag)
 	{
-		//shot.Graph = LoadGraph("date/銃弾.png");
-
-		DrawGraph(shot.X, shot.Y, shot.Graph, true);
+		DrawGraph(static_cast<int>(shot.X), static_cast<int>(shot.Y), shot.Graph, true);
 
 		shot.X += shot.AimX;
 		shot.Y += shot.AimY;
 
 		//当たり判定の更新
-		shot.m_colRect.SetCenter(shot.X, shot.Y, shot.Width, shot.Height);
+		shot.m_colRect.SetCenter(static_cast<float>(shot.X), static_cast<float>(shot.Y), static_cast<float>(shot.Width), static_cast<float>(shot.Height));
 
 		//画面の外にはみ出したらフラグを戻す
 		if (shot.X > 640 || shot.X < 0 || shot.Y > 480 || shot.Y < 0)
 		{
 			shot.Flag = false;
-			//DeleteGraph(shot.Graph);
 		}
 
 	}

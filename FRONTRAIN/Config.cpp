@@ -47,7 +47,6 @@ int SEClickConfig;
 //初期化
 void Config_Initialize()
 {
-	//mimageHandle = LoadGraph("date/Menu画面.png");//画像のロード
 
 	LoadDivGraph("date/DanceMoveto.png", 9, 3, 3, 853, 480, mimageHandle);
 
@@ -106,11 +105,11 @@ void Config_Update(Point& point,TimeCount& timecount)
 
 	SceneTime++;
 
+	//シーン遷移の演出
 	settingfedo.UpdateInSetting();
 
 
-	//Zキーが押されていたら
-	//if (CheckHitKey(KEY_INPUT_Z) != 0)
+	//クリックされたらシーンを変更
 	if(CRecord == true)
 	{
 
@@ -156,6 +155,7 @@ void Config_Update(Point& point,TimeCount& timecount)
 //描画
 void Config_Draw(Point& point,TimeCount& timecount)
 {
+	//画面背景でのアニメーションタイム
 	Time++;
 	if (Time >= 5)
 	{
@@ -186,12 +186,14 @@ void Config_Draw(Point& point,TimeCount& timecount)
 	}
 
 	
-
+	//背景描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
 	DrawGraph(-106, 0, mimageHandle[AnimCount], TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 125);
 
+	//セーブデータの読み込み
 	savedate.SaveLoad();
+	//ハイスコアの読み込み
 	savedate.SaveHiscoreLoad();
 
 	DrawFormatString(100, 20, GetColor(255, 255, 255), "今回のスコア");
@@ -200,13 +202,12 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), 10, 10);
 
+	//背景を暗く描画する
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(263, 275, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+	//ボタンの表示と当たり判定
 	m_Rect.SetCenter(323, 290, 120, 30);
 	DrawString(276, 276, "タイトル", CColor);
-
-	/*m_Rect.Draw(GetColor(255, 0, 0), false);
-	m_Mouse.Draw(GetColor(255, 0, 0), false);*/
 }

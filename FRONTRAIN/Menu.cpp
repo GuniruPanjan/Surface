@@ -164,17 +164,6 @@ void Menu_Update()
 	if (fedo.Setting == true)
 	{
 
-		/*DeleteSoundMem(SoundMenu);
-
-		DeleteSoundMem(SEClickShot);
-
-		DeleteGraph(mimageHandle);
-
-		for (int i = 0; i < 9; i++)
-		{
-			DeleteGraph(Graph[i]);
-		}*/
-
 		if (Count >= 60)
 		{
 			ContinueInit = true;
@@ -299,8 +288,6 @@ void Menu_Update()
 //描画
 void Menu_Draw()
 {
-	fedo.Draw();
-
 	DrawGraph(0, 0, mimageHandle, false);
 
 	Time++;
@@ -357,8 +344,10 @@ void Menu_Draw()
 		DrawGraph(210, 300, ClickShot, true);
 	}
 
+	//フォント変更
 	ChangeFont("アプリ明朝", DX_CHARSET_DEFAULT);
-	//DrawBox(248, 310, 390, 340, GetColor(255, 0, 0),false);
+	
+	//スタートボタン表示
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(263, 305, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -366,7 +355,7 @@ void Menu_Draw()
 	m_colRectStart.SetCenter(323, 320, 120, 30);
 	DrawString(285, 307, "START", StartColor);
 
-	//DrawBox(248, 400, 405, 365, GetColor(255, 0, 0), false);
+	//操作説明ボタン表示
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
 	DrawGraph(263, 365, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -374,7 +363,7 @@ void Menu_Draw()
 	m_colRectExplanation.SetCenter(323, 380, 120, 30);
 	DrawString(277, 367, "操作説明", ExplanationColor);
 
-	//DrawBox(248, 460, 360, 425, GetColor(255, 0, 0), false);
+	//スコアボタン表示
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b3);
 	DrawGraph(263, 425, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -383,10 +372,4 @@ void Menu_Draw()
 	DrawString(290, 428, "スコア", RecordColor);
 
 	fedo.StartUpdate();
-
-	//ボタンのあたり判定表示
-	/*m_colRectStart.Draw(GetColor(255, 0, 0), false);
-	m_colRectExplanation.Draw(GetColor(255, 0, 0), false);
-	m_colRectRecord.Draw(GetColor(255, 0, 0), false);
-	m_colRectMouse.Draw(GetColor(255, 255, 0), false);*/
 }

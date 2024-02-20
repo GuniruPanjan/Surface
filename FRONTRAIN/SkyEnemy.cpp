@@ -226,7 +226,7 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 			}
 
 			//当たり判定の更新
-			enemy[i].m_colRect.SetCenter(enemy[i].SkyEnemyX + 7 + player.ScrollX, enemy[i].SkyEnemyY + 10, enemy[i].SkyEnemyWidth, enemy[i].SkyEnemyHeight);
+			enemy[i].m_colRect.SetCenter(static_cast<float>(enemy[i].SkyEnemyX + 7 + player.ScrollX), static_cast<float>(enemy[i].SkyEnemyY + 10), static_cast<float>(enemy[i].SkyEnemyWidth), static_cast<float>(enemy[i].SkyEnemyHeight));
 
 			//プレイヤーの当たり判定
 			if (enemy[i].m_colRect.IsCollision(player.m_colRect) == false)
@@ -307,13 +307,10 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 
 			
 
-			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY, enemy.SkyHandle[enemy.S], true);
+			DrawGraph(static_cast<int>(enemy.SkyEnemyX + ScrollX), static_cast<int>(enemy.SkyEnemyY), enemy.SkyHandle[enemy.S], true);
 
-			enemy.SkyEnemyX += enemy.PX;
-			enemy.SkyEnemyY += enemy.PY;
-
-			//敵との当たり判定
-			//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
+			enemy.SkyEnemyX += static_cast<float>(enemy.PX);
+			enemy.SkyEnemyY += static_cast<float>(enemy.PY);
 		}
 		
 	}
@@ -333,7 +330,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 				enemy.DeadAnimTime = 0;
 			}
 
-			DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyY - 5, enemy.DeadAnimGraph[enemy.DeadAnimCount], true);
+			DrawGraph(static_cast<int>(enemy.SkyEnemyX + ScrollX), static_cast<int>(enemy.SkyEnemyY - 5), enemy.DeadAnimGraph[enemy.DeadAnimCount], true);
 
 			if (enemy.SE == false)
 			{
@@ -355,7 +352,7 @@ void SkyEnemy::Draw(float ScrollX, SkyEnemyStruct& enemy, Point& point)
 				}
 				
 
-				DrawGraph(enemy.SkyEnemyX + ScrollX, enemy.SkyEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
+				DrawGraph(static_cast<int>(enemy.SkyEnemyX + ScrollX), static_cast<int>(enemy.SkyEnemyDeadY -= 1.0f), enemy.DeadPoint, true);
 			}
 
 			if (enemy.SkyShotDead == true)

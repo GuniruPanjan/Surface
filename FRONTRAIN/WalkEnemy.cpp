@@ -265,7 +265,7 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 				}
 
 				//当たり判定の更新
-				enemy[i].m_colRect.SetCenter(enemy[i].WalkEnemyX + 10 + player.ScrollX, enemy[i].WalkEnemyY + 10, enemy[i].WalkEnemyWidth - 5, enemy[i].WalkEnemyHeight);
+				enemy[i].m_colRect.SetCenter(static_cast<float>(enemy[i].WalkEnemyX + 10 + player.ScrollX), static_cast<float>(enemy[i].WalkEnemyY + 10), static_cast<float>(enemy[i].WalkEnemyWidth - 5), static_cast<float>(enemy[i].WalkEnemyHeight));
 
 				//プレイヤーの当たり判定
 				if (enemy[i].m_colRect.IsCollision(player.m_colRect) == false)
@@ -432,7 +432,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 					enemy[i].AnimTimeDead = 0;
 				}
 
-				DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyY - 5, enemy[i].Handle[enemy[i].AnimCount], true);
+				DrawGraph(static_cast<int>(enemy[i].WalkEnemyX + ScrollX), static_cast<int>(enemy[i].WalkEnemyY - 5), enemy[i].Handle[enemy[i].AnimCount], true);
 
 				if (enemy[i].SE2 == false)
 				{
@@ -452,7 +452,7 @@ void WalkEnemy::Draw(float ScrollX,WalkEnemyStruct enemy[], Point& point,int Wen
 					}
 					
 
-					DrawGraph(enemy[i].WalkEnemyX + ScrollX, enemy[i].WalkEnemyDeadY -= 1.0f, enemy[i].DeadPoint, true);
+					DrawGraph(static_cast<int>(enemy[i].WalkEnemyX + ScrollX), static_cast<int>(enemy[i].WalkEnemyDeadY -= 1.0f), enemy[i].DeadPoint, true);
 				}
 
 				enemy[i].m_colRect.SetCenter(0, 0, 0, 0);

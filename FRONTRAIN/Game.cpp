@@ -154,6 +154,7 @@ void Game_Update()
 
 	if (save.Start == false)
 	{
+		//‚±‚±‚Å–¼‘O‚ğŒˆ‚ß‚é‚ÆƒQ[ƒ€‚ğÀs
 		scenefedo.UpdateIn();
 
 		save.SaveInput();
@@ -211,7 +212,6 @@ void Game_Draw()
 	{
 		if (scenefedo.LetGo == true)
 		{
-			scenefedo.Draw();
 
 			Back.Draw();
 

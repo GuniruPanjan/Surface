@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="animation.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
@@ -166,7 +165,6 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="animation.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DistanceEnemy.h" />

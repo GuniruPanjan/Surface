@@ -17,7 +17,8 @@ SceneFedo::SceneFedo():
 	EndHandle(),
 	AnimCount(0),
 	AnimTime(0),
-	LetGo(false)
+	LetGo(false),
+	Explanation(false)
 {
 }
 
@@ -75,12 +76,6 @@ void SceneFedo::Init()
 
 void SceneFedo::Update()
 {
-	//if (c >= 0 && 256)           //cが0～256の時
-		//SetDrawBright(c, c, c);         //段々明るく < (c = 0->255)
-	//if (c >= 256 && c < 400)     //cが256～400の時
-		//SetDrawBright(255, 255, 255);    //通常の明るさ
-	//if (c >= 400 && c < 400 + 256)   //cが400～400+256の時
-		//SetDrawBright(255 - (c - 400), 255 - (c - 400), 255 - (c - 400));//段々暗く(c=255->0)
 
 	if (c >= 0 && 256)
 		SetDrawBright(255 - c, 255 - c, 255 - c);
@@ -138,13 +133,6 @@ void SceneFedo::DeadOut()
 void SceneFedo::WhiteOut()
 {
 
-	//WhiteTime++;
-	////1フレーム後
-	//if (WhiteTime >= 56)
-	//{
-	//	
-	//}
-
 	//プレイヤーが死んだ時画面をホワイトアウトする
 	WhiteCount += 3;
 
@@ -167,9 +155,4 @@ void SceneFedo::DeadAnim()
 	if (AnimCount >= 8)AnimCount = 8;
 
 	DrawGraph(-106, 0, EndHandle[AnimCount], TRUE);
-}
-
-void SceneFedo::Draw()
-{
-	//DrawBox(0, 0, 640, 480, White, TRUE); //画面全体に白い四角形を描画
 }

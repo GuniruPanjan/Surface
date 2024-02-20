@@ -137,8 +137,8 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 	DrawMapChipNumY = STAGE_HEIGHT / MAPCHIP_HEIGHT;
 
 	//画面左上に描画するマップ座標をセット
-	MapDrawPointX = player.PlayerX - static_cast<float>((DrawMapChipNumX / 2 - 1));
-	MapDrawPointY = player.PlayerY - static_cast<float>((DrawMapChipNumY / 2 - 1));
+	MapDrawPointX = static_cast<int>(player.PlayerX) - static_cast<int>((DrawMapChipNumX / 2 - 1));
+	MapDrawPointY = static_cast<int>(player.PlayerY) - static_cast<int>((DrawMapChipNumY / 2 - 1));
 
 	//マップを描く
 	for (i = 0; i < DrawMapChipNumY; i++)
@@ -153,9 +153,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 				//当たり判定の更新
 				m_colRect.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + 10 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-				//マップチップの当たり判定の表示
-				//m_colRect.Draw(GetColor(255, 255, 255), false);
 				
 
 				//shotの当たり判定false
@@ -231,9 +228,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				//当たり判定の更新
 				m_colBlockRect2.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH - 5 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-				//マップチップの当たり判定の表示
-				//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 				if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 				{
 					if (player.PlayerRise == false)
@@ -267,9 +261,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				//当たり判定の更新
 				m_colBlockRect3.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + 25 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-				//マップチップの当たり判定の表示
-				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 				if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 				{
 					if (player.PlayerRise == false)
@@ -302,9 +293,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 			{
 				//当たり判定の更新
 				m_colBlockRect3.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-				//マップチップの当たり判定の表示
-				//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 				if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 				{
@@ -353,9 +341,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(0, 255, 255), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -426,9 +411,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -461,9 +443,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -515,9 +494,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(0, 255, 255), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -588,9 +564,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -624,9 +597,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -659,9 +629,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -712,9 +679,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(0, 255, 255), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -785,9 +749,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapFiveX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -821,9 +782,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -856,9 +814,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFiveX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 15), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -911,9 +866,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(255, 0, 255), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -984,9 +936,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapFourX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1020,9 +969,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1055,9 +1001,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -1108,9 +1051,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(255, 0, 255), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -1181,9 +1121,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapFourX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1216,9 +1153,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -1253,9 +1187,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 15), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1288,9 +1219,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapFourX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -1344,9 +1272,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(255, 255, 0), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -1417,9 +1342,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1453,9 +1375,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1488,9 +1407,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -1541,9 +1457,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(255, 255, 0), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -1614,9 +1527,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i* MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1650,9 +1560,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1685,9 +1592,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH - 10), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{
@@ -1739,9 +1643,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 
 					//当たり判定の更新
 					m_colRect.SetCenter(static_cast<float>(MapSixX + 10), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colRect.Draw(GetColor(255, 255, 0), false);
 
 					//shotの当たり判定false
 					if (m_colRect.IsCollision(shot.m_colRect) == false)
@@ -1812,9 +1713,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 					//当たり判定の更新
 					m_colBlockRect2.SetCenter(static_cast<float>(MapSixX - 5), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 
-					//マップチップの当たり判定の表示
-					//m_colBlockRect2.Draw(GetColor(0, 255, 255), false);
-
 					if (m_colBlockRect2.IsCollision(player.m_colRect) == true)
 					{
 						if (player.PlayerRise == false)
@@ -1847,9 +1745,6 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				{
 					//当たり判定の更新
 					m_colBlockRect3.SetCenter(static_cast<float>(MapSixX + 25), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
-
-					//マップチップの当たり判定の表示
-					//m_colBlockRect3.Draw(GetColor(0, 255, 255), false);
 
 					if (m_colBlockRect3.IsCollision(player.m_colRect) == true)
 					{

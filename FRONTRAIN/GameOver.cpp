@@ -83,22 +83,13 @@ void GameOver_Update()
 		Scenefedo.Update();
 	}
 	
-
+	//クリックされるとシーン変更
 	if (Scenefedo.end == 1 && Scenefedo.Setting == true)
 	{
-		DeleteSoundMem(SoundGameOver);
-
-		DeleteSoundMem(SEClickGameOver);
-
-		DeleteGraph(mimageHandle);
-
-		DeleteGraph(GameOverHandle);
-
-		SceneMgr_ChageScene(eScene_Config);//シーンをメニューに変更
+		SceneMgr_ChageScene(eScene_Config);//シーンを記録に変更
 	}
 
-	//SPACEキーが押されていたら
-	//if (CheckHitKey(KEY_INPUT_SPACE) != 0)
+	
 	if(gameover == true)
 	{
 		Scenefedo.Out = 1;
@@ -144,6 +135,7 @@ void GameOver_Draw()
 	//マウスの当たり判定取得
 	Mouse.SetCenter(static_cast<float>(gmMouseX), static_cast<float>(gmMouseY + 5), static_cast<float>(10), static_cast<float>(10));
 
+	//ボタンの表示
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(40, 400, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -153,6 +145,4 @@ void GameOver_Draw()
 	m_colRect.SetCenter(100, 415, 120, 30);
 	DrawString(65, 402, "スコア", GameOverColor);
 
-	/*m_colRect.Draw(GetColor(255, 0, 0), false);
-	Mouse.Draw(GetColor(255, 0, 0), false);*/
 }

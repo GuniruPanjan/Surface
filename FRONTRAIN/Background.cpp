@@ -40,19 +40,17 @@ void Background::Init()
 
 void Background::Draw()
 {
+	//”wŒi‚ğˆÃ‚­•`‰æ‚·‚é
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 75);
 	DrawGraph(0, 0, BackGroundGraph, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 75);
-
+	//”wŒi‚ğ“®‚©‚·
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 75);
 	DrawGraph(BackX, BackY, BackGroundGraph, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 75);
 
+	//ƒ_ƒ[ƒW‚ğ‹ò‚ç‚¤‚Æ”wŒi‚ªÔ‚­‚È‚Á‚Ä‚¢‚­
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, Red);
 	DrawGraph(0, 0, RedTitle, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Red);
-
-	/*DrawString(250, 60, "WAVE:", GetColor(255, 255, 255));
-
-	DrawFormatString(300,60,GetColor)*/
 }

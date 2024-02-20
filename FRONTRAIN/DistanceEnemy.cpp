@@ -88,8 +88,6 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 	enemy.DistanceShotDeadPoint = false;
 	enemy.DistanceShotDeadSE = false;
 
-	//enemy.DistanceEnemyGraph = LoadGraph("date/DistanceEnemy.png");
-
 	enemy.DistanceEnemyGraph = date.DistanceEnemyGraph;
 
 	LoadDivGraph("date/”š”­Down.png", 14, 8, 2, 30, 30, enemy.Handle);
@@ -98,15 +96,9 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 
 	enemy.AnimTime = 0;
 
-	//enemy.SEDistanceEnemy = LoadSoundMem("SE/’†Œ^ƒƒ{ƒbƒg‚Ì‹ì“®‰¹2.mp3");
-
 	enemy.SEDistanceEnemy = date.DistanceEnmeySound;
 
-	//enemy.SEDistanceDead = LoadSoundMem("SE/”š”­2.mp3");
-
 	enemy.SEDistanceDead = date.DistanceEnemyDeadSound;
-
-	//enemy.SEDistanceDamage = LoadSoundMem("SE/‹à‘®’@‚«.mp3");
 
 	enemy.SEDistanceDamage = date.DistanceEnemyDamageSound;
 
@@ -125,8 +117,6 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date)
 
 		shot[i].ShotDamage = 2;
 
-		//shot[i].Graph = LoadGraph("date/e’e.png");
-
 		shot[i].Graph = date.ShotDistance;
 
 		shot[i].ShotHitTime = 0;
@@ -144,8 +134,6 @@ void DistanceEnemy::EnemyShotInit(EnemyShot shot[], EnemyLoadDate& date)
 
 		LoadDivGraph("date/‰Î‰Ô(¬)¶.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphLeft);
 		LoadDivGraph("date/‰Î‰Ô(¬)‰E.png", 2, 2, 1, 5, 5, shot[i].ShotSparkGraphRight);
-
-		//shot[i].SEDistanceShot = LoadSoundMem("SE/Œe‚ğŒ‚‚Â.mp3");
 
 		shot[i].SEDistanceShot = date.DistanceEnemyShotSound;
 	}
@@ -168,10 +156,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 
 					if (enemy[i].DistanceEnemyflag == false)
 					{
-						//Œ»İŠÔ‚ğ“¾‚é
-						//enemy[i].Time = GetNowCount();
-
-						//enemy[i].Time = 0;
 
 						enemy[i].DistanceEnemyDead = false;
 
@@ -214,10 +198,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				{
 					if (enemy[i].DistanceEnemyflag == false)
 					{
-						//Œ»İŠÔ‚ğ“¾‚é
-						//enemy[i].Time = GetNowCount();
-
-						//enemy[i].Time = 0;
 
 						enemy[i].DistanceEnemyDead = false;
 
@@ -260,10 +240,6 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 				{
 					if (enemy[i].DistanceEnemyflag == false)
 					{
-						//Œ»İŠÔ‚ğ“¾‚é
-						//enemy[i].Time = GetNowCount();
-
-						//enemy[i].Time = 0;
 
 						enemy[i].DistanceEnemyDead = false;
 
@@ -559,8 +535,6 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 			
 		}
 
-		//ƒGƒlƒ~[‚Ì“–‚½‚è”»’è‚Ì•\¦
-		//enemy.m_colRect.Draw(GetColor(255, 0, 0), false);
 	}
 	//“G‚ª€‚ñ‚¾
 	else if (enemy.HP <= 0)
@@ -599,7 +573,7 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 				}
 			
 
-				DrawGraph(enemy.DistanceEnemyX + ScrollX, enemy.DistanceEnemyDeadY -= 1.0f, enemy.DeadPoint, true);
+				DrawGraph(static_cast<int>(enemy.DistanceEnemyX + ScrollX), static_cast<int>(enemy.DistanceEnemyDeadY -= 1.0f), enemy.DeadPoint, true);
 			}
 
 			if (enemy.DistanceShotDead == true)
@@ -613,9 +587,6 @@ void DistanceEnemy::Draw(float ScrollX, DistanceEnemyStruct& enemy, Point& point
 
 			if (enemy.AnimCount == 13)
 			{
-
-				/*DrawRectRotaGraph(static_cast<int>(enemy.DistanceEnemyX), static_cast<int>(enemy.DistanceEnemyY)
-					, srcX, srcY, kWidth, kHeight, 1.0, 0.0, DownAnimGraph, true, false);*/
 
 				//2•ªˆÈ‰º‚¾‚Á‚½ê‡
 				if (time->EnemyTime < 120)
@@ -670,7 +641,6 @@ void DistanceEnemy::DrawShot(EnemyShot shot[],int EnemyShotSize,int ScrollX,Play
 	{
 		if (shot[i].Flag == true)
 		{
-			//shot[i].Graph = LoadGraph("date/e’e.png");
 
 			shot[i].X += shot[i].PX;
 			shot[i].Y += shot[i].PY;

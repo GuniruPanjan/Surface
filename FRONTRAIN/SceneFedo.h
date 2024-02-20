@@ -16,7 +16,6 @@ public:
 	void DeadOut();
 	void WhiteOut();
 	void DeadAnim();
-	void Draw();
 
 	int c = 0, White, a;
 
