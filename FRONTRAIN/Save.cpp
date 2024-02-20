@@ -202,7 +202,6 @@ void Save::SaveHiscoreLoad()
 	FILE* HiFp;
 	FILE* FName;
 
-	//char charname[20];
 	//ファイル読み込み
 	fopen_s(&HiFp, "Hiscore.txt", "rb");
 	fopen_s(&FName, "Name.txt", "r");
@@ -215,10 +214,6 @@ void Save::SaveHiscoreLoad()
 
 	fread(&save_hiscore, sizeof(save_hiscore), 1, HiFp);
 	fread(&NameSave, sizeof(NameSave), 1, FName);
-
-
-	//入力された文字列を取得
-	//GetKeyInputString(charname, save_hiscore.Name);
 
 	//ファイルのデータを出力
 	DrawFormatString(400, 60, GetColor(255, 255, 255), "%s", NameSave.Name);
