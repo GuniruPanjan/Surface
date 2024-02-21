@@ -62,8 +62,6 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 	//ファイル読み込み
 	fopen_s(&fp, "save.txt", "wb");
 
-	//fopen_s(&HiFp, "Hiscore.txt", "wb");
-
 	fopen_s(&HiUp, "HiUp.txt", "r");
 
 	fopen_s(&FNameDis, "NameDis.txt", "w");
@@ -73,11 +71,6 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 		//ファイル読み込みエラー
 		MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
 	}
-	//if (HiFp == NULL)
-	//{
-	//	//ファイル読み込みエラー
-	//	MessageBox(NULL, "ファイル読み込み失敗", "", MB_OK);
-	//}
 	if (HiUp != NULL)
 	{
 		fscanf_s(HiUp, "%d", &hiscore);
@@ -105,7 +98,7 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 
 	fwrite(&save_date, sizeof(save_date), 1, fp);   //save_date構造体の中身を出力
 
-	fprintf(FNameDis, String);        //名前を記入する
+	fprintf_s(FNameDis, String);        //名前を記入する
 
 	fclose(fp);
 
@@ -133,6 +126,7 @@ int Save::GetHiScore(void)
 
 void Save::SaveInput()
 {
+
 	DrawFormatString(120, 100, White, "8文字以内で名前を入力してください");
 
 	//名前を入力

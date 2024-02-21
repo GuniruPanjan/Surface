@@ -46,7 +46,11 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 
 	Senemy.TUP = 30;
 
-	Senemy.TUP2 = 150;
+	Senemy.TUP2 = 100;
+
+	Senemy.TUP3 = 240;
+
+	Senemy.TUP4 = 600;
 
 	enemy.S = 0;
 
@@ -155,13 +159,87 @@ void SkyEnemy::Update(Player& player,Shot& shot, SkyEnemyStruct enemy[], int Sen
 		}
 	}
 	//5分たつと出現率アップ
-	else if (time->EnemyTime >= 300)
+	else if (time->EnemyTime >= 300 && time->EnemyTime < 480)
 	{
-		if (time->EnemyTime == (2 * Senemy.TUP2))
+		if (time->EnemyTime == (3 * Senemy.TUP2))
 		{
 			if (Senemy.SkyEnemyAppearance == true)
 			{
 				Senemy.TUP2++;
+
+				for (int i = 0; i < SenemySize; i++)
+				{
+					if (enemy[i].SkyEnemyflag == false)
+					{
+						enemy[i].SkyEnemyDead = false;
+
+						enemy[i].Flag = false;
+
+						enemy[i].SkyEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+
+						enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
+
+						enemy[i].SkyEnemyY = -10.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Senemy.SkyEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Senemy.SkyEnemyAppearance = true;
+		}
+	}
+	//8分たつと出現率アップ
+	else if (time->EnemyTime >= 480 && time->EnemyTime < 600)
+	{
+		if (time->EnemyTime == (2 * Senemy.TUP3))
+		{
+			if (Senemy.SkyEnemyAppearance == true)
+			{
+				Senemy.TUP3++;
+
+				for (int i = 0; i < SenemySize; i++)
+				{
+					if (enemy[i].SkyEnemyflag == false)
+					{
+						enemy[i].SkyEnemyDead = false;
+
+						enemy[i].Flag = false;
+
+						enemy[i].SkyEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+
+						enemy[i].SkyEnemyX = GetRand(640) - ScrollX;
+
+						enemy[i].SkyEnemyY = -10.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Senemy.SkyEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Senemy.SkyEnemyAppearance = true;
+		}
+	}
+	//10分たつと出現率アップ
+	else if (time->EnemyTime >= 600)
+	{
+		if (time->EnemyTime == (1 * Senemy.TUP4))
+		{
+			if (Senemy.SkyEnemyAppearance == true)
+			{
+				Senemy.TUP4++;
 
 				for (int i = 0; i < SenemySize; i++)
 				{

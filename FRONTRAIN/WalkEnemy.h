@@ -81,6 +81,8 @@ public:
 	int T = 0;
 	int TUP = 0;
 	int TUP2 = 0;
+	int TUP3 = 0;
+	int TUP4 = 0;
 
 
 	//‘Ï‹v—Í‘‰Á

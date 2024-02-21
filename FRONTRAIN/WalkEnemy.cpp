@@ -101,7 +101,11 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 
 	Wenemy.TUP = 20;
 
-	Wenemy.TUP2 = 75;
+	Wenemy.TUP2 = 60;
+
+	Wenemy.TUP3 = 120;
+
+	Wenemy.TUP4 = 300;
 
 	Wenemy.HPUP = 10;
 
@@ -200,14 +204,102 @@ void WalkEnemy::Update(Player& player,Shot& shot,WalkEnemyStruct enemy[],int Wen
 		}
 	}
 	//5分経過したら出現率アップ
-	else if (time->EnemyTime >= 300)
+	else if (time->EnemyTime >= 300 && time->EnemyTime < 480)
 	{
 
-		if (time->EnemyTime == (4 * Wenemy.TUP2))
+		if (time->EnemyTime == (5 * Wenemy.TUP2))
 		{
 			if (Wenemy.WalkEnemyAppearance == true)
 			{
 				Wenemy.TUP2++;
+
+				for (int i = 0; i < WenemySize; i++)
+				{
+					if (enemy[i].WalkEnemyflag == false)
+					{
+						enemy[i].WalkEnemyDead = false;
+
+						enemy[i].WalkEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].WalkEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].WalkEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+
+				}
+				Wenemy.WalkEnemyAppearance = false;
+			}
+
+		}
+		else
+		{
+			Wenemy.WalkEnemyAppearance = true;
+		}
+	}
+	//8分経過したら出現率アップ
+	else if (time->EnemyTime >= 480 && time->EnemyTime < 600)
+	{
+
+		if (time->EnemyTime == (4 * Wenemy.TUP3))
+		{
+			if (Wenemy.WalkEnemyAppearance == true)
+			{
+				Wenemy.TUP3++;
+
+				for (int i = 0; i < WenemySize; i++)
+				{
+					if (enemy[i].WalkEnemyflag == false)
+					{
+						enemy[i].WalkEnemyDead = false;
+
+						enemy[i].WalkEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].WalkEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].WalkEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].WalkEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+
+				}
+				Wenemy.WalkEnemyAppearance = false;
+			}
+
+		}
+		else
+		{
+			Wenemy.WalkEnemyAppearance = true;
+		}
+	}
+	//10分経過したら出現率アップ
+	else if (time->EnemyTime >= 600)
+	{
+
+		if (time->EnemyTime == (2 * Wenemy.TUP4))
+		{
+			if (Wenemy.WalkEnemyAppearance == true)
+			{
+				Wenemy.TUP4++;
 
 				for (int i = 0; i < WenemySize; i++)
 				{

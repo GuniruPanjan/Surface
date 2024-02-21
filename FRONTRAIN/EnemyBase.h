@@ -2,7 +2,7 @@
 #include "Rect.h"
 #define ENEMY_NOW 30
 #define SKY_ENEMY_NOW 10
-#define DISTANCE_ENEMY_NOW 15
+#define DISTANCE_ENEMY_NOW 20
 
 struct EnemyLoadDate
 {

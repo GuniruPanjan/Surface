@@ -73,6 +73,10 @@ void DistanceEnemy::Init(DistanceEnemyStruct& enemy, DistanceEnemy& Denemy, Enem
 
 	Denemy.TUP2 = 50;
 
+	Denemy.TUP3 = 96;
+
+	Denemy.TUP4 = 150;
+
 	enemy.Time = 0;
 
 	enemy.ShotEnemy = 0;
@@ -228,13 +232,97 @@ void DistanceEnemy::Update(Player& player, Shot& shot, DistanceEnemyStruct enemy
 		}
 	}
 	//5分たつと出現率アップ
-	else if (time->EnemyTime >= 300)
+	else if (time->EnemyTime >= 300 && time->EnemyTime < 480)
 	{
 		if (time->EnemyTime == (6 * Denemy.TUP2))
 		{
 			if (Denemy.DistanceEnemyAppearance == true)
 			{
 				Denemy.TUP2++;
+
+				for (int i = 0; i < DenemySize; i++)
+				{
+					if (enemy[i].DistanceEnemyflag == false)
+					{
+
+						enemy[i].DistanceEnemyDead = false;
+
+						enemy[i].DistanceEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].DistanceEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].DistanceEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].DistanceEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Denemy.DistanceEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Denemy.DistanceEnemyAppearance = true;
+		}
+	}
+	//8分たつと出現率アップ
+	else if (time->EnemyTime >= 480 && time->EnemyTime < 600)
+	{
+		if (time->EnemyTime == (5 * Denemy.TUP3))
+		{
+			if (Denemy.DistanceEnemyAppearance == true)
+			{
+				Denemy.TUP3++;
+
+				for (int i = 0; i < DenemySize; i++)
+				{
+					if (enemy[i].DistanceEnemyflag == false)
+					{
+
+						enemy[i].DistanceEnemyDead = false;
+
+						enemy[i].DistanceEnemyflag = true;
+
+						//エネミーがランダムな場所に出現
+						if (GetRand(1) == 0)
+						{
+							enemy[i].DistanceEnemyX = -40.0f - ScrollX;
+						}
+						if (GetRand(1) == 1)
+						{
+							enemy[i].DistanceEnemyX = 680.0f - ScrollX;
+						}
+
+						enemy[i].DistanceEnemyY = 360.0f;
+
+						//一体だしたのでループから抜ける
+						break;
+					}
+				}
+				Denemy.DistanceEnemyAppearance = false;
+			}
+		}
+		else
+		{
+			Denemy.DistanceEnemyAppearance = true;
+		}
+	}
+	//10分たつと出現率アップ
+	else if (time->EnemyTime >= 600)
+	{
+		if (time->EnemyTime == (4 * Denemy.TUP4))
+		{
+			if (Denemy.DistanceEnemyAppearance == true)
+			{
+				Denemy.TUP4++;
 
 				for (int i = 0; i < DenemySize; i++)
 				{
