@@ -50,6 +50,14 @@ int StartColor, Startblack, StartYello;
 int ExplanationColor, Explanationblack, ExplanationYello;
 int RecordColor, Recordblack, RecordYello;
 
+//マウスの当たり判定の幅
+int TitleMouseDecisionX, TitleMouseDecisionY;
+
+//画像を暗くする変数
+int TitleDarken;
+
+//元の画像の明るさ変数
+int TitleFormer;
 
 //初期化
 void Menu_Initialize()
@@ -104,6 +112,12 @@ void Menu_Initialize()
 	SEClickShot = LoadSoundMem("SE/狙撃銃発射.mp3");
 
 	ClickShot = LoadGraph("date/Destruction.png");
+
+	TitleMouseDecisionX = 10;
+	TitleMouseDecisionY = 10;
+
+	TitleDarken = 120;
+	TitleFormer = 255;
 }
 
 //終了処理
@@ -216,7 +230,7 @@ void Menu_Update()
 	{
 		StartColor = StartYello;
 
-		b = 120;
+		b = TitleDarken;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -231,14 +245,14 @@ void Menu_Update()
 	{
 		StartColor = Startblack;
 
-		b = 255;
+		b = TitleFormer;
 	}
 	//ボタンに触れているとき
 	if (m_colRectExplanation.IsCollision(m_colRectMouse) == true)
 	{
 		ExplanationColor = ExplanationYello;
 
-		b2 = 120;
+		b2 = TitleDarken;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -255,14 +269,14 @@ void Menu_Update()
 	{
 		ExplanationColor = Explanationblack;
 
-		b2 = 255;
+		b2 = TitleFormer;
 	}
 	//ボタンに触れているとき
 	if (m_colRectRecord.IsCollision(m_colRectMouse) == true)
 	{
 		RecordColor = RecordYello;
 
-		b3 = 120;
+		b3 = TitleDarken;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -278,7 +292,7 @@ void Menu_Update()
 	{
 		RecordColor = Recordblack;
 
-		b3 = 255;
+		b3 = TitleFormer;
 	}
 
 	PlaySoundMem(SoundMenu, DX_PLAYTYPE_LOOP, FALSE);
@@ -328,7 +342,7 @@ void Menu_Draw()
 	SetFontSize(22);
 
 	//マウスの当たり判定取得
-	m_colRectMouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast <float>(10), static_cast <float>(10));
+	m_colRectMouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast <float>(TitleMouseDecisionX), static_cast <float>(TitleMouseDecisionY));
 
 	//クリックした時の演出
 	if (Start == true)

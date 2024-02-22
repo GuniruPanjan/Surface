@@ -6,7 +6,9 @@ TimeCount::TimeCount():
 	test(0),
 	EnemyTime(0),
 	timenow(0),
-	SaveTime(0)
+	SaveTime(0),
+	TimeWhiteColor(0),
+	TimeBlackColor(0)
 {
 	time = GetNowCount();    //現在時間を得る
 	
@@ -23,6 +25,9 @@ void TimeCount::InitTime()
 	time = GetNowCount(); //現在時間を得る
 	timenow = 0;
 	SaveTime = 0;
+
+	TimeWhiteColor = GetColor(255, 255, 255);
+	TimeBlackColor = GetColor(0, 0, 0);
 }
 
 void TimeCount::UpdateTime(Point& point)
@@ -48,7 +53,7 @@ void TimeCount::DrawTime()
 	SaveTime = (GetNowCount() - time) / 1000;
 
 	//影落とし
-	DrawFormatString(242, 12, GetColor(0, 0, 0), "タイム : %d", SaveTime);
-	DrawFormatString(240, 10, GetColor(255, 255, 255), "タイム : %d", SaveTime);
+	DrawFormatString(242, 12, TimeBlackColor, "タイム : %d", SaveTime);
+	DrawFormatString(240, 10, TimeWhiteColor, "タイム : %d", SaveTime);
 
 }

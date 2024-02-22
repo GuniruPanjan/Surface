@@ -61,8 +61,6 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 
 		LoadDivGraph("date/WalkEnemy.png", 12, 6, 2, 20, 25, enemy[i].WalkEnemyGraph);
 
-		//enemy[i].WalkEnemyGraph = date.WalkEnemyGraph;
-
 		LoadDivGraph("date/îöî≠Down.png", 14, 8, 2, 30, 30, enemy[i].Handle);
 
 		enemy[i].AnimCount = 9;
@@ -75,15 +73,9 @@ void WalkEnemy::Init(WalkEnemyStruct enemy[], WalkEnemy& Wenemy,int WenemySize,E
 		enemy[i].WalkShotDeadPoint = false;
 		enemy[i].WalkShotDeadSE = false;
 
-		//enemy[i].SEWalkEnemy = LoadSoundMem("SE/se_blood03.mp3");
-
 		enemy[i].SEWalkEnemy = date.WalkEnemySound;
 
-		//enemy[i].SEWalkEnemyDead1 = LoadSoundMem("SE/îöî≠1.mp3");
-
 		enemy[i].SEWalkEnemyDead1 = date.WalkEnmeyDeadSound1;
-
-		//enemy[i].SEWalkEnemyDead2 = LoadSoundMem("SE/åöï®Ç™è≠ÇµïˆÇÍÇÈ2.mp3");
 
 		enemy[i].SEWalkEnemyDead2 = date.WalkEnmeyDeadSound2;
 

@@ -18,6 +18,9 @@ static int b;    //画像透過用変数
 // マウスの座標を取得するための変数
 int EMouseX, EMouseY;
 
+//マウスの当たり判定の幅
+int ExplanationMouseDecisionX, ExplanationMouseDecisionY;
+
 int EColor, EBlack, EYello;
 
 bool EMenu;
@@ -27,6 +30,12 @@ int SoundExplanation;
 
 //SE用格納変数
 int SEClickExplanation;
+
+//画像を暗くする変数
+int ExplanationDarken;
+
+//元の画像の明るさ変数
+int ExplanationFormer;
 
 //初期化
 void Explanation_Initialize()
@@ -49,6 +58,12 @@ void Explanation_Initialize()
 	SoundExplanation = LoadSoundMem("BGM/水面影絵.mp3");
 
 	SEClickExplanation = LoadSoundMem("SE/決定ボタンを押す40.mp3");
+
+	ExplanationMouseDecisionX = 10;
+	ExplanationMouseDecisionY = 10;
+
+	ExplanationDarken = 120;
+	ExplanationFormer = 255;
 }
 
 //終了処理
@@ -86,7 +101,7 @@ void Explanation_Update()
 	{
 		EColor = EYello;
 
-		b = 120;
+		b = ExplanationDarken;
 
 		//左クリックを押したとき
 		if (GetMouseInput() & MOUSE_INPUT_LEFT)
@@ -101,7 +116,7 @@ void Explanation_Update()
 	{
 		EColor = EBlack;
 
-		b = 255;
+		b = ExplanationFormer;
 	}
 
 	PlaySoundMem(SoundExplanation, DX_PLAYTYPE_LOOP, FALSE);
@@ -113,7 +128,7 @@ void Explanation_Draw()
 {
 	DrawGraph(-93, 0, ExplanationHandle, TRUE);
 
-	m_EMouse.SetCenter(EMouseX, EMouseY + 5, 10, 10);
+	m_EMouse.SetCenter(static_cast<float>(EMouseX), static_cast<float>(EMouseY + 5), static_cast<float>(ExplanationMouseDecisionX), static_cast<float>(ExplanationMouseDecisionY));
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(120, 395, Botton, true);
@@ -121,7 +136,4 @@ void Explanation_Draw()
 
 	m_ERect.SetCenter(180, 410, 120, 30);
 	DrawString(135, 397, "タイトル", EColor);
-
-	/*m_ERect.Draw(GetColor(255, 0, 0), false);
-	m_EMouse.Draw(GetColor(255, 0, 0), false);*/
 }

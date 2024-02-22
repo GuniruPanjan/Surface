@@ -24,6 +24,12 @@ bool gameover;
 //マウスの座標を取得するための変数
 int  gmMouseX, gmMouseY;
 
+//マウスの当たり判定の幅
+int GameOverMouseDecisionX, GameOverMouseDecisionY;
+
+//GameOver文字出力する場所変数
+int GameOverX, GameOverY;
+
 //サウンド用格納変数
 int SoundGameOver;
 
@@ -55,6 +61,12 @@ void GameOver_Initialize()
 	SoundGameOver = LoadSoundMem("BGM/英霊の墓.mp3");
 
 	SEClickGameOver = LoadSoundMem("SE/決定ボタンを押す40.mp3");
+
+	GameOverMouseDecisionX = 10;
+	GameOverMouseDecisionY = 10;
+
+	GameOverX = 70;
+	GameOverY = 0;
 }
 
 //終了処理
@@ -130,10 +142,10 @@ void GameOver_Draw()
 {
 	DrawGraph(0, 0, mimageHandle, false);
 
-	DrawGraph(70, 0, GameOverHandle, true);
+	DrawGraph(GameOverX, GameOverY, GameOverHandle, true);
 
 	//マウスの当たり判定取得
-	Mouse.SetCenter(static_cast<float>(gmMouseX), static_cast<float>(gmMouseY + 5), static_cast<float>(10), static_cast<float>(10));
+	Mouse.SetCenter(static_cast<float>(gmMouseX), static_cast<float>(gmMouseY + 5), static_cast<float>(GameOverMouseDecisionX), static_cast<float>(GameOverMouseDecisionY));
 
 	//ボタンの表示
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);

@@ -74,13 +74,21 @@ void HP::PlayerHPInit()
 
 	PointHP = false;
 	PointAttack = false;
+
+	AttackClick = false;
+
+	UIMouseDecisionX = 10;
+	UIMouseDecisionY = 10;
+
+	UIWhiteColor = GetColor(255, 255, 255);
+	UIBlackColor = GetColor(0, 0, 0);
 }
 
 void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Shot shot[])
 {
 	GetMousePoint(&MouseX, &MouseY);
 
-	m_Mouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast<float>(10), static_cast<float>(10));
+	m_Mouse.SetCenter(static_cast<float>(MouseX), static_cast<float>(MouseY + 5), static_cast<float>(UIMouseDecisionX), static_cast<float>(UIMouseDecisionY));
 
 	//攻撃力を強化するたびに必要なポイントを増やしていく
 	if (AttackCount == 1)
@@ -104,7 +112,7 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 	//HP回復
 	DrawString(15, 20, "HP全回復", GreenColor, true);
-	DrawFormatString(110, 20, GetColor(255, 255, 255), "%dpt", HPBuy);
+	DrawFormatString(110, 20, UIWhiteColor, "%dpt", HPBuy);
 
 	if (point.PointPoint >= HPBuy && player.HP < 10)
 	{
@@ -143,7 +151,7 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 	
 
 	DrawString(15, 100, "攻撃力UP", RedColor, true);
-	DrawFormatString(110, 100, GetColor(255, 255, 255), "%dpt", AttackShop);
+	DrawFormatString(110, 100, UIWhiteColor, "%dpt", AttackShop);
 
 	if (AttackCount <= 3)
 	{
@@ -165,24 +173,31 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 				//ボタンに当たっているときに弾が撃てないようにする
 				player.PlayerShotFlag = true;
 
-				//左クリックを押したとき
-				if (GetMouseInput() & MOUSE_INPUT_LEFT)
+				//連続でクリックできないようにするため
+				if (AttackClick == false)
 				{
-					for (int i = 0; i < SHOT; i++)
+					//左クリックを押したとき
+					if (GetMouseInput() & MOUSE_INPUT_LEFT)
 					{
-						PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
+						for (int i = 0; i < SHOT; i++)
+						{
+							PlaySoundMem(PointAttackChangeUse, DX_PLAYTYPE_BACK, TRUE);
 
-						shot[i].Damage += 2;
+							shot[i].Damage += 2;
+
+						}
+
+						PointAttack = true;
+
+						AttackCount += 1;
+
+						point.PointShop -= AttackShop;
 
 					}
 
-					PointAttack = true;
-
-					AttackCount += 1;
-
-					point.PointShop -= AttackShop;
-
+					AttackClick = true;
 				}
+				
 			}
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, b2);
 			DrawGraph(30, 140, Botton, true);
@@ -248,15 +263,15 @@ void HP::PlayerHP(Player& player, Background& back, Save& save, Point& point, Sh
 
 	//プレイヤーの真上に表示される
 	SetFontSize(15);
-	DrawFormatString(static_cast<int>(player.PlayerX - 30), static_cast<int>(player.PlayerY - 50), GetColor(255, 255, 255), "%s", save.String);
-	DrawFormatString(310, 410, GetColor(255, 255, 255), "%s", save.String);
+	DrawFormatString(static_cast<int>(player.PlayerX - 30), static_cast<int>(player.PlayerY - 50), UIWhiteColor, "%s", save.String);
+	DrawFormatString(310, 410, UIWhiteColor, "%s", save.String);
 	DrawGraph(310, 430, HPberGraph[player.HP], true);
 
 	SetFontSize(20);
 	//画面の左端に描く
 	DrawGraph(30, 410, MagazineGraph[player.Bullet], true);
-	DrawFormatString(38, 432, GetColor(0, 0, 0), "%d", player.Bullet);
-	DrawFormatString(36, 430, GetColor(255, 255, 255), "%d", player.Bullet);
+	DrawFormatString(38, 432, UIBlackColor, "%d", player.Bullet);
+	DrawFormatString(36, 430, UIWhiteColor, "%d", player.Bullet);
 
 	//Reloadタイムを描画する
 	DrawGraph(70, 410, ReloadGraph[player.BulletTime / 2], true);

@@ -22,5 +22,11 @@ public:
 	int time;  //スタート時刻を記憶しておく
 
 	int SaveTime;  //時間をセーブする
+
+	//白色を入れる変数
+	int TimeWhiteColor;
+
+	//黒色を入れる変数
+	int TimeBlackColor;
 };
 

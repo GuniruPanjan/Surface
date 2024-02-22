@@ -38,11 +38,23 @@ bool CRecord;
 
 int SceneTime;
 
+//スコアの場所表示
+int ScoreX, ScoreY, HiScoreX;
+
+//マウスの当たり判定の幅
+int MouseDecisionX, MouseDecisionY;
+
+//背景を暗くするための変数
+int Darken;
+
 //サウンド用格納変数
 int SoundConfig;
 
 //SE用格納変数
 int SEClickConfig;
+
+//白色を入れる変数
+int WhiteColor;
 
 //初期化
 void Config_Initialize()
@@ -78,6 +90,19 @@ void Config_Initialize()
 	SoundConfig = LoadSoundMem("BGM/優しい窓辺.mp3");
 
 	SEClickConfig = LoadSoundMem("SE/決定ボタンを押す40.mp3");
+
+	ScoreX = 100;
+
+	ScoreY = 20;
+
+	HiScoreX = 400;
+
+	MouseDecisionX = 10;
+	MouseDecisionY = 10;
+
+	Darken = 125;
+
+	WhiteColor = GetColor(255, 255, 255);
 
 }
 
@@ -187,22 +212,22 @@ void Config_Draw(Point& point,TimeCount& timecount)
 
 	
 	//背景描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, Darken);
 	DrawGraph(-106, 0, mimageHandle[AnimCount], TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 125);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Darken);
 
 	//セーブデータの読み込み
 	savedate.SaveLoad();
 	//ハイスコアの読み込み
 	savedate.SaveHiscoreLoad();
 
-	DrawFormatString(100, 20, GetColor(255, 255, 255), "今回のスコア");
+	DrawFormatString(ScoreX, ScoreY, WhiteColor, "今回のスコア");
 
-	DrawFormatString(400, 20, GetColor(255, 255, 255), "ハイスコア");
+	DrawFormatString(HiScoreX, ScoreY, WhiteColor, "ハイスコア");
 
-	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), 10, 10);
+	m_Mouse.SetCenter(static_cast<float>(CMouseX), static_cast<float>(CMouseY + 5.0f), static_cast<float>(MouseDecisionX), static_cast<float>(MouseDecisionY));
 
-	//背景を暗く描画する
+	//ボタンを暗く描画する
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, b);
 	DrawGraph(263, 275, Botton, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

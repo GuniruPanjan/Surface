@@ -26,5 +26,14 @@ public:
 
 	//エネミーの出現時間
 	int WalkEnemyTime = 0;
+
+	//白色を入れる変数
+	int ScoreWhiteColor;
+
+	//黒色を入れる変数
+	int ScoreBlackColor;
+
+	//移動した距離で入るポイント数
+	int AdditionMove;
 };
 

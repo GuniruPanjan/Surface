@@ -94,8 +94,6 @@ void Save::SaveDate(Point& point,TimeCount& timecount)
 		
 	}
 
-	//fprintf(fp, "スコア:%d\nタイム:%d秒\n距離:%dm", point.PointPoint, timecount.SaveTime, point.DistancePoint);
-
 	fwrite(&save_date, sizeof(save_date), 1, fp);   //save_date構造体の中身を出力
 
 	fprintf_s(FNameDis, String);        //名前を記入する
@@ -181,10 +179,10 @@ void Save::SaveLoad()
 	fread(&NameDisplay, sizeof(NameDisplay), 1, FNameDis);
 
 	//ファイルのデータを出力
-	DrawFormatString(100, 60, GetColor(255, 255, 255), "%s", NameDisplay.NameDisplay);
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "スコア:%d", save_date.Point);
-	DrawFormatString(100, 150, GetColor(255, 255, 255), "タイム:%d秒", save_date.Time);
-	DrawFormatString(100, 200, GetColor(255, 255, 255), "距離:%dm", save_date.Distance);
+	DrawFormatString(100, 60, White, "%s", NameDisplay.NameDisplay);
+	DrawFormatString(100, 100, White, "スコア:%d", save_date.Point);
+	DrawFormatString(100, 150, White, "タイム:%d秒", save_date.Time);
+	DrawFormatString(100, 200, White, "距離:%dm", save_date.Distance);
 
 	fclose(fp);
 	fclose(FNameDis);
@@ -210,10 +208,10 @@ void Save::SaveHiscoreLoad()
 	fread(&NameSave, sizeof(NameSave), 1, FName);
 
 	//ファイルのデータを出力
-	DrawFormatString(400, 60, GetColor(255, 255, 255), "%s", NameSave.Name);
-	DrawFormatString(400, 100, GetColor(255, 255, 255), "ハイスコア:%d", save_hiscore.Point);
-	DrawFormatString(400, 150, GetColor(255, 255, 255), "タイム:%d秒", save_hiscore.Time);
-	DrawFormatString(400, 200, GetColor(255, 255, 255), "距離:%dm", save_hiscore.Distance);
+	DrawFormatString(400, 60, White, "%s", NameSave.Name);
+	DrawFormatString(400, 100, White, "ハイスコア:%d", save_hiscore.Point);
+	DrawFormatString(400, 150, White, "タイム:%d秒", save_hiscore.Time);
+	DrawFormatString(400, 200, White, "距離:%dm", save_hiscore.Distance);
 
 	fclose(HiFp);
 	fclose(FName);

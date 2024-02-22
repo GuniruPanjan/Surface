@@ -70,8 +70,6 @@ void SkyEnemy::Init(SkyEnemyStruct& enemy, SkyEnemy& Senemy,EnemyLoadDate& date)
 
 	LoadDivGraph("date/SkyEnemy.png", 3, 3, 1, 15, 20, enemy.SkyHandle);
 
-	//enemy.SESkyEnemyDead = LoadSoundMem("SE/se_tsubureru04.mp3");
-
 	enemy.SESkyEnemyDead = date.SkyEnemyDead;
 
 	enemy.SE = false;

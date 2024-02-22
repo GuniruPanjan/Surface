@@ -23,5 +23,8 @@ public:
 	int UK = 0;
 	int LK = 0;
 	int RK = 0;
+
+	//”’F‚ğ•`‰æ‚·‚é
+	int WhiteColor;
 };
 

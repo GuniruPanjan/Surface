@@ -52,8 +52,20 @@ public:
 	//点滅変数
 	int Blinking;
 
+	//ボタンを連続でクリックしないようにする変数
+	bool AttackClick = false;
+
 	//マウスの座標取得
 	int MouseX, MouseY;
+
+	//マウスの当たり判定の幅
+	int UIMouseDecisionX, UIMouseDecisionY;
+
+	//白色を入れる変数
+	int UIWhiteColor;
+
+	//黒色を入れる変数
+	int UIBlackColor;
 
 	//ボタン当たり判定
 	Rect m_HP;

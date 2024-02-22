@@ -278,10 +278,16 @@ void Game_Draw()
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Yello);
 
 				hp.PointAttack = false;
+				
 			}
 			if (Yello >= 0)
 			{
 				Yello--;
+			}
+			//Yelloが0未満だとクリックできるようにする
+			if (Yello <= 0)
+			{
+				hp.AttackClick = false;
 			}
 
 			//プレイヤーが死亡すると

@@ -7,7 +7,7 @@ Background::Background():
 	BackY(0),
 	RedTitle(0),
 	Red(0),
-	WaveCount(1)
+	Darken(0)
 {
 }
 
@@ -35,19 +35,20 @@ void Background::Init()
 
 	BackY = 0;
 
-	WaveCount = 1;
+	Darken = 75;
+
 }
 
 void Background::Draw()
 {
 	//îwåiÇà√Ç≠ï`âÊÇ∑ÇÈ
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 75);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, Darken);
 	DrawGraph(0, 0, BackGroundGraph, true);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 75);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Darken);
 	//îwåiÇìÆÇ©Ç∑
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 75);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, Darken);
 	DrawGraph(BackX, BackY, BackGroundGraph, true);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 75);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, Darken);
 
 	//É_ÉÅÅ[ÉWÇãÚÇÁÇ§Ç∆îwåiÇ™ê‘Ç≠Ç»Ç¡ÇƒÇ¢Ç≠
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, Red);
