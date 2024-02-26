@@ -7,6 +7,7 @@
 
 SceneFedo settingfedo;
 
+//Save savedate;
 Save savedate;
 
 Point savepoint;

@@ -106,8 +106,6 @@ void Player::FinalizePlayer(Player& player, Shot shot[],Shield& shield)
 
 void Player::Init(Shield& shield ,Player& player)
 {
-	//DrawGraph(PlayerX, PlayerY, playerGraph, true);
-
 	player.BulletTime = 0;
 
 	player.Aiming = LoadGraph("date/ïWèÄ.png");
