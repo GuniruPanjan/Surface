@@ -12,7 +12,7 @@ public:
 	void Draw();
 
 	//ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹‚ÌŽæ“¾
-	int GetModelHandle() { return ModelHandle; }
+	//int GetModelHandle() { return ModelHandle; }
 
 private:
 
