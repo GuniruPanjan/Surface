@@ -5,8 +5,6 @@
 #include<math.h>
 
 
-
-class Shot;
 GraphMode graph;
 
 Player::Player():
