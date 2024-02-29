@@ -27,10 +27,10 @@ struct MapEd
 
 class Shot;
 class Player;
-class WalkEnemyStruct;
-class SkyEnemyStruct;
-class DistanceEnemyStruct;
-class EnemyShot;
+struct WalkEnemyStruct;
+struct SkyEnemyStruct;
+struct DistanceEnemyStruct;
+struct EnemyShot;
 
 class Map
 {

@@ -162,6 +162,9 @@ void Save::NameOutPut()
 
 void Save::SaveLoad()
 {
+	//セーブファイルの表示色
+	int SaveFailColor = GetColor(255, 255, 255);
+
 	FILE* fp;
 	FILE* FNameDis;
 
@@ -179,10 +182,10 @@ void Save::SaveLoad()
 	fread(&NameDisplay, sizeof(NameDisplay), 1, FNameDis);
 
 	//ファイルのデータを出力
-	DrawFormatString(100, 60, GetColor(255,255,255), "%s", NameDisplay.NameDisplay);
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "スコア:%d", save_date.Point);
-	DrawFormatString(100, 150, GetColor(255, 255, 255), "タイム:%d秒", save_date.Time);
-	DrawFormatString(100, 200, GetColor(255, 255, 255), "距離:%dm", save_date.Distance);
+	DrawFormatString(100, 60, SaveFailColor, "%s", NameDisplay.NameDisplay);
+	DrawFormatString(100, 100, SaveFailColor, "スコア:%d", save_date.Point);
+	DrawFormatString(100, 150, SaveFailColor, "タイム:%d秒", save_date.Time);
+	DrawFormatString(100, 200, SaveFailColor, "距離:%dm", save_date.Distance);
 
 	fclose(fp);
 	fclose(FNameDis);
@@ -191,6 +194,9 @@ void Save::SaveLoad()
 
 void Save::SaveHiscoreLoad()
 {
+	//セーブファイルの表示色
+	int SaveFailColor = GetColor(255, 255, 255);
+
 	FILE* HiFp;
 	FILE* FName;
 
@@ -208,10 +214,10 @@ void Save::SaveHiscoreLoad()
 	fread(&NameSave, sizeof(NameSave), 1, FName);
 
 	//ファイルのデータを出力
-	DrawFormatString(400, 60, GetColor(255, 255, 255), "%s", NameSave.Name);
-	DrawFormatString(400, 100, GetColor(255, 255, 255), "ハイスコア:%d", save_hiscore.Point);
-	DrawFormatString(400, 150, GetColor(255, 255, 255), "タイム:%d秒", save_hiscore.Time);
-	DrawFormatString(400, 200, GetColor(255, 255, 255), "距離:%dm", save_hiscore.Distance);
+	DrawFormatString(400, 60, SaveFailColor, "%s", NameSave.Name);
+	DrawFormatString(400, 100, SaveFailColor, "ハイスコア:%d", save_hiscore.Point);
+	DrawFormatString(400, 150, SaveFailColor, "タイム:%d秒", save_hiscore.Time);
+	DrawFormatString(400, 200, SaveFailColor, "距離:%dm", save_hiscore.Distance);
 
 	fclose(HiFp);
 	fclose(FName);

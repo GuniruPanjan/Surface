@@ -8,7 +8,7 @@ class Player;
 class Shot;
 class Point;
 class TimeCount;
-class Shield;
+struct Shield;
 
 struct SkyEnemyStruct : public EnemyBase
 {
