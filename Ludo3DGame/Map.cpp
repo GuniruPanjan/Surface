@@ -15,7 +15,7 @@ Map::~Map()
 
 void Map::Init()
 {
-	ModelHandle = MV1LoadModel("date/MapModel/Map.mb");
+	ModelHandle = MV1LoadModel("date/MapModel/Map.mv1");
 
 	WhiteColor = GetColor(255, 255, 255);
 	BrackColor = GetColor(0, 0, 0);
@@ -31,5 +31,6 @@ void Map::Draw()
 	//ŽŽ‚µ‚ÅCube‚ð•`‰æ
 	DrawCube3D(pos, pos2, WhiteColor, WhiteColor, false);
 
+	//ƒ‚ƒfƒ‹•\‹L
 	MV1SetPosition(ModelHandle, pos);
 }
