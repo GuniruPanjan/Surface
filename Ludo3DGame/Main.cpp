@@ -1,10 +1,18 @@
 #include "DxLib.h"
 #include "Map.h"
 #include "Camera.h"
+#include "Dice.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//ウィンドウのサイズ変更
+	int WindowSizeX, WindowSizeY;
+	WindowSizeX = 1280;
+	WindowSizeY = 960;
+
+	SetWindowSize(WindowSizeX, WindowSizeY);
+
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
 	ChangeWindowMode(true);
 
@@ -19,9 +27,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//カメラを生成
 	Camera* camera = new Camera;
 
+	//ダイスを生成
+	Dice* dice = new Dice;
+
 
 	map->Init();
 	camera->Init();
+	dice->Init();
 
 
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -39,6 +51,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		map->Draw();
 
 		camera->Update();
+
+		dice->Update();
+		dice->Draw();
 
 		// 画面が切り替わるのを待つ
 		ScreenFlip();

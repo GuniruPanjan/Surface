@@ -25,6 +25,12 @@
     <Filter Include="ヘッダー ファイル\Camera">
       <UniqueIdentifier>{c579f15b-4782-473b-ae25-0b9588effb1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Dice">
+      <UniqueIdentifier>{1d3e0598-7e86-4137-8ad1-7b72c8880bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Dice">
+      <UniqueIdentifier>{258b5474-8104-471a-a387-c28238b00d3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,6 +42,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Dice.cpp">
+      <Filter>ソース ファイル\Dice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -43,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>ヘッダー ファイル\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Dice.h">
+      <Filter>ヘッダー ファイル\Dice</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

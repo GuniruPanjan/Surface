@@ -5,12 +5,14 @@ Map::Map():
 	BrackColor(0),
 	ModelHandle(0)
 {
-	pos = VGet(0, 0, 0);
+	pos = VGet(-100, -300, 0);
 	pos2 = VGet(100, 100, 100);
 }
 
 Map::~Map()
 {
+	//モデルハンドルの削除
+	MV1DeleteModel(ModelHandle);
 }
 
 void Map::Init()
@@ -19,6 +21,9 @@ void Map::Init()
 
 	WhiteColor = GetColor(255, 255, 255);
 	BrackColor = GetColor(0, 0, 0);
+
+	//モデルを移動
+	MV1SetPosition(ModelHandle, pos);
 }
 
 void Map::Update()
@@ -29,8 +34,10 @@ void Map::Update()
 void Map::Draw()
 {
 	//試しでCubeを描画
-	DrawCube3D(pos, pos2, WhiteColor, WhiteColor, false);
+	//DrawCube3D(VGet(0,0,0), pos2, WhiteColor, WhiteColor, false);
 
-	//モデル表記
-	MV1SetPosition(ModelHandle, pos);
+	//3Dモデルの描画
+	MV1DrawModel(ModelHandle);
+
+
 }

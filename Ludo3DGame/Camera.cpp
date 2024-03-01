@@ -1,4 +1,7 @@
 #include "Camera.h"
+#include "Map.h"
+
+Map* map = new Map;
 
 Camera::Camera():
 	Near(0.1f),
@@ -7,11 +10,7 @@ Camera::Camera():
 	//奥行0.1～1000までをカメラの描画範囲とする
 	SetCameraNearFar(Near, Far);
 
-	Position = VGet(0.0f, 10.0f, -20.0f);
-	Target = VGet(0.0f, 10.0f, 0.0f);
-
-	//(0,10,-20)の視点から(0,10,0)のターゲットを見る角度にカメラを設置
-	SetCameraPositionAndTarget_UpVecY(Position, Target);
+	
 }
 
 Camera::~Camera()
@@ -20,6 +19,12 @@ Camera::~Camera()
 
 void Camera::Init()
 {
+	Position = VGet(0.0f, 100.0f, -1.0f);
+	//Target = map->pos;
+	Target = VGet(0, 0, 0);
+
+	//(0,10,-20)の視点からのターゲットを見る角度にカメラを設置
+	SetCameraPositionAndTarget_UpVecY(Position, Target);
 }
 
 void Camera::Update()

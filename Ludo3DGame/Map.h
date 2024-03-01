@@ -11,15 +11,13 @@ public:
 	void Update();
 	void Draw();
 
-	//モデルハンドルの取得
-	//int GetModelHandle() { return ModelHandle; }
+	VECTOR pos, pos2;
 
 private:
 
 	//マップのモデルハンドル
 	int ModelHandle;
-
-	VECTOR pos, pos2;
+	
 	int WhiteColor, BrackColor;
 };
 
