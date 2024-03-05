@@ -9,7 +9,8 @@ Dice::Dice():
 	MouseZ(0),
 	DiceTurn(false),
 	DiceGravity(0),
-	posY(0)
+	posY(0),
+	posX(0)
 {
 }
 
@@ -23,11 +24,13 @@ void Dice::Init()
 {
 	//モデルの読み込み
 	DiceModelHandle = MV1LoadModel("date/DiceModel/Dice1S.mv1");
-
-	posY = -250.0f;
+	//サイコロのY座標
+	posY = -500.0f;
+	//サイコロのX座標
+	posX = 300.0f;
 
 	//DiceSサイズのVECTOR
-	posS = VGet(180.0f, -250.0f, 0.0f);
+	posS = VGet(300.0f, -500.0f, 0.0f);
 	//DiceMサイズのVECTOR
 	posM = VGet(0.0f, 0.0f, 0.0f);
 
@@ -43,24 +46,37 @@ void Dice::Update()
 	//マウスカーソル位置取得
 	//GetMousePoint(&MouseX, &MouseZ);
 
-	//左クリック長押しでサイコロを振り回す
-	if (GetMouseInput() & MOUSE_INPUT_LEFT)
+	//サイコロを回してないとき
+	if (DiceTurn == false)
 	{
-		
-		//マウス追従
-		//posS = VGet(MouseX - 300, -250.0f, -MouseZ + 225);
+		X += 0.01f;
+		Y += 0.02f;
+		Z += 0.03f;
 
-		DiceTurn = true;
+		//左クリックをしていないとき
+		if ((GetMouseInput() & MOUSE_INPUT_LEFT) == 0)
+		{
+			MV1SetRotationXYZ(DiceModelHandle, VGet(X, Y, Z));
+		}
+		//左クリック長押しでサイコロを振り回す
+		else if (GetMouseInput() & MOUSE_INPUT_LEFT)
+		{
 
+			//マウス追従
+			//posS = VGet(MouseX - 300, -250.0f, -MouseZ + 225);
+
+			DiceTurn = true;
+
+		}
 	}
 
 	//サイコロを回すと重力を与える準備をする
-	if (DiceTurn == true)
+	if (DiceTurn == true && posY >= -1000)
 	{
 		//左クリックを押している間
-		X += GetRand(3);
-		Y += GetRand(3);
-		Z += GetRand(3);
+		X += GetRand(2);
+		Y += GetRand(2);
+		Z += GetRand(2);
 
 		MV1SetRotationXYZ(DiceModelHandle, VGet(X, Y, Z));
 
@@ -68,7 +84,7 @@ void Dice::Update()
 		//左クリックをしていないとき
 		if ((GetMouseInput() & MOUSE_INPUT_LEFT) == 0)
 		{
-			posS = VGet(180.0f, posY -= DiceGravity, 0.0f);
+			posS = VGet(posX, posY -= DiceGravity, 0.0f);
 		}
 	}
 

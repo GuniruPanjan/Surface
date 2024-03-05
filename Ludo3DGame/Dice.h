@@ -19,7 +19,7 @@ private:
 	VECTOR posM, posS;      //Diceのポジション
 
 	//サイコロのポジション
-	float posY;
+	float posY,posX;
 
 	//モデルを回転させる変数
 	float X, Y, Z;

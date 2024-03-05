@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "Camera.h"
 #include "Dice.h"
+#include "Background.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -30,6 +31,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ダイスを生成
 	Dice* dice = new Dice;
 
+	//背景を生成
+	Background* Back = new Background;
+
 
 	map->Init();
 	camera->Init();
@@ -48,12 +52,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ゲームの処理
-		map->Draw();
+		Back->Draw();
+
+		//map->Draw();
 
 		camera->Update();
 
 		dice->Update();
 		dice->Draw();
+		
 
 		// 画面が切り替わるのを待つ
 		ScreenFlip();
