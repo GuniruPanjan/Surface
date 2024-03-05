@@ -17,6 +17,8 @@ private:
 
 	//マップのモデルハンドル
 	int ModelHandle;
+	//テーブルのモデルハンドル
+	int TableHandle;
 	
 	int WhiteColor, BrackColor;
 };

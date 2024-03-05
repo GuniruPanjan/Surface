@@ -33,40 +33,40 @@ void Camera::Update()
 	int Key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	// 上を押していたら上に進む
-	if (Key & PAD_INPUT_UP)
-	{
-		Position.z += 1;
-	}
+	//if (Key & PAD_INPUT_UP)
+	//{
+	//	Position.z += 1;
+	//}
 
-	// 下を押していたら下に進む
-	if (Key & PAD_INPUT_DOWN)
-	{
-		Position.z -= 1;
-	}
+	//// 下を押していたら下に進む
+	//if (Key & PAD_INPUT_DOWN)
+	//{
+	//	Position.z -= 1;
+	//}
 
-	// 右を押していたら右に進む
-	if (Key & PAD_INPUT_RIGHT)
-	{
-		Position.x += 1;
-	}
+	//// 右を押していたら右に進む
+	//if (Key & PAD_INPUT_RIGHT)
+	//{
+	//	Position.x += 1;
+	//}
 
-	// 左を押していたら左に進む
-	if (Key & PAD_INPUT_LEFT)
-	{
-		Position.x -= 1;
-	}
+	//// 左を押していたら左に進む
+	//if (Key & PAD_INPUT_LEFT)
+	//{
+	//	Position.x -= 1;
+	//}
 
-	//Wを押していたら上に進む
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		Position.y += 1;
-	}
+	////Wを押していたら上に進む
+	//if (CheckHitKey(KEY_INPUT_W))
+	//{
+	//	Position.y += 1;
+	//}
 
-	//Sを押していたら下に進む
-	if (CheckHitKey(KEY_INPUT_S))
-	{
-		Position.y -= 1;
-	}
+	////Sを押していたら下に進む
+	//if (CheckHitKey(KEY_INPUT_S))
+	//{
+	//	Position.y -= 1;
+	//}
 
 
 	//カメラに位置を反映
