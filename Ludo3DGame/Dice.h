@@ -15,11 +15,30 @@ public:
 	bool DiceTurn;
 
 private:
+	//ダイスの動き
+	//ジャンプさせてランダムな方向に跳ねさせる
+	//ジャンプさせる
+	float DiceRebound;
+	//ランダムな方向に跳ねさせる
+	bool DiceDirection;
+
+	//ジャンプさせるフラグ
+	bool DiceJump;
+
+	//サイコロの動きの終了フラグ
+	bool DiceEnd;
+
+	//サイコロのランダム
+	int DiceRandom;
+
+	//サイコロの目の保存
+	int DiceRoll;
+
 	int DiceModelHandle;    //Diceのモデル格納変数
 	VECTOR posM, posS;      //Diceのポジション
 
 	//サイコロのポジション
-	float posY,posX;
+	float posY,posX,posZ;
 
 	//モデルを回転させる変数
 	float X, Y, Z;
@@ -28,7 +47,7 @@ private:
 	int MouseX, MouseZ;
 
 	//サイコロの重力
-	int DiceGravity;
+	int DiceGravityY, DiceGravityX;
 
 };
 

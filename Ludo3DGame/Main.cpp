@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// ƒQ[ƒ€‚Ìˆ—
 		Back->Draw();
 
-		//map->Draw();
+		map->Draw();
 
 		camera->Update();
 

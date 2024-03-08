@@ -5,7 +5,7 @@ Map::Map():
 	BrackColor(0),
 	ModelHandle(0)
 {
-	pos = VGet(-100, -300, 0);
+	pos = VGet(-100, -1000, 0);
 	pos2 = VGet(0, -400, 0);
 }
 
