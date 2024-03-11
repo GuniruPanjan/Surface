@@ -61,6 +61,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		dice->Update();
 		dice->Draw();
 		
+		if (CheckHitKey(KEY_INPUT_A))
+		{
+			dice->Init();
+		}
+
 
 		// ‰æ–Ê‚ªØ‚è‘Ö‚í‚é‚Ì‚ğ‘Ò‚Â
 		ScreenFlip();

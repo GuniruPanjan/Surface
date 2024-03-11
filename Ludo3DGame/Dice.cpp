@@ -40,6 +40,13 @@ void Dice::Init()
 	//サイコロのZ座標
 	posZ = 0.0f;
 
+	//サイコロの振った判定
+	DiceTurn = false;
+
+	DiceJump = false;
+
+	DiceEnd = false;
+
 	//DiceSサイズのVECTOR
 	posS = VGet(300.0f, -500.0f, 0.0f);
 	//DiceMサイズのVECTOR
