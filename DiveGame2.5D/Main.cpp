@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include<memory>
+#include "GraphMode.h"
 #include "SceneManager.h"
 
 // プログラムは WinMain から始まります
@@ -7,6 +8,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
 	ChangeWindowMode(true);
+
+	//Windowサイズを管理するポインタ
+	std::shared_ptr<GraphMode> graph = std::make_shared<GraphMode>();
+
+	//Windowの画像サイズ変更
+	SetWindowSize(graph->GraphModeWidth, graph->GraphModeHeight);
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{

@@ -1,5 +1,8 @@
 #include "Player.h"
+#include "Rect.h"
 #include "DxLib.h"
+
+Rect* rect;
 
 Player::Player():
 	m_playerX(0.0f),
@@ -20,9 +23,9 @@ void Player::Init()
 	//プレイヤーに重力を与える
 	m_gravity = 0.5f;
 	//プレイヤーが移動できるスピード
-	m_move = 0.5f;
+	m_move = 1.0f;
 	//プレイヤーのグラフを読み込む
-	m_playergraph = DrawCircle(320, 50, 5, GetColor(255, 255, 255), true);
+	
 }
 
 void Player::Update()
@@ -31,23 +34,34 @@ void Player::Update()
 	m_playerY += m_gravity;
 
 	//プレイヤーは落下中移動できる
-	//左矢印を押した時
-	if (CheckHitKey(KEY_INPUT_LEFT))
+	//画面外に行かないように
+	if (m_playerX >= 0)
 	{
-		m_playerX -= m_move;
+		//左矢印を押した時
+		if (CheckHitKey(KEY_INPUT_LEFT))
+		{
+			m_playerX -= m_move;
+		}
 	}
-	//右矢印を押した時
-	if (CheckHitKey(KEY_INPUT_RIGHT))
+	//画面外に行かないように
+	if (m_playerX <= 640)
 	{
-		m_playerX += m_move;
+		
+		//右矢印を押した時
+		if (CheckHitKey(KEY_INPUT_RIGHT))
+		{
+			m_playerX += m_move;
+		}
 	}
+	
 
 }
 
 void Player::Draw()
 {
 	//プレイヤーを描画する
-	DrawGraph(static_cast<int>(m_playerX), static_cast<int>(m_playerY), m_playergraph, false);
+	m_playergraph = DrawCircle(m_playerX, m_playerY, 10, GetColor(255, 255, 255), true);
+	
 
 }
 
