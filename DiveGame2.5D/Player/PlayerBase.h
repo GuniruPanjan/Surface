@@ -16,6 +16,8 @@ public:
 protected:
 	//プレイヤーが落下するときの重力ベクトル
 	float m_gravity;
+	//プレイヤーが急降下するときのベクトル
+	float m_swoop;
 	//プレイヤーが移動するときのベクトル
 	float m_move;
 	//プレイヤーのグラフ格納変数
