@@ -154,6 +154,7 @@ void Map::DrawMap(int ScrollX, Shot& shot,Player& player,WalkEnemyStruct Wenemy[
 				//“–‚½‚è”»’è‚ÌXV
 				m_colRect.SetCenter(static_cast<float>(j * MAPCHIP_WIDTH + 10 + ScrollX), static_cast<float>(i * MAPCHIP_HEIGHT + 10), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
 				
+				m_colRect.Draw(GetColor(255, 0, 0), false);
 
 				//shot‚Ì“–‚½‚è”»’èfalse
 				if (m_colRect.IsCollision(shot.m_colRect) == false)
