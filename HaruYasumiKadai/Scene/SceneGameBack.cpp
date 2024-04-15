@@ -18,7 +18,7 @@ SceneGameBack::~SceneGameBack()
 void SceneGameBack::Init()
 {
 	//Player‚ÌInit
-	Play.Init();
+	Play.InitBack();
 
 	//Map‚ÌInit
 	map.Init();
@@ -33,7 +33,7 @@ void SceneGameBack::Init()
 std::shared_ptr<SceneBase> SceneGameBack::Update()
 {
 	//Player‚ÌUpdate
-	Play.Update();
+	Play.UpdateBack();
 
 	//Map‚ÌUpdate
 	map.Update();
@@ -77,7 +77,7 @@ void SceneGameBack::Draw()
 
 	//Player‚ð•`‚­
 	//player->Draw();
-	Play.Draw();
+	Play.DrawBack();
 
 	//BlackHole‚ð•`‚­
 	blackhole.Draw();

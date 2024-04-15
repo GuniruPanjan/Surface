@@ -134,12 +134,16 @@ void Map::DrawBack(Player& player)
 			if (First_Mapback[j][i] == 1)
 			{
 				DrawGraph(i * MAPCHIP_WIDTH + Scroll, j * MAPCHIP_HEIGHT, m_Graph, true);
-			}
 
-			//マップデータが3だったら描画する
-			if (First_Mapback[j][i] == 3)
-			{
-				m_colRect.SetCenter(static_cast<float>((i * MAPCHIP_WIDTH + 15) + Scroll), static_cast<float>(j * MAPCHIP_HEIGHT + 15), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
+				//当たり判定をつける
+				m_colRect.SetCenter(static_cast<float>(i * MAPCHIP_WIDTH + 15 + Scroll), static_cast<float>(j * MAPCHIP_HEIGHT + 15), static_cast<float>(MAPCHIP_WIDTH), static_cast<float>(MAPCHIP_HEIGHT));
+
+				//地面に足が着いたら
+				if (m_colRect.IsCollision(player.m_colrect) == true)
+				{
+					player.PlayerJump = false;
+				}
+
 			}
 
 			if (First_Mapback[j][i] == 2)

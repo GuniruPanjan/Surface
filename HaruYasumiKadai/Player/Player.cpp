@@ -4,7 +4,10 @@
 Player::Player() :
 	m_diagonalX(false),
 	m_diagonalY(false),
-	PlayerDead(false)
+	PlayerDead(false),
+	PlayerJump(false),
+	PlayerJumpPower(0.0f),
+	PlayerGravity(0.0f)
 {
 }
 
@@ -27,6 +30,30 @@ void Player::Init()
 
 	//現在時間を得る
 	Time = GetNowCount();
+
+	
+}
+
+void Player::InitBack()
+{
+	//Playerの座標を設定する
+	PlayerX = 200.0f;
+	PlayerY = 255.0f;
+	//Playerのスピードを設定する
+	PlayerSpeed = 2.0f;
+
+	//PlayerのScrollを設定する
+	PlayerScroll = 0.0f;
+
+	PlayerGraph = LoadGraph("date/Player.png");
+
+	//現在時間を得る
+	Time = GetNowCount();
+
+
+	PlayerJump = false;
+	PlayerJumpPower = 0.0f;
+	PlayerGravity = 3.0f;
 }
 
 void Player::Update()
@@ -95,6 +122,68 @@ void Player::Update()
 
 }
 
+void Player::UpdateBack()
+{
+	//経過時間を得る
+	PlayerTime = (GetNowCount() - Time) / 1000;
+
+	//左キー
+	if (CheckHitKey(KEY_INPUT_LEFT))
+	{
+		PlayerX -= PlayerSpeed;
+
+		m_diagonalX = true;
+	}
+	//右キー
+	if (CheckHitKey(KEY_INPUT_RIGHT))
+	{
+		PlayerX += PlayerSpeed;
+
+		m_diagonalX = true;
+	}
+
+	if (PlayerJumpPower < 0)
+	{
+		PlayerJumpPower++;
+
+		if (PlayerJumpPower <= 0)
+		{
+			PlayerJump = true;
+		}
+	}
+
+	if (PlayerJump == false)
+	{
+		//スペースキー
+		if (CheckHitKey(KEY_INPUT_SPACE) && PlayerJumpPower == 0.0f)
+		{
+			//PlayerY -= PlayerJumpPower;
+			PlayerJumpPower = -15;
+
+			//PlayerJump = true;
+		}
+	}
+
+	PlayerY += PlayerJumpPower;
+
+	if (PlayerJump == true)
+	{
+		//重力を与える
+		PlayerY += PlayerGravity;
+	}
+	
+
+	//時間が立つとスクロールを開始する
+	if (PlayerTime >= 10)
+	{
+		PlayerScroll -= 1;
+	}
+
+	//当たり判定更新
+	m_colrect.SetCenter(static_cast<float>(PlayerX + PlayerScroll), static_cast<float>(PlayerY), static_cast<float>(PlayerWidth), static_cast<float>(PlayerHeight));
+
+}
+
 void Player::Draw()
 {
 	//Playerの仮画像
@@ -106,7 +195,16 @@ void Player::Draw()
 	//m_colrect.Draw(GetColor(255, 0, 0), false);
 }
 
+void Player::DrawBack()
+{
+	DrawGraph(PlayerX + PlayerScroll - 20, PlayerY - 20, PlayerGraph, false);
+}
+
 void Player::End()
+{
+}
+
+void Player::EndBack()
 {
 }
 
