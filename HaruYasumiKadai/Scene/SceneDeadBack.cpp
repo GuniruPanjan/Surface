@@ -1,9 +1,9 @@
-#include "SceneDead.h"
+#include "SceneDeadBack.h"
 #include "DxLib.h"
-#include "SceneGame.h"
+#include "SceneGameBack.h"
 #include "SceneChoice.h"
 
-SceneDead::SceneDead() :
+SceneDeadBack::SceneDeadBack():
 	SelectX(0),
 	SelectY(0),
 	SelectWidth(0),
@@ -13,28 +13,28 @@ SceneDead::SceneDead() :
 {
 }
 
-SceneDead::~SceneDead()
+SceneDeadBack::~SceneDeadBack()
 {
 }
 
-void SceneDead::Init()
+void SceneDeadBack::Init()
 {
 	SelectX = 235;
-	SelectY = 230;
+	SelectY = 237;
 
-	SelectWidth = 10;
-	SelectHight = 10;
+	SelectWidth = 8;
+	SelectHight = 8;
 
 	Up = true;
 	Down = false;
 }
 
-std::shared_ptr<SceneBase> SceneDead::Update()
+std::shared_ptr<SceneBase> SceneDeadBack::Update()
 {
 	//上キーを押す
 	if (CheckHitKey(KEY_INPUT_UP))
 	{
-		SelectY = 230;
+		SelectY = 237;
 
 		Up = true;
 		Down = false;
@@ -43,7 +43,7 @@ std::shared_ptr<SceneBase> SceneDead::Update()
 	//下キーを押す
 	if (CheckHitKey(KEY_INPUT_DOWN))
 	{
-		SelectY = 260;
+		SelectY = 257;
 
 		Up = false;
 		Down = true;
@@ -54,7 +54,7 @@ std::shared_ptr<SceneBase> SceneDead::Update()
 	{
 		if (Up == true)
 		{
-			return std::make_shared<SceneGame>();
+			return std::make_shared<SceneGameBack>();
 		}
 
 		if (Down == true)
@@ -67,19 +67,17 @@ std::shared_ptr<SceneBase> SceneDead::Update()
 	return shared_from_this();
 }
 
-void SceneDead::Draw()
+void SceneDeadBack::Draw()
 {
 	DrawCircle(SelectX, SelectY, SelectWidth, GetColor(255, 255, 255), true);
 
 	DrawString(280, 120, "YOU DIED", GetColor(255, 0, 0));
 
-	DrawString(250, 220, "Retry", GetColor(255, 255, 255));
+	DrawString(250, 230, "Retry", GetColor(255, 255, 255));
 
 	DrawString(250, 250, "Home", GetColor(255, 255, 255));
-
 }
 
-void SceneDead::End()
+void SceneDeadBack::End()
 {
 }
-

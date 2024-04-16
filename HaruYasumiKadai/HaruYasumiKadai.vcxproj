@@ -148,6 +148,7 @@
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneChoice.cpp" />
     <ClCompile Include="Scene\SceneDead.cpp" />
+    <ClCompile Include="Scene\SceneDeadBack.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Scene\SceneGameBack.cpp" />
     <ClCompile Include="Scene\SceneGoal.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneChoice.h" />
     <ClInclude Include="Scene\SceneDead.h" />
+    <ClInclude Include="Scene\SceneDeadBack.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneGameBack.h" />
     <ClInclude Include="Scene\SceneGoal.h" />

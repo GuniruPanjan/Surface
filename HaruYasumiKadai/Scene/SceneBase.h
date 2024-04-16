@@ -4,6 +4,8 @@
 #include "Map/BlackHole.h"
 #include "Map/Map.h"
 
+#define ATTAK 10
+
 class SceneBase : public std::enable_shared_from_this<SceneBase>
 {
 public:

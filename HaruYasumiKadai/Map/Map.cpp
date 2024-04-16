@@ -11,7 +11,8 @@ Map::Map() :
 	Scroll(0),
 	MapGoal(false),
 	MapDead(false),
-	Scale(0.0f)
+	Scale(0.0f),
+	Rotation(0.0f)
 {
 }
 
@@ -42,26 +43,25 @@ void Map::Init()
 	//3Dmodel読み込み
 	Model = MV1LoadModel("date/Doar.mv1");
 
+	//3DModelのスケール設定
+	MV1SetScale(Model, VGet(Scale, Scale, Scale));
+
 	//ポジション設定
-	posmodel = VGet(200, 300, 0);
+	posmodel = VGet(200.0f, 300.0f, 50.0f);
+
+	//3DModelポジション設定
+	MV1SetPosition(Model, posmodel);
+
 }
 
 void Map::Update()
 {
-	//3DModelポジション設定
-	MV1SetPosition(Model, posmodel);
-
-	//3DModelのスケール設定
-	MV1SetScale(Model, VGet(Scale, Scale, Scale));
 
 	//経過時間を得る
 	MapTime = (GetNowCount() - Time) / 1000;
 
 	//時間が立つとスクロールする
-	if (MapTime >= 10)
-	{
-		Scroll -= 1;
-	}
+	Scroll -= 1;
 
 }
 
@@ -70,6 +70,8 @@ void Map::Draw(Player& player)
 	//3Dモデル描画
 	MV1DrawModel(Model);
 
+	//3Dモデル回転
+	MV1SetRotationXYZ(Model, VGet(Rotation += 0.01f, Rotation += 0.01f, Rotation += 0.01f));
 	//マップを描く
 	for (int i = 0; i < MAP_SIZE_WIDTH; i++)
 	{
@@ -124,6 +126,9 @@ void Map::DrawBack(Player& player)
 {
 	//3Dモデル描画
 	MV1DrawModel(Model);
+
+	//3Dモデル回転
+	MV1SetRotationXYZ(Model, VGet(Rotation += 0.01f, Rotation += 0.01f, Rotation += 0.01f));
 
 	//マップを描く
 	for (int i = 0; i < MAP_SIZE_WIDTH; i++)

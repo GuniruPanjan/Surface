@@ -2,12 +2,16 @@
 #include "DxLib.h"
 #include "Player/Player.h"
 #include "SceneGoal.h"
-#include "SceneDead.h"
+#include "SceneDeadBack.h"
 #include "Map/Map.h"
 #include "Map/BlackHole.h"
 #include<memory>
 
-SceneGameBack::SceneGameBack()
+BlackHoleAttak attak[ATTAK];
+
+SceneGameBack::SceneGameBack():
+	Time(0),
+	TimeNow(0)
 {
 }
 
@@ -24,41 +28,54 @@ void SceneGameBack::Init()
 	map.Init();
 
 	//BlackのInit
-	blackhole.Init();
+	blackhole.InitBack(attak,ATTAK);
 
 	//背景画像を読み込み
 	GameSceneGraph = LoadGraph("date/背景画像.png");
+
+	Time = 0;
+
+	TimeNow = GetNowCount();
 }
 
 std::shared_ptr<SceneBase> SceneGameBack::Update()
 {
-	//PlayerのUpdate
-	Play.UpdateBack();
+	//経過時間を得る
+	Time = (GetNowCount() - TimeNow) / 1000;
 
-	//MapのUpdate
-	map.Update();
-
-	//BlackHoleのUpdate
-	blackhole.Update(Play);
-
-	//ゴールしたら
-	if (map.MapGoal == true)
+	if (Time >= 8)
 	{
-		map.MapGoal = false;
+		//PlayerのUpdate
+		Play.UpdateBack();
 
-		return std::make_shared<SceneGoal>();
+		//MapのUpdate
+		map.Update();
+
+		//BlackHoleのUpdate
+		blackhole.Update(Play);
+
+		blackhole.Attak(Play, attak, ATTAK);
+
+		//ゴールしたら
+		if (map.MapGoal == true)
+		{
+			map.MapGoal = false;
+
+			return std::make_shared<SceneGoal>();
+		}
+
+		//マップでしんだら
+		if (map.MapDead == true || blackhole.BlackDead == true)
+		{
+			map.MapDead = false;
+
+			blackhole.BlackDead = false;
+
+			return std::make_shared<SceneDeadBack>();
+		}
+
 	}
-
-	//マップでしんだら
-	if (map.MapDead == true || blackhole.BlackDead == true)
-	{
-		map.MapDead = false;
-
-		blackhole.BlackDead = false;
-
-		return std::make_shared<SceneDead>();
-	}
-
+	
 
 	return shared_from_this(); //自身のshared_ptrを返す
 }
@@ -80,7 +97,24 @@ void SceneGameBack::Draw()
 	Play.DrawBack();
 
 	//BlackHoleを描く
-	blackhole.Draw();
+	blackhole.DrawBack(attak, ATTAK);
+	
+
+	SetFontSize(35);
+	//始まるカウントダウン
+	if (Time == 2)
+	{
+		DrawString(300, 200, "3", GetColor(255, 0, 0));
+	}
+	else if (Time == 4)
+	{
+		DrawString(300, 200, "2", GetColor(255, 0, 0));
+	}
+	else if (Time == 6)
+	{
+		DrawString(300, 200, "1", GetColor(255, 0, 0));
+	}
+	SetFontSize(25);
 }
 
 void SceneGameBack::End()

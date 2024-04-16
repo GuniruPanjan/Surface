@@ -29,7 +29,7 @@ void SceneChoice::Init()
 	X = 320;
 	Y = 240;
 
-	Select = 240;
+	Select = 245;
 
 	Time = 0;
 
@@ -52,7 +52,7 @@ std::shared_ptr<SceneBase> SceneChoice::Update()
 		//上キーを押す
 		if (CheckHitKey(KEY_INPUT_UP))
 		{
-			Select = 220;
+			Select = 205;
 
 			Up = true;
 			Down = false;
@@ -61,7 +61,7 @@ std::shared_ptr<SceneBase> SceneChoice::Update()
 		//下キーを押す
 		if (CheckHitKey(KEY_INPUT_DOWN))
 		{
-			Select = 240;
+			Select = 245;
 
 			Up = false;
 			Down = true;
@@ -101,11 +101,11 @@ void SceneChoice::Draw()
 	//背景画像描画
 	DrawGraph(0, 0, ChoiceSceneGraph, true);
 
-	DrawCircle(X - 15, Select + 7, 8, GetColor(255, 255, 255), true);
+	DrawCircle(X - 20, Select + 7, 10, GetColor(255, 255, 255), true);
 
 	DrawString(X, Y, "STAGE 1 (表)", 0xffffff);
 
-	DrawString(X, Y - 20, "STAGE 1 (裏)", 0xffffff);
+	DrawString(X, Y - 40, "STAGE 1 (裏)", 0xffffff);
 }
 
 void SceneChoice::End()

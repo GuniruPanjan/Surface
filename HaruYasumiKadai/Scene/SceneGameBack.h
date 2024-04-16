@@ -11,5 +11,10 @@ public:
 	virtual void Draw(); //毎フレーム行う描画処理
 	virtual void End(); //シーンを抜けるときの終了処理
 
+	//時間を測る
+	int Time;
+
+	//現在時間を得る
+	int TimeNow;
 };
 

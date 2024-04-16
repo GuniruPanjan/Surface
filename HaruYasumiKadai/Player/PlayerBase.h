@@ -26,12 +26,6 @@ public:
 	//Playerのスクロール
 	float PlayerScroll;
 
-	//現在時間を得る
-	int Time;
-
-	//時間を計測する変数
-	int PlayerTime;
-
 	//Playerの当たり判定幅
 	int PlayerWidth, PlayerHeight;
 

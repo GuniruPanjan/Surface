@@ -8,9 +8,7 @@ PlayerBase::PlayerBase() :
 	PlayerY(0.0f),
 	PlayerWidth(30),
 	PlayerHeight(30),
-	PlayerScroll(0),
-	Time(0),
-	PlayerTime(0)
+	PlayerScroll(0)
 {
 
 }

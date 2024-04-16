@@ -87,6 +87,9 @@ public:
 	//3Dモデルのスケール
 	float Scale;
 
+	//3Dモデルを回転させる
+	float Rotation;
+
 	VECTOR posmodel;
 
 

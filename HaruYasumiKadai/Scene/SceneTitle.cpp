@@ -53,7 +53,13 @@ void SceneTitle::Draw()
 	//îwåiâÊëúï`âÊ
 	DrawGraph(0, 0, TitleSceneGraph, true);
 
-	DrawString(245, 230, "Push Any Button", GetColor(FeadColor, FeadColor, FeadColor));
+	SetFontSize(40);
+
+	DrawString(200, 130, "ètãxÇ›â€ëË", GetColor(255, 0, 0));
+
+	SetFontSize(25);
+
+	DrawString(205, 230, "Push Any Button", GetColor(FeadColor, FeadColor, FeadColor));
 }
 
 void SceneTitle::End()
