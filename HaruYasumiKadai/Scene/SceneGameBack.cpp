@@ -65,7 +65,7 @@ std::shared_ptr<SceneBase> SceneGameBack::Update()
 		}
 
 		//ƒ}ƒbƒv‚Å‚µ‚ñ‚¾‚ç
-		if (map.MapDead == true || blackhole.BlackDead == true)
+		if (blackhole.BlackDead == true)
 		{
 			map.MapDead = false;
 

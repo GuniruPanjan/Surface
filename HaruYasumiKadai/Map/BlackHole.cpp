@@ -87,13 +87,15 @@ void BlackHole::InitBack(BlackHoleAttak attak[], int Size)
 	{
 		attak[i].AttakGraph = Graph;
 
-		attak[i].AttakSpeed = 5;
+		attak[i].AttakSpeed = 8;
 
 		attak[i].AttakX = -30;
 
 		attak[i].AttakY = -30;
 
 		attak[i].Existence = false;
+
+		attak[i].AttakRect.SetCenter(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 }
 
@@ -139,31 +141,39 @@ void BlackHole::Attak(Player& player,BlackHoleAttak attak[], int Size)
 	//Œ»İŠÔ‚ğ“¾‚é
 	Time = (GetNowCount() - TimeNow) / 1000;
 
-	if (Time >= 1 * Attakinterval)
+	for (int i = 0; i < Size; i++)
 	{
-		AttakRandom = GetRand(1);
-
-		if (AttakRandom == 0)
+		if (Time >= 4 * Attakinterval)
 		{
-			//UŒ‚‚µ‚È‚¢
-		}
-		//UŒ‚‚·‚é
-		if (AttakRandom == 1)
-		{
-			for (int i = 0; i < Size; i++)
+			if (attak[i].Existence == false)
 			{
-				attak[i].AttakX = 50 + player.PlayerScroll;
-				attak[i].AttakY = 320;
+				AttakRandom = GetRand(1);
 
-				attak[i].Existence = true;
+				if (AttakRandom == 0)
+				{
+					//UŒ‚‚µ‚È‚¢
+				}
+				//UŒ‚‚·‚é
+				if (AttakRandom == 1)
+				{
+					attak[i].AttakX = 50 + player.PlayerScroll;
+					attak[i].AttakY = 320;
+
+					attak[i].Existence = true;
+
+				}
+
+				Attakinterval += 1;
 
 				//1‰ñ‚¾‚µ‚½‚©‚çƒ‹[ƒv‚©‚ç”²‚¯‚é
 				break;
 			}
 		}
 
-		Attakinterval += 1;
+		
+		
 	}
+	
 
 	for (int i = 0; i < Size; i++)
 	{
@@ -171,8 +181,21 @@ void BlackHole::Attak(Player& player,BlackHoleAttak attak[], int Size)
 		{
 			attak[i].AttakX += attak[i].AttakSpeed;
 
-			attak[i].AttakRect.SetCenter(static_cast<float>(attak[i].AttakX), static_cast<float>(attak[i].AttakY), static_cast<float>(40), static_cast<float>(40));
+			attak[i].AttakRect.SetCenter(static_cast<float>(attak[i].AttakX + 20), static_cast<float>(attak[i].AttakY + 20), static_cast<float>(40), static_cast<float>(40));
+
+			//UŒ‚‚ğÁ‚·
+			if (attak[i].AttakX >= 640 - player.PlayerScroll)
+			{
+				attak[i].Existence = false;
+			}
 		}
+
+		//UŒ‚‚ªƒvƒŒƒCƒ„[‚É“–‚½‚é‚Æ€‚Ê
+		if (attak[i].AttakRect.IsCollision(player.m_colrect) == true)
+		{
+			BlackDead = true;
+		}
+
 	}
 
 }

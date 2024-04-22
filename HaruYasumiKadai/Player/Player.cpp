@@ -113,7 +113,6 @@ void Player::Update()
 
 void Player::UpdateBack()
 {
-
 	//左キー
 	if (CheckHitKey(KEY_INPUT_LEFT) && PlayerX >= 0 - PlayerScroll)
 	{
@@ -138,14 +137,17 @@ void Player::UpdateBack()
 			PlayerJump = true;
 		}
 	}
+		
 
 	if (PlayerJump == false)
 	{
+
 		//スペースキー
 		if (CheckHitKey(KEY_INPUT_SPACE) && PlayerJumpPower == 0.0f)
 		{
 			PlayerJumpPower = -15;
 		}
+
 	}
 
 	PlayerY += PlayerJumpPower;
