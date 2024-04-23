@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c1508bc2-83fd-4091-beba-b9135323e457}</ProjectGuid>
-    <RootNamespace>Gravity_of_impact3D</RootNamespace>
+    <ProjectGuid>{0c7f0908-5673-44ba-a250-9c8cf7929519}</ProjectGuid>
+    <RootNamespace>Gravity_of_impact</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,14 +139,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\PlayerBase.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneChoice.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
-    <ClCompile Include="Template3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\PlayerBase.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneChoice.h" />
     <ClInclude Include="Scene\SceneGame.h" />

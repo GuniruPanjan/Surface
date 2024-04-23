@@ -22,13 +22,14 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 		return std::make_shared<SceneChoice>();
 	}
 
-	return std::shared_ptr<SceneTitle>();
+	return shared_from_this();  //自身のポインタを返す
 }
-
-
 
 void SceneTitle::Draw()
 {
+	DrawString(200, 130, "Title", GetColor(255, 255, 255));
+
+	DrawString(205, 230, "Push Any Button", GetColor(255, 255, 255));
 }
 
 void SceneTitle::End()

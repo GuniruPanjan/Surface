@@ -14,20 +14,26 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="ソース ファイル\Scene">
-      <UniqueIdentifier>{0d58f3dd-8a9f-4766-854d-89cb373009f9}</UniqueIdentifier>
+      <UniqueIdentifier>{bcefb444-f021-4e1a-994e-6bdf270bf331}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{d1f37d10-9e04-48bc-a7ed-569539d9d0d7}</UniqueIdentifier>
+      <UniqueIdentifier>{49c0fa01-c43f-4444-8f3f-52b304709349}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Camera">
-      <UniqueIdentifier>{615f8165-873a-43cd-a745-a2625486eb9d}</UniqueIdentifier>
+      <UniqueIdentifier>{6116988f-7e5f-42b9-aafe-86d733fc2e4b}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Camera">
-      <UniqueIdentifier>{5a1383f3-c36e-4905-a1c9-f0345ca3b786}</UniqueIdentifier>
+      <UniqueIdentifier>{ff4c8809-ac66-4d04-8e05-3e6fe0551c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{f1eb291d-418d-4555-acfe-67df56ef50e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{c73e502b-5174-4718-a537-6da9819b0172}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Template3D.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneBase.cpp">
@@ -36,14 +42,23 @@
     <ClCompile Include="Scene\SceneTitle.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\SceneChoice.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneGame.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>ソース ファイル\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerBase.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,14 +68,23 @@
     <ClInclude Include="Scene\SceneTitle.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneManager.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneChoice.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneGame.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>ヘッダー ファイル\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerBase.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
