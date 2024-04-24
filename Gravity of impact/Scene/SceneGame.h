@@ -20,7 +20,5 @@ public:
 
 	//Player‚ğŠÇ—‚·‚éƒ|ƒCƒ“ƒ^
 	std::shared_ptr<Player> player = std::make_shared<Player>();
-
-	Player Play;
 };
 

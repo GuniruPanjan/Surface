@@ -22,8 +22,5 @@ public:
 
 	//PlayerのX,Y,Z座標
 	float PlayerX, PlayerY, PlayerZ;
-
-	//Playerのポジション
-	VECTOR Playerpos;
 };
 

@@ -8,7 +8,9 @@ namespace
 }
 
 Camera::Camera() :
-	cameraAngle(0.0f)
+	cameraAngle(0.0f),
+	CameraHAngle(0.0f),
+	CameraVAngle(0.0f)
 {
 }
 
@@ -22,15 +24,18 @@ void Camera::Init()
 	SetWriteZBuffer3D(true);
 	SetUseBackCulling(true);
 
+	cameraAngle = 0.05f;
+
+	//基準となるカメラの座標
 	cameraPos = VGet(kCameraDist, kCameraHeight, kCameraDist);
 
-	cameraAngle = 0.05f;
+	SetCameraNearFar(1.0f, 500.0f);
 }
 
 void Camera::Update(Player& player)
 {
+	
 
-	SetCameraNearFar(1.0f, 180.0f);
 
 	//左キー
 	if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_LEFT)
@@ -53,7 +58,12 @@ void Camera::Update(Player& player)
 		rotate(&cameraPos.y, &cameraPos.z, -cameraAngle, 0.0f, 0.0f);
 	}
 
-	SetCameraPositionAndTarget_UpVecY(cameraPos, VGet(0, 0, 0));
+
+	SetCameraPositionAndTarget_UpVecY(cameraPos, player.Playerpos);
+
+	DrawFormatString(300, 0, 0xffffff, "%f", player.Playerpos.x);
+	DrawFormatString(300, 20, 0xffffff, "%f", player.Playerpos.y);
+	DrawFormatString(300, 40, 0xffffff, "%f", player.Playerpos.z);
 }
 
 void Camera::Draw()
@@ -62,15 +72,10 @@ void Camera::Draw()
 	DrawFormatString(0, 20, 0xffffff, "%f", cameraPos.y);
 	DrawFormatString(0, 40, 0xffffff, "%f", cameraPos.z);
 
+	
 
-	for (int x = -50; x <= 50; x += 10)
-	{
-		DrawLine3D(VGet(static_cast<float>(x), 0, -50), VGet(static_cast<float>(x), 0, 50), 0xffff00);
-	}
-	for (int z = -50; z <= 50; z += 10)
-	{
-		DrawLine3D(VGet(-50, 0, static_cast<float>(z)), VGet(50, 0, static_cast<float>(z)), 0xff0000);
-	}
+	//SetCameraPositionAndAngle(cameraPos, kCameraDist, kCameraHeight, kCameraDist);
+	
 }
 
 void Camera::End()
