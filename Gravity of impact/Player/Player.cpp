@@ -1,4 +1,7 @@
 #include "Player.h"
+#include<math.h>
+
+#define D2R(deg) ((deg)*DX_PI_F/180.0f)
 
 Player::Player()
 {
@@ -19,6 +22,9 @@ void Player::Init()
 	//Playerの初期位置
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
 
+	//Playerの回転状態初期化
+	PlayerAngle = VGet(0.0f, D2R(0.0f), 0.0f);
+
 	//3Dモデルを読み込む
 	PlayerGraph = MV1LoadModel("data/Sting-Sword lowpoly.mv1");
 
@@ -28,13 +34,21 @@ void Player::Init()
 
 void Player::Update()
 {
-	//3Dモデルのポジション設定
-	MV1SetPosition(PlayerGraph, Playerpos);
 
 	//前に進む
 	if (CheckHitKey(KEY_INPUT_W))
 	{
 		Playerpos.z += PlayerSpeed;
+
+		if (PlayerAngle.y <= 0.0f)
+		{
+			PlayerAngle.y += D2R(1.0f);
+		}
+		if (PlayerAngle.y >= 0.0f)
+		{
+			PlayerAngle.y -= D2R(1.0f);
+		}
+		
 
 		DrawString(280, 0, "前へ", 0xffffff);
 
@@ -52,6 +66,12 @@ void Player::Update()
 	{
 		Playerpos.x += PlayerSpeed;
 
+		if (PlayerAngle.y <= 1.5f)
+		{
+			PlayerAngle.y += D2R(1.0f);
+		}
+		
+
 		DrawString(280, 0, "右へ", 0xffffff);
 
 	}
@@ -60,6 +80,12 @@ void Player::Update()
 	{
 		Playerpos.x -= PlayerSpeed;
 
+		if (PlayerAngle.y >= -1.5f)
+		{
+			PlayerAngle.y -= D2R(1.0f);
+		}
+		
+
 		DrawString(280, 0, "左へ", 0xffffff);
 
 	}
@@ -67,8 +93,20 @@ void Player::Update()
 
 void Player::Draw()
 {
+	//3Dモデルのポジション設定
+	MV1SetPosition(PlayerGraph, Playerpos);
+
+	//3Dモデルの回転地をセットする
+	MV1SetRotationXYZ(PlayerGraph, PlayerAngle);
+
+
+
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);
+
+	DrawFormatString(500, 0, 0xffffff, "%f", PlayerAngle.y);
+	DrawFormatString(500, 20, 0xffffff, "%f", PlayerAngle.x);
+
 }
 
 void Player::End()

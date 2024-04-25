@@ -28,13 +28,13 @@ public:
 	void Draw();
 	void End();
 
+	//カメラのポジション
 	VECTOR cameraPos;
-
-	//カメラの初期アングル
-	float CameraHAngle, CameraVAngle;
+	//カメラのターゲット
+	VECTOR cameraTarget;
 
 	//カメラのアングル
-	float cameraAngle;
+	VECTOR cameraAngle;
 
 };
 

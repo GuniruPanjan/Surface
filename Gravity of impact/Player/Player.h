@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerBase.h"
+
 class Player : public PlayerBase
 {
 public:
@@ -13,5 +14,8 @@ public:
 
 	//Playerのポジション
 	VECTOR Playerpos = VGet(0.0f, 10.0f, 0.0f);
+
+	//Playerのアングル
+	VECTOR PlayerAngle;
 };
 
