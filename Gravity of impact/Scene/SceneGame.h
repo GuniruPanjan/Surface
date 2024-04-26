@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 #include "Camera/Camera.h"
+#include "Map/Map.h"
 #include "Player/Player.h"
 
 
@@ -20,5 +21,8 @@ public:
 
 	//Playerを管理するポインタ
 	std::shared_ptr<Player> player = std::make_shared<Player>();
+
+	//Mapを管理するポインタ
+	std::shared_ptr<Map> map = std::make_shared<Map>();
 };
 

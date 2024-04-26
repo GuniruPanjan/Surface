@@ -13,5 +13,8 @@ public:
 	virtual std::shared_ptr<SceneBase> Update() = 0;
 	virtual void Draw() = 0;
 	virtual void End() = 0;
+
+	//ƒV[ƒ“‚Ì”wŒi‰æ‘œŠi”[•Ï”
+	int GameBack, ChoiceBack, TitleBack;
 };
 

@@ -43,12 +43,25 @@ void Camera::Update(Player& player)
 		cameraAngle.y -= D2R(1.0f);
 	}
 	//上キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP)
-	//{
-	//	cameraAngle.z += D2R(1.0f);
-	//}
-	////下キー
-	//if()
+	if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP)
+	{
+		//カメラがプレイヤーを超えないくらいまで
+		if (cameraAngle.x <= 0.7f)
+		{
+			cameraAngle.x += D2R(1.0f);
+		}
+		
+	}
+	//下キー
+	if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN)
+	{
+		//カメラがプレイヤーをくぐらないくらいまで
+		if (cameraAngle.x >= -2.2f)
+		{
+			cameraAngle.x -= D2R(1.0f);
+		}
+		
+	}
 
 	//基準のベクトル
 	VECTOR Direction = VGet(0.0f, 100.0f, -100.0f);
@@ -57,40 +70,15 @@ void Camera::Update(Player& player)
 	MATRIX matrixX = MGetRotX(cameraAngle.x);
 	//Y軸回転行列
 	MATRIX matrixY = MGetRotY(cameraAngle.y);
-	//Z軸回転行列
-	MATRIX matrixZ = MGetRotZ(cameraAngle.z);
 
 	//行列の合成
-	MATRIX matrix = MMult(matrixX, matrixY);
+	MATRIX matrix = MMult(matrixX, matrixY); 
 
 	//基準ベクトルを行列で変換
 	Direction = VTransform(Direction, matrix);
 
 	//カメラ座標はプレイヤー座標から少しはなれたところ
 	cameraPos = VAdd(player.Playerpos, Direction);
-
-	//左キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_LEFT)
-	//{
-	//	rotate(&cameraPos.x, &cameraPos.z, +cameraAngle, 0.0f, 0.0f);
-	//}
-	//右キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_RIGHT)
-	//{
-	//	rotate(&cameraPos.x, &cameraPos.z, -cameraAngle, 0.0f, 0.0f);
-	//}
-	//上キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP)
-	//{
-	//	rotate(&cameraPos.y, &cameraPos.z, +cameraAngle, 0.0f, 0.0f);
-	//}
-	//下キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN)
-	//{
-	//	rotate(&cameraPos.y, &cameraPos.z, -cameraAngle, 0.0f, 0.0f);
-	//}
-
-	
 
 	//注視点の座標はプレイヤー座標の少し上
 	cameraTarget = VAdd(player.Playerpos, VGet(0.0f, 2.0f, 0.0f));
@@ -110,9 +98,9 @@ void Camera::Draw()
 	DrawFormatString(0, 20, 0xffffff, "%f", cameraPos.y);
 	DrawFormatString(0, 40, 0xffffff, "%f", cameraPos.z);
 
-	
-
-	//SetCameraPositionAndAngle(cameraPos, kCameraDist, kCameraHeight, kCameraDist);
+	DrawFormatString(0, 360, 0xffffff, "%f", cameraAngle.x);
+	DrawFormatString(0, 380, 0xffffff, "%f", cameraAngle.y);
+	DrawFormatString(0, 400, 0xffffff, "%f", cameraAngle.z);
 	
 }
 

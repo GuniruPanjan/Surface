@@ -16,6 +16,6 @@ public:
 	VECTOR Playerpos = VGet(0.0f, 10.0f, 0.0f);
 
 	//Player‚ÌƒAƒ“ƒOƒ‹
-	VECTOR PlayerAngle;
+	VECTOR PlayerAngle = VGet(0.0f, 0.0f, 0.0f);
 };
 
