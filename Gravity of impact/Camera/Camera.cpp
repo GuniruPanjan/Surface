@@ -26,7 +26,7 @@ void Camera::Init()
 	//ƒJƒƒ‰‚ÌƒAƒ“ƒOƒ‹‰Šúİ’è
 	cameraAngle = VGet(D2R(-20.0f), 0.0f, 0.0f);
 
-	SetCameraNearFar(1.0f, 500.0f);
+	SetCameraNearFar(1.0f, 1000.0f);
 }
 
 void Camera::Update(Player& player)

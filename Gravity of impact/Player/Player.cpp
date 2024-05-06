@@ -3,7 +3,8 @@
 
 #define D2R(deg) ((deg)*DX_PI_F/180.0f)
 
-Player::Player()
+Player::Player():
+	PlayerGravity(0.0f)
 {
 }
 
@@ -18,6 +19,8 @@ void Player::Init()
 	PlayerX = 0.0f;
 	PlayerY = 10.0f;
 	PlayerZ = 0.0f;
+
+	PlayerGravity = 1.0f;
 
 	//Playerの初期位置
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
@@ -40,14 +43,14 @@ void Player::Update()
 	{
 		Playerpos.z += PlayerSpeed;
 
-		if (PlayerAngle.y <= 0.0f)
-		{
-			PlayerAngle.y += D2R(1.0f);
-		}
-		if (PlayerAngle.y >= 0.0f)
-		{
-			PlayerAngle.y -= D2R(1.0f);
-		}
+		//if (PlayerAngle.y <= 0.0f)
+		//{
+		//	PlayerAngle.y += D2R(1.0f);
+		//}
+		//if (PlayerAngle.y >= 0.0f)
+		//{
+		//	PlayerAngle.y -= D2R(1.0f);
+		//}
 		
 
 		DrawString(280, 0, "前へ", 0xffffff);
@@ -66,10 +69,10 @@ void Player::Update()
 	{
 		Playerpos.x += PlayerSpeed;
 
-		if (PlayerAngle.y <= 1.5f)
-		{
-			PlayerAngle.y += D2R(1.0f);
-		}
+		//if (PlayerAngle.y <= 1.5f)
+		//{
+		//	PlayerAngle.y += D2R(1.0f);
+		//}
 		
 
 		DrawString(280, 0, "右へ", 0xffffff);
@@ -80,15 +83,20 @@ void Player::Update()
 	{
 		Playerpos.x -= PlayerSpeed;
 
-		if (PlayerAngle.y >= -1.5f)
-		{
-			PlayerAngle.y -= D2R(1.0f);
-		}
+		//if (PlayerAngle.y >= -1.5f)
+		//{
+		//	PlayerAngle.y -= D2R(1.0f);
+		//}
 		
 
 		DrawString(280, 0, "左へ", 0xffffff);
 
 	}
+
+	//Playerに重力を与え続ける
+	Playerpos.y -= PlayerGravity;
+
+	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z - static_cast<float>(30), 10.0f, 1.0f, 60.0f);
 }
 
 void Player::Draw()
@@ -106,6 +114,9 @@ void Player::Draw()
 
 	DrawFormatString(500, 0, 0xffffff, "%f", PlayerAngle.y);
 	DrawFormatString(500, 20, 0xffffff, "%f", PlayerAngle.x);
+
+	//当たり判定を描画する
+	m_colrect.Draw(GetColor(255, 0, 0), false);
 
 }
 

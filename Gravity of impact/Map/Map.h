@@ -1,5 +1,8 @@
 #pragma once
 #include "DxLib.h"
+#include "Rect.h"
+#include "Player/Player.h"
+
 class Map
 {
 public:
@@ -7,8 +10,8 @@ public:
 	virtual ~Map();
 
 	virtual void Init();
-	virtual void Update();
-	virtual void Draw();
+	virtual void Update(Player& player);
+	virtual void Draw(Player& player);
 	virtual void End();
 
 	//マップオブジェクト格納変数
@@ -22,5 +25,7 @@ public:
 
 	//マップの配置場所
 	VECTOR MapPosition;
+
+	Rect m_colrect;
 };
 

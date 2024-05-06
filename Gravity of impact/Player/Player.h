@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerBase.h"
+#include "Rect.h"
 
 class Player : public PlayerBase
 {
@@ -12,10 +13,16 @@ public:
 	virtual void Draw();
 	virtual void End();
 
+	//Playerの重力
+	float PlayerGravity;
+
 	//Playerのポジション
 	VECTOR Playerpos = VGet(0.0f, 10.0f, 0.0f);
 
 	//Playerのアングル
 	VECTOR PlayerAngle = VGet(0.0f, 0.0f, 0.0f);
+
+	//当たり判定
+	Rect m_colrect;
 };
 

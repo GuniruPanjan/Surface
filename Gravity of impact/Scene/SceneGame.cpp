@@ -27,6 +27,8 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 
 	camera->Update(*player);
 
+	map->Update(*player);
+
 	return shared_from_this();
 }
 
@@ -35,7 +37,7 @@ void SceneGame::Draw()
 	//”wŒi‚ğ•`‰æ
 	DrawGraph(0, 0, GameBack, false);
 
-	map->Draw();
+	map->Draw(*player);
 
 	player->Draw();
 
