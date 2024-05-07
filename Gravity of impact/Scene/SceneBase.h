@@ -4,7 +4,12 @@
 class SceneBase : public std::enable_shared_from_this<SceneBase>
 {
 public:
-	SceneBase(){}
+	SceneBase():
+		GameBack(0),
+		ChoiceBack(0),
+		TitleBack(0),
+		Titlelogo(0)
+	{}
 	virtual ~SceneBase(){}
 
 	//virtual‚ÅŒp³æ‚ğŒÄ‚Ño‚·
@@ -16,5 +21,8 @@ public:
 
 	//ƒV[ƒ“‚Ì”wŒi‰æ‘œŠi”[•Ï”
 	int GameBack, ChoiceBack, TitleBack;
+
+	//ƒ^ƒCƒgƒ‹ƒƒSŠi”[•Ï”
+	int Titlelogo;
 };
 

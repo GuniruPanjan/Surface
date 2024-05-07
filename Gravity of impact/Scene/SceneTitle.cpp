@@ -12,6 +12,8 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
+	//タイトルロゴを読み込む
+	Titlelogo = LoadGraph("data/GravityImpactロゴ.png");
 }
 
 std::shared_ptr<SceneBase> SceneTitle::Update()
@@ -27,9 +29,16 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-	DrawString(200, 130, "Title", GetColor(255, 255, 255));
+	//タイトルロゴの初期位置
+	int Titlelogox, Titlelogoy;
 
-	DrawString(205, 230, "Push Any Button", GetColor(255, 255, 255));
+	Titlelogox = 0;
+	Titlelogoy = -100;
+
+	DrawString(205, 300, "Push Any Button", GetColor(255, 255, 255));
+
+	//タイトルロゴを書く
+	DrawGraph(Titlelogox, Titlelogoy, Titlelogo, true);
 }
 
 void SceneTitle::End()

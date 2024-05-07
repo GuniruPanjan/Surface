@@ -68,10 +68,12 @@ void Rect::SetCenter(float x, float y, float z, float width, float height, float
 bool Rect::IsCollision(const Rect& rect)
 {
 	//絶対当たらないパターン以外は当たっている
-	if (X > rect.Xwidth && Z > rect.Z && Zdepth < rect.Zdepth) return false;
-	if (Y > rect.Yheight && Z > rect.Z && Zdepth < rect.Zdepth) return false;
-	if (Xwidth < X && Z > rect.Z && Zdepth < rect.Zdepth) return false;
-	if (Yheight < rect.Y && Z > rect.Z && Zdepth < rect.Zdepth) return false;
+	if (X > rect.Xwidth ) return false;
+	if (Y > rect.Yheight) return false;
+	if (Xwidth < rect.X ) return false;
+	if (Yheight < rect.Y ) return false;
+	if (Z < rect.Zdepth) return false;
+	if (Zdepth > rect.Z) return false;
 
 	//当たらないパターン以外は当たっている
 	return true;

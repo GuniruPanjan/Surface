@@ -5,7 +5,13 @@
 class PlayerBase
 {
 public:
-	PlayerBase(){}
+	PlayerBase():
+		PlayerSpeed(0.0f),
+		PlayerGraph(0),
+		PlayerX(0.0f),
+		PlayerY(0.0f),
+		PlayerZ(0.0f)
+	{}
 	virtual ~PlayerBase(){}
 
 	//virtual‚ÅŒp³æ‚ğŒÄ‚Ño‚·

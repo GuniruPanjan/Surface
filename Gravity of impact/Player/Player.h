@@ -13,6 +13,9 @@ public:
 	virtual void Draw();
 	virtual void End();
 
+	//Player‚Ìd‚³
+	float Playerweight;
+
 	//Player‚Ìd—Í
 	float PlayerGravity;
 

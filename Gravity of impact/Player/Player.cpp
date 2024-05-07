@@ -1,10 +1,13 @@
 #include "Player.h"
 #include<math.h>
+//重力加速度
+#define GravitationalAcceleration 9.80665 / 2
 
 #define D2R(deg) ((deg)*DX_PI_F/180.0f)
 
 Player::Player():
-	PlayerGravity(0.0f)
+	PlayerGravity(0.0f),
+	Playerweight(0.0f)
 {
 }
 
@@ -17,10 +20,14 @@ void Player::Init()
 {
 	//Playerの初期座標
 	PlayerX = 0.0f;
-	PlayerY = 10.0f;
+	PlayerY = 30.0f;
 	PlayerZ = 0.0f;
 
-	PlayerGravity = 1.0f;
+	//Playerの重さ
+	Playerweight = 1.0f;
+
+	//Playerの重力
+	PlayerGravity = Playerweight * GravitationalAcceleration;
 
 	//Playerの初期位置
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
@@ -37,6 +44,7 @@ void Player::Init()
 
 void Player::Update()
 {
+	
 
 	//前に進む
 	if (CheckHitKey(KEY_INPUT_W))
@@ -51,17 +59,12 @@ void Player::Update()
 		//{
 		//	PlayerAngle.y -= D2R(1.0f);
 		//}
-		
-
-		DrawString(280, 0, "前へ", 0xffffff);
 
 	}
 	//後ろに進む
 	if (CheckHitKey(KEY_INPUT_S))
 	{
 		Playerpos.z -= PlayerSpeed;
-
-		DrawString(280, 0, "後ろへ", 0xffffff);
 
 	}
 	//右に進む
@@ -73,9 +76,6 @@ void Player::Update()
 		//{
 		//	PlayerAngle.y += D2R(1.0f);
 		//}
-		
-
-		DrawString(280, 0, "右へ", 0xffffff);
 
 	}
 	//左に進む
@@ -87,16 +87,13 @@ void Player::Update()
 		//{
 		//	PlayerAngle.y -= D2R(1.0f);
 		//}
-		
-
-		DrawString(280, 0, "左へ", 0xffffff);
 
 	}
 
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
 
-	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z - static_cast<float>(30), 10.0f, 1.0f, 60.0f);
+	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z + static_cast<float>(30), 10.0f, 1.0f, -60.0f);
 }
 
 void Player::Draw()
@@ -106,8 +103,6 @@ void Player::Draw()
 
 	//3Dモデルの回転地をセットする
 	MV1SetRotationXYZ(PlayerGraph, PlayerAngle);
-
-
 
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);
