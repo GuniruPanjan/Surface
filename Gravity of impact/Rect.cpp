@@ -2,10 +2,6 @@
 #include<cassert>
 
 Rect::Rect():
-	m_left(0.0f),
-	m_top(0.0f),
-	m_bottom(0.0f),
-	m_right(0.0f),
 	X(0.0f),
 	Y(0.0f),
 	Z(0.0f),

@@ -36,18 +36,6 @@ public:
 
 private:
 
-	float m_left;  //左上のX座標
-
-	float m_top;  //左上のY座標
-
-	float m_right;   //右下のX座標
-
-	float m_bottom;   //右下のY座標
-
-	float m_tableZ;   //表のZ座標
-
-	float m_backZ;    //裏のZ座標
-
 	//代入するための変数
 	float X;
 	float Y;

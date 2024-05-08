@@ -9,6 +9,8 @@ SceneChoice::SceneChoice():
 
 SceneChoice::~SceneChoice()
 {
+    //‰æ‘œ‚Ì‰ð•ú
+    DeleteGraph(ChoiceBack);
 }
 
 void SceneChoice::Init()

@@ -8,6 +8,7 @@ public:
 		GameBack(0),
 		ChoiceBack(0),
 		TitleBack(0),
+		GoalBack(0),
 		Titlelogo(0)
 	{}
 	virtual ~SceneBase(){}
@@ -20,7 +21,7 @@ public:
 	virtual void End() = 0;
 
 	//ƒV[ƒ“‚Ì”wŒi‰æ‘œŠi”[•Ï”
-	int GameBack, ChoiceBack, TitleBack;
+	int GameBack, ChoiceBack, TitleBack, GoalBack;
 
 	//ƒ^ƒCƒgƒ‹ƒƒSŠi”[•Ï”
 	int Titlelogo;

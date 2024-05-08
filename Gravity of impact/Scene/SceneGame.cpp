@@ -1,4 +1,5 @@
 #include "SceneGame.h"
+#include "SceneGoal.h"
 #include "DxLib.h"
 
 SceneGame::SceneGame()
@@ -28,6 +29,12 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	camera->Update(*player);
 
 	map->Update(*player);
+
+	//ƒS[ƒ‹ƒV[ƒ“‚É‘JˆÚ‚·‚é
+	if (map->Goal == true)
+	{
+		return std::make_shared<SceneGoal>();
+	}
 
 	return shared_from_this();
 }

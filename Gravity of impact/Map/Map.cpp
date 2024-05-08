@@ -11,7 +11,8 @@ Map::Map():
 	MapdistanceZ(0.0f),
 	MapWidth(0.0f),
 	MapHeight(0.0f),
-	MapDepth(0.0f)
+	MapDepth(0.0f),
+	Goal(false)
 {
 	
 }
@@ -56,6 +57,14 @@ void Map::Update(Player& player)
 	m_colrect.SetCenter(-230.0f, -220.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 	m_colrect2.SetCenter(-230.0f, -1023.0f, 720.0f, MapWidth, MapHeight, MapDepth);
 	m_colrect3.SetCenter(-230.0f, -1822.5f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect4.SetCenter(-730.0f, -2623.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect5.SetCenter(-730.0f, -3423.0f, -280.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect6.SetCenter(-230.0f, -4223.0f, -280.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect7.SetCenter(-230.0f, -5023.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect8.SetCenter(270.0f, -5823.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect9.SetCenter(-230.0f, -6623.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_colrect10.SetCenter(-230.0f, -7422.0f, -280.0f, MapWidth, MapHeight, MapDepth);
+
 
 	//障害物制御
 	obustructmap1->Update();
@@ -72,8 +81,6 @@ void Map::Update(Player& player)
 	//プレイヤーに当たっていると
 	if (m_colrect.IsCollision(player.m_colrect) == true)
 	{
-		DrawString(200, 130, "当たっている", GetColor(255, 255, 255));
-
 		player.PlayerGravity = 0.0f;
 	}
 	else if (m_colrect2.IsCollision(player.m_colrect) == true)
@@ -83,6 +90,35 @@ void Map::Update(Player& player)
 	else if (m_colrect3.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect4.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect5.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect6.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect7.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect8.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect9.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+	}
+	else if (m_colrect10.IsCollision(player.m_colrect) == true)
+	{
+		player.PlayerGravity = 0.0f;
+		Goal = true;
 	}
 	//プレイヤーに当たってないと
 	else if (m_colrect.IsCollision(player.m_colrect) == false || m_colrect2.IsCollision(player.m_colrect) == false)
@@ -113,6 +149,16 @@ void Map::Draw(Player& player)
 	m_colrect.Draw(GetColor(255, 0, 0), false);
 	m_colrect2.Draw(GetColor(255, 0, 0), false);
 	m_colrect3.Draw(GetColor(255, 0, 0), false);
+	m_colrect4.Draw(GetColor(255, 0, 0), false);
+	m_colrect5.Draw(GetColor(255, 0, 0), false);
+	m_colrect6.Draw(GetColor(255, 0, 0), false);
+	m_colrect7.Draw(GetColor(255, 0, 0), false);
+	m_colrect8.Draw(GetColor(255, 0, 0), false);
+	m_colrect9.Draw(GetColor(255, 0, 0), false);
+	m_colrect10.Draw(GetColor(255, 0, 0), false);
+
+
+
 
 	//プレイヤーに当たっていると
 	if (m_colrect.IsCollision(player.m_colrect) == true)

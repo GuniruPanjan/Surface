@@ -35,6 +35,9 @@ public:
 
 	//マップの当たり判定幅
 	float MapWidth, MapHeight, MapDepth;
+
+	//シーン遷移させるためのトリガー
+	bool Goal;
 	
 	//当たり判定
 	Rect m_colrect;

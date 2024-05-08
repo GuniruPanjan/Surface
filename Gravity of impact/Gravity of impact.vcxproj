@@ -149,6 +149,7 @@
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneChoice.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Scene\SceneGoal.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Vec3.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneChoice.h" />
     <ClInclude Include="Scene\SceneGame.h" />
+    <ClInclude Include="Scene\SceneGoal.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Vec3.h" />
