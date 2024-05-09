@@ -19,5 +19,8 @@ private:
 	//3Dの座標
 	float MapX, MapY, MapZ;
 	float PlayerX, PlayerY, PlayerZ;
+
+	//シーン遷移させるためのフラグ
+	bool SceneChange;
 };
 

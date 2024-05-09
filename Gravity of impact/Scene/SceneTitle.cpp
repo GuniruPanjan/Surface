@@ -12,12 +12,16 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
+	fedo->Init();
+
 	//タイトルロゴを読み込む
 	Titlelogo = LoadGraph("data/GravityImpactロゴ.png");
 }
 
 std::shared_ptr<SceneBase> SceneTitle::Update()
 {
+	fedo->Update();
+
 	//入力でシーン遷移
 	if (CheckHitKeyAll())
 	{
@@ -29,6 +33,8 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
+	fedo->Draw();
+
 	//タイトルロゴの初期位置
 	int Titlelogox, Titlelogoy;
 

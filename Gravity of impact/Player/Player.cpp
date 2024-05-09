@@ -33,10 +33,13 @@ void Player::Init()
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
 
 	//Playerの回転状態初期化
-	PlayerAngle = VGet(0.0f, D2R(0.0f), 0.0f);
+	PlayerAngle = VGet(-1.55f, D2R(0.0f), 0.0f);
 
 	//3Dモデルを読み込む
-	PlayerGraph = MV1LoadModel("data/Sting-Sword lowpoly.mv1");
+	PlayerGraph = MV1LoadModel("data/Sword.mv1");
+
+	//Playerの大きさを変える
+	MV1SetScale(PlayerGraph, VGet(0.05f, 0.05f, 0.05f));
 
 	//Playerのスピード設定
 	PlayerSpeed = 1.0f;
@@ -93,7 +96,7 @@ void Player::Update()
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
 
-	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z + static_cast<float>(30), 10.0f, 1.0f, -60.0f);
+	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z + static_cast<float>(5), 10.0f, 1.0f, -60.0f);
 }
 
 void Player::Draw()

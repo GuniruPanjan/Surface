@@ -10,7 +10,8 @@ SceneGoal::SceneGoal():
 	MapZ(0.0f),
 	PlayerX(0.0f),
 	PlayerY(0.0f),
-	PlayerZ(0.0f)
+	PlayerZ(0.0f),
+	SceneChange(false)
 {
 }
 
@@ -20,6 +21,9 @@ SceneGoal::~SceneGoal()
 
 void SceneGoal::Init()
 {
+	//フェードの初期化
+	fedo->Init();
+
 	//背景画像読み込み
 	GoalBack = LoadGraph("data/cloudy.png");
 
@@ -28,8 +32,20 @@ void SceneGoal::Init()
 
 std::shared_ptr<SceneBase> SceneGoal::Update()
 {
+	//フェードを行う
+	fedo->Update();
+
 	//入力でシーン遷移
 	if (CheckHitKeyAll())
+	{
+		//フェードアウトを行う
+		fedo->Fedo = true;
+
+		SceneChange = true;
+	}
+
+	//シーン遷移
+	if (fedo->Start <= 0 && SceneChange == true)
 	{
 		return std::make_shared<SceneTitle>();
 	}
@@ -41,6 +57,9 @@ void SceneGoal::Draw()
 {
 	//背景画像描画
 	DrawGraph(0, 0, GoalBack, false);
+
+	//フェード
+	fedo->Draw();
 }
 
 void SceneGoal::End()

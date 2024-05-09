@@ -148,6 +148,7 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneChoice.cpp" />
+    <ClCompile Include="Scene\SceneFedo.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Scene\SceneGoal.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneChoice.h" />
+    <ClInclude Include="Scene\SceneFedo.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneGoal.h" />
     <ClInclude Include="Scene\SceneManager.h" />

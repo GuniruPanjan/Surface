@@ -1,4 +1,5 @@
 #pragma once
+#include "SceneFedo.h"
 #include<memory>
 
 class SceneBase : public std::enable_shared_from_this<SceneBase>
@@ -25,5 +26,8 @@ public:
 
 	//タイトルロゴ格納変数
 	int Titlelogo;
+
+	//Sceneのフェードを管理するポインタ
+	std::shared_ptr<SceneFedo> fedo = std::make_shared<SceneFedo>();
 };
 

@@ -115,6 +115,7 @@ void Map::Update(Player& player)
 	{
 		player.PlayerGravity = 0.0f;
 	}
+	//ÉSÅ[Éã
 	else if (m_colrect10.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
