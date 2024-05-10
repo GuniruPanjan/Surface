@@ -7,7 +7,8 @@
 
 Player::Player():
 	PlayerGravity(0.0f),
-	Playerweight(0.0f)
+	Playerweight(0.0f),
+	PlayerRespawn(0.0f)
 {
 }
 
@@ -43,6 +44,9 @@ void Player::Init()
 
 	//Playerのスピード設定
 	PlayerSpeed = 1.0f;
+
+	//Playerがリスポーンできる地点
+	PlayerRespawn = -7500.0f;
 }
 
 void Player::Update()
@@ -96,6 +100,14 @@ void Player::Update()
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
 
+	//Playerが落ち続けたら初期位置に戻す
+	if (Playerpos.y <= PlayerRespawn)
+	{
+		Playerpos.x = 0.0f;
+		Playerpos.y = 30.0f;
+		Playerpos.z = 0.0f;
+	}
+
 	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z + static_cast<float>(5), 10.0f, 1.0f, -60.0f);
 }
 
@@ -110,11 +122,13 @@ void Player::Draw()
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);
 
-	DrawFormatString(500, 0, 0xffffff, "%f", PlayerAngle.y);
-	DrawFormatString(500, 20, 0xffffff, "%f", PlayerAngle.x);
+	//DrawFormatString(500, 0, 0xffffff, "%f", Playerpos.y);
+	//DrawFormatString(500, 20, 0xffffff, "%f", Playerpos.x);
+	//DrawFormatString(500, 40, 0xffffff, "%f", Playerpos.z);
+
 
 	//当たり判定を描画する
-	m_colrect.Draw(GetColor(255, 0, 0), false);
+	//m_colrect.Draw(GetColor(255, 0, 0), false);
 
 }
 

@@ -1,6 +1,6 @@
 #include "SceneTitle.h"
 #include "DxLib.h"
-#include "SceneChoice.h"
+#include "SceneGame.h"
 
 SceneTitle::SceneTitle()
 {
@@ -8,11 +8,17 @@ SceneTitle::SceneTitle()
 
 SceneTitle::~SceneTitle()
 {
+	//メモリから解放
+	DeleteGraph(TitleBack);
+	DeleteGraph(Titlelogo);
 }
 
 void SceneTitle::Init()
 {
 	fedo->Init();
+
+	//背景画像読み込み
+	TitleBack = LoadGraph("data/cloudy.png");
 
 	//タイトルロゴを読み込む
 	Titlelogo = LoadGraph("data/GravityImpactロゴ.png");
@@ -23,10 +29,14 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 	fedo->Update();
 
 	//入力でシーン遷移
-	if (CheckHitKeyAll())
+	if (fedo->Start >= 255)
 	{
-		return std::make_shared<SceneChoice>();
+		if (CheckHitKeyAll())
+		{
+			return std::make_shared<SceneGame>();
+		}
 	}
+	
 
 	return shared_from_this();  //自身のポインタを返す
 }
@@ -34,6 +44,8 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 void SceneTitle::Draw()
 {
 	fedo->Draw();
+
+	DrawGraph(0, 0, TitleBack, false);
 
 	//タイトルロゴの初期位置
 	int Titlelogox, Titlelogoy;

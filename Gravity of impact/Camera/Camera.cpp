@@ -55,8 +55,8 @@ void Camera::Update(Player& player)
 	//下キー
 	if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN)
 	{
-		//カメラがプレイヤーをくぐらないくらいまで
-		if (cameraAngle.x >= -2.2f)
+		//カメラがブロックにめりこまないように
+		if (cameraPos.y >= 15.2f + player.Playerpos.y)
 		{
 			cameraAngle.x -= D2R(1.0f);
 		}
@@ -86,21 +86,21 @@ void Camera::Update(Player& player)
 	SetCameraPositionAndTarget_UpVecY(cameraPos, cameraTarget);
 	
 
-	DrawFormatString(300, 0, 0xffffff, "%f", player.Playerpos.x);
-	DrawFormatString(300, 20, 0xffffff, "%f", player.Playerpos.y);
-	DrawFormatString(300, 40, 0xffffff, "%f", player.Playerpos.z);
+	//DrawFormatString(300, 0, 0xffffff, "%f", player.Playerpos.x);
+	//DrawFormatString(300, 20, 0xffffff, "%f", player.Playerpos.y);
+	//DrawFormatString(300, 40, 0xffffff, "%f", player.Playerpos.z);
 }
 
 void Camera::Draw()
 {
 
-	DrawFormatString(0, 0, 0xffffff, "%f", cameraPos.x);
-	DrawFormatString(0, 20, 0xffffff, "%f", cameraPos.y);
-	DrawFormatString(0, 40, 0xffffff, "%f", cameraPos.z);
+	//DrawFormatString(0, 0, 0xffffff, "%f", cameraPos.x);
+	//DrawFormatString(0, 20, 0xffffff, "%f", cameraPos.y);
+	//DrawFormatString(0, 40, 0xffffff, "%f", cameraPos.z);
 
-	DrawFormatString(0, 360, 0xffffff, "%f", cameraAngle.x);
-	DrawFormatString(0, 380, 0xffffff, "%f", cameraAngle.y);
-	DrawFormatString(0, 400, 0xffffff, "%f", cameraAngle.z);
+	//DrawFormatString(0, 360, 0xffffff, "%f", cameraAngle.x);
+	//DrawFormatString(0, 380, 0xffffff, "%f", cameraAngle.y);
+	//DrawFormatString(0, 400, 0xffffff, "%f", cameraAngle.z);
 	
 }
 

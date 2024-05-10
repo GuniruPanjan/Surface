@@ -147,25 +147,25 @@ void Map::Draw(Player& player)
 
 
 	//“–‚½‚è”»’è‚ğ•`‰æ‚·‚é
-	m_colrect.Draw(GetColor(255, 0, 0), false);
-	m_colrect2.Draw(GetColor(255, 0, 0), false);
-	m_colrect3.Draw(GetColor(255, 0, 0), false);
-	m_colrect4.Draw(GetColor(255, 0, 0), false);
-	m_colrect5.Draw(GetColor(255, 0, 0), false);
-	m_colrect6.Draw(GetColor(255, 0, 0), false);
-	m_colrect7.Draw(GetColor(255, 0, 0), false);
-	m_colrect8.Draw(GetColor(255, 0, 0), false);
-	m_colrect9.Draw(GetColor(255, 0, 0), false);
-	m_colrect10.Draw(GetColor(255, 0, 0), false);
+	//m_colrect.Draw(GetColor(255, 0, 0), false);
+	//m_colrect2.Draw(GetColor(255, 0, 0), false);
+	//m_colrect3.Draw(GetColor(255, 0, 0), false);
+	//m_colrect4.Draw(GetColor(255, 0, 0), false);
+	//m_colrect5.Draw(GetColor(255, 0, 0), false);
+	//m_colrect6.Draw(GetColor(255, 0, 0), false);
+	//m_colrect7.Draw(GetColor(255, 0, 0), false);
+	//m_colrect8.Draw(GetColor(255, 0, 0), false);
+	//m_colrect9.Draw(GetColor(255, 0, 0), false);
+	//m_colrect10.Draw(GetColor(255, 0, 0), false);
 
 
 
 
 	//ƒvƒŒƒCƒ„[‚É“–‚½‚Á‚Ä‚¢‚é‚Æ
-	if (m_colrect.IsCollision(player.m_colrect) == true)
-	{
-		DrawString(200, 130, "“–‚½‚Á‚Ä‚¢‚é", GetColor(255, 255, 255));
-	}
+	//if (m_colrect.IsCollision(player.m_colrect) == true)
+	//{
+	//	DrawString(200, 130, "“–‚½‚Á‚Ä‚¢‚é", GetColor(255, 255, 255));
+	//}
 }
 
 void Map::End()

@@ -48,9 +48,6 @@
     <ClCompile Include="Scene\SceneTitle.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneChoice.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\SceneGame.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
@@ -90,9 +87,6 @@
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneTitle.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneChoice.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneGame.h">

@@ -7,7 +7,6 @@ class SceneBase : public std::enable_shared_from_this<SceneBase>
 public:
 	SceneBase():
 		GameBack(0),
-		ChoiceBack(0),
 		TitleBack(0),
 		GoalBack(0),
 		Titlelogo(0)
@@ -22,7 +21,7 @@ public:
 	virtual void End() = 0;
 
 	//ƒV[ƒ“‚Ì”wŒi‰æ‘œŠi”[•Ï”
-	int GameBack, ChoiceBack, TitleBack, GoalBack;
+	int GameBack, TitleBack, GoalBack;
 
 	//ƒ^ƒCƒgƒ‹ƒƒSŠi”[•Ï”
 	int Titlelogo;

@@ -11,30 +11,18 @@ public:
 	Camera();
 	virtual ~Camera();
 
-	//z軸を中心に回転する
-	void rotate(float* x, float* y, const float angle, const float mx, const float my)
-	{
-		const float ox = *x - mx, oy = *y - my;
-		*x = ox * cos(angle) + oy * sin(angle);
-		*y = -ox * sin(angle) + oy * cos(angle);
-		*x += mx;
-		*y += my;
-	};
-
-	//360度回すには行列が必要
-
 	void Init();
 	void Update(Player& player);
 	void Draw();
 	void End();
 
 	//カメラのポジション
-	VECTOR cameraPos;
+	VECTOR cameraPos = VGet(0.0f, 0.0f, 0.0f);
 	//カメラのターゲット
-	VECTOR cameraTarget;
+	VECTOR cameraTarget = VGet(0.0f, 0.0f, 0.0f);
 
 	//カメラのアングル
-	VECTOR cameraAngle;
+	VECTOR cameraAngle = VGet(0.0f, 0.0f, 0.0f);
 
 };
 
