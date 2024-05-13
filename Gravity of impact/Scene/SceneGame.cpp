@@ -8,6 +8,8 @@ SceneGame::SceneGame()
 
 SceneGame::~SceneGame()
 {
+	//ƒƒ‚ƒŠ‰ğ•ú
+	DeleteSoundMem(SoundGame);
 }
 
 void SceneGame::Init()
@@ -20,6 +22,9 @@ void SceneGame::Init()
 
 	//”wŒi‚Ì‰æ‘œ“Ç‚İ‚İ
 	GameBack = LoadGraph("data/cloudy.png");
+
+	//”wŒiBGM“Ç‚İ‚İ
+	SoundGame = LoadSoundMem("BGMESE/Garden_Farm.mp3");
 }
 
 std::shared_ptr<SceneBase> SceneGame::Update()
@@ -29,6 +34,9 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	camera->Update(*player);
 
 	map->Update(*player);
+
+	//ƒTƒEƒ“ƒhÄ¶
+	PlaySoundMem(SoundGame, DX_PLAYTYPE_LOOP, FALSE);
 
 	//ƒS[ƒ‹ƒV[ƒ“‚É‘JˆÚ‚·‚é
 	if (map->Goal == true)

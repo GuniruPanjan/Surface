@@ -1,12 +1,20 @@
 #include "DxLib.h"
 #include<memory>
 #include "Scene/SceneManager.h"
+#include "GraphMode.h"
+#include "icon/icon.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
 	ChangeWindowMode(true);
+
+	//Windowの名前を変更する
+	SetWindowText("Gravity Impact");
+
+	SetWindowIconID(IDI_ICON1);              //アイコンを設定
+
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{
@@ -17,6 +25,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//シーンを管理するポインタ
 	std::shared_ptr<SceneManager> pScene = std::make_shared<SceneManager>();
+
+	std::shared_ptr<GraphMode> graph = std::make_shared<GraphMode>();
+
+	SetWindowSize(graph->GraphModeWIDTH, graph->GraphModeHEIGHT);
 
 	pScene->Init();
 

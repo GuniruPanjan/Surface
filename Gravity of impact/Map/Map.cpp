@@ -3,6 +3,9 @@
 #define GravitationalAcceleration 9.80665 / 2
 
 Map::Map():
+	NotMoveTime(0),
+	SE(0),
+	PlaySe(true),
 	MapX(0.0f),
 	MapY(0.0f),
 	MapZ(0.0f),
@@ -19,6 +22,8 @@ Map::Map():
 
 Map::~Map()
 {
+	//メモリ解放
+	DeleteSoundMem(SE);
 }
 
 void Map::Init()
@@ -38,6 +43,9 @@ void Map::Init()
 	MapHeight = 220.0f;
 	MapDepth = -450.0f;
 
+	//SE読み込み
+	SE = LoadSoundMem("BGM・SE/ロボットを殴る1.mp3");
+
 	//マップの位置を初期化
 	obustructmap1->SetPos(VGet(MapX, MapY, MapZ));
 	obustructmap2->SetPos(VGet(MapX, MapY - MapdistanceY, MapZ + MapdistanceZ));
@@ -53,6 +61,8 @@ void Map::Init()
 
 void Map::Update(Player& player)
 {
+	
+
 	//マップの当たり判定をとる
 	m_colrect.SetCenter(-230.0f, -220.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 	m_colrect2.SetCenter(-230.0f, -1023.0f, 720.0f, MapWidth, MapHeight, MapDepth);
@@ -82,49 +92,171 @@ void Map::Update(Player& player)
 	if (m_colrect.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect2.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect3.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect4.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect5.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect6.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect7.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect8.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	else if (m_colrect9.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
 	}
 	//ゴール
 	else if (m_colrect10.IsCollision(player.m_colrect) == true)
 	{
 		player.PlayerGravity = 0.0f;
+		player.PlayerMoveFlag = true;
+
+		NotMoveTime = 0;
+
+		//SEを流す
+		if (PlaySe == false)
+		{
+			PlaySoundMem(SE, DX_PLAYTYPE_BACK, TRUE);
+
+			PlaySe = true;
+		}
+
 		Goal = true;
 	}
 	//プレイヤーに当たってないと
 	else if (m_colrect.IsCollision(player.m_colrect) == false || m_colrect2.IsCollision(player.m_colrect) == false)
 	{
-		player.PlayerGravity = player.Playerweight * GravitationalAcceleration;
+		player.PlayerGravity = player.Playerweight * static_cast<float>(GravitationalAcceleration);
+
+		NotMoveTime++;
+
+		if (NotMoveTime >= 50)
+		{
+			player.PlayerMoveFlag = false;
+		}
+		
+
+		//SEが鳴るようにする
+		PlaySe = false;
 	}
 	
 }
@@ -143,29 +275,6 @@ void Map::Draw(Player& player)
 	obustructmap8->Draw();
 	obustructmap9->Draw();
 	obustructmap10->Draw();
-
-
-
-	//当たり判定を描画する
-	//m_colrect.Draw(GetColor(255, 0, 0), false);
-	//m_colrect2.Draw(GetColor(255, 0, 0), false);
-	//m_colrect3.Draw(GetColor(255, 0, 0), false);
-	//m_colrect4.Draw(GetColor(255, 0, 0), false);
-	//m_colrect5.Draw(GetColor(255, 0, 0), false);
-	//m_colrect6.Draw(GetColor(255, 0, 0), false);
-	//m_colrect7.Draw(GetColor(255, 0, 0), false);
-	//m_colrect8.Draw(GetColor(255, 0, 0), false);
-	//m_colrect9.Draw(GetColor(255, 0, 0), false);
-	//m_colrect10.Draw(GetColor(255, 0, 0), false);
-
-
-
-
-	//プレイヤーに当たっていると
-	//if (m_colrect.IsCollision(player.m_colrect) == true)
-	//{
-	//	DrawString(200, 130, "当たっている", GetColor(255, 255, 255));
-	//}
 }
 
 void Map::End()

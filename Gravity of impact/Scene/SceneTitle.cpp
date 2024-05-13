@@ -11,11 +11,15 @@ SceneTitle::~SceneTitle()
 	//メモリから解放
 	DeleteGraph(TitleBack);
 	DeleteGraph(Titlelogo);
+	DeleteSoundMem(SoundGame);
 }
 
 void SceneTitle::Init()
 {
 	fedo->Init();
+
+	//背景BGM読み込み
+	SoundGame = LoadSoundMem("BGM・SE/Garden_Farm.mp3");
 
 	//背景画像読み込み
 	TitleBack = LoadGraph("data/cloudy.png");
@@ -26,7 +30,11 @@ void SceneTitle::Init()
 
 std::shared_ptr<SceneBase> SceneTitle::Update()
 {
+	//フェード開始
 	fedo->Update();
+
+	//サウンド再生
+	PlaySoundMem(SoundGame, DX_PLAYTYPE_LOOP, FALSE);
 
 	//入力でシーン遷移
 	if (fedo->Start >= 255)

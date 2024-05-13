@@ -6,6 +6,8 @@ class SceneBase : public std::enable_shared_from_this<SceneBase>
 {
 public:
 	SceneBase():
+		SoundGame(0),
+		SoundGoal(0),
 		GameBack(0),
 		TitleBack(0),
 		GoalBack(0),
@@ -19,6 +21,9 @@ public:
 	virtual std::shared_ptr<SceneBase> Update() = 0;
 	virtual void Draw() = 0;
 	virtual void End() = 0;
+
+	//ƒTƒEƒ“ƒh—pŠi”[•Ï”
+	int SoundGame, SoundGoal;
 
 	//ƒV[ƒ“‚Ì”wŒi‰æ‘œŠi”[•Ï”
 	int GameBack, TitleBack, GoalBack;

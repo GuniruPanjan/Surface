@@ -156,6 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="GraphMode.h" />
+    <ClInclude Include="icon\icon.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Map\ObstructMap.h" />
     <ClInclude Include="Player\Player.h" />
@@ -168,6 +170,12 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Vec3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon\GravityImpactIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon\icon.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

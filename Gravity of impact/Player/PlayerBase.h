@@ -8,6 +8,7 @@ public:
 	PlayerBase():
 		PlayerSpeed(0.0f),
 		PlayerGraph(0),
+		PlayerMoveFlag(true),
 		PlayerX(0.0f),
 		PlayerY(0.0f),
 		PlayerZ(0.0f)
@@ -25,6 +26,9 @@ public:
 	float PlayerSpeed;
 	//Playerの3Dモデルハンドル
 	int PlayerGraph;
+
+	//Playerが動けるフラグ
+	bool PlayerMoveFlag;
 
 	//PlayerのX,Y,Z座標
 	float PlayerX, PlayerY, PlayerZ;

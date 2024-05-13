@@ -28,7 +28,7 @@ void Player::Init()
 	Playerweight = 1.0f;
 
 	//Playerの重力
-	PlayerGravity = Playerweight * GravitationalAcceleration;
+	PlayerGravity = Playerweight * static_cast<float>(GravitationalAcceleration);
 
 	//Playerの初期位置
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
@@ -47,54 +47,38 @@ void Player::Init()
 
 	//Playerがリスポーンできる地点
 	PlayerRespawn = -7500.0f;
+
+	//Playerが動けるように初期化
+	PlayerMoveFlag = true;
 }
 
 void Player::Update()
 {
-	
-
-	//前に進む
-	if (CheckHitKey(KEY_INPUT_W))
+	//Playerが動くフラグがTrueなら
+	if (PlayerMoveFlag == true)
 	{
-		Playerpos.z += PlayerSpeed;
+		//前に進む
+		if (CheckHitKey(KEY_INPUT_W))
+		{
+			Playerpos.z += PlayerSpeed;
 
-		//if (PlayerAngle.y <= 0.0f)
-		//{
-		//	PlayerAngle.y += D2R(1.0f);
-		//}
-		//if (PlayerAngle.y >= 0.0f)
-		//{
-		//	PlayerAngle.y -= D2R(1.0f);
-		//}
+		}
+		//後ろに進む
+		if (CheckHitKey(KEY_INPUT_S))
+		{
+			Playerpos.z -= PlayerSpeed;
 
-	}
-	//後ろに進む
-	if (CheckHitKey(KEY_INPUT_S))
-	{
-		Playerpos.z -= PlayerSpeed;
-
-	}
-	//右に進む
-	if (CheckHitKey(KEY_INPUT_D))
-	{
-		Playerpos.x += PlayerSpeed;
-
-		//if (PlayerAngle.y <= 1.5f)
-		//{
-		//	PlayerAngle.y += D2R(1.0f);
-		//}
-
-	}
-	//左に進む
-	if (CheckHitKey(KEY_INPUT_A))
-	{
-		Playerpos.x -= PlayerSpeed;
-
-		//if (PlayerAngle.y >= -1.5f)
-		//{
-		//	PlayerAngle.y -= D2R(1.0f);
-		//}
-
+		}
+		//右に進む
+		if (CheckHitKey(KEY_INPUT_D))
+		{
+			Playerpos.x += PlayerSpeed;
+		}
+		//左に進む
+		if (CheckHitKey(KEY_INPUT_A))
+		{
+			Playerpos.x -= PlayerSpeed;
+		}
 	}
 
 	//Playerに重力を与え続ける
@@ -121,15 +105,6 @@ void Player::Draw()
 
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);
-
-	//DrawFormatString(500, 0, 0xffffff, "%f", Playerpos.y);
-	//DrawFormatString(500, 20, 0xffffff, "%f", Playerpos.x);
-	//DrawFormatString(500, 40, 0xffffff, "%f", Playerpos.z);
-
-
-	//当たり判定を描画する
-	//m_colrect.Draw(GetColor(255, 0, 0), false);
-
 }
 
 void Player::End()

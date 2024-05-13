@@ -26,7 +26,7 @@ void Camera::Init()
 	//ÉJÉÅÉâÇÃÉAÉìÉOÉãèâä˙ê›íË
 	cameraAngle = VGet(D2R(-20.0f), 0.0f, 0.0f);
 
-	SetCameraNearFar(1.0f, 1000.0f);
+	SetCameraNearFar(1.0f, 850.0f);
 }
 
 void Camera::Update(Player& player)
@@ -84,23 +84,10 @@ void Camera::Update(Player& player)
 	cameraTarget = VAdd(player.Playerpos, VGet(0.0f, 2.0f, 0.0f));
 
 	SetCameraPositionAndTarget_UpVecY(cameraPos, cameraTarget);
-	
-
-	//DrawFormatString(300, 0, 0xffffff, "%f", player.Playerpos.x);
-	//DrawFormatString(300, 20, 0xffffff, "%f", player.Playerpos.y);
-	//DrawFormatString(300, 40, 0xffffff, "%f", player.Playerpos.z);
 }
 
 void Camera::Draw()
 {
-
-	//DrawFormatString(0, 0, 0xffffff, "%f", cameraPos.x);
-	//DrawFormatString(0, 20, 0xffffff, "%f", cameraPos.y);
-	//DrawFormatString(0, 40, 0xffffff, "%f", cameraPos.z);
-
-	//DrawFormatString(0, 360, 0xffffff, "%f", cameraAngle.x);
-	//DrawFormatString(0, 380, 0xffffff, "%f", cameraAngle.y);
-	//DrawFormatString(0, 400, 0xffffff, "%f", cameraAngle.z);
 	
 }
 

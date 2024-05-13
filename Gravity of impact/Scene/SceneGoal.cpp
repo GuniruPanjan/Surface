@@ -21,6 +21,7 @@ SceneGoal::~SceneGoal()
 	//メモリ解放
 	DeleteGraph(GoalBack);
 	DeleteGraph(ClearGraph);
+	DeleteSoundMem(SoundGoal);
 
 }
 
@@ -40,6 +41,9 @@ void SceneGoal::Init()
 
 	//フェードの初期化
 	fedo->Init();
+
+	//背景BGM読み込み
+	SoundGoal = LoadSoundMem("BGM・SE/栄光のゴール.mp3");
 
 	//Clearの画像読み込み
 	ClearGraph = LoadGraph("data/Clear.png");
@@ -71,6 +75,9 @@ std::shared_ptr<SceneBase> SceneGoal::Update()
 {
 	//フェードを行う
 	fedo->Update();
+
+	//サウンド再生
+	PlaySoundMem(SoundGoal, DX_PLAYTYPE_LOOP, TRUE);
 
 	//入力でシーン遷移
 	if (CheckHitKeyAll())

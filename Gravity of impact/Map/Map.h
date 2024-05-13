@@ -27,6 +27,15 @@ public:
 	ObstructMap* obustructmap9 = new ObstructMap();
 	ObstructMap* obustructmap10 = new ObstructMap();
 
+	//Playerが動けなくなるまでの時間
+	int NotMoveTime;
+
+	//SE再生用トリガー
+	bool PlaySe;
+
+	//SE用格納用変数
+	int SE;
+
 	//他のマップとの距離
 	float MapdistanceX, MapdistanceY, MapdistanceZ;
 
