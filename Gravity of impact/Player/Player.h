@@ -13,6 +13,8 @@ public:
 	virtual void Draw();
 	virtual void End();
 
+	void SetCameraAngle(float angle) { cameraAngle = angle; }
+
 	//Playerの重さ
 	float Playerweight;
 
@@ -22,8 +24,12 @@ public:
 	//Plyaerのリスポーン値
 	float PlayerRespawn;
 
+	//カメラ情報
+	float cameraAngle;
+
 	//Playerのポジション
 	VECTOR Playerpos = VGet(0.0f, 10.0f, 0.0f);
+	float angle;
 
 	//Playerのアングル
 	VECTOR PlayerAngle = VGet(0.0f, 0.0f, 0.0f);

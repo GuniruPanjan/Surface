@@ -1,6 +1,7 @@
 #pragma once
 #define _OBSTRUCT_MAP_H_
 
+#include "Player/Player.h"
 #include "DxLib.h"
 
 class ObstructMap

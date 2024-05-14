@@ -16,6 +16,8 @@ public:
 	void Draw();
 	void End();
 
+	DINPUT_JOYSTATE input;
+
 	//カメラのポジション
 	VECTOR cameraPos = VGet(0.0f, 0.0f, 0.0f);
 	//カメラのターゲット

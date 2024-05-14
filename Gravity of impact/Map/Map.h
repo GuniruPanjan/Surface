@@ -27,6 +27,9 @@ public:
 	ObstructMap* obustructmap9 = new ObstructMap();
 	ObstructMap* obustructmap10 = new ObstructMap();
 
+	//シャドウマップハンドル
+	int ShadowMapHandle;
+
 	//Playerが動けなくなるまでの時間
 	int NotMoveTime;
 

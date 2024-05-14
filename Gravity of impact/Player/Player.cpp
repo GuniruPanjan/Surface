@@ -8,7 +8,9 @@
 Player::Player():
 	PlayerGravity(0.0f),
 	Playerweight(0.0f),
-	PlayerRespawn(0.0f)
+	PlayerRespawn(0.0f),
+	cameraAngle(0.0f),
+	angle(0.0f)
 {
 }
 
@@ -54,32 +56,75 @@ void Player::Init()
 
 void Player::Update()
 {
+	//アナログスティックを使って移動
+	int analogX = 0;
+	int analogY = 0;
+
+	GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
+
+	VECTOR move = VGet(-analogX, 0.0f, analogY);  //ベクトルの長さ
+
+	//ベクトルの長さを取得する
+	float len = VSize(move);
+	//ベクトル長さを0.0～1.0の割合に変換する
+	float rate = len / 1000.0f;
+
+	//アナログスティック無効な範囲を除外する
+	rate = (rate - 0.1f) / (0.8f - 0.1f);
+	rate = min(rate, 1.0f);
+	rate = max(rate, 0.0f);
+
+	//速度が決定できるので移動ベクトルに反映する
+	move = VNorm(move);
+	float speed = PlayerSpeed * rate;
+
+	move = VScale(move, speed);
+
+	//cameraの角度から
+	//コントローラによる移動方向を決定する
+	MATRIX mtx = MGetRotY(cameraAngle + DX_PI_F);
+	move = VTransform(move, mtx);
+
+	//移動方向からプライヤーの向く方向を決定する
+	//移動してない場合(ゼロベクトル)の場合は変更しない
+	if (VSquareSize(move) > 0.0f)
+	{
+		angle = atan2f(move.z, -move.x) - DX_PI_F / 2;
+	}
 	//Playerが動くフラグがTrueなら
 	if (PlayerMoveFlag == true)
 	{
-		//前に進む
-		if (CheckHitKey(KEY_INPUT_W))
-		{
-			Playerpos.z += PlayerSpeed;
-
-		}
-		//後ろに進む
-		if (CheckHitKey(KEY_INPUT_S))
-		{
-			Playerpos.z -= PlayerSpeed;
-
-		}
-		//右に進む
-		if (CheckHitKey(KEY_INPUT_D))
-		{
-			Playerpos.x += PlayerSpeed;
-		}
-		//左に進む
-		if (CheckHitKey(KEY_INPUT_A))
-		{
-			Playerpos.x -= PlayerSpeed;
-		}
+		Playerpos = VAdd(Playerpos, move);
 	}
+
+	
+
+	//Playerが動くフラグがTrueなら
+	//if (PlayerMoveFlag == true)
+	//{
+	//	//前に進む
+	//	if (CheckHitKey(KEY_INPUT_W))
+	//	{
+	//		Playerpos.z += PlayerSpeed;
+
+	//	}
+	//	//後ろに進む
+	//	if (CheckHitKey(KEY_INPUT_S))
+	//	{
+	//		Playerpos.z -= PlayerSpeed;
+
+	//	}
+	//	//右に進む
+	//	if (CheckHitKey(KEY_INPUT_D))
+	//	{
+	//		Playerpos.x += PlayerSpeed;
+	//	}
+	//	//左に進む
+	//	if (CheckHitKey(KEY_INPUT_A))
+	//	{
+	//		Playerpos.x -= PlayerSpeed;
+	//	}
+	//}
 
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
@@ -101,7 +146,7 @@ void Player::Draw()
 	MV1SetPosition(PlayerGraph, Playerpos);
 
 	//3Dモデルの回転地をセットする
-	MV1SetRotationXYZ(PlayerGraph, PlayerAngle);
+	MV1SetRotationXYZ(PlayerGraph, VGet(-1.55f, angle, 0.0f));
 
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);

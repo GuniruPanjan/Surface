@@ -3,6 +3,7 @@
 #define GravitationalAcceleration 9.80665 / 2
 
 Map::Map():
+	ShadowMapHandle(0),
 	NotMoveTime(0),
 	SE(0),
 	PlaySe(true),
@@ -24,6 +25,9 @@ Map::~Map()
 {
 	//メモリ解放
 	DeleteSoundMem(SE);
+
+	//シャドウマップの削除
+	DeleteShadowMap(ShadowMapHandle);
 }
 
 void Map::Init()
@@ -45,6 +49,15 @@ void Map::Init()
 
 	//SE読み込み
 	SE = LoadSoundMem("BGM・SE/ロボットを殴る1.mp3");
+
+	//シャドウマップハンドルの作成
+	ShadowMapHandle = MakeShadowMap(8192, 8192);
+
+	//シャドウマップが想定するライトの方向もセット
+	SetShadowMapLightDirection(ShadowMapHandle, VGet(0.5f, -0.5f, 0.5f));
+
+	//シャドウマップに描画する範囲を設定
+	SetShadowMapDrawArea(ShadowMapHandle, VGet(-1000.0f, -1.0f, -1000.0f), VGet(1000.0f, -8000.0f, 1000.0f));
 
 	//マップの位置を初期化
 	obustructmap1->SetPos(VGet(MapX, MapY, MapZ));
@@ -76,7 +89,7 @@ void Map::Update(Player& player)
 	m_colrect10.SetCenter(-230.0f, -7422.0f, -280.0f, MapWidth, MapHeight, MapDepth);
 
 
-	//障害物制御
+	//マップ制御
 	obustructmap1->Update();
 	obustructmap2->Update();
 	obustructmap3->Update();
@@ -263,8 +276,19 @@ void Map::Update(Player& player)
 
 void Map::Draw(Player& player)
 {
+	//シャドウマップへの描画の準備
+	ShadowMap_DrawSetup(ShadowMapHandle);
 
-	//障害物描画
+	//シャドウマップへキャラクターモデルの描画
+	MV1DrawModel(player.PlayerGraph);
+
+	//シャドウマップへの描画を終了
+	ShadowMap_DrawEnd();
+
+	//描画に使用するシャドウマップを設定
+	SetUseShadowMap(1, ShadowMapHandle);
+
+	//マップ描画
 	obustructmap1->Draw();
 	obustructmap2->Draw();
 	obustructmap3->Draw();
@@ -275,6 +299,10 @@ void Map::Draw(Player& player)
 	obustructmap8->Draw();
 	obustructmap9->Draw();
 	obustructmap10->Draw();
+
+	//描画に使用するシャドウマップの設定を解除
+	SetUseShadowMap(1, -1);
+
 }
 
 void Map::End()

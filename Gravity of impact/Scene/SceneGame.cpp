@@ -29,6 +29,7 @@ void SceneGame::Init()
 
 std::shared_ptr<SceneBase> SceneGame::Update()
 {
+	player->SetCameraAngle(camera->cameraAngle.y);
 	player->Update();
 
 	camera->Update(*player);
