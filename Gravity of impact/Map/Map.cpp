@@ -2,6 +2,27 @@
 // 重力加速度
 #define GravitationalAcceleration 9.80665 / 2
 
+/// <summary>
+/// シャドウマップ作成に必要な変数宣言
+/// </summary>
+namespace
+{
+	//シャドウマップの作成に必要な変数
+    int SizeX = 8192;
+	int SizeY = 8192;
+
+	//シャドウマップの描画する範囲変数
+	float minx = -1000.0f;
+	float miny = -1.0f;
+	float minz = -1000.0f;
+	float maxx = 1000.0f;
+	float maxy = -8000.0f;
+	float maxz = 1000.0f;
+
+	//シャドウマップのライト座標
+	float Shadowlight = 0.5f;
+}
+
 Map::Map():
 	ShadowMapHandle(0),
 	NotMoveTime(0),
@@ -28,6 +49,7 @@ Map::~Map()
 
 	//シャドウマップの削除
 	DeleteShadowMap(ShadowMapHandle);
+
 }
 
 void Map::Init()
@@ -51,13 +73,13 @@ void Map::Init()
 	SE = LoadSoundMem("BGM・SE/ロボットを殴る1.mp3");
 
 	//シャドウマップハンドルの作成
-	ShadowMapHandle = MakeShadowMap(8192, 8192);
+	ShadowMapHandle = MakeShadowMap(SizeX, SizeY);
 
 	//シャドウマップが想定するライトの方向もセット
-	SetShadowMapLightDirection(ShadowMapHandle, VGet(0.5f, -0.5f, 0.5f));
+	SetShadowMapLightDirection(ShadowMapHandle, VGet(Shadowlight, -Shadowlight, Shadowlight));
 
 	//シャドウマップに描画する範囲を設定
-	SetShadowMapDrawArea(ShadowMapHandle, VGet(-1000.0f, -1.0f, -1000.0f), VGet(1000.0f, -8000.0f, 1000.0f));
+	SetShadowMapDrawArea(ShadowMapHandle, VGet(minx, miny, minz), VGet(maxx, maxy, maxz));
 
 	//マップの位置を初期化
 	obustructmap1->SetPos(VGet(MapX, MapY, MapZ));

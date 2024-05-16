@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Enemy\Enemy.cpp" />
+    <ClCompile Include="Enemy\EnemyBase.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map\Map.cpp" />
     <ClCompile Include="Map\ObstructMap.cpp" />
@@ -156,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Enemy\Enemy.h" />
+    <ClInclude Include="Enemy\EnemyBase.h" />
     <ClInclude Include="GraphMode.h" />
     <ClInclude Include="icon\icon.h" />
     <ClInclude Include="Map\Map.h" />
