@@ -94,7 +94,7 @@ void Map::Init()
 	obustructmap10->SetPos(VGet(MapX, MapY - MapdistanceY * 9, MapZ - MapdistanceZ));
 }
 
-void Map::Update(Player& player)
+void Map::Update(Player& player, Enemy& enemy)
 {
 	
 
@@ -110,6 +110,8 @@ void Map::Update(Player& player)
 	m_colrect9.SetCenter(-230.0f, -6623.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 	m_colrect10.SetCenter(-230.0f, -7422.0f, -280.0f, MapWidth, MapHeight, MapDepth);
 
+	//エネミーの索敵範囲を作成
+	m_enemycol.SetCenter(-230.0f, -20.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 
 	//マップ制御
 	obustructmap1->Update();
@@ -293,10 +295,9 @@ void Map::Update(Player& player)
 		//SEが鳴るようにする
 		PlaySe = false;
 	}
-	
 }
 
-void Map::Draw(Player& player)
+void Map::Draw(Player& player, Enemy& enemy)
 {
 	//シャドウマップへの描画の準備
 	ShadowMap_DrawSetup(ShadowMapHandle);
@@ -322,8 +323,23 @@ void Map::Draw(Player& player)
 	obustructmap9->Draw();
 	obustructmap10->Draw();
 
+	//索敵範囲描画
+	m_enemycol.Draw(GetColor(255, 0, 0), false);
+
 	//描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(1, -1);
+
+	//プレイヤーがエネミーの索敵範囲に入ると
+	if (m_enemycol.IsCollision(player.m_colrect) == true)
+	{
+		enemy.enemy1->Enemyflag = true;
+
+		DrawString(0, 0, "見つかった", GetColor(0, 0, 0));
+	}
+	else if (m_enemycol.IsCollision(player.m_colrect) == false)
+	{
+		enemy.enemy1->Enemyflag = false;
+	}
 
 }
 

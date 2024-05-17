@@ -1,5 +1,6 @@
 #pragma once
 #include "EnemyBase.h"
+#include "Player/Player.h"
 
 class Enemy : public EnemyBase
 {
@@ -8,7 +9,7 @@ public:
 	virtual ~Enemy();
 
 	void Init();
-	void Update();
+	void Update(Player& player);
 	void Draw();
 	void End();
 
@@ -19,6 +20,7 @@ public:
 	EnemyBase* enemy4 = new EnemyBase();
 	EnemyBase* enemy5 = new EnemyBase();
 
-
+	//“G‚Ìƒ|ƒWƒVƒ‡ƒ“
+	VECTOR enemy1pos = VGet(0.0f, 0.0f, 0.0f);
 };
 

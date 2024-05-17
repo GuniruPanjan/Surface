@@ -3,6 +3,7 @@
 #include "ObstructMap.h"
 #include "Rect.h"
 #include "Player/Player.h"
+#include "Enemy/Enemy.h"
 
 class Map
 {
@@ -11,8 +12,8 @@ public:
 	virtual ~Map();
 
 	virtual void Init();
-	virtual void Update(Player& player);
-	virtual void Draw(Player& player);
+	virtual void Update(Player& player, Enemy& enemy);
+	virtual void Draw(Player& player, Enemy& enemy);
 	virtual void End();
 
 	//マップオブジェクト生成
@@ -62,5 +63,11 @@ public:
 	Rect m_colrect8;
 	Rect m_colrect9;
 	Rect m_colrect10;
+
+	//エネミーの索敵範囲
+	Rect m_enemycol;
+	Rect m_enemycol2;
+	Rect m_enemycol3;
+	Rect m_enemycol4;
 };
 

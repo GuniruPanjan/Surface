@@ -10,10 +10,8 @@ public:
 	virtual ~EnemyBase();
 
 	//virtualで継承先を呼び出す
-	virtual void Init();
 	virtual void Update();
 	virtual void Draw();
-	virtual void End();
 
 	//モデルハンドルの取得
 	int GetModelHandle() { return EnemyModel; }
@@ -27,6 +25,15 @@ public:
 
 	//敵のノックバック威力
 	float KnockBack;
+
+	//敵の当たり幅
+	float EnemyWidth;
+
+	//敵の移動ベクトル
+	float EnemyMoveX, EnemyMoveZ;
+
+	//敵の索敵行動フラグ
+	bool Enemyflag;
 
 	//敵の3Dモデル格納用変数
 	int EnemyModel;

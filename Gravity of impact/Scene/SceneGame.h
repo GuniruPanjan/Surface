@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 #include "Camera/Camera.h"
 #include "Map/Map.h"
+#include "Enemy/Enemy.h"
 #include "Player/Player.h"
 
 
@@ -21,6 +22,9 @@ public:
 
 	//Playerを管理するポインタ
 	std::shared_ptr<Player> player = std::make_shared<Player>();
+
+	//Enemyを管理するポインタ
+	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
 
 	//Mapを管理するポインタ
 	std::shared_ptr<Map> map = std::make_shared<Map>();

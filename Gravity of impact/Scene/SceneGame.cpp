@@ -20,6 +20,8 @@ void SceneGame::Init()
 
 	map->Init();
 
+	enemy->Init();
+
 	//”wŒi‚Ì‰æ‘œ“Ç‚İ‚İ
 	GameBack = LoadGraph("data/cloudy.png");
 
@@ -34,7 +36,9 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 
 	camera->Update(*player);
 
-	map->Update(*player);
+	map->Update(*player, *enemy);
+
+	enemy->Update(*player);
 
 	//ƒTƒEƒ“ƒhÄ¶
 	PlaySoundMem(SoundGame, DX_PLAYTYPE_LOOP, FALSE);
@@ -53,9 +57,11 @@ void SceneGame::Draw()
 	//”wŒi‚ğ•`‰æ
 	DrawGraph(0, 0, GameBack, false);
 
-	map->Draw(*player);
+	map->Draw(*player, *enemy);
 
 	player->Draw();
+
+	enemy->Draw();
 
 	camera->Draw();
 }
@@ -68,6 +74,8 @@ void SceneGame::End()
 	map->End();
 
 	player->End();
+
+	enemy->End();
 
 	camera->End();
 }
