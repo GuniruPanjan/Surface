@@ -39,10 +39,10 @@ void Player::Init()
 	PlayerAngle = VGet(-1.55f, D2R(0.0f), 0.0f);
 
 	//3Dモデルを読み込む
-	PlayerGraph = MV1LoadModel("data/Sword.mv1");
+	PlayerGraph = MV1LoadModel("data/Box.mv1");
 
 	//Playerの大きさを変える
-	MV1SetScale(PlayerGraph, VGet(0.05f, 0.05f, 0.05f));
+	MV1SetScale(PlayerGraph, VGet(0.05f, 0.05f, 0.06f));
 
 	//Playerのスピード設定
 	PlayerSpeed = 1.0f;
@@ -59,6 +59,9 @@ void Player::Update()
 	//アナログスティックを使って移動
 	int analogX = 0;
 	int analogY = 0;
+
+	float SetAngleX = 0.0f;
+	float SetAngleY = 0.0f;
 
 	GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
 
@@ -90,41 +93,16 @@ void Player::Update()
 	if (VSquareSize(move) > 0.0f)
 	{
 		angle = atan2f(move.z, -move.x) - DX_PI_F / 2;
+
+		SetAngleX += D2R(1.0f);
+		SetAngleY += D2R(1.0f);
 	}
 	//Playerが動くフラグがTrueなら
 	if (PlayerMoveFlag == true)
 	{
 		Playerpos = VAdd(Playerpos, move);
 	}
-
 	
-
-	//Playerが動くフラグがTrueなら
-	//if (PlayerMoveFlag == true)
-	//{
-	//	//前に進む
-	//	if (CheckHitKey(KEY_INPUT_W))
-	//	{
-	//		Playerpos.z += PlayerSpeed;
-
-	//	}
-	//	//後ろに進む
-	//	if (CheckHitKey(KEY_INPUT_S))
-	//	{
-	//		Playerpos.z -= PlayerSpeed;
-
-	//	}
-	//	//右に進む
-	//	if (CheckHitKey(KEY_INPUT_D))
-	//	{
-	//		Playerpos.x += PlayerSpeed;
-	//	}
-	//	//左に進む
-	//	if (CheckHitKey(KEY_INPUT_A))
-	//	{
-	//		Playerpos.x -= PlayerSpeed;
-	//	}
-	//}
 
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
@@ -137,16 +115,19 @@ void Player::Update()
 		Playerpos.z = 0.0f;
 	}
 
-	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y, Playerpos.z + static_cast<float>(5), 10.0f, 1.0f, -60.0f);
+	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y - static_cast<float>(6), Playerpos.z + static_cast<float>(5), 10.0f, 10.0f, -10.0f);
 }
 
 void Player::Draw()
 {
+	DrawFormatString(0, 40, GetColor(255, 0, 0), "%f,%f,%f", Playerpos.x, Playerpos.y, Playerpos.z);
+
 	//3Dモデルのポジション設定
 	MV1SetPosition(PlayerGraph, Playerpos);
 
 	//3Dモデルの回転地をセットする
 	MV1SetRotationXYZ(PlayerGraph, VGet(-1.55f, angle, 0.0f));
+
 
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);

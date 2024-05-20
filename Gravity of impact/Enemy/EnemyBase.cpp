@@ -12,7 +12,7 @@ EnemyBase::EnemyBase() :
 	Enemyflag(false)
 {
 	//敵のスピード初期化
-	Speed = 0.1f;
+	Speed = 1.5f;
 	//敵のノックバック初期化
 	KnockBack = 10.0f;
 

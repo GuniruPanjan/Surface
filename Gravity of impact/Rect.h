@@ -17,24 +17,11 @@ public:
 	// 描画
 	void Draw(unsigned int color, bool isFill);
 
-	//左上の座標
-	VECTOR pos1;
-	//左下の座標
-	VECTOR pos2;
-	//右上の座標
-	VECTOR pos3;
-	//右下の座標
-	VECTOR pos4;
-	//後ろの左上
-	VECTOR pos5;
-	//後ろの左下
-	VECTOR pos6;
-	//後ろの右上
-	VECTOR pos7;
-	//後ろの右下
-	VECTOR pos8;
+	//箱のベクター
+	VECTOR pos, posS;
 
-private:
+	//中心点
+	VECTOR P1;
 
 	//代入するための変数
 	float X;

@@ -111,7 +111,7 @@ void Map::Update(Player& player, Enemy& enemy)
 	m_colrect10.SetCenter(-230.0f, -7422.0f, -280.0f, MapWidth, MapHeight, MapDepth);
 
 	//エネミーの索敵範囲を作成
-	m_enemycol.SetCenter(-230.0f, -20.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_enemycol.SetCenter(-230.0f, -820.0f, 720.0f, MapWidth, MapHeight, MapDepth);
 
 	//マップ制御
 	obustructmap1->Update();
@@ -323,8 +323,10 @@ void Map::Draw(Player& player, Enemy& enemy)
 	obustructmap9->Draw();
 	obustructmap10->Draw();
 
+	//m_colrect.Draw(GetColor(255, 0, 0), false);
+
 	//索敵範囲描画
-	m_enemycol.Draw(GetColor(255, 0, 0), false);
+	//m_enemycol.Draw(GetColor(255, 0, 0), false);
 
 	//描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(1, -1);

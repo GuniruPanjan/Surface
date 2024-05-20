@@ -11,9 +11,9 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-	enemy1->EnemyX = 0.0f;
-	enemy1->EnemyY = -8.0f;
-	enemy1->EnemyZ = 0.0f;
+	enemy1->EnemyX = 150.0f;
+	enemy1->EnemyY = -790.0f;
+	enemy1->EnemyZ = 500.0f;
 
 	EnemyWidth = 40.0f;
 
@@ -42,6 +42,12 @@ void Enemy::Update(Player& player)
 		enemy1->EnemyMoveZ = sbz / sb * Speed;
 		
 	}
+	//õ“G‘ÎÛ‚ª‚¢‚È‚©‚Á‚½‚ç
+	else if (enemy1->Enemyflag == false)
+	{
+		enemy1->EnemyMoveX = 0;
+		enemy1->EnemyMoveZ = 0;
+	}
 
 	enemy1pos.x += enemy1->EnemyMoveX;
 	enemy1pos.z += enemy1->EnemyMoveZ;
@@ -51,7 +57,6 @@ void Enemy::Update(Player& player)
 void Enemy::Draw()
 {
 	enemy1->Draw();
-	enemy1->m_colRect.Draw(GetColor(255, 0, 0), false);
 }
 
 void Enemy::End()

@@ -53,7 +53,7 @@ void SceneGoal::Init()
 
 	//3Dモデルの読み込み
 	Map = MV1LoadModel("data/MapCube.mv1");
-	Player = MV1LoadModel("data/Sword.mv1");
+	Player = MV1LoadModel("data/Box.mv1");
 
 	//Playerの大きさを変える
 	MV1SetScale(Player, VGet(0.05f, 0.05f, 0.05f));
@@ -92,9 +92,9 @@ std::shared_ptr<SceneBase> SceneGoal::Update()
 	MV1SetPosition(Map, MapPos);
 	MV1SetPosition(Player, PlayerPos);
 
-	if (PlayerPos.y >= 70.0f)
+	if (PlayerPos.y >= 100.0f)
 	{
-		PlayerPos.y -= 5.0f;
+		PlayerPos.y -= 2.0f;
 	}
 
 	//注視点の座標はターゲットの少し上

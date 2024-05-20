@@ -65,37 +65,6 @@ void Camera::Update(Player& player)
 		
 	}
 
-	//左キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_LEFT)
-	//{
-	//	cameraAngle.y += D2R(1.0f);
-	//}
-	////右キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_RIGHT)
-	//{
-	//	cameraAngle.y -= D2R(1.0f);
-	//}
-	////上キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_UP)
-	//{
-	//	//カメラがプレイヤーを超えないくらいまで
-	//	if (cameraAngle.x <= 0.7f)
-	//	{
-	//		cameraAngle.x += D2R(1.0f);
-	//	}
-	//	
-	//}
-	////下キー
-	//if (GetJoypadInputState(DX_INPUT_KEY_PAD1) & PAD_INPUT_DOWN)
-	//{
-	//	//カメラがブロックにめりこまないように
-	//	if (cameraPos.y >= 15.2f + player.Playerpos.y)
-	//	{
-	//		cameraAngle.x -= D2R(1.0f);
-	//	}
-	//	
-	//}
-
 	//基準のベクトル
 	VECTOR Direction = VGet(0.0f, 100.0f, -100.0f);
 
