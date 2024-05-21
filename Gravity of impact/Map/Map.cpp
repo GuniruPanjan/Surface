@@ -112,6 +112,8 @@ void Map::Update(Player& player, Enemy& enemy)
 
 	//エネミーの索敵範囲を作成
 	m_enemycol.SetCenter(-230.0f, -820.0f, 720.0f, MapWidth, MapHeight, MapDepth);
+	m_enemycol2.SetCenter(-730.0f, -3223.0f, -280.0f, MapWidth, MapHeight, MapDepth);
+	m_enemycol3.SetCenter(-230.0f, -4823.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 
 	//マップ制御
 	obustructmap1->Update();
@@ -335,14 +337,27 @@ void Map::Draw(Player& player, Enemy& enemy)
 	if (m_enemycol.IsCollision(player.m_colrect) == true)
 	{
 		enemy.enemy1->Enemyflag = true;
-
-		DrawString(0, 0, "見つかった", GetColor(0, 0, 0));
 	}
 	else if (m_enemycol.IsCollision(player.m_colrect) == false)
 	{
 		enemy.enemy1->Enemyflag = false;
 	}
-
+	if (m_enemycol2.IsCollision(player.m_colrect) == true)
+	{
+		enemy.enemy2->Enemyflag = true;
+	}
+	else if (m_enemycol2.IsCollision(player.m_colrect) == false)
+	{
+		enemy.enemy2->Enemyflag = false;
+	}
+	if (m_enemycol3.IsCollision(player.m_colrect) == true)
+	{
+		enemy.enemy3->Enemyflag = true;
+	}
+	else if (m_enemycol3.IsCollision(player.m_colrect) == false)
+	{
+		enemy.enemy3->Enemyflag = false;
+	}
 }
 
 void Map::End()
