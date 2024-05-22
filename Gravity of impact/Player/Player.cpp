@@ -8,7 +8,6 @@
 Player::Player():
 	PlayerGravity(0.0f),
 	Playerweight(0.0f),
-	PlayerRespawn(0.0f),
 	cameraAngle(0.0f),
 	angle(0.0f)
 {
@@ -107,12 +106,20 @@ void Player::Update()
 	//Playerに重力を与え続ける
 	Playerpos.y -= PlayerGravity;
 
-	//Playerが落ち続けたら初期位置に戻す
+	//Playerが落ち続けたらプレイヤー死亡判定
 	if (Playerpos.y <= PlayerRespawn)
+	{
+		PlayerDead = true;
+	}
+
+	//Playerが死亡したら初期位置に戻す
+	if (PlayerDead == true)
 	{
 		Playerpos.x = 0.0f;
 		Playerpos.y = 30.0f;
 		Playerpos.z = 0.0f;
+
+		PlayerDead = false;
 	}
 
 	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y - static_cast<float>(6), Playerpos.z + static_cast<float>(5), 10.0f, 10.0f, -10.0f);
@@ -128,6 +135,7 @@ void Player::Draw()
 	//3Dモデルの回転地をセットする
 	MV1SetRotationXYZ(PlayerGraph, VGet(-1.55f, angle, 0.0f));
 
+	m_colrect.Draw(GetColor(255, 0, 0), false);
 
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);

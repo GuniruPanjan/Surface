@@ -8,6 +8,8 @@ public:
 	PlayerBase():
 		PlayerSpeed(0.0f),
 		PlayerGraph(0),
+		PlayerRespawn(0.0f),
+		PlayerDead(false),
 		PlayerMoveFlag(true),
 		PlayerX(0.0f),
 		PlayerY(0.0f),
@@ -26,6 +28,12 @@ public:
 	float PlayerSpeed;
 	//Playerの3Dモデルハンドル
 	int PlayerGraph;
+
+	//Plyaerのリスポーン値
+	float PlayerRespawn;
+
+	//Playerの死亡フラグ
+	bool PlayerDead;
 
 	//Playerが動けるフラグ
 	bool PlayerMoveFlag;

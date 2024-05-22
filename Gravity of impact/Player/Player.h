@@ -21,9 +21,6 @@ public:
 	//Playerの重力
 	float PlayerGravity;
 
-	//Plyaerのリスポーン値
-	float PlayerRespawn;
-
 	//カメラ情報
 	float cameraAngle;
 

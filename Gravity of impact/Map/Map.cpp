@@ -114,6 +114,7 @@ void Map::Update(Player& player, Enemy& enemy)
 	m_enemycol.SetCenter(-230.0f, -820.0f, 720.0f, MapWidth, MapHeight, MapDepth);
 	m_enemycol2.SetCenter(-730.0f, -3223.0f, -280.0f, MapWidth, MapHeight, MapDepth);
 	m_enemycol3.SetCenter(-230.0f, -4823.0f, 220.0f, MapWidth, MapHeight, MapDepth);
+	m_enemycol4.SetCenter(-230.0f, -6423.0f, 220.0f, MapWidth, MapHeight, MapDepth);
 
 	//マップ制御
 	obustructmap1->Update();
@@ -325,11 +326,6 @@ void Map::Draw(Player& player, Enemy& enemy)
 	obustructmap9->Draw();
 	obustructmap10->Draw();
 
-	//m_colrect.Draw(GetColor(255, 0, 0), false);
-
-	//索敵範囲描画
-	//m_enemycol.Draw(GetColor(255, 0, 0), false);
-
 	//描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(1, -1);
 
@@ -357,6 +353,17 @@ void Map::Draw(Player& player, Enemy& enemy)
 	else if (m_enemycol3.IsCollision(player.m_colrect) == false)
 	{
 		enemy.enemy3->Enemyflag = false;
+	}
+	if (m_enemycol4.IsCollision(player.m_colrect) == true)
+	{
+		enemy.enemy4->Enemyflag = true;
+		enemy.enemy5->Enemyflag = true;
+
+	}
+	else if (m_enemycol4.IsCollision(player.m_colrect) == false)
+	{
+		enemy.enemy4->Enemyflag = false;
+		enemy.enemy5->Enemyflag = false;
 	}
 }
 
