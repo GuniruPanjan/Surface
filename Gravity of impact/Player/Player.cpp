@@ -135,8 +135,6 @@ void Player::Draw()
 	//3Dモデルの回転地をセットする
 	MV1SetRotationXYZ(PlayerGraph, VGet(-1.55f, angle, 0.0f));
 
-	m_colrect.Draw(GetColor(255, 0, 0), false);
-
 	//3Dモデルを描画する
 	MV1DrawModel(PlayerGraph);
 }

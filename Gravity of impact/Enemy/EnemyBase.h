@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "Player/Player.h"
 #include "Rect.h"
 #include<memory>
 
@@ -38,11 +39,11 @@ public:
 	//“G‚Ì3Dƒ‚ƒfƒ‹Ši”[—p•Ï”
 	int EnemyModel;
 
-	//“G‚ÌÀ•W
-	float EnemyX, EnemyY, EnemyZ;
-
 	//“G‚Ì“–‚½‚è”»’è‹éŒ`
 	Rect m_colRect;
+
+	//“G‚ÌÀ•W
+	float EnemyX, EnemyY, EnemyZ;
 
 	//“G‚Ìƒ|ƒWƒVƒ‡ƒ“
 	VECTOR pos = VGet(0.0f, 0.0f, 0.0f);

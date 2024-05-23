@@ -27,9 +27,6 @@ void Rect::SetCenter(float x, float y, float z, float width, float height, float
 	X = x;
 	Y = y;
 	Z = z;
-	//Xwidth = x +width;
-	//Yheight = y + height;
-	//Zdepth = z + depth;
 	Xwidth = width;
 	Yheight = height;
 	Zdepth = depth;
