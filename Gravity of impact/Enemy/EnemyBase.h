@@ -45,6 +45,12 @@ public:
 	//敵の座標
 	float EnemyX, EnemyY, EnemyZ;
 
+	//角度を取得
+	float Angle;
+
+	//敵の座標と自機のベクトルを算出
+	VECTOR SubVector = VGet(0.0f, 0.0f, 0.0f);
+
 	//敵のポジション
 	VECTOR pos = VGet(0.0f, 0.0f, 0.0f);
 

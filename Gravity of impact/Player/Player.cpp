@@ -118,8 +118,6 @@ void Player::Update()
 		Playerpos.x = 0.0f;
 		Playerpos.y = 30.0f;
 		Playerpos.z = 0.0f;
-
-		PlayerDead = false;
 	}
 
 	m_colrect.SetCenter(Playerpos.x - static_cast<float>(5), Playerpos.y - static_cast<float>(6), Playerpos.z + static_cast<float>(5), 10.0f, 10.0f, -10.0f);
@@ -127,8 +125,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-	DrawFormatString(0, 40, GetColor(255, 0, 0), "%f,%f,%f", Playerpos.x, Playerpos.y, Playerpos.z);
-
 	//3Dモデルのポジション設定
 	MV1SetPosition(PlayerGraph, Playerpos);
 

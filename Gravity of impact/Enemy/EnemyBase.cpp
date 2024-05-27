@@ -9,6 +9,7 @@ EnemyBase::EnemyBase() :
 	EnemyMoveX(0.0f),
 	EnemyMoveZ(0.0f),
 	EnemyWidth(0.0f),
+	Angle(0.0f),
 	Enemyflag(false)
 {
 	//敵のスピード初期化

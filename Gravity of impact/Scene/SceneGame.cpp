@@ -38,7 +38,19 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 
 	map->Update(*player, *enemy);
 
-	enemy->Update(*player);
+	//プレイヤーが死んだら
+	if (player->PlayerDead == true)
+	{
+		enemy->Init();  //初期化
+
+		player->PlayerDead = false;  //Playerの死亡判定をfalseに戻す
+	}
+	//プレイヤーが生きていたら
+	else if (player->PlayerDead == false)
+	{
+		enemy->Update(*player);
+	}
+	
 
 	//サウンド再生
 	PlaySoundMem(SoundGame, DX_PLAYTYPE_LOOP, FALSE);
