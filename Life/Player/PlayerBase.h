@@ -15,8 +15,17 @@ public:
 	virtual void Draw() = 0;
 	virtual void End() = 0;
 
+	//プレイヤーの体力
 	int PlayerHp = 0;
+	//プレイヤーのモデル格納変数
 	int PlayerModel = 0;
-	VECTOR PlayerPos = VGet(0.0f, 0.0f, 0.0f);
+	//プレイヤーのスピード設定
+	float PlayerSpeed = 0;
+	//プレイヤーの死亡フラグ
+	bool PlayerDead = false;
+	//プレイヤーのポジション設定
+	float PlayerX = 0.0f;
+	float PlayerY = 0.0f;
+	float PlayerZ = 0.0f;
 };
 

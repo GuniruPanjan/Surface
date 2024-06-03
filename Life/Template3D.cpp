@@ -46,6 +46,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 		//ƒQ[ƒ€XV
+		player->SetCameraAngle(camera->cameraAngle.y);
 		player->Update();
 		camera->Update(*player);
 

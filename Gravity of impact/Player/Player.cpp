@@ -35,7 +35,7 @@ void Player::Init()
 	Playerpos = VGet(PlayerX, PlayerY, PlayerZ);
 
 	//Player‚Ì‰ñ“]ó‘Ô‰Šú‰»
-	PlayerAngle = VGet(-1.55f, D2R(0.0f), 0.0f);
+	//PlayerAngle = VGet(-1.55f, D2R(0.0f), 0.0f);
 
 	//3Dƒ‚ƒfƒ‹‚ğ“Ç‚İ‚Ş
 	PlayerGraph = MV1LoadModel("data/Box.mv1");
