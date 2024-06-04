@@ -9,8 +9,26 @@ Player::Player():
 	PlayerAnimWalking(0.0f),
 	PlayerAnimRun(0.0f),
 	PlayerAnimDying(0.0f),
-	PlayTime(0.0f)
+	PlayTime(0.0f),
+	PlayerMove(false),
+	PlayerAnim1(0),
+	PlayerAnim2(0),
+	PlayerAnim3(0),
+	PlayerAnim4(0),
+	TotalTime1(0.0f),
+	TotalTime2(0.0f),
+	TotalTime3(0.0f),
+	TotalTime4(0.0f)
 {
+	for (int i = 0; i < 4; i++)
+	{
+		PlayerAnim[i] = 0;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		TotalTime[i] = 0;
+	}
 }
 
 Player::~Player()
@@ -34,16 +52,60 @@ void Player::Init()
 
 	//Playerのアニメーション読み込み
 	PlayerAnimStanding = MV1LoadModel("PlayerData/PlayerAnimStanding.mv1");
+	PlayerAnimWalking = MV1LoadModel("PlayerData/PlayerAnimWalk.mv1");
+	PlayerAnimRun = MV1LoadModel("PlayerData/PlayerAnimRunning.mv1");
+	PlayerAnimDying = MV1LoadModel("PlayerData/PlayerAnimDying.mv1");
 
-	//アニメーション読み込み
-	PlayerAnim[1] = MV1AttachAnim(PlayerModel, 0, PlayerAnimStanding, TRUE);
+	
+	//アニメーションアタッチ
+	PlayerAnim1 = MV1AttachAnim(PlayerModel, 1, PlayerAnimStanding, TRUE);
+	PlayerAnim2 = MV1AttachAnim(PlayerModel, 1, PlayerAnimWalking, TRUE);
+	PlayerAnim3 = MV1AttachAnim(PlayerModel, 1, PlayerAnimRun, TRUE);
+	PlayerAnim4 = MV1AttachAnim(PlayerModel, 1, PlayerAnimDying, TRUE);
 
-	//アタッチしたアニメーションの総再生時間を取得する
-	TotalTime[1] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[1]);
+	//一旦待機意外のアニメーションデタッチ
+	MV1DetachAnim(PlayerModel, PlayerAnim2);
+	MV1DetachAnim(PlayerModel, PlayerAnim3);
+	MV1DetachAnim(PlayerModel, PlayerAnim4);
+	PlayerAnim2 = -1;
+	PlayerAnim3 = -1;
+	PlayerAnim4 = -1;
+
 }
 
 void Player::Update()
 {
+
+	//アタッチしたアニメーションの総再生時間を取得する
+	TotalTime1 = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim1);
+	TotalTime2 = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim2);
+	TotalTime3 = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim3);
+	TotalTime4 = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim4);
+
+	//Playerが動いていないなら
+	if (PlayerMove == false)
+	{
+		
+
+		
+	}
+	else if (PlayerMove == true)
+	{
+		if (PlayerAnim1 != -1)
+		{
+			//アニメーション1をデタッチ
+			MV1DetachAnim(PlayerModel, PlayerAnim1);
+
+			//アニメーションをアタッチする
+			PlayerAnim2 == MV1AttachAnim(PlayerModel, 1, PlayerAnimWalking, TRUE);
+
+			PlayTime = 0.0f;
+
+			PlayerAnim1 = -1;
+
+		}
+		
+	}
 
 	//アナログスティックを使って移動
 	int analogX = 0;
@@ -85,18 +147,55 @@ void Player::Update()
 
 		SetAngleX += D2R(1.0f);
 		SetAngleY += D2R(1.0f);
+
+		//プレイヤーが動いたら
+		PlayerMove = true;
 	}
 	
 	PlayerPos = VAdd(PlayerPos, move);
 
 	//再生時間を進める
-	PlayTime += 1.0f;
+	PlayTime += 0.5f;
 
 	//再生時間がアニメーションの総再生時間に達したら再生時間を0に戻す
-	if (PlayTime >= TotalTime[1])
+	if (PlayTime >= TotalTime1 && PlayerAnim1 != -1)
 	{
 		PlayTime = 0.0f;
 	}
+	if (PlayTime >= TotalTime2 && PlayerAnim2 != -1)
+	{
+		PlayTime = 0.0f;
+	}
+	if (PlayTime >= TotalTime3 && PlayerAnim3 != -1)
+	{
+		PlayTime = 0.0f;
+	}
+	if (PlayTime >= TotalTime4 && PlayerAnim4 != -1)
+	{
+		PlayTime = 0.0f;
+	}
+
+	if (PlayerAnim1 != -1)
+	{
+		//再生時間をセットする
+		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[0], PlayTime);
+	}
+	if (PlayerAnim2 != -1)
+	{
+		//再生時間をセットする
+		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[1], PlayTime);
+	}
+	if (PlayerAnim3 != -1)
+	{
+		//再生時間をセットする
+		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[2], PlayTime);
+	}
+	if (PlayerAnim4 != -1)
+	{
+		//再生時間をセットする
+		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[3], PlayTime);
+	}
+	
 }
 
 void Player::Draw()
@@ -110,9 +209,7 @@ void Player::Draw()
 
 	//3Dモデル描画
 	MV1DrawModel(PlayerModel);
-
-	//再生時間をセットする
-	MV1SetAttachAnimTime(PlayerModel, PlayerAnim[1], PlayTime);
+	
 }
 
 void Player::End()
@@ -120,5 +217,9 @@ void Player::End()
 	//メモリ解放
 	MV1DeleteModel(PlayerModel);
 	MV1DeleteModel(PlayerAnimStanding);
+	MV1DeleteModel(PlayerAnimWalking);
+	MV1DeleteModel(PlayerAnimRun);
+	MV1DeleteModel(PlayerAnimDying);
+
 
 }
