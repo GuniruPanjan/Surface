@@ -32,5 +32,8 @@ public:
 	//Player‚ª“®‚¢‚½ƒtƒ‰ƒO
 	bool PlayerMove;
 
+	//Pad“ü—ÍŽæ“¾
+	int Pad;
+
 };
 

@@ -10,7 +10,8 @@ Player::Player():
 	PlayerAnimRun(0.0f),
 	PlayerAnimDying(0.0f),
 	PlayTime(0.0f),
-	PlayerMove(false)
+	PlayerMove(false),
+	Pad(0)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -73,6 +74,8 @@ void Player::Init()
 
 void Player::Update()
 {
+	//パッド入力所得
+	Pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	//Playerが動いていないなら
 	if (PlayerMove == false)
@@ -94,6 +97,31 @@ void Player::Update()
 
 		
 	}
+	//Aボタンを押したらダッシュ
+	if (Pad & PAD_INPUT_1)
+	{
+		if (PlayerAnim[1] != -1 || PlayerAnim[0] != -1)
+		{
+			//アニメーションをデタッチ
+			MV1DetachAnim(PlayerModel, PlayerAnim[0]);
+			MV1DetachAnim(PlayerModel, PlayerAnim[1]);
+
+			//アニメーションをアタッチする
+			PlayerAnim[2] = MV1AttachAnim(PlayerModel, 1, PlayerAnimRun, TRUE);
+
+			PlayTime = 0.0f;
+
+			PlayerAnim[0] = -1;
+			PlayerAnim[1] = -1;
+
+		}
+
+
+		PlayerSpeed = 4.0f;
+
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "ダッシュ");
+	}
+	//歩くモーション
 	else if (PlayerMove == true)
 	{
 		if (PlayerAnim[0] != -1)
@@ -109,14 +137,25 @@ void Player::Update()
 			PlayerAnim[0] = -1;
 
 		}
-		
-	}
-	//Bボタンを押したらダッシュ
-	if (GetJoypadInputState(PAD_INPUT_UP) == true)
-	{
-		PlayerSpeed = 4.0f;
+		//Aボタンを押してなかったら
+		if ((Pad & PAD_INPUT_1) == false)
+		{
+			if (PlayerAnim[2] != -1)
+			{
+				//アニメーションをデタッチ
+				MV1DetachAnim(PlayerModel, PlayerAnim[2]);
 
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "ダッシュ");
+				//アニメーションをアタッチする
+				PlayerAnim[1] = MV1AttachAnim(PlayerModel, 1, PlayerAnimWalking, TRUE);
+
+				PlayTime = 0.0f;
+
+				PlayerAnim[2] = -1;
+			}
+
+			PlayerSpeed = 2.0f;
+		}
+		
 	}
 
 	//アナログスティックを使って移動
@@ -163,6 +202,7 @@ void Player::Update()
 		//プレイヤーが動いたら
 		PlayerMove = true;
 	}
+	//プレイヤーが動いてなかったら
 	else if (VSquareSize(move) <= 0.0f)
 	{
 		PlayerMove = false;
