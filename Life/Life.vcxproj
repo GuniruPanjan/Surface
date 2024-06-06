@@ -140,12 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="EnemyNormal.cpp" />
+    <ClCompile Include="Enemy\EnemyBase.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerBase.cpp" />
     <ClCompile Include="Template3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Enemy\EnemyBase.h" />
+    <ClInclude Include="Enemy\EnemyNormal.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerBase.h" />
   </ItemGroup>
