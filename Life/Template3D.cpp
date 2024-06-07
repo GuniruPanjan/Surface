@@ -2,6 +2,7 @@
 #include "Player/Player.h"
 #include "Camera/Camera.h"
 #include "Enemy/EnemyNormal.h"
+#include "Map/MapGround.h"
 #include <cmath>
 #include <memory>
 
@@ -35,10 +36,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>();
 	std::shared_ptr<EnemyNormal> normal = std::make_shared<EnemyNormal>();
+	std::shared_ptr<MapGround> mapground = std::make_shared<MapGround>();
 
 	player->Init();
 	camera->Init();
 	normal->Init();
+	mapground->Init();
 
 
 	while (ProcessMessage() == 0)
@@ -52,11 +55,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		player->SetCameraAngle(camera->cameraAngle.y);
 		player->Update();
 		camera->Update(*player);
+		mapground->Update();
 
 		normal->Update();
 
 		player->Draw();
 		normal->Draw();
+		mapground->Draw();
 
 
 		for (int x = -50; x <= 50; x += 10)
@@ -83,6 +88,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	player->End();
 	normal->End();
+	mapground->End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

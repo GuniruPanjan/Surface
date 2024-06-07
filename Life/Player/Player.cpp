@@ -259,7 +259,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-
 	//3Dモデルのポジション設定
 	MV1SetPosition(PlayerModel, PlayerPos);
 
