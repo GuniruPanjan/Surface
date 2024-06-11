@@ -1,7 +1,8 @@
 #include "Enemy/EnemyNormal.h"
 
 EnemyNormal::EnemyNormal():
-	PlayTime(0.0f)
+	PlayTime(0.0f),
+	EnemyWark(-1)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -12,6 +13,9 @@ EnemyNormal::EnemyNormal():
 
 EnemyNormal::~EnemyNormal()
 {
+	//メモリ解放
+	MV1DeleteModel(EnemyModel);
+	MV1DeleteModel(EnemyWark);
 }
 
 void EnemyNormal::Init()
@@ -22,14 +26,20 @@ void EnemyNormal::Init()
 
 	//モデル読み込み
 	EnemyModel = MV1LoadModel("EnemyData/EnemyModel.mv1");
+	EnemyWark = MV1LoadModel("EnemyData/EnemyWalking.mv1");
 
 	EnemyAnim[0] = MV1AttachAnim(EnemyModel, 0, EnemyModel, TRUE);
+	EnemyAnim[1] = MV1AttachAnim(EnemyModel, 0, EnemyWark, TRUE);
 
 	//エネミーの大きさを変える
 	MV1SetScale(EnemyModel, VGet(0.45f, 0.45f, 0.45f));
 
 	//アタッチしたアニメーションの総再生時間を取得する
 	TotalTime[0] = MV1GetAttachAnimTotalTime(EnemyModel, EnemyAnim[0]);
+	TotalTime[1] = MV1GetAttachAnimTotalTime(EnemyModel, EnemyAnim[1]);
+
+	//一旦待機以外のアニメーションをデタッチする
+	MV1DetachAnim(EnemyModel, EnemyAnim[1]);
 
 	EnemyPos = VGet(EnemyX, EnemyY, EnemyZ);
 }
@@ -67,4 +77,5 @@ void EnemyNormal::End()
 {
 	//メモリ解放
 	MV1DeleteModel(EnemyModel);
+	MV1DeleteModel(EnemyWark);
 }

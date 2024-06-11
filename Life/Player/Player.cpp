@@ -26,6 +26,12 @@ Player::Player():
 
 Player::~Player()
 {
+	//ƒƒ‚ƒŠ‰ğ•ú
+	MV1DeleteModel(PlayerModel);
+	MV1DeleteModel(PlayerAnimStanding);
+	MV1DeleteModel(PlayerAnimWalking);
+	MV1DeleteModel(PlayerAnimRun);
+	MV1DeleteModel(PlayerAnimDying);
 }
 
 void Player::Init()
@@ -277,6 +283,5 @@ void Player::End()
 	MV1DeleteModel(PlayerAnimWalking);
 	MV1DeleteModel(PlayerAnimRun);
 	MV1DeleteModel(PlayerAnimDying);
-
 
 }

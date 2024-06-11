@@ -14,7 +14,7 @@ public:
 
 protected:
 	//エネミーのモデル格納変数
-	int EnemyModel = 0;
+	int EnemyModel = -1;
 	//エネミーのスピード設定
 	float EnemySpeed = 0.0f;
 

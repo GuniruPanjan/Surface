@@ -18,6 +18,9 @@ private:
 	//モーションのトータル時間
 	float TotalTime[3];
 
+	//エネミーのモーション読み込み変数
+	int EnemyWark;
+
 	//再生時間
 	float PlayTime;
 };
