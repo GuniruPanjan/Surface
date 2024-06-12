@@ -36,7 +36,7 @@ void MapGround::Init()
 
 	for (int i = 0; i <= 50; i++)
 	{
-		BushHandle[i] = BushModel;
+		BushHandle[i] = MV1DuplicateModel(BushModel);
 	}
 }
 
