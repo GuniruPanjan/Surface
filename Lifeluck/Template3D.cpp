@@ -4,6 +4,7 @@
 #include "Enemy/Enemy.h"
 #include "Machine/Machine.h"
 #include "Map/MapGround.h"
+#include "Map/MapObject.h"
 #include <cmath>
 #include<memory>
 
@@ -37,12 +38,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
 	std::shared_ptr<Machine> machine = std::make_shared<Machine>();
 	std::shared_ptr<MapGround> ground = std::make_shared<MapGround>();
+	std::shared_ptr<MapObject> obj = std::make_shared<MapObject>();
 
 	player->Init();
 	camera->Init();
 	enemy->Init();
 	machine->Init();
 	ground->Init();
+	obj->Init();
 
 
 	while (ProcessMessage() == 0)
@@ -58,11 +61,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		enemy->Update();
 		machine->Update();
 		ground->Update();
+		obj->Update();
 
 		player->Draw();
 		enemy->Draw();
 		machine->Draw();
 		ground->Draw();
+		obj->Draw();
 
 
 		for (int x = -50; x <= 50; x += 10)
@@ -91,6 +96,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	enemy->End();
 	machine->End();
 	ground->End();
+	obj->End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

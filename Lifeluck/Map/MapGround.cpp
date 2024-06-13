@@ -18,14 +18,14 @@ void MapGround::Init()
 	//マップの大きさ設定
 	MapSize = 5.0f;
 
-	MapPosX = 0.0f;
-	MapPosY = -8.0f;
-	MapPosZ = 0.0f;
+	MapGroundPosX = 0.0f;
+	MapGroundPosY = -8.0f;
+	MapGroundPosZ = 0.0f;
 
 	//マップのスケール設定
 	MV1SetScale(GroundMapModel, VGet(MapSize, MapSize, MapSize));
 
-	MapPos = VGet(MapPosX, MapPosY, MapPosZ);
+	MapPos = VGet(MapGroundPosX, MapGroundPosY, MapGroundPosZ);
 
 	//ハンドルに渡す
 	MapHandle = GroundMapModel;

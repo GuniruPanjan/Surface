@@ -15,17 +15,31 @@ public:
 	//マップのモデル読み込み変数
 	int GroundMapModel = -1;
 	int MapBushModel = -1;
+	int MapWallModel[4];
+	
 
 	//マップのポジション設定
-	float MapPosX = 0.0f;
-	float MapPosY = 0.0f;
-	float MapPosZ = 0.0f;
+	float MapGroundPosX = 0.0f;
+	float MapGroundPosY = 0.0f;
+	float MapGroundPosZ = 0.0f;
+
+	float MapObjectBushPosX = 0.0f;
+	float MapObjectBushPosY = 0.0f;
+	float MapObjectBushPosZ = 0.0f;
+
+	float MapObjectWallPosX = 0.0f;
+	float MapObjectWallPosY = 0.0f;
+	float MapObjectWallPosZ = 0.0f;
+
 
 	//マップのスケール設定
 	float MapSize = 0.0f;
+	float MapObjectWallSize = 0.0f;
 
 	//マップのポジション設定
-	VECTOR MapPos = VGet(MapPosX, MapPosY, MapPosZ);
+	VECTOR MapPos = VGet(MapGroundPosX, MapGroundPosY, MapGroundPosZ);
+	VECTOR MapBushPos = VGet(MapObjectBushPosX, MapObjectBushPosY, MapObjectBushPosZ);
+	VECTOR MapWallPos = VGet(MapObjectWallPosX, MapObjectWallPosY, MapObjectWallPosZ);
 };
 
 
