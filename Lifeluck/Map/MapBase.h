@@ -4,7 +4,16 @@
 class MapBase
 {
 public:
-	MapBase() {}
+	MapBase() 
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			MapWallModel[i] = -1;
+			MapObjectWallPosX[i] = 0.0f;
+			MapObjectWallPosZ[i] = 0.0f;
+			MapWallPos[i] = VGet(0.0f, 0.0f, 0.0f);
+		}
+	}
 	virtual ~MapBase() {}
 
 	virtual void Init() = 0;
@@ -27,9 +36,9 @@ public:
 	float MapObjectBushPosY = 0.0f;
 	float MapObjectBushPosZ = 0.0f;
 
-	float MapObjectWallPosX = 0.0f;
+	float MapObjectWallPosX[4];
 	float MapObjectWallPosY = 0.0f;
-	float MapObjectWallPosZ = 0.0f;
+	float MapObjectWallPosZ[4];
 
 
 	//マップのスケール設定
@@ -39,7 +48,7 @@ public:
 	//マップのポジション設定
 	VECTOR MapPos = VGet(MapGroundPosX, MapGroundPosY, MapGroundPosZ);
 	VECTOR MapBushPos = VGet(MapObjectBushPosX, MapObjectBushPosY, MapObjectBushPosZ);
-	VECTOR MapWallPos = VGet(MapObjectWallPosX, MapObjectWallPosY, MapObjectWallPosZ);
+	VECTOR MapWallPos[4];
 };
 
 

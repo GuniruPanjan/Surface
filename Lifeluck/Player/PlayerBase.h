@@ -23,6 +23,10 @@ public:
 	float PlayerSpeed = 0;
 	//プレイヤーの死亡フラグ
 	bool PlayerDead = false;
+	//プレイヤーのマシンに与えるエネルギー量
+	float PlayerGiveEnergy = 0.0f;
+	//プレイヤーの充電中のbool判定
+	bool PlayerChargingMove = false;
 	//プレイヤーのポジション設定
 	float PlayerX = 0.0f;
 	float PlayerY = 0.0f;

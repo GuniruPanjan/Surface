@@ -162,6 +162,23 @@ void Player::Update()
 
 	}
 
+	//Bボタンを押していたら
+	if (Pad & PAD_INPUT_2)
+	{
+		PlayerMove = false;
+		//プレイヤーが充電中なら
+		PlayerChargingMove = true;
+		//プレイヤーがエネルギーを与える量
+		PlayerGiveEnergy = 1.0f;
+
+		DrawString(0, 0, "マシンエネルギー補充", 0xffffff);
+	}
+	//プレイヤーが充電中じゃければ
+	else
+	{
+		PlayerChargingMove = false;
+	}
+
 	//アナログスティックを使って移動
 	int analogX = 0;
 	int analogY = 0;
@@ -196,25 +213,30 @@ void Player::Update()
 
 	//移動方向からプライヤーの向く方向を決定する
 	//移動してない場合(ゼロベクトル)の場合は変更しない
-	if (VSquareSize(move) > 0.0f)
+	//プレイヤーが充電中じゃなければ
+	if (PlayerChargingMove == false)
 	{
-		angle = atan2f(-move.z, move.x) - DX_PI_F / 2;
+		if (VSquareSize(move) > 0.0f)
+		{
+			angle = atan2f(-move.z, move.x) - DX_PI_F / 2;
 
-		SetAngleX += D2R(1.0f);
-		SetAngleY += D2R(1.0f);
+			SetAngleX += D2R(1.0f);
+			SetAngleY += D2R(1.0f);
 
-		//プレイヤーが動いたら
-		PlayerMove = true;
+			//プレイヤーが動いたら
+			PlayerMove = true;
+		}
+		//プレイヤーが動いてなかったら
+		else if (VSquareSize(move) <= 0.0f)
+		{
+			PlayerMove = false;
+
+			DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", PlayTime);
+		}
+
+		PlayerPos = VAdd(PlayerPos, move);
+
 	}
-	//プレイヤーが動いてなかったら
-	else if (VSquareSize(move) <= 0.0f)
-	{
-		PlayerMove = false;
-
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", PlayTime);
-	}
-
-	PlayerPos = VAdd(PlayerPos, move);
 
 	//再生時間を進める
 	PlayTime += 0.5f;

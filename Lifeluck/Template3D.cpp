@@ -1,12 +1,7 @@
 #include "DxLib.h"
-#include "Player/Player.h"
-#include "Camera/Camera.h"
-#include "Enemy/Enemy.h"
-#include "Machine/Machine.h"
-#include "Map/MapGround.h"
-#include "Map/MapObject.h"
 #include <cmath>
 #include<memory>
+#include "Scene/SceneManager.h"
 
 namespace
 {
@@ -32,21 +27,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	//ポインタで管理
-	std::shared_ptr<Player> player = std::make_shared<Player>();
-	std::shared_ptr<Camera> camera = std::make_shared<Camera>();
-	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
-	std::shared_ptr<Machine> machine = std::make_shared<Machine>();
-	std::shared_ptr<MapGround> ground = std::make_shared<MapGround>();
-	std::shared_ptr<MapObject> obj = std::make_shared<MapObject>();
+	//シーンを管理するポインタ
+	std::shared_ptr<SceneManager> pScene = std::make_shared<SceneManager>();
 
-	player->Init();
-	camera->Init();
-	enemy->Init();
-	machine->Init();
-	ground->Init();
-	obj->Init();
-
+	pScene->Init();
 
 	while (ProcessMessage() == 0)
 	{
@@ -55,31 +39,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		//ゲーム更新
-		player->SetCameraAngle(camera->cameraAngle.y);
-		player->Update();
-		camera->Update(*player);
-		enemy->Update();
-		machine->Update();
-		ground->Update();
-		obj->Update();
+		pScene->Update();
 
-		player->Draw();
-		enemy->Draw();
-		machine->Draw();
-		ground->Draw();
-		obj->Draw();
-
-
-		for (int x = -50; x <= 50; x += 10)
-		{
-			DrawLine3D(VGet(static_cast<float>(x),0,-50), VGet(static_cast<float>(x), 0, 50), 0xffff00);
-		}
-		for (int z = -50; z <= 50; z += 10)
-		{
-			DrawLine3D(VGet(-50, 0, static_cast<float>(z)), VGet(50, 0, static_cast<float>(z)), 0xff0000);
-		}
-
-
+		//ゲームの描画
+		pScene->Draw();
 
 		//裏画面を表画面を入れ替える
 		ScreenFlip();
@@ -92,11 +55,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		{
 		}
 	}
-	player->End();
-	enemy->End();
-	machine->End();
-	ground->End();
-	obj->End();
+	pScene->End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 
