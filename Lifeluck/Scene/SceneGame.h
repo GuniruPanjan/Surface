@@ -6,6 +6,7 @@
 #include "Machine/Machine.h"
 #include "Map/MapGround.h"
 #include "Map/MapObject.h"
+#include "Map/MapGoal.h"
 #include<memory>
 
 class SceneGame :  public SceneBase
@@ -26,6 +27,7 @@ public:
 	std::shared_ptr<Machine> machine = std::make_shared<Machine>();
 	std::shared_ptr<MapGround> ground = std::make_shared<MapGround>();
 	std::shared_ptr<MapObject> obj = std::make_shared<MapObject>();
+	std::shared_ptr<MapGoal> goal = std::make_shared<MapGoal>();
 
 };
 

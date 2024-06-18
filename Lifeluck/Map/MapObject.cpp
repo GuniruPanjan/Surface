@@ -14,8 +14,6 @@ MapObject::~MapObject()
 
 void MapObject::Init()
 {
-	/*マップの壁が異常に重い*/
-
 	MapObjectBushPosX = 1250.0f;
 	MapObjectBushPosY = -100.0f;
 	MapObjectBushPosZ = -850.0f;

@@ -145,6 +145,7 @@
     <ClCompile Include="Machine\Machine.cpp" />
     <ClCompile Include="Machine\MachineBase.cpp" />
     <ClCompile Include="Map\MapBase.cpp" />
+    <ClCompile Include="Map\MapGoal.cpp" />
     <ClCompile Include="Map\MapGround.cpp" />
     <ClCompile Include="Map\MapObject.cpp" />
     <ClCompile Include="Player\Player.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Machine\Machine.h" />
     <ClInclude Include="Machine\MachineBase.h" />
     <ClInclude Include="Map\MapBase.h" />
+    <ClInclude Include="Map\MapGoal.h" />
     <ClInclude Include="Map\MapGround.h" />
     <ClInclude Include="Map\MapObject.h" />
     <ClInclude Include="Player\Player.h" />

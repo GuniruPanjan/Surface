@@ -16,6 +16,7 @@ void SceneGame::Init()
 	machine->Init();
 	ground->Init();
 	obj->Init();
+	goal->Init();
 }
 
 std::shared_ptr<SceneBase> SceneGame::Update()
@@ -27,6 +28,7 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	machine->Update();
 	ground->Update();
 	obj->Update();
+	goal->Update();
 
 	return shared_from_this();
 }
@@ -38,6 +40,7 @@ void SceneGame::Draw()
 	machine->Draw();
 	ground->Draw();
 	obj->Draw();
+	goal->Draw();
 
 }
 
@@ -48,4 +51,5 @@ void SceneGame::End()
 	machine->End();
 	ground->End();
 	obj->End();
+	goal->End();
 }
