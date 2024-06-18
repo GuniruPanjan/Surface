@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerBase.h"
+
 class Player : public PlayerBase
 {
 public:
@@ -31,6 +32,9 @@ public:
 
 	//Playerが動いたフラグ
 	bool PlayerMove;
+
+	//Playerのカプセル型の当たり判定
+	int HitCapsule;
 
 	//Pad入力取得
 	int Pad;

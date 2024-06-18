@@ -54,7 +54,6 @@ bool Rect::IsCollision(const Rect& rect)
 }
 
 
-
 void Rect::Draw(unsigned int color, bool isFill)
 {
 	//“–‚½‚è”»’è•`‰æ

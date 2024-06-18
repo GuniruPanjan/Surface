@@ -74,6 +74,13 @@ void Player::Init()
 	PlayerAnim[2] = -1;
 	PlayerAnim[3] = -1;
 
+	//F3.x = PlayerPos.x;
+	//F3.y = PlayerPos.y;
+	//F3.z = PlayerPos.z;
+
+	////”¼Œa
+	//capsule.r = 50.0f;
+	//capsule.s;
 }
 
 void Player::Update()
@@ -279,7 +286,6 @@ void Player::Update()
 		//Ä¶ŠÔ‚ğƒZƒbƒg‚·‚é
 		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[3], PlayTime);
 	}
-
 
 }
 
