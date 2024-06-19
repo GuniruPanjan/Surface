@@ -1,5 +1,7 @@
 #pragma once
 #include "PlayerBase.h"
+#include "Col/CapsuleCol.h"
+#include<memory>
 
 class Player : public PlayerBase
 {
@@ -10,6 +12,10 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+
+	CapsuleCol GetCol() const { return m_col; }
+	bool IsHit(const CapsuleCol& col);
+
 	void End();
 
 	void SetCameraAngle(float angle) { cameraAngle = angle; }
@@ -38,6 +44,13 @@ public:
 
 	//Pad“ü—ÍŽæ“¾
 	int Pad;
+private:
+	Pos3 m_pos;
+	Vec3 m_vec;
+	float m_len;
+	float m_radius;
+	CapsuleCol m_col;
 
+	unsigned int m_color = 0xffffff;
 };
 

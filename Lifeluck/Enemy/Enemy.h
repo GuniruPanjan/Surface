@@ -1,5 +1,6 @@
 #pragma once
 #include "EnemyBase.h"
+#include "Col/CapsuleCol.h"
 
 class Enemy : public EnemyBase
 {
@@ -10,6 +11,10 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+
+	CapsuleCol GetCol() const { return m_col; }
+	bool IsHit(const CapsuleCol& col);
+
 	void End();
 
 private:
@@ -23,5 +28,13 @@ private:
 
 	//çƒê∂éûä‘
 	float PlayTime;
+
+	Pos3 m_pos;
+	Vec3 m_vec;
+	float m_len;
+	float m_radius;
+	CapsuleCol m_col;
+
+	unsigned int m_color = 0xffffff;
 };
 

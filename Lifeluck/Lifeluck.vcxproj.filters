@@ -49,6 +49,15 @@
     <Filter Include="ヘッダー ファイル\Scene">
       <UniqueIdentifier>{1163ee25-6447-48fe-977f-fb5fcd76b6d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{d5691501-74ed-4420-9284-a4a52c051120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Col">
+      <UniqueIdentifier>{3d93a636-d15b-466c-8bc2-80897bb885f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Col">
+      <UniqueIdentifier>{3e417fb4-1bd0-4d66-8597-d1d05b380b67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Template3D.cpp">
@@ -102,11 +111,14 @@
     <ClCompile Include="Map\MapGoal.cpp">
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Vec3.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Col\Vec3.cpp">
+      <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
-    <ClCompile Include="Capsule.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Col\CapsuleCol.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
+    <ClCompile Include="Col\Matrix3.cpp">
+      <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +173,14 @@
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Vec3.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Col\Vec3.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
-    <ClInclude Include="Capsule.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Col\CapsuleCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\Matrix3.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

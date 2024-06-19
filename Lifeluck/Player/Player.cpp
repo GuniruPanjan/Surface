@@ -34,7 +34,6 @@ Player::~Player()
 
 void Player::Init()
 {
-
 	PlayerHp = 10;
 	//Playerの3Dモデルを読み込む
 	PlayerModel = MV1LoadModel("PlayerData/PlayerModel.mv1");
@@ -74,17 +73,17 @@ void Player::Init()
 	PlayerAnim[2] = -1;
 	PlayerAnim[3] = -1;
 
-	//F3.x = PlayerPos.x;
-	//F3.y = PlayerPos.y;
-	//F3.z = PlayerPos.z;
-
-	////半径
-	//capsule.r = 50.0f;
-	//capsule.s;
+	m_pos = Pos3(PlayerPos.x - 2.0f, PlayerPos.y + 35.0f, PlayerPos.z);
+	m_vec = Vec3(PlayerPos.x, PlayerPos.y, PlayerPos.z);
+	m_len = 40.0f;
+	m_radius = 16.0f;
+	m_col.Init(m_pos, m_vec, m_len, m_radius);
 }
 
 void Player::Update()
 {
+	m_pos = Pos3(PlayerPos.x - 2.0f, PlayerPos.y + 35.0f, PlayerPos.z);
+
 	//パッド入力所得
 	Pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
@@ -287,10 +286,19 @@ void Player::Update()
 		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[3], PlayTime);
 	}
 
+	m_col.Update(m_pos, m_vec);
 }
 
 void Player::Draw()
 {
+	//方向ベクトル
+	Vec3 Vec = m_vec.GetNormalized() * m_len * 0.5f;
+
+	Pos3 pos1 = m_pos + Vec;
+	Pos3 pos2 = m_pos - Vec;
+
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+
 	//3Dモデルのポジション設定
 	MV1SetPosition(PlayerModel, PlayerPos);
 
@@ -299,6 +307,22 @@ void Player::Draw()
 
 	//3Dモデル描画
 	MV1DrawModel(PlayerModel);
+}
+
+bool Player::IsHit(const CapsuleCol& col)
+{
+	bool isHit = m_col.IsHit(col);
+
+	if (isHit)
+	{
+		m_color = 0xffff00;
+	}
+	else
+	{
+		m_color = 0xffffff;
+	}
+
+	return isHit;
 }
 
 void Player::End()

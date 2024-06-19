@@ -140,7 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
-    <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="Col\CapsuleCol.cpp" />
+    <ClCompile Include="Col\Matrix3.cpp" />
+    <ClCompile Include="Col\Vec3.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Enemy\EnemyBase.cpp" />
     <ClCompile Include="Machine\Machine.cpp" />
@@ -157,11 +159,12 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Template3D.cpp" />
-    <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
-    <ClInclude Include="Capsule.h" />
+    <ClInclude Include="Col\CapsuleCol.h" />
+    <ClInclude Include="Col\Matrix3.h" />
+    <ClInclude Include="Col\Vec3.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\EnemyBase.h" />
     <ClInclude Include="Machine\Machine.h" />
@@ -178,7 +181,6 @@
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
-    <ClInclude Include="Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Lifeluck.rc" />

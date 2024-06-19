@@ -42,10 +42,17 @@ void Enemy::Init()
 	MV1DetachAnim(EnemyModel, EnemyAnim[0]);
 
 	EnemyPos = VGet(EnemyX, EnemyY, EnemyZ);
+
+	m_pos = Pos3(EnemyPos.x + 4.0f, EnemyPos.y + 45.0f, EnemyPos.z);
+	m_vec = Vec3(0.0f, 2.0f, 0.0f);
+	m_len = 40.0f;
+	m_radius = 25.0f;
+	m_col.Init(m_pos, m_vec, m_len, m_radius);
 }
 
 void Enemy::Update()
 {
+	m_pos = Pos3(EnemyPos.x + 4.0f, EnemyPos.y + 45.0f, EnemyPos.z);
 
 	//アニメーションを再生する
 	PlayTime += 0.5f;
@@ -62,15 +69,40 @@ void Enemy::Update()
 		MV1SetAttachAnimTime(EnemyModel, EnemyAnim[1], PlayTime);
 	}
 
+	m_col.Update(m_pos, m_vec);
 }
 
 void Enemy::Draw()
 {
+	//方向ベクトル
+	Vec3 Vec = m_vec.GetNormalized() * m_len * 0.5f;
+
+	Pos3 pos1 = m_pos + Vec;
+	Pos3 pos2 = m_pos - Vec;
+
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+
 	//3Dモデルのポジション設定
 	MV1SetPosition(EnemyModel, EnemyPos);
 
 	//3Dモデル描画
 	MV1DrawModel(EnemyModel);
+}
+
+bool Enemy::IsHit(const CapsuleCol& col)
+{
+	bool isHit = m_col.IsHit(col);
+
+	if (isHit)
+	{
+		m_color = 0xffff00;
+	}
+	else
+	{
+		m_color = 0xffffff;
+	}
+
+	return false;
 }
 
 void Enemy::End()
