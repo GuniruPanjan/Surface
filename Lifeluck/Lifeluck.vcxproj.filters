@@ -120,6 +120,12 @@
     <ClCompile Include="Col\Matrix3.cpp">
       <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
+    <ClCompile Include="Col\RectCol.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
+    <ClCompile Include="Col\Cube.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\PlayerBase.h">
@@ -180,6 +186,12 @@
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
     <ClInclude Include="Col\Matrix3.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\RectCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\Cube.h">
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>

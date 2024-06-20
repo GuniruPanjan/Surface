@@ -141,7 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Col\CapsuleCol.cpp" />
+    <ClCompile Include="Col\Cube.cpp" />
     <ClCompile Include="Col\Matrix3.cpp" />
+    <ClCompile Include="Col\RectCol.cpp" />
     <ClCompile Include="Col\Vec3.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Enemy\EnemyBase.cpp" />
@@ -163,7 +165,9 @@
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Col\CapsuleCol.h" />
+    <ClInclude Include="Col\Cube.h" />
     <ClInclude Include="Col\Matrix3.h" />
+    <ClInclude Include="Col\RectCol.h" />
     <ClInclude Include="Col\Vec3.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\EnemyBase.h" />
