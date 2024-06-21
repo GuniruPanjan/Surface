@@ -24,6 +24,8 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	player->SetCameraAngle(camera->cameraAngle.y);
 	player->Update();
 	player->IsHit(enemy->GetCol());
+	obj->IsHit(player->GetCol());
+	machine->IsHit(player->GetCol());
 	camera->Update(*player);
 	enemy->Update();
 	machine->Update();

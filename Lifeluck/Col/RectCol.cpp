@@ -25,7 +25,7 @@ void RectCol::Update(const Pos3& pos)
 
 bool RectCol::IsHit(const CapsuleCol& col)
 {
-	//自身の半径のベクトルを作成
+	//自身の辺のベクトルを作成
 	Vec3 sDirVec = m_pos.GetNormalized() * m_size.width * 0.5f;
 
 	//対象の向いている方向に伸びているベクトルを作成
@@ -33,6 +33,11 @@ bool RectCol::IsHit(const CapsuleCol& col)
 
 	//相対ベクトル
 	Vec3 vec = col.GetPos() - m_pos;
+
+	//値の絶対値化
+	vec.x = fabs(vec.x);
+	vec.y = fabs(vec.y);
+	vec.z = fabs(vec.z);
 
 	//法線ベクトル
 	Vec3 norm = Cross(sDirVec, tDirVec);
@@ -72,16 +77,30 @@ bool RectCol::IsHit(const CapsuleCol& col)
 	if (t < -1.0f) t = -1.0f; // 下限
 	if (t > 1.0f)  t = 1.0f; // 上限
 
+	float trw = (col.GetRadius() + m_size.width) * 0.5f;
+	float trh = (col.GetRadius() + m_size.height) * 0.5f;
+	float trd = (col.GetRadius() + m_size.depth) * 0.5f;
+
+
 	// 線分上での最短座標
 	Pos3 minPos1 = sDirVec * s + m_pos;
 	Pos3 minPos2 = tDirVec * t + col.GetPos();
 	// 大きさ(2乗)
 	float sqLen = (minPos1 - minPos2).SqLength();
 	// それぞれの半径の合計の2乗
-	float ar = m_size.width + col.GetRadius();
+	float ar = (m_size.width * 0.5f) + col.GetRadius();
 	ar = ar * ar;
+	
+	//各成分の判定
+	bool isHitX = vec.x < trw;
+	bool isHitY = vec.y < trh;
+	bool isHitZ = vec.z < trd;
 
-	return sqLen < ar;
+	//判定
+	return isHitX && isHitY && isHitZ;
+
+	/*sqLenが悪さしてる*/
+	//return sqLen < ar;
 
 	return false;
 }

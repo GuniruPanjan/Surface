@@ -20,6 +20,7 @@ public:
 	virtual void Draw();
 	virtual void End();
 
+private:
 	//ƒ|ƒCƒ“ƒ^‚ÅŠÇ—
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>();

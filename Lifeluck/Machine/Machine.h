@@ -13,6 +13,8 @@ public:
 	void Draw();
 	void End();
 
+	bool IsHit(const CapsuleCol& col);
+
 	/// <summary>
 	/// •`‰æ‚âƒ|ƒWƒVƒ‡ƒ“İ’è‚ğ‚·‚éŠÖ”
 	/// </summary>

@@ -123,6 +123,9 @@
     <ClCompile Include="Col\RectCol.cpp">
       <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
+    <ClCompile Include="Col\SphereCol.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\PlayerBase.h">
@@ -186,6 +189,9 @@
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
     <ClInclude Include="Col\RectCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\SphereCol.h">
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>

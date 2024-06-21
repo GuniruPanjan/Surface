@@ -1,4 +1,5 @@
 #pragma once
+#include "Col/RectCol.h"
 
 
 class MachineBase
@@ -28,5 +29,11 @@ public:
 	float MachineX = 0.0f;
 	float MachineY = 0.0f;
 	float MachineZ = 0.0f;
+protected:
+	Pos3 m_pos;
+	Size m_size;
+	RectCol m_rect;
+
+	unsigned int m_color = 0xffffff;
 };
 
