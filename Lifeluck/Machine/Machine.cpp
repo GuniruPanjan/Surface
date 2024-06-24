@@ -30,7 +30,10 @@ void Machine::Init()
 
 	m_pos = Pos3(MachineX + 3.0f, 30.0f, MachineZ + 20.0f);
 	m_size = Size(50.0f, 50.0f, 30.0f);
+	m_radius = 80.0f;
 	m_rect.Init(m_pos, m_size);
+	m_col.Init(m_pos, m_radius);
+
 }
 
 void Machine::Update()
@@ -65,6 +68,9 @@ void Machine::Draw()
 	DrawLine3D(VGet(left, bottom, front), VGet(left, bottom, back), m_color);
 	DrawLine3D(VGet(right, top, front), VGet(right, top, back), m_color);
 	DrawLine3D(VGet(right, bottom, front), VGet(right, bottom, back), m_color);
+
+	//“–‚½‚è”»’è•`‰æ
+	DrawSphere3D(m_pos.GetVector(), m_radius, 16, m_color1, 0xffffff, false);
 
 	//ƒ|ƒWƒVƒ‡ƒ“‚âİ’è‚â•`‰æ‚ğ‚·‚é
 	SetPosition(MachineModel, MachineX, MachineY, MachineZ, MachineRotate);

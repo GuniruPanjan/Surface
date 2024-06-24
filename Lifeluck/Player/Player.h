@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayerBase.h"
 #include "Col/CapsuleCol.h"
+#include "Col/SphereCol.h"
 #include<memory>
 
 class Player : public PlayerBase
@@ -15,6 +16,7 @@ public:
 
 	CapsuleCol GetCol() const { return m_col; }
 	bool IsHit(const CapsuleCol& col);
+	bool IsHitSearch(const SphereCol& col);
 
 	void End();
 
@@ -45,6 +47,12 @@ public:
 	//Pad入力取得
 	int Pad;
 private:
+	//マシンの近くにいるとマシンのエネルギーを補充できる判定
+	bool m_playercan;
+	//マシンをエネルギー補充している行動
+	bool m_playercharging;
+
+	//当たり判定用のメンバ変数
 	Pos3 m_pos;
 	Vec3 m_vec;
 	float m_len;

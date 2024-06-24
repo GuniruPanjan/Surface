@@ -91,7 +91,7 @@ void Enemy::Draw()
 
 bool Enemy::IsHit(const CapsuleCol& col)
 {
-	bool isHit = m_col.IsHit(col);
+	bool isHit = m_col.IsHitCapsule(col);
 
 	if (isHit)
 	{

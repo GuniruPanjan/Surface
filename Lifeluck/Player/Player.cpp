@@ -10,7 +10,9 @@ Player::Player() :
 	PlayerAnimDying(-1),
 	PlayTime(0.0f),
 	PlayerMove(false),
-	Pad(0)
+	Pad(0),
+	m_playercan(false),
+	m_playercharging(false)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -171,18 +173,23 @@ void Player::Update()
 	//Bボタンを押していたら
 	if (Pad & PAD_INPUT_2)
 	{
-		PlayerMove = false;
-		//プレイヤーが充電中なら
-		PlayerChargingMove = true;
-		//プレイヤーがエネルギーを与える量
-		PlayerGiveEnergy = 1.0f;
+		//マシンを充電
+		if (m_playercan)
+		{
+			PlayerMove = false;
+			//プレイヤーが充電中なら
+			m_playercharging = true;
+			//プレイヤーがエネルギーを与える量
+			PlayerGiveEnergy = 1.0f;
 
-		DrawString(0, 0, "マシンエネルギー補充", 0xffffff);
+			DrawString(0, 0, "マシンエネルギー補充", 0xffffff);
+		}
+		
 	}
 	//プレイヤーが充電中じゃければ
 	else
 	{
-		PlayerChargingMove = false;
+		m_playercharging = false;
 	}
 
 	//アナログスティックを使って移動
@@ -220,7 +227,7 @@ void Player::Update()
 	//移動方向からプライヤーの向く方向を決定する
 	//移動してない場合(ゼロベクトル)の場合は変更しない
 	//プレイヤーが充電中じゃなければ
-	if (PlayerChargingMove == false)
+	if (m_playercharging == false)
 	{
 		if (VSquareSize(move) > 0.0f)
 		{
@@ -311,7 +318,7 @@ void Player::Draw()
 
 bool Player::IsHit(const CapsuleCol& col)
 {
-	bool isHit = m_col.IsHit(col);
+	bool isHit = m_col.IsHitCapsule(col);
 
 	if (isHit)
 	{
@@ -319,6 +326,28 @@ bool Player::IsHit(const CapsuleCol& col)
 	}
 	else
 	{
+		m_color = 0xffffff;
+	}
+
+	return isHit;
+}
+
+bool Player::IsHitSearch(const SphereCol& col)
+{
+	bool isHit = m_col.IsHitSphere(col);
+
+	if (isHit)
+	{
+		//プレイヤーがマシンを充電できるようになる
+		m_playercan = true;
+
+		m_color = 0x00ffff;
+	}
+	else
+	{
+		//プレイヤーがマシンを充電できなくなる
+		m_playercan = false;
+
 		m_color = 0xffffff;
 	}
 
