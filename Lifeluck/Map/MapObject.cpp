@@ -224,6 +224,10 @@ bool MapObject::IsHit(const CapsuleCol& col)
 	bool IsHit3 = m_rect3.IsHit(col);
 	bool IsHit4 = m_rect4.IsHit(col);
 
+	//メモ
+	//壁の当たり判定は2次元のベクトル外積を使った当たり判定にする
+	//x軸y軸ではなくx軸z軸を使いy軸が+か-かで判定を行うものとする
+
 	if (IsHit || IsHit2 || IsHit3 || IsHit4)
 	{
 		m_color = 0xff00ff;
