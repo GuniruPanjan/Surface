@@ -25,7 +25,6 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	player->Update();
 	enemy->IsHit(player->GetCol());
 	player->IsHitSearch(machine->GetCol());
-	player->IsHit(enemy->GetCol());
 	obj->IsHit(player->GetCol());
 	machine->IsHit(player->GetCol());
 	camera->Update(*player);

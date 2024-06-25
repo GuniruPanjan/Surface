@@ -142,6 +142,7 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Col\CapsuleCol.cpp" />
     <ClCompile Include="Col\Matrix3.cpp" />
+    <ClCompile Include="Col\Physics.cpp" />
     <ClCompile Include="Col\RectCol.cpp" />
     <ClCompile Include="Col\SphereCol.cpp" />
     <ClCompile Include="Col\Vec3.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Col\CapsuleCol.h" />
     <ClInclude Include="Col\Matrix3.h" />
+    <ClInclude Include="Col\Physics.h" />
     <ClInclude Include="Col\RectCol.h" />
     <ClInclude Include="Col\SphereCol.h" />
     <ClInclude Include="Col\Vec3.h" />

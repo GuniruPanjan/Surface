@@ -126,6 +126,9 @@
     <ClCompile Include="Col\SphereCol.cpp">
       <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
+    <ClCompile Include="Col\Physics.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\PlayerBase.h">
@@ -192,6 +195,9 @@
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
     <ClInclude Include="Col\SphereCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\Physics.h">
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>
