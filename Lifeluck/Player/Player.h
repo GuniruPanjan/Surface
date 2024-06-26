@@ -28,22 +28,27 @@ public:
 	//Playerのポジション設定
 	VECTOR PlayerPos = VGet(0.0f, 0.0f, 0.0f);
 	//Playerのアニメーション読み込み
-	int PlayerAnimRun, PlayerAnimWalking, PlayerAnimDying;
+	int PlayerAnimRun, PlayerAnimWalking, PlayerAnimDying, PlayerAnimCode;
 	//Playerのアニメーション格納変数
-	int PlayerAnim[4];
+	int PlayerAnim[5];
 
 	//アニメーションの再生時間
 	float PlayTime;
 
 	//アニメーションの総再生時間
-	float TotalTime[4];
+	float TotalTime[5];
 
 	//Playerが動いたフラグ
 	bool PlayerMove;
 
 	//Pad入力取得
 	int Pad;
+
+	
 private:
+	//プレイヤーの移動
+	VECTOR move;
+
 	//マシンの近くにいるとマシンのエネルギーを補充できる判定
 	bool m_playercan;
 	//マシンをエネルギー補充している行動

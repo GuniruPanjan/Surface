@@ -8,18 +8,19 @@ Player::Player() :
 	PlayerAnimWalking(-1),
 	PlayerAnimRun(-1),
 	PlayerAnimDying(-1),
+	PlayerAnimCode(-1),
 	PlayTime(0.0f),
 	PlayerMove(false),
 	Pad(0),
 	m_playercan(false),
 	m_playercharging(false)
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		PlayerAnim[i] = 0;
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		TotalTime[i] = 0;
 	}
@@ -53,6 +54,7 @@ void Player::Init()
 	PlayerAnimWalking = MV1LoadModel("PlayerData/PlayerAnimWalk.mv1");
 	PlayerAnimRun = MV1LoadModel("PlayerData/PlayerAnimRun.mv1");
 	PlayerAnimDying = MV1LoadModel("PlayerData/PlayerAnimDying.mv1");
+	PlayerAnimCode = MV1LoadModel("PlayerData/PlayerAnimCode.mv1");
 
 
 	//アニメーションアタッチ
@@ -60,20 +62,24 @@ void Player::Init()
 	PlayerAnim[1] = MV1AttachAnim(PlayerModel, 0, PlayerAnimWalking, TRUE);
 	PlayerAnim[2] = MV1AttachAnim(PlayerModel, 0, PlayerAnimRun, TRUE);
 	PlayerAnim[3] = MV1AttachAnim(PlayerModel, 0, PlayerAnimDying, TRUE);
+	PlayerAnim[4] = MV1AttachAnim(PlayerModel, 0, PlayerAnimCode, TRUE);
 
 	//アタッチしたアニメーションの総再生時間を取得する
 	TotalTime[0] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[0]);
 	TotalTime[1] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[1]);
 	TotalTime[2] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[2]);
 	TotalTime[3] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[3]);
+	TotalTime[4] = MV1GetAttachAnimTotalTime(PlayerModel, PlayerAnim[4]);
 
 	//一旦待機意外のアニメーションデタッチ
 	MV1DetachAnim(PlayerModel, PlayerAnim[1]);
 	MV1DetachAnim(PlayerModel, PlayerAnim[2]);
 	MV1DetachAnim(PlayerModel, PlayerAnim[3]);
+	MV1DetachAnim(PlayerModel, PlayerAnim[4]);
 	PlayerAnim[1] = -1;
 	PlayerAnim[2] = -1;
 	PlayerAnim[3] = -1;
+	PlayerAnim[4] = -1;
 
 	m_pos = Pos3(PlayerPos.x - 2.0f, PlayerPos.y + 35.0f, PlayerPos.z);
 	m_vec = Vec3(PlayerPos.x, PlayerPos.y, PlayerPos.z);
@@ -90,13 +96,15 @@ void Player::Update()
 	Pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	//Playerが動いていないなら
-	if (PlayerMove == false)
+	if (PlayerMove == false && m_playercharging == false)
 	{
-		if (PlayerAnim[1] != -1 || PlayerAnim[2] != -1)
+		if (PlayerAnim[1] != -1 || PlayerAnim[2] != -1 || PlayerAnim[4] != -1)
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(PlayerModel, PlayerAnim[1]);
 			MV1DetachAnim(PlayerModel, PlayerAnim[2]);
+			MV1DetachAnim(PlayerModel, PlayerAnim[4]);
+
 
 			//アニメーションをアタッチ
 			PlayerAnim[0] = MV1AttachAnim(PlayerModel, 0, PlayerModel, TRUE);
@@ -105,6 +113,8 @@ void Player::Update()
 
 			PlayerAnim[1] = -1;
 			PlayerAnim[2] = -1;
+			PlayerAnim[4] = -1;
+
 		}
 
 
@@ -112,11 +122,12 @@ void Player::Update()
 	//Aボタンを押したらダッシュ
 	if (Pad & PAD_INPUT_1 && PlayerMove == true)
 	{
-		if (PlayerAnim[1] != -1 || PlayerAnim[0] != -1)
+		if (PlayerAnim[1] != -1 || PlayerAnim[0] != -1 || PlayerAnim[4] != -1)
 		{
 			//アニメーションをデタッチ
 			MV1DetachAnim(PlayerModel, PlayerAnim[0]);
 			MV1DetachAnim(PlayerModel, PlayerAnim[1]);
+			MV1DetachAnim(PlayerModel, PlayerAnim[4]);
 
 			//アニメーションをアタッチする
 			PlayerAnim[2] = MV1AttachAnim(PlayerModel, 0, PlayerAnimRun, TRUE);
@@ -125,6 +136,7 @@ void Player::Update()
 
 			PlayerAnim[0] = -1;
 			PlayerAnim[1] = -1;
+			PlayerAnim[4] = -1;
 
 		}
 
@@ -136,10 +148,12 @@ void Player::Update()
 	//歩くモーション
 	else if (PlayerMove == true)
 	{
-		if (PlayerAnim[0] != -1)
+		if (PlayerAnim[0] != -1 || PlayerAnim[4] != -1)
 		{
 			//アニメーション1をデタッチ
 			MV1DetachAnim(PlayerModel, PlayerAnim[0]);
+			MV1DetachAnim(PlayerModel, PlayerAnim[4]);
+
 
 			//アニメーションをアタッチする
 			PlayerAnim[1] = MV1AttachAnim(PlayerModel, 0, PlayerAnimWalking, TRUE);
@@ -147,15 +161,19 @@ void Player::Update()
 			PlayTime = 0.0f;
 
 			PlayerAnim[0] = -1;
+			PlayerAnim[4] = -1;
+
 
 		}
 		//Aボタンを押してなかったら
 		if ((Pad & PAD_INPUT_1) == false)
 		{
-			if (PlayerAnim[2] != -1)
+			if (PlayerAnim[2] != -1 || PlayerAnim[4] != -1)
 			{
 				//アニメーションをデタッチ
 				MV1DetachAnim(PlayerModel, PlayerAnim[2]);
+				MV1DetachAnim(PlayerModel, PlayerAnim[4]);
+
 
 				//アニメーションをアタッチする
 				PlayerAnim[1] = MV1AttachAnim(PlayerModel, 0, PlayerAnimWalking, TRUE);
@@ -163,6 +181,8 @@ void Player::Update()
 				PlayTime = 0.0f;
 
 				PlayerAnim[2] = -1;
+				PlayerAnim[4] = -1;
+
 			}
 
 			PlayerSpeed = 2.0f;
@@ -176,7 +196,24 @@ void Player::Update()
 		//マシンを充電
 		if (m_playercan)
 		{
-			PlayerMove = false;
+			if (PlayerAnim[0] != -1 || PlayerAnim[1] != -1 || PlayerAnim[2] != -1)
+			{
+				//アニメーションをデタッチ
+				MV1DetachAnim(PlayerModel, PlayerAnim[0]);
+				MV1DetachAnim(PlayerModel, PlayerAnim[1]);
+				MV1DetachAnim(PlayerModel, PlayerAnim[2]);
+
+				//アニメーションをアタッチする
+				PlayerAnim[4] = MV1AttachAnim(PlayerModel, 0, PlayerAnimCode, TRUE);
+
+				PlayTime = 0.0f;
+
+				PlayerAnim[0] = -1;
+				PlayerAnim[1] = -1;
+				PlayerAnim[2] = -1;
+
+
+			}
 			//プレイヤーが充電中なら
 			m_playercharging = true;
 			//プレイヤーがエネルギーを与える量
@@ -189,7 +226,13 @@ void Player::Update()
 	//プレイヤーが充電中じゃければ
 	else
 	{
-		m_playercharging = false;
+		//一回だけ実行
+		if (m_playercharging == true)
+		{
+			PlayerMove = false;
+
+			m_playercharging = false;
+		}
 	}
 
 	//アナログスティックを使って移動
@@ -201,7 +244,7 @@ void Player::Update()
 
 	GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
 
-	VECTOR move = VGet(-analogX, 0.0f, analogY);  //ベクトルの長さ
+	move = VGet(-analogX, 0.0f, analogY);  //ベクトルの長さ
 
 	//ベクトルの長さを取得する
 	float len = VSize(move);
@@ -271,6 +314,10 @@ void Player::Update()
 	{
 		PlayTime = 0.0f;
 	}
+	if (PlayTime >= TotalTime[4] && PlayerAnim[4] != -1)
+	{
+		PlayTime = 0.0f;
+	}
 
 	if (PlayerAnim[0] != -1)
 	{
@@ -291,6 +338,10 @@ void Player::Update()
 	{
 		//再生時間をセットする
 		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[3], PlayTime);
+	}
+	if (PlayerAnim[4] != -1)
+	{
+		MV1SetAttachAnimTime(PlayerModel, PlayerAnim[4], PlayTime);
 	}
 
 	m_col.Update(m_pos, m_vec);
@@ -361,5 +412,6 @@ void Player::End()
 	MV1DeleteModel(PlayerAnimWalking);
 	MV1DeleteModel(PlayerAnimRun);
 	MV1DeleteModel(PlayerAnimDying);
+	MV1DeleteModel(PlayerAnimCode);
 
 }
