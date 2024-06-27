@@ -50,6 +50,8 @@ void Player::Init()
 	//Playerのポジション設定
 	PlayerPos = VGet(0.0f, 2.0f, 0.0f);
 
+	OldPlayerPos = PlayerPos;
+
 	//Playerのアニメーション読み込み
 	PlayerAnimWalking = MV1LoadModel("PlayerData/PlayerAnimWalk.mv1");
 	PlayerAnimRun = MV1LoadModel("PlayerData/PlayerAnimRun.mv1");

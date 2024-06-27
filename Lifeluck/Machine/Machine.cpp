@@ -1,4 +1,5 @@
 #include "Machine.h"
+#include "Col/Rigidbody.h"
 
 Machine::Machine()
 {
@@ -82,13 +83,19 @@ void Machine::End()
 	MV1DeleteModel(MachineModel);
 }
 
-bool Machine::IsHit(const CapsuleCol& col)
+bool Machine::IsHit(const CapsuleCol& col, Player& player)
 {
 	bool IsHit = m_rect.IsHit(col);
+
+	Rigidbody rigidbody;
+
+	VECTOR MachinePos = VGet(MachineX, MachineY, MachineZ);
 
 	if (IsHit)
 	{
 		m_color = 0x00ffff;
+
+		rigidbody.HitMove(MachinePos, player.GetMove(), player.OldPlayerPos, player.PlayerPos);
 	}
 	else
 	{

@@ -18,6 +18,8 @@ public:
 	bool IsHit(const CapsuleCol& col);
 	bool IsHitSearch(const SphereCol& col);
 
+	VECTOR& GetMove() { return move; }
+
 	void End();
 
 	void SetCameraAngle(float angle) { cameraAngle = angle; }
@@ -25,6 +27,8 @@ public:
 	//カメラ情報
 	float cameraAngle;
 	float angle;
+	//Playerの最初のポジション
+	VECTOR OldPlayerPos = VGet(0.0f, 0.0f, 0.0f);
 	//Playerのポジション設定
 	VECTOR PlayerPos = VGet(0.0f, 0.0f, 0.0f);
 	//Playerのアニメーション読み込み

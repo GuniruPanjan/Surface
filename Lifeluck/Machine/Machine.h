@@ -1,5 +1,6 @@
 #pragma once
 #include "MachineBase.h"
+#include "Player/Player.h"
 #include "DxLib.h"
 
 class Machine : public MachineBase
@@ -13,7 +14,7 @@ public:
 	void Draw();
 	void End();
 
-	bool IsHit(const CapsuleCol& col);
+	bool IsHit(const CapsuleCol& col, Player& player);
 
 	/// <summary>
 	/// •`‰æ‚âƒ|ƒWƒVƒ‡ƒ“İ’è‚ğ‚·‚éŠÖ”

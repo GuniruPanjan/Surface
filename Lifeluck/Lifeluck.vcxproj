@@ -143,6 +143,7 @@
     <ClCompile Include="Col\CapsuleCol.cpp" />
     <ClCompile Include="Col\Matrix3.cpp" />
     <ClCompile Include="Col\RectCol.cpp" />
+    <ClCompile Include="Col\Rigidbody.cpp" />
     <ClCompile Include="Col\SphereCol.cpp" />
     <ClCompile Include="Col\Vec3.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Col\CapsuleCol.h" />
     <ClInclude Include="Col\Matrix3.h" />
     <ClInclude Include="Col\RectCol.h" />
+    <ClInclude Include="Col\Rigidbody.h" />
     <ClInclude Include="Col\SphereCol.h" />
     <ClInclude Include="Col\Vec3.h" />
     <ClInclude Include="Enemy\Enemy.h" />
