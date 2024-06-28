@@ -8,8 +8,10 @@ void Rigidbody::HitMove(VECTOR& pos, VECTOR& move, VECTOR& oldpos, VECTOR& nowpo
 	SlideVec = VCross(move, pos);
 
 	//元の移動成分から壁方向の移動成分を抜いたベクトル
-	SlideVec = VCross(pos, SlideVec);
+	SlideVec = VSub(pos, SlideVec);
 
 	//移動前の座標に足したものを新たな座標とする
 	nowpos = VAdd(oldpos, SlideVec);
+
+	nowpos = VAdd(nowpos,VScale())
 }

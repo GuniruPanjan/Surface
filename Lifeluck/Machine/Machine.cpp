@@ -89,7 +89,7 @@ bool Machine::IsHit(const CapsuleCol& col, Player& player)
 
 	Rigidbody rigidbody;
 
-	VECTOR MachinePos = VGet(MachineX, MachineY, MachineZ);
+	VECTOR MachinePos = VGet(MachineX, 0.0f, MachineZ);
 
 	if (IsHit)
 	{
