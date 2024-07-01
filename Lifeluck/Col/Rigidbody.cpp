@@ -13,5 +13,5 @@ void Rigidbody::HitMove(VECTOR& pos, VECTOR& move, VECTOR& oldpos, VECTOR& nowpo
 	//移動前の座標に足したものを新たな座標とする
 	nowpos = VAdd(oldpos, SlideVec);
 
-	nowpos = VAdd(nowpos,VScale())
+	nowpos = VGet(nowpos.x, 2.0f, nowpos.z);
 }
