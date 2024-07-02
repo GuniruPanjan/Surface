@@ -10,11 +10,15 @@ public:
 	PlayerBase() {}
 	virtual ~PlayerBase() {}
 
+	//エネルギーを与える
+	float GiveEnergy() { return PlayerGiveEnergy; }
+
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void End() = 0;
 
+protected:
 	//プレイヤーの体力
 	int PlayerHp = 0;
 	//プレイヤーのモデル格納変数
@@ -24,7 +28,7 @@ public:
 	//プレイヤーの死亡フラグ
 	bool PlayerDead = false;
 	//プレイヤーのマシンに与えるエネルギー量
-	float PlayerGiveEnergy = 0.0f;
+	float PlayerGiveEnergy = 1.0f;
 
 	//プレイヤーのポジション設定
 	float PlayerX = 0.0f;

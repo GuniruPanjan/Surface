@@ -19,10 +19,8 @@ public:
 	//マシンのサイズ設定
 	float MachineSize = 0.0f;
 
-	
-
-	//マシンの最大エネルギー
-	float MachineMaxEnergy = 0.0f;
+	//キャラクターの移動前の座標取得
+	VECTOR m_previous = VGet(0.0f, 0.0f, 0.0f);
 
 protected:
 	//マシンのモデル格納変数
@@ -30,6 +28,18 @@ protected:
 
 	//マシンの回転変数
 	float MachineRotate = 0.0f;
+
+	//マシンの最大エネルギー
+	float m_machineMaxEnergy = 100.0f;
+
+	//溜まるマシンのエネルギー
+	float m_machineenergy = 0.0f;
+
+	//時間を記録するための変数
+	float time = 0.0f;
+
+	//一回実行するための判定
+	bool one = false;
 
 	//マシンの座標位置
 	float MachineX = 0.0f;

@@ -16,9 +16,10 @@ public:
 
 	CapsuleCol GetCol() const { return m_col; }
 	bool IsHit(const CapsuleCol& col);
-	bool IsHitSearch(const SphereCol& col);
-
+	//bool IsHitSearch(const SphereCol& col);
+	bool GetCan(bool machinecan) { return m_playercan = machinecan; }
 	VECTOR& GetMove() { return move; }
+	bool GetCharging() { return m_playercharging; }
 
 	void End();
 
@@ -47,7 +48,6 @@ public:
 
 	//Pad“ü—Íæ“¾
 	int Pad;
-
 	
 private:
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®

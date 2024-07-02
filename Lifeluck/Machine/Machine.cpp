@@ -1,7 +1,8 @@
 #include "Machine.h"
 #include "Col/Rigidbody.h"
 
-Machine::Machine()
+Machine::Machine():
+	m_completemachine(0)
 {
 	MachinePosition = VGet(0.0f, 0.0f, 0.0f);
 }
@@ -15,7 +16,7 @@ Machine::~Machine()
 void Machine::Init()
 {
 	//マシンに溜まる最大のエネルギー量
-	MachineMaxEnergy = 100.0f;
+	m_machineMaxEnergy = 100.0f;
 
 	MachineX = -200.0f;
 	MachineY = -18.0f;
@@ -29,8 +30,8 @@ void Machine::Init()
 	//モデルのサイズ設定
 	MV1SetScale(MachineModel, VGet(MachineSize, MachineSize, MachineSize));
 
-	m_pos = Pos3(MachineX + 3.0f, 30.0f, MachineZ + 20.0f);
-	m_size = Size(50.0f, 50.0f, 30.0f);
+	m_pos = Pos3(MachineX + 3.0f, 30.0f, MachineZ + 18.0f);
+	m_size = Size(40.0f, 50.0f, 20.0f);
 	m_radius = 80.0f;
 	m_rect.Init(m_pos, m_size);
 	m_col.Init(m_pos, m_radius);
@@ -54,6 +55,7 @@ void Machine::Draw()
 	float front = m_pos.z - halfD;
 	float back = m_pos.z + halfD;
 
+#if true
 	// 横の線
 	DrawLine3D(VGet(left, bottom, front), VGet(right, bottom, front), m_color);
 	DrawLine3D(VGet(left, top, front), VGet(right, top, front), m_color);
@@ -70,11 +72,18 @@ void Machine::Draw()
 	DrawLine3D(VGet(right, top, front), VGet(right, top, back), m_color);
 	DrawLine3D(VGet(right, bottom, front), VGet(right, bottom, back), m_color);
 
-	//当たり判定描画
+	//円の当たり判定
 	DrawSphere3D(m_pos.GetVector(), m_radius, 16, m_color1, 0xffffff, false);
+
+#else
+	DrawCube3D(VGet(left, top, back), VGet(right, bottom, front), m_color, 0, false);
+#endif
 
 	//ポジションや設定や描画をする
 	SetPosition(MachineModel, MachineX, MachineY, MachineZ, MachineRotate);
+
+	DrawFormatString(200, 200, 0xffffff, "Time:%f", time);
+	DrawFormatString(200, 300, 0xffffff, "Energy:%f", m_machineenergy);
 }
 
 void Machine::End()
@@ -83,23 +92,77 @@ void Machine::End()
 	MV1DeleteModel(MachineModel);
 }
 
+void Machine::MachineEnergy(float giveenergy)
+{
+	time++;
+
+	if (m_machineMaxEnergy >= m_machineenergy)
+	{
+		if(time >= 300.0f)
+		{
+			m_machineenergy += giveenergy;
+
+			time = 0;
+		}
+		
+	}
+	else if (m_machineenergy >= 100.0f)
+	{
+		//マシンが完成したら数を増やす
+		if (one)
+		{
+			m_completemachine++;
+		}
+	}
+}
+
 bool Machine::IsHit(const CapsuleCol& col, Player& player)
 {
 	bool IsHit = m_rect.IsHit(col);
 
 	Rigidbody rigidbody;
 
-	VECTOR MachinePos = VGet(MachineX, 0.0f, MachineZ);
-
 	if (IsHit)
 	{
 		m_color = 0x00ffff;
 
-		rigidbody.HitMove(MachinePos, player.GetMove(), player.OldPlayerPos, player.PlayerPos);
+		rigidbody.HitMove(player.PlayerPos, m_previous, player.GetMove());
 	}
 	else
 	{
 		m_color = 0xffffff;
+
+		/*当たる前の座標を入れたい*/
+		//プレイヤーの前の座標を入れる
+		m_previous = player.PlayerPos;
+	}
+
+	return IsHit;
+}
+
+bool Machine::IsHitCapsule(const CapsuleCol& col, Player& player)
+{
+	bool IsHit = m_col.IsHitCapsule(col);
+
+	if (IsHit)
+	{
+		m_color1 = 0x00ffff;
+
+		//充電できるようになる
+		player.GetCan(true);
+
+		//充電していたら
+		if (player.GetCharging())
+		{
+			MachineEnergy(player.GiveEnergy());
+		}
+	}
+	else
+	{
+		m_color1 = 0xffffff;
+
+		//充電できないようになる
+		player.GetCan(false);
 	}
 
 	return IsHit;

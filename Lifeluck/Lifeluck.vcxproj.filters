@@ -129,6 +129,9 @@
     <ClCompile Include="Col\Rigidbody.cpp">
       <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SceneGoal.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\PlayerBase.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Col\Rigidbody.h">
       <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneGoal.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

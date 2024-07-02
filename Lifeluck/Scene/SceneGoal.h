@@ -1,10 +1,11 @@
 #pragma once
 #include "SceneBase.h"
-class SceneTitle : public SceneBase
+
+class SceneGoal : public SceneBase
 {
 public:
-	SceneTitle();
-	virtual ~SceneTitle();
+	SceneGoal();
+	virtual ~SceneGoal();
 
 	virtual void Init();
 	virtual std::shared_ptr<SceneBase> Update();
@@ -13,6 +14,6 @@ public:
 
 private:
 	//Pad“ü—ÍŠ“¾•Ï”
-	int Pad;
+	int m_pad;
 };
 

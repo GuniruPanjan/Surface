@@ -14,7 +14,11 @@ public:
 	void Draw();
 	void End();
 
+	//マシンのエネルギー関係の関数
+	void MachineEnergy(float giveenergy);
+
 	bool IsHit(const CapsuleCol& col, Player& player);
+	bool IsHitCapsule(const CapsuleCol& col, Player& player);
 
 	/// <summary>
 	/// 描画やポジション設定をする関数
@@ -29,5 +33,7 @@ public:
 private:
 	//マシンのポジション設定
 	VECTOR MachinePosition;
+	//マシンの完成した数
+	int m_completemachine;
 };
 

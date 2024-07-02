@@ -47,10 +47,13 @@ void Player::Init()
 	//Playerのスピードを設定
 	PlayerSpeed = 2.0f;
 
+	//プレイヤーがエネルギーを与える量
+	PlayerGiveEnergy = 1.0f;
+
 	//Playerのポジション設定
 	PlayerPos = VGet(0.0f, 2.0f, 0.0f);
 
-	OldPlayerPos = PlayerPos;
+	OldPlayerPos = VGet(0.0f, 0.0f, 0.0f);
 
 	//Playerのアニメーション読み込み
 	PlayerAnimWalking = MV1LoadModel("PlayerData/PlayerAnimWalk.mv1");
@@ -218,8 +221,6 @@ void Player::Update()
 			}
 			//プレイヤーが充電中なら
 			m_playercharging = true;
-			//プレイヤーがエネルギーを与える量
-			PlayerGiveEnergy = 1.0f;
 
 			DrawString(0, 0, "マシンエネルギー補充", 0xffffff);
 		}
@@ -385,27 +386,27 @@ bool Player::IsHit(const CapsuleCol& col)
 	return isHit;
 }
 
-bool Player::IsHitSearch(const SphereCol& col)
-{
-	bool isHit = m_col.IsHitSphere(col);
-
-	if (isHit)
-	{
-		//プレイヤーがマシンを充電できるようになる
-		m_playercan = true;
-
-		m_color = 0x00ffff;
-	}
-	else
-	{
-		//プレイヤーがマシンを充電できなくなる
-		m_playercan = false;
-
-		m_color = 0xffffff;
-	}
-
-	return isHit;
-}
+//bool Player::IsHitSearch(const SphereCol& col)
+//{
+//	bool isHit = m_col.IsHitSphere(col);
+//
+//	if (isHit)
+//	{
+//		//プレイヤーがマシンを充電できるようになる
+//		m_playercan = true;
+//
+//		m_color = 0x00ffff;
+//	}
+//	else
+//	{
+//		//プレイヤーがマシンを充電できなくなる
+//		m_playercan = false;
+//
+//		m_color = 0xffffff;
+//	}
+//
+//	return isHit;
+//}
 
 void Player::End()
 {
