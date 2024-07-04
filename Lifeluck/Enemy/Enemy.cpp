@@ -45,8 +45,10 @@ void Enemy::Init()
 
 	m_pos = Pos3(EnemyPos.x + 4.0f, EnemyPos.y + 45.0f, EnemyPos.z);
 	m_vec = Vec3(0.0f, 2.0f, 0.0f);
+	m_size = Size(300.0f, 100.0f, 300.0f);
 	m_len = 40.0f;
 	m_radius = 25.0f;
+	m_rect.Init(m_pos, m_size);
 	m_col.Init(m_pos, m_vec, m_len, m_radius);
 }
 
@@ -81,6 +83,38 @@ void Enemy::Draw()
 	Pos3 pos2 = m_pos - Vec;
 
 	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+
+	float halfW = m_size.width * 0.5f;
+	float halfH = m_size.height * 0.5f;
+	float halfD = m_size.depth * 0.5f;
+
+	float right = m_pos.x + halfW;
+	float left = m_pos.x - halfW;
+	float top = m_pos.y + halfH;
+	float bottom = m_pos.y - halfH;
+	float front = m_pos.z - halfD;
+	float back = m_pos.z + halfD;
+
+#if true
+	// 横の線
+	DrawLine3D(VGet(left, bottom, front), VGet(right, bottom, front), m_color);
+	DrawLine3D(VGet(left, top, front), VGet(right, top, front), m_color);
+	DrawLine3D(VGet(left, bottom, back), VGet(right, bottom, back), m_color);
+	DrawLine3D(VGet(left, top, back), VGet(right, top, back), m_color);
+	// 縦の線
+	DrawLine3D(VGet(left, top, front), VGet(left, bottom, front), m_color);
+	DrawLine3D(VGet(right, top, front), VGet(right, bottom, front), m_color);
+	DrawLine3D(VGet(left, top, back), VGet(left, bottom, back), m_color);
+	DrawLine3D(VGet(right, top, back), VGet(right, bottom, back), m_color);
+	// 前後の線
+	DrawLine3D(VGet(left, top, front), VGet(left, top, back), m_color);
+	DrawLine3D(VGet(left, bottom, front), VGet(left, bottom, back), m_color);
+	DrawLine3D(VGet(right, top, front), VGet(right, top, back), m_color);
+	DrawLine3D(VGet(right, bottom, front), VGet(right, bottom, back), m_color);
+
+#else
+	DrawCube3D(VGet(left, top, back), VGet(right, bottom, front), m_color, 0, false);
+#endif
 
 	//3Dモデルのポジション設定
 	MV1SetPosition(EnemyModel, EnemyPos);

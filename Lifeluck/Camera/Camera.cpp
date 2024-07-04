@@ -55,7 +55,7 @@ void Camera::Update(Player& player)
 	//下キー
 	if (input.Ry > 0)
 	{
-		//カメラがブロックにめりこまないように
+		//カメラが地面にめりこまないように
 		if (cameraPos.y >= 15.2f + player.PlayerPos.y)
 		{
 			cameraAngle.x -= D2R(1.0f);

@@ -1,6 +1,7 @@
 #pragma once
 #include "EnemyBase.h"
 #include "Col/CapsuleCol.h"
+#include "Col/RectCol.h"
 
 class Enemy : public EnemyBase
 {
@@ -29,10 +30,13 @@ private:
 	//Ä¶ŠÔ
 	float PlayTime;
 
+	//“–‚½‚è”»’è—pƒƒ“ƒo•Ï”
 	Pos3 m_pos;
 	Vec3 m_vec;
+	Size m_size;
 	float m_len;
 	float m_radius;
+	RectCol m_rect;
 	CapsuleCol m_col;
 
 	unsigned int m_color = 0xffffff;
