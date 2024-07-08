@@ -9,6 +9,7 @@ public:
 
 	void Init();
 	void Update();
+	void Animation(int& A, float& time);
 	void Draw();
 	void End();
 
@@ -21,6 +22,8 @@ public:
 
 private:
 	float m_cameraAngle;  //カメラ情報
+	int m_moveAnimFrameIndex;  //フレームを検索する
+	int m_a;  //長押し確認変数
 	int m_pad;  //パッド入力所得変数
 };
 
