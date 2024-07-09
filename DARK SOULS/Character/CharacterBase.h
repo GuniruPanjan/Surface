@@ -10,7 +10,7 @@
 class CharacterBase
 {
 public:
-	CharacterBase():
+	CharacterBase() :
 		m_hp(0.0f),
 		m_attack(0.0f),
 		m_handle(-1),
@@ -27,8 +27,12 @@ public:
 		m_animWalk(-1),
 		m_animRun(-1),
 		m_animRoll(-1),
-		m_move(VGet(0.0f,0.0f,0.0f)),
-		m_pos(VGet(m_posX,m_posY,m_posZ))
+		m_move(VGet(0.0f, 0.0f, 0.0f)),
+		m_pos(VGet(m_posX, m_posY, m_posZ)),
+		m_drawPos(VGet(0.0f, 0.0f, 0.0f)),
+		m_prevPos(VGet(0.0f, 0.0f, 0.0f)),
+		m_nowPos(VGet(0.0f, 0.0f, 0.0f)),
+		m_moveVector(VGet(0.0f, 0.0f, 0.0f))
 	{
 		for (int i = 0; i < ANIMATION; i++)
 		{
@@ -68,5 +72,9 @@ protected:
 	float m_totalAnimTime[ANIMATION];  //キャラのアニメーション再生時間
 	VECTOR m_move;  //キャラの移動
 	VECTOR m_pos;  //キャラのポジション
+	VECTOR m_drawPos;   //キャラのモデルを描画するポジション
+	VECTOR m_prevPos;  //キャラのアニメーションで移動しているフレームの座標取得
+	VECTOR m_nowPos;  //キャラのアニメーション後の座標を取得する
+	VECTOR m_moveVector;  //キャラのアニメーションでの座標移動値を入れる
 };
 

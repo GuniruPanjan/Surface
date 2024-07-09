@@ -6,7 +6,9 @@ Player::Player():
 	m_cameraAngle(0.0f),
 	m_moveAnimFrameIndex(0),
 	m_a(0),
-	m_pad(0)
+	m_pad(0),
+	m_avoidance(false),
+	m_nowPos(VGet(0.0f,0.0f,0.0f))
 {
 }
 
@@ -42,9 +44,6 @@ void Player::Init()
 	m_animRun = MV1LoadModel("Data/PlayerAnimation/PlayerAnimRun.mv1");
 	m_animRoll = MV1LoadModel("Data/PlayerAnimation/PlayerAnimRoll.mv1");
 
-	//アニメーションで移動しているフレームの番号を検索する
-	m_moveAnimFrameIndex = MV1SearchFrame(m_animRoll, "mixamorig:Hips");
-
 	//アニメーションアタッチ
 	m_animation[0] = MV1AttachAnim(m_handle, 1, m_animStand, TRUE);
 	m_animation[1] = MV1AttachAnim(m_handle, 1, m_animWalk, TRUE);
@@ -57,9 +56,6 @@ void Player::Init()
 	m_totalAnimTime[2] = MV1GetAttachAnimTotalTime(m_handle, m_animation[2]);
 	m_totalAnimTime[3] = MV1GetAttachAnimTotalTime(m_handle, m_animation[3]);
 
-	//アニメーションで移動しているフレームを無効にする
-	MV1SetFrameUserLocalMatrix(m_animRoll, m_moveAnimFrameIndex, MV1GetFrameLocalMatrix(m_animRoll, m_moveAnimFrameIndex));
-
 	//一旦待機以外のアニメーションデタッチ
 	MV1DetachAnim(m_handle, m_animation[1]);
 	MV1DetachAnim(m_handle, m_animation[2]);
@@ -69,12 +65,16 @@ void Player::Init()
 	m_animation[3] = -1;
 
 
-	//プレイヤーもポジション設定
+	//プレイヤーのポジション設定
 	m_pos = VGet(m_posX, m_posY, m_posZ);
+	m_drawPos = m_pos;
 }
 
 void Player::Update()
 {
+	//アニメーションで移動しているフレームの番号を検索する
+	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
+
 	//パッド入力所得
 	m_pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
@@ -85,7 +85,10 @@ void Player::Update()
 	float SetAngleX = 0.0f;
 	float SetAngleY = 0.0f;
 
-	GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
+	if (m_avoidance == false)
+	{
+		GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
+	}
 
 	m_move = VGet(-analogX, 0.0f, analogY);  //ベクトルの長さ
 
@@ -112,8 +115,7 @@ void Player::Update()
 
 	//移動方向からプレイヤーへの向く方向を決定する
 	//移動していない場合(ゼロベクトル)の場合は変更しない
-	//プレイヤーが充電中じゃなければ
-	if (VSquareSize(m_move) > 0.0f)
+	if (VSquareSize(m_move) > 0.0f && m_avoidance == false)
 	{
 		m_angle = atan2f(-m_move.z, m_move.x) - DX_PI_F / 2;
 
@@ -131,16 +133,24 @@ void Player::Update()
 
 	m_pos = VAdd(m_pos, m_move);
 
-	//アニメーション時間を進める前の「アニメーションで移動をしているフレームの座標」を取得しておく
-
+	//アニメーション時間を進める前のアニメーションで移動をしているフレームの座標取得
+	m_prevPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
 
 	//再生時間を進める
 	m_playerTime += 0.5f;
 
-
 	//Aボタンが押されたら
 	if (m_pad & PAD_INPUT_1)
 	{
+		if (m_a > 50)
+		{
+			m_avoidance = false;
+		}
+		else
+		{
+			m_avoidance = true;
+		}
+
 		if (m_a < 51)
 		{
 			m_a++;
@@ -151,24 +161,30 @@ void Player::Update()
 		m_a = 0;
 	}
 
+	if (m_avoidance == false)
+	{
+		m_drawPos = m_pos;
+	}
 
-	Animation(m_a, m_playerTime);
+	Animation(m_a, m_playerTime, m_pos);
 }
 
 /// <summary>
 /// アニメーションに関する実装をまとめる関数
 /// </summary>
 /// <param name="time"></param>
-void Player::Animation(int& A, float& time)
+void Player::Animation(int& A, float& time, VECTOR& pos)
 {
 	//プレイヤーが動いていないなら
-	if (m_moveflag == false)
+	if (m_moveflag == false && m_avoidance == false)
 	{
-		if (m_animation[1] != -1 || m_animation[2] != -1)
+		if (m_animation[1] != -1 || m_animation[2] != -1 || m_animation[3] != -1)
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[1]);
 			MV1DetachAnim(m_handle, m_animation[2]);
+			MV1DetachAnim(m_handle, m_animation[3]);
+
 
 
 			//アニメーションアタッチ
@@ -178,18 +194,21 @@ void Player::Animation(int& A, float& time)
 
 			m_animation[1] = -1;
 			m_animation[2] = -1;
+			m_animation[3] = -1;
 		}
 		
 	}
 	//プレイヤーが動いたら
 	//Aボタン長押し
-	if (A > 50 && m_moveflag == true)
+	if (A > 50 && m_moveflag == true && m_avoidance == false)
 	{
-		if (m_animation[0] != -1 || m_animation[1] != -1)
+		if (m_animation[0] != -1 || m_animation[1] != -1 || m_animation[3] != -1)
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[0]);
 			MV1DetachAnim(m_handle, m_animation[1]);
+			MV1DetachAnim(m_handle, m_animation[3]);
+
 
 			//アニメーションアタッチ
 			m_animation[2] = MV1AttachAnim(m_handle, 1, m_animRun, TRUE);
@@ -198,10 +217,12 @@ void Player::Animation(int& A, float& time)
 
 			m_animation[0] = -1;
 			m_animation[1] = -1;
+			m_animation[3] = -1;
+
 
 		}
 	}
-	else if (m_pad & PAD_INPUT_1)
+	else if (m_avoidance == true)
 	{
 		if (m_animation[0] != -1 || m_animation[1] != -1 || m_animation[2] != -1)
 		{
@@ -218,17 +239,19 @@ void Player::Animation(int& A, float& time)
 			m_animation[0] = -1;
 			m_animation[1] = -1;
 			m_animation[2] = -1;
-
-
 		}
+
+		
 	}
-	else if (m_moveflag == true)
+	else if (m_moveflag == true && m_avoidance == false)
 	{
-		if (m_animation[0] != -1 || m_animation[2] != -1)
+		if (m_animation[0] != -1 || m_animation[2] != -1 || m_animation[3] != -1)
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[0]);
 			MV1DetachAnim(m_handle, m_animation[2]);
+			MV1DetachAnim(m_handle, m_animation[3]);
+
 
 
 			//アニメーションアタッチ
@@ -238,6 +261,8 @@ void Player::Animation(int& A, float& time)
 
 			m_animation[0] = -1;
 			m_animation[2] = -1;
+			m_animation[3] = -1;
+
 		}
 	}
 
@@ -257,6 +282,8 @@ void Player::Animation(int& A, float& time)
 	if (time >= m_totalAnimTime[3] && m_animation[3] != -1)
 	{
 		time = 0.0f;
+
+		m_avoidance = false;
 	}
 
 	//再生時間をセットする
@@ -275,13 +302,20 @@ void Player::Animation(int& A, float& time)
 	if (m_animation[3] != -1)
 	{
 		MV1SetAttachAnimTime(m_handle, m_animation[3], time);
+
+		//アニメーションが経過中の座標取得
+		m_nowPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
+		m_moveVector = VSub(m_nowPos, m_prevPos);
+
+		pos.x += m_moveVector.x;
+		pos.z += m_moveVector.z;
 	}
 }
 
 void Player::Draw()
 {
 	//3Dモデルのポジション設定
-	MV1SetPosition(m_handle, m_pos);
+	MV1SetPosition(m_handle, m_drawPos);
 
 	//3Dモデルの回転地をセットする
 	MV1SetRotationXYZ(m_handle, VGet(0.0f, m_angle, 0.0f));

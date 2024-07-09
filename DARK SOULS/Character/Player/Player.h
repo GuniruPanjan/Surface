@@ -9,7 +9,7 @@ public:
 
 	void Init();
 	void Update();
-	void Animation(int& A, float& time);
+	void Animation(int& A, float& time, VECTOR& pos);
 	void Draw();
 	void End();
 
@@ -25,5 +25,7 @@ private:
 	int m_moveAnimFrameIndex;  //フレームを検索する
 	int m_a;  //長押し確認変数
 	int m_pad;  //パッド入力所得変数
+	bool m_avoidance;   //回避入力を判断するための変数
+	VECTOR m_nowPos;   //現在のフレームの座標を取得する
 };
 
