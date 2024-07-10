@@ -22,11 +22,17 @@ public:
 		m_posY(0.0f),
 		m_posZ(0.0f),
 		m_moveflag(false),
+		m_moveAttack(false),
+		m_moveAttackEnd(false),
+		m_attackNumber(0),
 		m_playerTime(0.0f),
 		m_animStand(-1),
 		m_animWalk(-1),
 		m_animRun(-1),
 		m_animRoll(-1),
+		m_animAttack1(-1),
+		m_animAttack2(-1),
+		m_animAttack3(-1),
 		m_move(VGet(0.0f, 0.0f, 0.0f)),
 		m_pos(VGet(m_posX, m_posY, m_posZ)),
 		m_drawPos(VGet(0.0f, 0.0f, 0.0f)),
@@ -63,11 +69,17 @@ protected:
 	float m_posY;  //キャラのY座標
 	float m_posZ;  //キャラのZ座標
 	bool m_moveflag;  //キャラが動いたか判断するフラグ
+	bool m_moveAttack;  //キャラが攻撃したかどうか判断するフラグ
+	bool m_moveAttackEnd;  //キャラの攻撃が終了したかどうか判断するフラグ
+	int m_attackNumber;   //キャラの攻撃が何段階目か判断する変数
 	float m_playerTime;  //キャラのアニメーションを進める時間
 	int m_animStand;  //キャラの経っているアニメーション格納変数
 	int m_animWalk;   //キャラの歩くアニメーション格納変数
 	int m_animRun;    //キャラの走るアニメーション格納変数
 	int m_animRoll;   //キャラのローディングアニメーション格納変数
+	int m_animAttack1;   //キャラの攻撃アニメーション格納変数
+	int m_animAttack2;   //キャラの攻撃アニメーション格納変数
+	int m_animAttack3;   //キャラの攻撃アニメーション格納変数
 	int m_animation[ANIMATION];  //キャラのアニメーション格納変数
 	float m_totalAnimTime[ANIMATION];  //キャラのアニメーション再生時間
 	VECTOR m_move;  //キャラの移動
