@@ -85,7 +85,7 @@ void Camera::Update(Player& player)
 	m_cameraPos = VAdd(player.GetPos(), Direction);
 
 	//注視点の座標はプレイヤー座標の少し上
-	m_cameraTarget = VAdd(player.GetPos(), VGet(0.0f, 10.0f, 0.0f));
+	m_cameraTarget = VAdd(player.GetPos(), VGet(0.0f, 30.0f, 0.0f));
 
 	SetCameraPositionAndTarget_UpVecY(m_cameraPos, m_cameraTarget);
 }

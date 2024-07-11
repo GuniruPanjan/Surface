@@ -190,8 +190,8 @@ void Player::Update()
 	{
 		m_a = 0;
 	}
-
-	if (m_avoidance == false)
+	//アニメーションが終わった後に座標を入れる
+	if (m_avoidance == false && m_moveAttack == false)
 	{
 		m_drawPos = m_pos;
 	}
@@ -553,12 +553,26 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 	{
 		MV1SetAttachAnimTime(m_handle, m_animation[4], time);
 
+		//アニメーションが経過中の座標取得
+		m_nowPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
+		m_moveVector = VSub(m_nowPos, m_prevPos);
+
+		pos.x += m_moveVector.x;
+		pos.z += m_moveVector.z;
+
 		//2段階目の攻撃準備
 		m_nextAttack1 = true;
 	}
 	if (m_animation[5] != -1)
 	{
 		MV1SetAttachAnimTime(m_handle, m_animation[5], time);
+
+		//アニメーションが経過中の座標取得
+		m_nowPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
+		m_moveVector = VSub(m_nowPos, m_prevPos);
+
+		pos.x += m_moveVector.x;
+		pos.z += m_moveVector.z;
 
 		//3段階目の攻撃準備
 		m_nextAttack2 = true;
@@ -568,6 +582,13 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 	if (m_animation[6] != -1)
 	{
 		MV1SetAttachAnimTime(m_handle, m_animation[6], time);
+
+		//アニメーションが経過中の座標取得
+		m_nowPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
+		m_moveVector = VSub(m_nowPos, m_prevPos);
+
+		pos.x += m_moveVector.x;
+		pos.z += m_moveVector.z;
 
 		m_nextAttack2 = false;
 	}
