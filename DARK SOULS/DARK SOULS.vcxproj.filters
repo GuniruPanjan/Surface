@@ -37,6 +37,18 @@
     <Filter Include="ソース ファイル\Camera">
       <UniqueIdentifier>{3dd25494-e8b8-470e-b0c6-da60f93b50e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Character\Animation">
+      <UniqueIdentifier>{8948c2a9-ef05-4864-955c-7eb8a58c766f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Character\Animation">
+      <UniqueIdentifier>{a85eb26b-064b-44d3-86cf-01fd9980cbe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Character\Enemy">
+      <UniqueIdentifier>{2f8087f9-009e-4465-b16e-ba071f654f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character\Enemy">
+      <UniqueIdentifier>{8fea33f2-be5d-4a7c-a1af-f81015415911}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Template3D.cpp">
@@ -63,6 +75,12 @@
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Character\Animation\AnimationManager.cpp">
+      <Filter>ソース ファイル\Character\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Enemy\EnemyBase.cpp">
+      <Filter>ソース ファイル\Character\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\SceneBase.h">
@@ -85,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Animation\AnimationManager.h">
+      <Filter>ヘッダー ファイル\Character\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Enemy\EnemyBase.h">
+      <Filter>ヘッダー ファイル\Character\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

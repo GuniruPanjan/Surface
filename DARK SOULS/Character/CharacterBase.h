@@ -23,7 +23,7 @@ public:
 		m_posZ(0.0f),
 		m_moveflag(false),
 		m_moveAttack(false),
-		m_moveAttackEnd(false),
+		m_moveAttackEnd(true),
 		m_attackNumber(0),
 		m_playerTime(0.0f),
 		m_animStand(-1),

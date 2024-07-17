@@ -9,7 +9,7 @@ public:
 
 	void Init();
 	void Update();
-	void Attack();
+	void Action();
 	void Animation(int& A, float& time, VECTOR& pos);
 	void Draw();
 	void End();
@@ -24,8 +24,10 @@ public:
 private:
 	float m_cameraAngle;  //カメラ情報
 	int m_moveAnimFrameIndex;  //フレームを検索する
+	int m_moveAnimShieldFrameIndex;  //ガードするときのフレーム検索
 	int m_a;  //長押し確認変数
 	int m_pad;  //パッド入力所得変数
+	XINPUT_STATE m_xpad;  //パッド入力
 	int m_animRollAttack;  //キャラがローディング後に攻撃するアニメーション
 	bool m_avoidance;   //回避入力を判断するための変数
 	bool m_nextAttack1;  //次の攻撃判定

@@ -5,6 +5,7 @@
 Player::Player():
 	m_cameraAngle(0.0f),
 	m_moveAnimFrameIndex(0),
+	m_moveAnimShieldFrameIndex(0),
 	m_a(0),
 	m_pad(0),
 	m_animRollAttack(-1),
@@ -104,8 +105,11 @@ void Player::Update()
 	//アニメーションで移動しているフレームの番号を検索する
 	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
 
+	//盾を構えるときのアニメーションのフレーム所得
+	m_moveAnimShieldFrameIndex = MV1SearchFrame(m_handle, "mixamorig:LeftHand");
+
 	//パッド入力所得
-	m_pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	m_pad = GetJoypadXInputState(DX_INPUT_KEY_PAD1, &m_xpad);
 
 	//アナログスティックを使って移動
 	int analogX = 0;
@@ -147,6 +151,8 @@ void Player::Update()
 	//移動していない場合(ゼロベクトル)の場合は変更しない
 	if (VSquareSize(m_move) > 0.0f && m_avoidance == false && m_moveAttack == false)
 	{
+
+		//アングルを決定
 		m_angle = atan2f(-m_move.z, m_move.x) - DX_PI_F / 2;
 
 		SetAngleX += D2R(1.0f);
@@ -166,11 +172,16 @@ void Player::Update()
 	//アニメーション時間を進める前のアニメーションで移動をしているフレームの座標取得
 	m_prevPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
 
-	//再生時間を進める
-	m_playerTime += 0.5f;
+	//攻撃していない時のアニメーション速度
+	if(m_moveAttack == false)
+	{
+		//再生時間を進める
+		m_playerTime += 0.5f;
+	}
+
 
 	//Aボタンが押されたら
-	if (m_pad & PAD_INPUT_1)
+	if (m_xpad.Buttons[12] == 1)
 	{
 		if (m_a > 50)
 		{
@@ -196,24 +207,29 @@ void Player::Update()
 		m_drawPos = m_pos;
 	}
 
-	Attack();
+	Action();
 
 	Animation(m_a, m_playerTime, m_pos);
 }
 
 /// <summary>
-/// プレイヤーの攻撃に関する実装をまとめる関数
+/// プレイヤーの行動に関する実装をまとめる関数
 /// </summary>
-void Player::Attack()
+void Player::Action()
 {
 	//PAD_INPUT_2はBボタン
 	//PAD_INPUT_3はXボタン
 	//PAD_INPUT_4はYボタン
 	//PAD_INPUT_5はLボタン
+	//PAD_INPUT_7はBackボタン
+	//PAD_INPUT_8はStartボタン
+	//PAD_INPUT_9はLスティック
+	//PAD_INPUT_10はRスティック
+
 
 	//Rボタンで攻撃
 	//一段階目の攻撃
-	if (m_pad & PAD_INPUT_6)
+	if (m_xpad.Buttons[9] == 1)
 	{
 		if (m_attackNumber == 0)
 		{
@@ -235,6 +251,57 @@ void Player::Attack()
 		}
 	}
 
+	//ZRボタンで強攻撃
+	if (m_xpad.RightTrigger)
+	{
+		DrawFormatString(0, 10, 0xffffff, "強攻撃");
+	}
+
+
+	//Lボタンで防御
+	if (m_xpad.Buttons[8] == 1)
+	{
+		DrawFormatString(0, 10, 0xffffff, "防御");
+	}
+
+	//攻撃時のアニメーションを速くする
+	if (m_moveAttack == true)
+	{
+		
+		if (m_animation[4] != -1 && m_playerTime >= 15.0f)
+		{
+
+			m_playerTime += 0.8f;
+
+			if (m_playerTime >= 25.0f)
+			{
+				//2段階目の攻撃準備
+				m_nextAttack1 = true;
+			}
+
+		}
+		else if (m_animation[5] != -1 && m_playerTime >= 5.0f)
+		{
+			m_playerTime += 0.8f;
+
+			if (m_playerTime >= 10.0f)
+			{
+				//3段階目の攻撃準備
+				m_nextAttack2 = true;
+			}
+			
+		}
+		else if (m_animation[6] != -1 && m_playerTime >= 15.0f)
+		{
+			m_playerTime += 0.9f;
+		}
+		else
+		{
+			m_playerTime += 0.5f;
+		}
+
+	}
+
 	//回避中に攻撃するため
 	if (m_avoidance == true)
 	{
@@ -248,6 +315,11 @@ void Player::Attack()
 	{
 		//次の攻撃段階の初期化
 		m_attackNumber = 0;
+
+		//攻撃準備初期化
+		m_nextAttack1 = false;
+		m_nextAttack2 = false;
+
 	}
 	
 }
@@ -420,7 +492,7 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 
 		}
 		//攻撃2段階目
-		else if (m_attackNumber == 2 && m_animation[4] != -1 && m_moveAttackEnd == true)
+		else if (m_attackNumber == 2 && m_animation[4] != -1 && time >= m_totalAnimTime[4])
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[0]);
@@ -444,7 +516,7 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 
 		}
 		//攻撃3段階目
-		else if (m_attackNumber == 3 && m_animation[5] != -1 && m_moveAttackEnd == true)
+		else if (m_attackNumber == 3 && m_animation[5] != -1 && time >= m_totalAnimTime[5])
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[0]);
@@ -469,10 +541,60 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 			m_moveAttackEnd = false;
 
 		}
+		//攻撃2段階目
+		//else if (m_attackNumber == 2 && m_animation[4] != -1 && m_moveAttackEnd == true)
+		//{
+		//	//アニメーションデタッチ
+		//	MV1DetachAnim(m_handle, m_animation[0]);
+		//	MV1DetachAnim(m_handle, m_animation[1]);
+		//	MV1DetachAnim(m_handle, m_animation[2]);
+		//	MV1DetachAnim(m_handle, m_animation[3]);
+		//	MV1DetachAnim(m_handle, m_animation[4]);
+
+		//	//アニメーションアタッチ
+		//	m_animation[5] = MV1AttachAnim(m_handle, 1, m_animAttack2, TRUE);
+
+		//	time = 0.0f;
+
+		//	m_animation[0] = -1;
+		//	m_animation[1] = -1;
+		//	m_animation[2] = -1;
+		//	m_animation[3] = -1;
+		//	m_animation[4] = -1;
+
+		//	m_moveAttackEnd = false;
+
+		//}
+		////攻撃3段階目
+		//else if (m_attackNumber == 3 && m_animation[5] != -1 && m_moveAttackEnd == true)
+		//{
+		//	//アニメーションデタッチ
+		//	MV1DetachAnim(m_handle, m_animation[0]);
+		//	MV1DetachAnim(m_handle, m_animation[1]);
+		//	MV1DetachAnim(m_handle, m_animation[2]);
+		//	MV1DetachAnim(m_handle, m_animation[3]);
+		//	MV1DetachAnim(m_handle, m_animation[4]);
+		//	MV1DetachAnim(m_handle, m_animation[5]);
+
+		//	//アニメーションアタッチ
+		//	m_animation[6] = MV1AttachAnim(m_handle, 1, m_animAttack3, TRUE);
+
+		//	time = 0.0f;
+
+		//	m_animation[0] = -1;
+		//	m_animation[1] = -1;
+		//	m_animation[2] = -1;
+		//	m_animation[3] = -1;
+		//	m_animation[4] = -1;
+		//	m_animation[5] = -1;
+
+		//	m_moveAttackEnd = false;
+
+		//}
 	}
 	
 
-	//再生時間がアニメーションの相殺性時間に達したら再生時間を0に戻す
+	//再生時間がアニメーションの総再生時間に達したら再生時間を0に戻す
 	if (time >= m_totalAnimTime[0] && m_animation[0] != -1)
 	{
 		time = 0.0f;
@@ -559,9 +681,6 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 
 		pos.x += m_moveVector.x;
 		pos.z += m_moveVector.z;
-
-		//2段階目の攻撃準備
-		m_nextAttack1 = true;
 	}
 	if (m_animation[5] != -1)
 	{
@@ -574,9 +693,7 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 		pos.x += m_moveVector.x;
 		pos.z += m_moveVector.z;
 
-		//3段階目の攻撃準備
-		m_nextAttack2 = true;
-
+		//2段階目の攻撃準備終了
 		m_nextAttack1 = false;
 	}
 	if (m_animation[6] != -1)
@@ -590,6 +707,7 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 		pos.x += m_moveVector.x;
 		pos.z += m_moveVector.z;
 
+		//3段階目の攻撃準備終了
 		m_nextAttack2 = false;
 	}
 	if (m_animation[7] != -1)
@@ -608,6 +726,8 @@ void Player::Draw()
 
 	//3Dモデル描画
 	MV1DrawModel(m_handle);
+
+	DrawFormatString(0, 0, 0xffffff, "playTime : %f", m_playerTime);
 }
 
 void Player::End()
