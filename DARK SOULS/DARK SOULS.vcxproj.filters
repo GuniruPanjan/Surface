@@ -81,6 +81,9 @@
     <ClCompile Include="Character\Enemy\EnemyBase.cpp">
       <Filter>ソース ファイル\Character\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Character\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル\Character\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\SceneBase.h">
@@ -108,6 +111,9 @@
       <Filter>ヘッダー ファイル\Character\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Character\Enemy\EnemyBase.h">
+      <Filter>ヘッダー ファイル\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Enemy\Enemy.h">
       <Filter>ヘッダー ファイル\Character\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

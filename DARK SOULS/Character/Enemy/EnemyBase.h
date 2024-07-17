@@ -1,5 +1,6 @@
 #pragma once
 #include "Character/CharacterBase.h"
+#define ENEMY_NOW 1
 
 class EnemyBase : public CharacterBase
 {
@@ -11,6 +12,7 @@ public:
 	virtual void Init();
 	virtual void Update();
 	virtual void Draw();
+	virtual void End();
 
 	//ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹‚ÌŠ“¾
 	
