@@ -1,5 +1,6 @@
 #pragma once
 #include "Character/Player/Player.h"
+#include "Character/Enemy/Enemy.h"
 #include <cmath>
 
 class Camera
@@ -9,7 +10,7 @@ public:
 	virtual ~Camera();
 
 	void Init();
-	void Update(Player& player);
+	void Update(Player& player, Enemy& enemy);
 	void Draw();
 	void End();
 

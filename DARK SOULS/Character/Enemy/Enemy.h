@@ -1,21 +1,6 @@
 #pragma once
 #include "EnemyBase.h"
-
-/// <summary>
-/// G‹›“G
-/// </summary>
-struct WeakEnemy : public EnemyBase
-{
-public:
-	WeakEnemy();
-	virtual ~WeakEnemy();
-
-	void Init();
-	void Update();
-	void Draw();
-	void End();
-private:
-};
+#include "WeakEnemy.h"
 
 /// <summary>
 /// “G‚Ì‹““®‚âd—l
@@ -31,9 +16,10 @@ public:
 	void Draw();
 	void End();
 
+	VECTOR GetPos() { return enemy->GetPos(); }
+
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ
-	//WeakEnemy enemy[ENEMY_NOW];
-	std::shared_ptr<WeakEnemy> enemy[ENEMY_NOW];
+	std::shared_ptr<WeakEnemy> enemy = std::make_shared<WeakEnemy>();
 };
 

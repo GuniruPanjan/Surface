@@ -32,60 +32,87 @@ void Camera::Init()
 	SetCameraNearFar(1.0f, 1000.0f);
 }
 
-void Camera::Update(Player& player)
+void Camera::Update(Player& player, Enemy& enemy)
 {
 	GetJoypadDirectInputState(DX_INPUT_PAD1, &input);
 
-	//左キー
-	if (input.Rx < 0)
+	//敵をロックオンしてないとき
+	if (player.GetLock() == false)
 	{
-		m_cameraAngle.y += D2R(1.0f);
-	}
-	//右キー
-	if (input.Rx > 0)
-	{
-		m_cameraAngle.y -= D2R(1.0f);
-	}
-	//上キー
-	if (input.Ry < 0)
-	{
-		//カメラがプレイヤーを超えないくらいまで
-		if (m_cameraAngle.x <= 0.7f)
+		//左キー
+		if (input.Rx < 0)
 		{
-			m_cameraAngle.x += D2R(1.0f);
+			m_cameraAngle.y += D2R(1.0f);
+		}
+		//右キー
+		if (input.Rx > 0)
+		{
+			m_cameraAngle.y -= D2R(1.0f);
+		}
+		//上キー
+		if (input.Ry < 0)
+		{
+			//カメラがプレイヤーを超えないくらいまで
+			if (m_cameraAngle.x <= 0.7f)
+			{
+				m_cameraAngle.x += D2R(1.0f);
+			}
+
+		}
+		//下キー
+		if (input.Ry > 0)
+		{
+			//カメラが地面にめりこまないように
+			if (m_cameraPos.y >= 15.2f + player.GetPosY())
+			{
+				m_cameraAngle.x -= D2R(1.0f);
+			}
+
 		}
 
+		//基準のベクトル
+		VECTOR Direction = VGet(0.0f, 100.0f, -100.0f);
+
+		//X軸回転行列
+		MATRIX matrixX = MGetRotX(m_cameraAngle.x);
+		//Y軸回転行列
+		MATRIX matrixY = MGetRotY(m_cameraAngle.y);
+
+		//行列の合成
+		MATRIX matrix = MMult(matrixX, matrixY);
+
+		//基準ベクトルを行列で変換
+		Direction = VTransform(Direction, matrix);
+
+		//カメラ座標はプレイヤー座標から少しはなれたところ
+		m_cameraPos = VAdd(player.GetPos(), Direction);
+
+		//注視点の座標はプレイヤー座標の少し上
+		m_cameraTarget = VAdd(player.GetPos(), VGet(0.0f, 30.0f, 0.0f));
 	}
-	//下キー
-	if (input.Ry > 0)
+	//ロックオンしたとき
+	else if (player.GetLock() == true)
 	{
-		//カメラが地面にめりこまないように
-		if (m_cameraPos.y >= 15.2f + player.GetPosY())
-		{
-			m_cameraAngle.x -= D2R(1.0f);
-		}
+		//注視点は敵の座標にする
+		m_cameraTarget = enemy.GetPos();
 
+		//敵からプレイヤーに伸びるベクトルを求めます
+		VECTOR pos = VSub(player.GetPos(), enemy.GetPos());
+		
+		//ベクトルの正規化
+	    VECTOR posTarget = VNorm(pos);
+
+		posTarget.x *= 50.0f;
+		posTarget.y *= 50.0f;
+		posTarget.z *= 50.0f;
+
+
+		//カメラがどれだけプレイヤーの座標より高いかを設定
+		posTarget.y = 80.0f;
+
+		//プレイヤーの座標に求めたベクトルを足して、カメラの座標とします
+		m_cameraPos = VAdd(player.GetPos(), posTarget);
 	}
-
-	//基準のベクトル
-	VECTOR Direction = VGet(0.0f, 100.0f, -100.0f);
-
-	//X軸回転行列
-	MATRIX matrixX = MGetRotX(m_cameraAngle.x);
-	//Y軸回転行列
-	MATRIX matrixY = MGetRotY(m_cameraAngle.y);
-
-	//行列の合成
-	MATRIX matrix = MMult(matrixX, matrixY);
-
-	//基準ベクトルを行列で変換
-	Direction = VTransform(Direction, matrix);
-
-	//カメラ座標はプレイヤー座標から少しはなれたところ
-	m_cameraPos = VAdd(player.GetPos(), Direction);
-
-	//注視点の座標はプレイヤー座標の少し上
-	m_cameraTarget = VAdd(player.GetPos(), VGet(0.0f, 30.0f, 0.0f));
 
 	SetCameraPositionAndTarget_UpVecY(m_cameraPos, m_cameraTarget);
 }

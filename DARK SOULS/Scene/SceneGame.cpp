@@ -11,6 +11,7 @@ SceneGame::~SceneGame()
 void SceneGame::Init()
 {
 	player->Init();
+	enemy->Init();
 	camera->Init();
 }
 
@@ -18,7 +19,8 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 {
 	player->SetCameraAngle(camera->GetAngleY());
 	player->Update();
-	camera->Update(*player);
+	enemy->Update();
+	camera->Update(*player, *enemy);
 
 	return shared_from_this();  //自身のポインタを返す
 }
@@ -26,11 +28,13 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 void SceneGame::Draw()
 {
 	player->Draw();
+	enemy->Draw();
 	camera->Draw();
 }
 
 void SceneGame::End()
 {
 	player->End();
+	enemy->End();
 	camera->End();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera/Camera.h"
 #include "Character/Player/Player.h"
+#include "Character/Enemy/Enemy.h"
 #include "SceneBase.h"
 class SceneGame : public SceneBase
 {
@@ -17,5 +18,6 @@ private:
 	//ƒ|ƒCƒ“ƒ^‚ÅŠÇ—
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>();
+	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
 };
 

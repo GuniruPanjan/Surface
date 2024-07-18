@@ -21,8 +21,11 @@ public:
 	float GetPosY() { return m_pos.y; }
 	float GetPosZ() { return m_pos.z; }
 
+	bool GetLock() { return m_lockonTarget; }
+
 private:
 	float m_cameraAngle;  //カメラ情報
+	bool m_lockonTarget;  //ターゲットロックオン判定
 	int m_moveAnimFrameIndex;  //フレームを検索する
 	int m_moveAnimShieldFrameIndex;  //ガードするときのフレーム検索
 	int m_a;  //長押し確認変数

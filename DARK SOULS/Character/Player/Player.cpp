@@ -4,6 +4,7 @@
 
 Player::Player():
 	m_cameraAngle(0.0f),
+	m_lockonTarget(false),
 	m_moveAnimFrameIndex(0),
 	m_moveAnimShieldFrameIndex(0),
 	m_a(0),
@@ -176,7 +177,7 @@ void Player::Update()
 	if(m_moveAttack == false)
 	{
 		//çƒê∂éûä‘ÇêiÇﬂÇÈ
-		m_playerTime += 0.5f;
+		m_playTime += 0.5f;
 	}
 
 
@@ -186,6 +187,8 @@ void Player::Update()
 		if (m_a > 50)
 		{
 			m_avoidance = false;
+
+			m_speed = 3.0f;
 		}
 		else
 		{
@@ -207,9 +210,30 @@ void Player::Update()
 		m_drawPos = m_pos;
 	}
 
+	if (m_playTime >= m_totalAnimTime[3] && m_animation[3] != -1)
+	{
+		//âÒîèIóπ
+		m_avoidance = false;
+	}
+	if (m_playTime >= m_totalAnimTime[4] && m_animation[4] != -1)
+	{
+		//çUåÇèIóπ
+		m_moveAttack = false;
+	}
+	if (m_playTime >= m_totalAnimTime[5] && m_animation[5] != -1)
+	{
+		//çUåÇèIóπ
+		m_moveAttack = false;
+	}
+	if (m_playTime >= m_totalAnimTime[6] && m_animation[6] != -1)
+	{
+		//çUåÇèIóπ
+		m_moveAttack = false;
+	}
+
 	Action();
 
-	Animation(m_a, m_playerTime, m_pos);
+	Animation(m_a, m_playTime, m_pos);
 }
 
 /// <summary>
@@ -268,36 +292,36 @@ void Player::Action()
 	if (m_moveAttack == true)
 	{
 		
-		if (m_animation[4] != -1 && m_playerTime >= 15.0f)
+		if (m_animation[4] != -1 && m_playTime >= 15.0f)
 		{
 
-			m_playerTime += 0.8f;
+			m_playTime += 0.8f;
 
-			if (m_playerTime >= 25.0f)
+			if (m_playTime >= 25.0f)
 			{
 				//2íiäKñ⁄ÇÃçUåÇèÄîı
 				m_nextAttack1 = true;
 			}
 
 		}
-		else if (m_animation[5] != -1 && m_playerTime >= 5.0f)
+		else if (m_animation[5] != -1 && m_playTime >= 5.0f)
 		{
-			m_playerTime += 0.8f;
+			m_playTime += 0.8f;
 
-			if (m_playerTime >= 10.0f)
+			if (m_playTime >= 10.0f)
 			{
 				//3íiäKñ⁄ÇÃçUåÇèÄîı
 				m_nextAttack2 = true;
 			}
 			
 		}
-		else if (m_animation[6] != -1 && m_playerTime >= 15.0f)
+		else if (m_animation[6] != -1 && m_playTime >= 15.0f)
 		{
-			m_playerTime += 0.9f;
+			m_playTime += 0.9f;
 		}
 		else
 		{
-			m_playerTime += 0.5f;
+			m_playTime += 0.5f;
 		}
 
 	}
@@ -320,6 +344,24 @@ void Player::Action()
 		m_nextAttack1 = false;
 		m_nextAttack2 = false;
 
+	}
+
+	//ìGÇÉçÉbÉNÉIÉìÇ∑ÇÈ
+	if (m_lockonTarget == false)
+	{
+		if (m_xpad.Buttons[7] == 1)
+		{
+			m_lockonTarget = true;
+		}
+	}
+	else if (m_lockonTarget == true)
+	{
+		DrawString(0, 100, "ÉçÉbÉNÉIÉì", 0xffffff);
+
+		if (m_xpad.Buttons[7] == 1)
+		{
+			m_lockonTarget = false;
+		}
 	}
 	
 }
@@ -611,6 +653,7 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 	{
 		time = 0.0f;
 
+		//âÒîèIóπ
 		m_avoidance = false;
 	}
 	if (time >= m_totalAnimTime[4] && m_animation[4] != -1)
@@ -727,7 +770,11 @@ void Player::Draw()
 	//3DÉÇÉfÉãï`âÊ
 	MV1DrawModel(m_handle);
 
-	DrawFormatString(0, 0, 0xffffff, "playTime : %f", m_playerTime);
+	DrawFormatString(0, 0, 0xffffff, "playTime : %f", m_playTime);
+	DrawFormatString(0, 30, 0xffffff, "posX : %f posY : %f posZ : %f", m_pos.x, m_pos.y, m_pos.z);
+	DrawFormatString(0, 50, 0xffffff, "DrawposX : %f DrawposY : %f DrawposZ : %f", m_drawPos.x, m_drawPos.y, m_drawPos.z);
+
+
 }
 
 void Player::End()

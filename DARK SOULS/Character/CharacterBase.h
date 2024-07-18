@@ -25,7 +25,7 @@ public:
 		m_moveAttack(false),
 		m_moveAttackEnd(true),
 		m_attackNumber(0),
-		m_playerTime(0.0f),
+		m_playTime(0.0f),
 		m_animStand(-1),
 		m_animWalk(-1),
 		m_animRun(-1),
@@ -72,7 +72,7 @@ protected:
 	bool m_moveAttack;  //キャラが攻撃したかどうか判断するフラグ
 	bool m_moveAttackEnd;  //キャラの攻撃が終了したかどうか判断するフラグ
 	int m_attackNumber;   //キャラの攻撃が何段階目か判断する変数
-	float m_playerTime;  //キャラのアニメーションを進める時間
+	float m_playTime;  //キャラのアニメーションを進める時間
 	int m_animStand;  //キャラの経っているアニメーション格納変数
 	int m_animWalk;   //キャラの歩くアニメーション格納変数
 	int m_animRun;    //キャラの走るアニメーション格納変数
