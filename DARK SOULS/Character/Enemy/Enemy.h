@@ -17,6 +17,10 @@ public:
 	void End();
 
 	VECTOR GetPos() { return enemy->GetPos(); }
+	float GetPosX() { return enemy->GetPosX(); }
+	float GetPosY() { return enemy->GetPosY(); }
+	float GetPosZ() { return enemy->GetPosZ(); }
+
 
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ

@@ -204,7 +204,7 @@ void Player::Update()
 	{
 		m_a = 0;
 	}
-	//アニメーションが終わった後に座標を入れる
+	//回避や攻撃していない時に座標を入れる
 	if (m_avoidance == false && m_moveAttack == false)
 	{
 		m_drawPos = m_pos;
@@ -212,6 +212,9 @@ void Player::Update()
 
 	if (m_playTime >= m_totalAnimTime[3] && m_animation[3] != -1)
 	{
+		
+		m_drawPos = m_pos;
+
 		//回避終了
 		m_avoidance = false;
 	}
@@ -773,6 +776,7 @@ void Player::Draw()
 	DrawFormatString(0, 0, 0xffffff, "playTime : %f", m_playTime);
 	DrawFormatString(0, 30, 0xffffff, "posX : %f posY : %f posZ : %f", m_pos.x, m_pos.y, m_pos.z);
 	DrawFormatString(0, 50, 0xffffff, "DrawposX : %f DrawposY : %f DrawposZ : %f", m_drawPos.x, m_drawPos.y, m_drawPos.z);
+	DrawFormatString(0, 200, 0xffffff, "m_cameraAngle : %f", m_cameraAngle);
 
 
 }

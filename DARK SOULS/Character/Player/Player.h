@@ -1,5 +1,6 @@
 #pragma once
 #include "Character/CharacterBase.h"
+#include "Character/Enemy/Enemy.h"
 
 class Player : public CharacterBase
 {
