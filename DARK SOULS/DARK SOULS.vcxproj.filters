@@ -102,6 +102,9 @@
     <ClCompile Include="Col\CapsuleCol.cpp">
       <Filter>ソース ファイル\Col</Filter>
     </ClCompile>
+    <ClCompile Include="Col\SphereCol.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\SceneBase.h">
@@ -144,6 +147,9 @@
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
     <ClInclude Include="Col\CapsuleCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\SphereCol.h">
       <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>

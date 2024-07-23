@@ -1,4 +1,5 @@
 #pragma once
+#include "SphereCol.h"
 #include "Vec3.h"
 
 
@@ -12,7 +13,7 @@ public:
 	void Update(const Pos3& pos, const Vec3 vec);
 
 	bool IsHitCapsule(const CapsuleCol& col);
-	//bool IsHitSphere(const SphereCol& col);
+	bool IsHitSphere(const SphereCol& col);
 
 	const Pos3& GetPos() const { return m_pos; }
 	const Vec3& GetVec() const { return m_vec; }

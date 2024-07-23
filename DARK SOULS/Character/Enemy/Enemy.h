@@ -21,6 +21,7 @@ public:
 	float GetPosY() { return enemy->GetPosY(); }
 	float GetPosZ() { return enemy->GetPosZ(); }
 	CapsuleCol GetCol() const { return enemy->GetCol(); }
+	bool isSphereHit(SphereCol col) { return enemy->isSphereHit(col); }
 
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ

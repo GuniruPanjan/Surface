@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "Col/CapsuleCol.h"
+#include "Col/SphereCol.h"
 #include<memory>
 //だいたいのアニメーション
 #define  ANIMATION   30
@@ -35,6 +36,9 @@ public:
 		m_animAttack1(-1),
 		m_animAttack2(-1),
 		m_animAttack3(-1),
+		m_len(0.0f),
+		m_capsuleRadius(0.0f),
+		m_sphereRadius(0.0f),
 		m_move(VGet(0.0f, 0.0f, 0.0f)),
 		m_pos(VGet(m_posX, m_posY, m_posZ)),
 		m_drawPos(VGet(0.0f, 0.0f, 0.0f)),
@@ -91,5 +95,16 @@ protected:
 	VECTOR m_prevPos;  //キャラのアニメーションで移動しているフレームの座標取得
 	VECTOR m_nowPos;  //キャラのアニメーション後の座標を取得する
 	VECTOR m_moveVector;  //キャラのアニメーションでの座標移動値を入れる
+
+	//当たり判定用のメンバ変数
+	Pos3 m_colPos; //当たり判定用のメンバ変数
+	Pos3 m_colAttackPos;  //攻撃の当たり判定用のメンバ変数
+	Vec3 m_vec;  //当たり判定用のベクターメンバ変数
+	float m_len;  //長さ
+	float m_capsuleRadius;  //カプセルの半径
+	float m_sphereRadius;   //スフィアの半径
+	CapsuleCol m_capsuleCol;  //カプセルの当たり判定
+	SphereCol m_sphereCol;  //スフィアの当たり判定
+
 };
 

@@ -105,15 +105,20 @@ void Player::Init()
 
 	//当たり判定
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+	m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 50.0f);
 	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
 	m_len = 40.0f;
-	m_radius = 12.0f;
-	m_col.Init(m_colPos, m_vec, m_len, m_radius);
+	m_capsuleRadius = 12.0f;
+	m_sphereRadius = 18.0f;
+	m_capsuleCol.Init(m_colPos, m_vec, m_len, m_capsuleRadius);
+	m_sphereCol.Init(m_colAttackPos, m_sphereRadius);
 }
 
 void Player::Update()
 {
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+	m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 25.0f);
+
 
 	//アニメーションで移動しているフレームの番号を検索する
 	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
@@ -250,7 +255,8 @@ void Player::Update()
 
 	Animation(m_a, m_playTime, m_pos);
 
-	m_col.Update(m_colPos, m_vec);
+	m_capsuleCol.Update(m_colPos, m_vec);
+	m_sphereCol.Update(m_colAttackPos);
 }
 
 /// <summary>
@@ -784,7 +790,11 @@ void Player::Draw()
 	Pos3 pos1 = m_colPos + vec;
 	Pos3 pos2 = m_colPos - vec;
 
-	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+	//カプセル3Dの描画
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_capsuleRadius, 16, m_color, 0, false);
+
+	//円の3D描画
+	DrawSphere3D(m_colAttackPos.GetVector(), m_sphereRadius, 16, 0xffffff, 0xffffff, false);
 
 	//3Dモデルのポジション設定
 	MV1SetPosition(m_handle, m_drawPos);
@@ -822,7 +832,7 @@ void Player::End()
 
 bool Player::IsHit(const CapsuleCol& col)
 {
-	bool isHit = m_col.IsHitCapsule(col);
+	bool isHit = m_capsuleCol.IsHitCapsule(col);
 
 	if (isHit)
 	{

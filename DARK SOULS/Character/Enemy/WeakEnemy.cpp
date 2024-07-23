@@ -26,8 +26,8 @@ void WeakEnemy::Init()
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
 	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
 	m_len = 40.0f;
-	m_radius = 14.0f;
-	m_col.Init(m_colPos, m_vec, m_len, m_radius);
+	m_capsuleRadius = 14.0f;
+	m_capsuleCol.Init(m_colPos, m_vec, m_len, m_capsuleRadius);
 }
 
 void WeakEnemy::Update()
@@ -38,7 +38,7 @@ void WeakEnemy::Update()
 
 	Animation(m_playTime);
 
-	m_col.Update(m_colPos, m_vec);
+	m_capsuleCol.Update(m_colPos, m_vec);
 }
 
 void WeakEnemy::Animation(float& time)
@@ -64,7 +64,7 @@ void WeakEnemy::Draw()
 	Pos3 pos1 = m_colPos + vec;
 	Pos3 pos2 = m_colPos - vec;
 
-	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_capsuleRadius, 16, m_color, 0, false);
 
 	//3Dモデルポジション設定
 	MV1SetPosition(m_handle, m_pos);
@@ -81,7 +81,23 @@ void WeakEnemy::End()
 
 bool WeakEnemy::isHit(const CapsuleCol& col)
 {
-	bool isHit = m_col.IsHitCapsule(col);
+	bool isHit = m_capsuleCol.IsHitCapsule(col);
+
+	if (isHit)
+	{
+		m_color = 0xffff00;
+	}
+	else
+	{
+		m_color = 0xffffff;
+	}
+
+	return isHit;
+}
+
+bool WeakEnemy::isSphereHit(const SphereCol& col)
+{
+	bool isHit = m_capsuleCol.IsHitSphere(col);
 
 	if (isHit)
 	{
