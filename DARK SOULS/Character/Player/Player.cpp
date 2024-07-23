@@ -95,14 +95,26 @@ void Player::Init()
 	m_animation[6] = -1;
 	m_animation[7] = -1;
 
+	m_posX = 0.0f;
+	m_posY = 0.0f;
+	m_posZ = 0.0f;
 
 	//プレイヤーのポジション設定
 	m_pos = VGet(m_posX, m_posY, m_posZ);
 	m_drawPos = m_pos;
+
+	//当たり判定
+	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
+	m_len = 40.0f;
+	m_radius = 12.0f;
+	m_col.Init(m_colPos, m_vec, m_len, m_radius);
 }
 
 void Player::Update()
 {
+	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+
 	//アニメーションで移動しているフレームの番号を検索する
 	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
 
@@ -237,6 +249,8 @@ void Player::Update()
 	Action();
 
 	Animation(m_a, m_playTime, m_pos);
+
+	m_col.Update(m_colPos, m_vec);
 }
 
 /// <summary>
@@ -764,6 +778,14 @@ void Player::Animation(int& A, float& time, VECTOR& pos)
 
 void Player::Draw()
 {
+	//方向ベクトル
+	Vec3 vec = m_vec.GetNormalized() * m_len * 0.5f;
+
+	Pos3 pos1 = m_colPos + vec;
+	Pos3 pos2 = m_colPos - vec;
+
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+
 	//3Dモデルのポジション設定
 	MV1SetPosition(m_handle, m_drawPos);
 
@@ -777,6 +799,9 @@ void Player::Draw()
 	DrawFormatString(0, 30, 0xffffff, "posX : %f posY : %f posZ : %f", m_pos.x, m_pos.y, m_pos.z);
 	DrawFormatString(0, 50, 0xffffff, "DrawposX : %f DrawposY : %f DrawposZ : %f", m_drawPos.x, m_drawPos.y, m_drawPos.z);
 	DrawFormatString(0, 200, 0xffffff, "m_cameraAngle : %f", m_cameraAngle);
+	DrawFormatString(0, 300, 0xffffff, "m_colposX : %f m_colposY : %f m_colposZ : %f", m_colPos.x, m_colPos.y, m_colPos.z);
+
+
 
 
 }
@@ -793,4 +818,20 @@ void Player::End()
 	MV1DeleteModel(m_animAttack2);
 	MV1DeleteModel(m_animAttack3);
 
+}
+
+bool Player::IsHit(const CapsuleCol& col)
+{
+	bool isHit = m_col.IsHitCapsule(col);
+
+	if (isHit)
+	{
+		m_color = 0xffff00;
+	}
+	else
+	{
+		m_color = 0xffffff;
+	}
+
+	return isHit;
 }

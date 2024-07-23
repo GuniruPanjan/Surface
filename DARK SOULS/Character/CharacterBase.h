@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "Col/CapsuleCol.h"
 #include<memory>
 //だいたいのアニメーション
 #define  ANIMATION   30
@@ -30,6 +31,7 @@ public:
 		m_animWalk(-1),
 		m_animRun(-1),
 		m_animRoll(-1),
+		m_animHit(-1),
 		m_animAttack1(-1),
 		m_animAttack2(-1),
 		m_animAttack3(-1),
@@ -73,10 +75,11 @@ protected:
 	bool m_moveAttackEnd;  //キャラの攻撃が終了したかどうか判断するフラグ
 	int m_attackNumber;   //キャラの攻撃が何段階目か判断する変数
 	float m_playTime;  //キャラのアニメーションを進める時間
-	int m_animStand;  //キャラの経っているアニメーション格納変数
+	int m_animStand;  //キャラの立っているアニメーション格納変数
 	int m_animWalk;   //キャラの歩くアニメーション格納変数
 	int m_animRun;    //キャラの走るアニメーション格納変数
 	int m_animRoll;   //キャラのローディングアニメーション格納変数
+	int m_animHit;    //キャラが攻撃を受けた時のアニメーション格納変数
 	int m_animAttack1;   //キャラの攻撃アニメーション格納変数
 	int m_animAttack2;   //キャラの攻撃アニメーション格納変数
 	int m_animAttack3;   //キャラの攻撃アニメーション格納変数

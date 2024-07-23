@@ -20,7 +20,7 @@ public:
 	float GetPosX() { return enemy->GetPosX(); }
 	float GetPosY() { return enemy->GetPosY(); }
 	float GetPosZ() { return enemy->GetPosZ(); }
-
+	CapsuleCol GetCol() const { return enemy->GetCol(); }
 
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ

@@ -21,13 +21,24 @@ void WeakEnemy::Init()
 	m_posZ = 0.0f;
 
 	m_pos = VGet(m_posX, m_posY, m_posZ);
+
+	//当たり判定
+	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
+	m_len = 40.0f;
+	m_radius = 14.0f;
+	m_col.Init(m_colPos, m_vec, m_len, m_radius);
 }
 
 void WeakEnemy::Update()
 {
+	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
+
 	m_playTime += 0.5f;
 
 	Animation(m_playTime);
+
+	m_col.Update(m_colPos, m_vec);
 }
 
 void WeakEnemy::Animation(float& time)
@@ -47,13 +58,39 @@ void WeakEnemy::Animation(float& time)
 
 void WeakEnemy::Draw()
 {
+	//方向ベクトル
+	Vec3 vec = m_vec.GetNormalized() * m_len * 0.5f;
+
+	Pos3 pos1 = m_colPos + vec;
+	Pos3 pos2 = m_colPos - vec;
+
+	DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_radius, 16, m_color, 0, false);
+
 	//3Dモデルポジション設定
 	MV1SetPosition(m_handle, m_pos);
 
 	//3Dモデル描画
 	MV1DrawModel(m_handle);
+
+	DrawFormatString(0, 320, 0xffffff, "m_colposX : %f m_colposY : %f m_colposZ : %f", m_colPos.x, m_colPos.y, m_colPos.z);
 }
 
 void WeakEnemy::End()
 {
+}
+
+bool WeakEnemy::isHit(const CapsuleCol& col)
+{
+	bool isHit = m_col.IsHitCapsule(col);
+
+	if (isHit)
+	{
+		m_color = 0xffff00;
+	}
+	else
+	{
+		m_color = 0xffffff;
+	}
+
+	return isHit;
 }

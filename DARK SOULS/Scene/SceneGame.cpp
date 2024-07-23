@@ -22,6 +22,8 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	enemy->Update();
 	camera->Update(*player, *enemy);
 
+	player->IsHit(enemy->GetCol());
+
 	return shared_from_this();  //自身のポインタを返す
 }
 

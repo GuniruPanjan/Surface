@@ -49,6 +49,12 @@
     <Filter Include="ヘッダー ファイル\Character\Enemy">
       <UniqueIdentifier>{8fea33f2-be5d-4a7c-a1af-f81015415911}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Col">
+      <UniqueIdentifier>{74fc2a48-42c9-4bf3-8ecd-f565c210bc19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Col">
+      <UniqueIdentifier>{0788a26e-ef3a-4b17-b3ac-ca5099073321}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Template3D.cpp">
@@ -87,6 +93,15 @@
     <ClCompile Include="Character\Enemy\WeakEnemy.cpp">
       <Filter>ソース ファイル\Character\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Col\Matrix3.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
+    <ClCompile Include="Col\Vec3.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
+    <ClCompile Include="Col\CapsuleCol.cpp">
+      <Filter>ソース ファイル\Col</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\SceneBase.h">
@@ -121,6 +136,15 @@
     </ClInclude>
     <ClInclude Include="Character\Enemy\WeakEnemy.h">
       <Filter>ヘッダー ファイル\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\Matrix3.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\Vec3.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="Col\CapsuleCol.h">
+      <Filter>ヘッダー ファイル\Col</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
