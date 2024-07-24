@@ -15,6 +15,8 @@ public:
 
 private:
 	Pos3 m_pos;
+	Vec3 m_vec;
 	float m_radius;
+
 };
 

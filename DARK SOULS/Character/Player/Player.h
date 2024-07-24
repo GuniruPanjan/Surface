@@ -24,11 +24,11 @@ public:
 	float GetPosX() { return m_pos.x; }
 	float GetPosY() { return m_pos.y; }
 	float GetPosZ() { return m_pos.z; }
+	float GetDamage() { return m_attack; }
 	CapsuleCol GetCapsuleCol() { return m_capsuleCol; }
 	SphereCol GetSphereCol() { return m_sphereCol; }
 
 	bool GetLock() { return m_lockonTarget; }
-	
 
 private:
 	float m_cameraAngle;  //ƒJƒƒ‰î•ñ

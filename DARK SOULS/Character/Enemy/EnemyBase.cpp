@@ -9,18 +9,23 @@ EnemyBase::EnemyBase():
 	//敵のアニメーション読み込み
 	m_animStand = MV1LoadModel("Data/EnemyAnimation/WeakEnemyAnimation/WeakEnemyStand1.mv1");
 	m_animHit = MV1LoadModel("Data/EnemyAnimation/WeakEnemyAnimation/WeakEnemyAnimHit.mv1");
+	m_animDeath = MV1LoadModel("Data/EnemyAnimation/WeakEnemyAnimation/WeakEnemyAnimDeath.mv1");
 
 	//アニメーションアタッチ
 	m_animation[0] = MV1AttachAnim(m_handle, 0, m_animStand, TRUE);
 	m_animation[1] = MV1AttachAnim(m_handle, 0, m_animHit, TRUE);
+	m_animation[2] = MV1AttachAnim(m_handle, 0, m_animDeath, TRUE);
 
 	//アタッチしたアニメーションの総再生時間を取得する
 	m_totalAnimTime[0] = MV1GetAttachAnimTotalTime(m_handle, m_animation[0]);
 	m_totalAnimTime[1] = MV1GetAttachAnimTotalTime(m_handle, m_animation[1]);
+	m_totalAnimTime[2] = MV1GetAttachAnimTotalTime(m_handle, m_animation[2]);
 
 	//一旦待機以外のアニメーションをデタッチする
 	MV1DetachAnim(m_handle, m_animation[1]);
+	MV1DetachAnim(m_handle, m_animation[2]);
 	m_animation[1] = -1;
+	m_animation[2] = -1;
 
 	//敵のサイズ変更
 	m_modelSize = 0.4f;
@@ -34,6 +39,7 @@ EnemyBase::~EnemyBase()
 	MV1DeleteModel(m_handle);
 	MV1DeleteModel(m_animStand);
 	MV1DeleteModel(m_animHit);
+	MV1DeleteModel(m_animDeath);
 
 }
 
@@ -43,5 +49,6 @@ void EnemyBase::End()
 	MV1DeleteModel(m_handle);
 	MV1DeleteModel(m_animStand);
 	MV1DeleteModel(m_animHit);
+	MV1DeleteModel(m_animDeath);
 
 }

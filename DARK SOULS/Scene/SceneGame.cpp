@@ -23,7 +23,7 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	camera->Update(*player, *enemy);
 
 	player->IsHit(enemy->GetCol());
-	enemy->isSphereHit(player->GetSphereCol());
+	enemy->isSphereHit(player->GetSphereCol(), player->GetDamage());
 
 	return shared_from_this();  //自身のポインタを返す
 }

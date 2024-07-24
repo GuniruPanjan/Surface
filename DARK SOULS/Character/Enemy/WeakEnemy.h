@@ -14,7 +14,7 @@ public:
 	void End();
 
 	bool isHit(const CapsuleCol& col);
-	bool isSphereHit(const SphereCol& col);
+	bool isSphereHit(const SphereCol& col, float damage);
 
 	VECTOR GetPos() { return m_pos; }
 	float GetPosX() { return m_pos.x; }

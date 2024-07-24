@@ -128,11 +128,6 @@ void Camera::Update(Player& player, Enemy& enemy)
 
 void Camera::Draw()
 {
-	DrawFormatString(0, 120, 0xffffff, "m_cameraAngle.y : %f", m_cameraAngle.y);
-	DrawFormatString(0, 140, 0xffffff, "m_cameraPos.x : %f", m_cameraPos.x);
-	DrawFormatString(0, 160, 0xffffff, "m_cameraPos.y : %f", m_cameraPos.y);
-	DrawFormatString(0, 180, 0xffffff, "m_cameraPos.z : %f", m_cameraPos.z);
-
 }
 
 void Camera::End()

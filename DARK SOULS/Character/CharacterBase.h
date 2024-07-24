@@ -26,6 +26,7 @@ public:
 		m_moveflag(false),
 		m_moveAttack(false),
 		m_moveAttackEnd(true),
+		m_damageReceived(false),
 		m_attackNumber(0),
 		m_playTime(0.0f),
 		m_animStand(-1),
@@ -33,6 +34,7 @@ public:
 		m_animRun(-1),
 		m_animRoll(-1),
 		m_animHit(-1),
+		m_animDeath(-1),
 		m_animAttack1(-1),
 		m_animAttack2(-1),
 		m_animAttack3(-1),
@@ -77,6 +79,7 @@ protected:
 	bool m_moveflag;  //キャラが動いたか判断するフラグ
 	bool m_moveAttack;  //キャラが攻撃したかどうか判断するフラグ
 	bool m_moveAttackEnd;  //キャラの攻撃が終了したかどうか判断するフラグ
+	bool m_damageReceived;  //キャラがダメージを受けたかどうか判断するフラグ
 	int m_attackNumber;   //キャラの攻撃が何段階目か判断する変数
 	float m_playTime;  //キャラのアニメーションを進める時間
 	int m_animStand;  //キャラの立っているアニメーション格納変数
@@ -84,6 +87,7 @@ protected:
 	int m_animRun;    //キャラの走るアニメーション格納変数
 	int m_animRoll;   //キャラのローディングアニメーション格納変数
 	int m_animHit;    //キャラが攻撃を受けた時のアニメーション格納変数
+	int m_animDeath;  //キャラが死んだ時のアニメーション格納変数
 	int m_animAttack1;   //キャラの攻撃アニメーション格納変数
 	int m_animAttack2;   //キャラの攻撃アニメーション格納変数
 	int m_animAttack3;   //キャラの攻撃アニメーション格納変数
@@ -99,7 +103,10 @@ protected:
 	//当たり判定用のメンバ変数
 	Pos3 m_colPos; //当たり判定用のメンバ変数
 	Pos3 m_colAttackPos;  //攻撃の当たり判定用のメンバ変数
-	Vec3 m_vec;  //当たり判定用のベクターメンバ変数
+	Pos3 m_colDeathPos;  //死んだ時初期化するあたり判定用のメンバ変数
+	Pos3 m_initializationPos;   //アタックの当たり判定を初期化するポジション
+	Vec3 m_vec;  //キャラの当たり判定用のベクターメンバ変数
+	Vec3 m_deathVec;  //キャラが死んだ時用のベクターメンバ変数
 	float m_len;  //長さ
 	float m_capsuleRadius;  //カプセルの半径
 	float m_sphereRadius;   //スフィアの半径
@@ -107,4 +114,3 @@ protected:
 	SphereCol m_sphereCol;  //スフィアの当たり判定
 
 };
-

@@ -39,6 +39,9 @@ void Player::Init()
 	//プレイヤースピード初期化
 	m_speed = 2.0f;
 
+	//プレイヤーの攻撃力初期化
+	m_attack = 10.0f;
+
 	m_modelSize = 0.4f;
 
 	//プレイヤーもモデル読み込み
@@ -105,7 +108,8 @@ void Player::Init()
 
 	//当たり判定
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
-	m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 50.0f);
+	m_colAttackPos = Pos3(m_pos.x - 50.0f, m_pos.y + 35.0f, m_pos.z);
+	m_initializationPos = Pos3(0.0f, -1000.0f, 0.0f);
 	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
 	m_len = 40.0f;
 	m_capsuleRadius = 12.0f;
@@ -117,8 +121,7 @@ void Player::Init()
 void Player::Update()
 {
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
-	m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 25.0f);
-
+	//m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 25.0f);
 
 	//アニメーションで移動しているフレームの番号を検索する
 	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
@@ -186,6 +189,11 @@ void Player::Update()
 	}
 
 	m_pos = VAdd(m_pos, m_move);
+
+	//攻撃の当たり判定をプレイヤーの正面に持ってくる
+	m_colAttackPos.x = m_pos.x + sinf(m_angle) * -25.0f;
+	m_colAttackPos.z = m_pos.z - cosf(m_angle) * 25.0f;
+
 
 	//アニメーション時間を進める前のアニメーションで移動をしているフレームの座標取得
 	m_prevPos = MV1GetFramePosition(m_handle, m_moveAnimFrameIndex);
@@ -256,7 +264,6 @@ void Player::Update()
 	Animation(m_a, m_playTime, m_pos);
 
 	m_capsuleCol.Update(m_colPos, m_vec);
-	m_sphereCol.Update(m_colAttackPos);
 }
 
 /// <summary>
@@ -272,7 +279,6 @@ void Player::Action()
 	//PAD_INPUT_8はStartボタン
 	//PAD_INPUT_9はLスティック
 	//PAD_INPUT_10はRスティック
-
 
 	//Rボタンで攻撃
 	//一段階目の攻撃
@@ -318,7 +324,19 @@ void Player::Action()
 		if (m_animation[4] != -1 && m_playTime >= 15.0f)
 		{
 
-			m_playTime += 0.8f;
+			m_playTime += 0.9f;
+
+			//攻撃の当たり判定発生
+			if (m_playTime >= 25.0f && m_playTime <= 30.0f)
+			{
+				m_sphereCol.Update(m_colAttackPos);
+			}
+			//攻撃の当たり判定を初期化する
+			else
+			{
+				m_sphereCol.Update(m_initializationPos);
+			}
+
 
 			if (m_playTime >= 25.0f)
 			{
@@ -329,7 +347,18 @@ void Player::Action()
 		}
 		else if (m_animation[5] != -1 && m_playTime >= 5.0f)
 		{
-			m_playTime += 0.8f;
+			m_playTime += 0.9f;
+
+			//攻撃の当たり判定発生
+			if (m_playTime >= 10.0f && m_playTime <= 15.0f)
+			{
+				m_sphereCol.Update(m_colAttackPos);
+			}
+			//攻撃の当たり判定を初期化する
+			else
+			{
+				m_sphereCol.Update(m_initializationPos);
+			}
 
 			if (m_playTime >= 10.0f)
 			{
@@ -341,6 +370,18 @@ void Player::Action()
 		else if (m_animation[6] != -1 && m_playTime >= 15.0f)
 		{
 			m_playTime += 0.9f;
+
+			//攻撃の当たり判定発生
+			if (m_playTime >= 20.0f && m_playTime <= 25.0f)
+			{
+				m_sphereCol.Update(m_colAttackPos);
+			}
+			//攻撃の当たり判定を初期化する
+			else
+			{
+				m_sphereCol.Update(m_initializationPos);
+			}
+
 		}
 		else
 		{
@@ -809,8 +850,6 @@ void Player::Draw()
 	DrawFormatString(0, 30, 0xffffff, "posX : %f posY : %f posZ : %f", m_pos.x, m_pos.y, m_pos.z);
 	DrawFormatString(0, 50, 0xffffff, "DrawposX : %f DrawposY : %f DrawposZ : %f", m_drawPos.x, m_drawPos.y, m_drawPos.z);
 	DrawFormatString(0, 200, 0xffffff, "m_cameraAngle : %f", m_cameraAngle);
-	DrawFormatString(0, 300, 0xffffff, "m_colposX : %f m_colposY : %f m_colposZ : %f", m_colPos.x, m_colPos.y, m_colPos.z);
-
 
 
 
