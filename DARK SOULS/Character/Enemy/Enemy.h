@@ -12,7 +12,7 @@ public:
 	virtual ~Enemy();
 
 	void Init();
-	void Update();
+	void Update(Player& player);
 	void Draw();
 	void End();
 
@@ -22,6 +22,7 @@ public:
 	float GetPosZ() { return enemy->GetPosZ(); }
 	CapsuleCol GetCol() const { return enemy->GetCol(); }
 	bool isSphereHit(SphereCol col, float damage) { return enemy->isSphereHit(col, damage); }
+	bool isSeachHit(CapsuleCol col) { return enemy->isSeachHit(col); }
 
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ

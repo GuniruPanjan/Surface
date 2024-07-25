@@ -1,6 +1,6 @@
 #pragma once
 #include "Character/CharacterBase.h"
-#include "Character/Enemy/Enemy.h"
+
 
 class Player : public CharacterBase
 {
@@ -16,7 +16,7 @@ public:
 	void End();
 
 	//カプセル同士の当たり判定
-	bool IsHit(const CapsuleCol& col);
+	bool IsCapsuleHit(const CapsuleCol& col);
 
 	void SetCameraAngle(float angle) { m_cameraAngle = angle; }
 
@@ -42,6 +42,7 @@ private:
 	bool m_avoidance;   //回避入力を判断するための変数
 	bool m_nextAttack1;  //次の攻撃判定
 	bool m_nextAttack2;  //次の攻撃判定
+	bool m_pushButton;   //ボタンの入力を一回だけ受け取るための判定
 	VECTOR m_nowPos;   //現在のフレームの座標を取得する
 
 	unsigned int m_color = 0xffffff;   //デバッグ用の色変更

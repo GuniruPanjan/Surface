@@ -5,6 +5,7 @@
 #include<memory>
 //だいたいのアニメーション
 #define  ANIMATION   30
+#define D2R(deg) ((deg)*DX_PI_F/180.0f)
 
 /// <summary>
 /// キャラクターの基底クラス

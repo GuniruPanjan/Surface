@@ -1,6 +1,5 @@
 #include "Player.h"
 #include<math.h>
-#define D2R(deg) ((deg)*DX_PI_F/180.0f)
 
 Player::Player():
 	m_cameraAngle(0.0f),
@@ -13,6 +12,7 @@ Player::Player():
 	m_avoidance(false),
 	m_nextAttack1(false),
 	m_nextAttack2(false),
+	m_pushButton(false),
 	m_nowPos(VGet(0.0f,0.0f,0.0f))
 {
 }
@@ -121,7 +121,6 @@ void Player::Init()
 void Player::Update()
 {
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
-	//m_colAttackPos = Pos3(m_pos.x, m_pos.y + 35.0f, m_pos.z - 25.0f);
 
 	//アニメーションで移動しているフレームの番号を検索する
 	m_moveAnimFrameIndex = MV1SearchFrame(m_handle, "mixamorig:Hips");
@@ -410,21 +409,32 @@ void Player::Action()
 
 	}
 
+
 	//敵をロックオンする
 	if (m_lockonTarget == false)
 	{
-		if (m_xpad.Buttons[7] == 1)
+		if (m_xpad.Buttons[7] == 1 && m_pushButton == true)
 		{
 			m_lockonTarget = true;
+			m_pushButton = false;
+		}
+		else if (m_xpad.Buttons[7] == 0)
+		{
+			m_pushButton = true;
 		}
 	}
 	else if (m_lockonTarget == true)
 	{
 		DrawString(0, 100, "ロックオン", 0xffffff);
 
-		if (m_xpad.Buttons[7] == 1)
+		if (m_xpad.Buttons[7] == 1 && m_pushButton == true)
 		{
 			m_lockonTarget = false;
+			m_pushButton = false;
+		}
+		else if (m_xpad.Buttons[7] == 0)
+		{
+			m_pushButton = true;
 		}
 	}
 	
@@ -869,7 +879,7 @@ void Player::End()
 
 }
 
-bool Player::IsHit(const CapsuleCol& col)
+bool Player::IsCapsuleHit(const CapsuleCol& col)
 {
 	bool isHit = m_capsuleCol.IsHitCapsule(col);
 

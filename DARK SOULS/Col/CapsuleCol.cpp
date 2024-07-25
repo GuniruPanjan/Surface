@@ -1,4 +1,5 @@
 #include "CapsuleCol.h"
+#include "SphereCol.h"
 #include <cmath>
 #include <algorithm>
 #include "Matrix3.h"

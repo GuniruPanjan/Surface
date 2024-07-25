@@ -19,11 +19,12 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 {
 	player->SetCameraAngle(camera->GetAngleY());
 	player->Update();
-	enemy->Update();
+	enemy->Update(*player);
 	camera->Update(*player, *enemy);
 
-	player->IsHit(enemy->GetCol());
+	player->IsCapsuleHit(enemy->GetCol());
 	enemy->isSphereHit(player->GetSphereCol(), player->GetDamage());
+	enemy->isSeachHit(player->GetCapsuleCol());
 
 	return shared_from_this();  //自身のポインタを返す
 }

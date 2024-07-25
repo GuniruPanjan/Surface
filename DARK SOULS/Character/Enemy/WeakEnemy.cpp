@@ -1,3 +1,4 @@
+#include "Character/Player/Player.h"
 #include "WeakEnemy.h"
 
 WeakEnemy::WeakEnemy()
@@ -14,7 +15,7 @@ void WeakEnemy::Init()
 	m_hp = 200.0f;
 
 	//敵のスピード初期化
-	m_speed = 2.0f;
+	m_speed = 1.5f;
 
 	m_posX = 0.0f;
 	m_posY = 0.0f;
@@ -25,18 +26,33 @@ void WeakEnemy::Init()
 	//当たり判定
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
 	m_colDeathPos = Pos3(0.0f, -1000.0f, 0.0f);
+	m_colSearchPos = Pos3(0.0f, m_pos.y + 35.0f, 0.0f);
 	m_vec = Vec3(m_pos.x, m_pos.y + 2.0f, m_pos.z);
 	m_deathVec = Vec3(0.0f, 0.0f, 0.0f);
 	m_len = 40.0f;
 	m_capsuleRadius = 14.0f;
+	m_searchRadius = 100.0f;
 	m_capsuleCol.Init(m_colPos, m_vec, m_len, m_capsuleRadius);
+	m_colSearch.Init(m_colSearchPos, m_searchRadius);
 }
 
-void WeakEnemy::Update()
+void WeakEnemy::Update(Player& player)
 {
 	m_colPos = Pos3(m_pos.x - 2.0f, m_pos.y + 35.0f, m_pos.z);
 
 	m_playTime += 0.5f;
+
+	//索敵で発見された処理
+	if (m_enemySearchFlag == true)
+	{
+		float X = m_pos.x - player.GetPosX();
+		float Z = m_pos.z - player.GetPosZ();
+
+		m_angle = atan2f(X, Z);
+	}
+
+	//敵が移動する
+	m_pos = VAdd(m_pos, m_move);
 
 	Animation(m_playTime);
 
@@ -46,22 +62,68 @@ void WeakEnemy::Update()
 		DrawFormatString(0, 240, 0xffffff, "敵が死んだ");
 
 		m_capsuleCol.Update(m_colDeathPos, m_deathVec);
+
+		m_colSearch.Update(m_colDeathPos);
 	}
 	else
 	{
 		m_capsuleCol.Update(m_colPos, m_vec);
+
+		//とりあえず置いとく
+		m_colSearch.Update(m_colSearchPos);
 	}
+
+	//索敵の当たり判定を正面に持ってくる
+	m_colSearchPos.x = m_pos.x + sinf(m_angle) * -80.0f;
+	m_colSearchPos.z = m_pos.z - cosf(m_angle) * 80.0f;
+	
 }
 
 void WeakEnemy::Animation(float& time)
 {
-	//敵が死んだら死ぬアニメーションを入れる
-	if (m_hp <= 0.0f)
+	//敵がプレイヤーを見つけてないとき
+	if (m_enemySearchFlag == false)
 	{
-		if (m_animation[0] != -1 || m_animation[1] != -1)
+		if (m_animation[3] != -1)
+		{
+			//アニメーションデタッチ
+			MV1DetachAnim(m_handle, m_animation[3]);
+
+			//アニメーションアタッチ
+			m_animation[0] = MV1AttachAnim(m_handle, 0, m_animStand, TRUE);
+
+			time = 0.0f;
+
+			m_animation[3] = -1;
+		}
+	}
+	//敵がプレイヤーを見つけた時(臨戦態勢)
+	if (m_enemySearchFlag == true)
+	{
+		if (m_animation[0] != -1)
 		{
 			//アニメーションデタッチ
 			MV1DetachAnim(m_handle, m_animation[0]);
+
+			//アニメーションアタッチ
+			m_animation[3] = MV1AttachAnim(m_handle, 0, m_animWalk, TRUE);
+
+			time = 0.0f;
+
+			m_animation[0] = -1;
+		}
+	}
+
+	//敵が死んだら死ぬアニメーションを入れる
+	if (m_hp <= 0.0f)
+	{
+		if (m_animation[0] != -1 || m_animation[1] != -1 || m_animation[3] != -1)
+		{
+			//アニメーションデタッチ
+			MV1DetachAnim(m_handle, m_animation[0]);
+			MV1DetachAnim(m_handle, m_animation[1]);
+			MV1DetachAnim(m_handle, m_animation[3]);
+
 
 			//アニメーションアタッチ
 			m_animation[2] = MV1AttachAnim(m_handle, 0, m_animDeath, TRUE);
@@ -70,6 +132,8 @@ void WeakEnemy::Animation(float& time)
 
 			m_animation[0] = -1;
 			m_animation[1] = -1;
+			m_animation[3] = -1;
+
 		}
 	}
 
@@ -82,6 +146,10 @@ void WeakEnemy::Animation(float& time)
 	{
 		time = 120.0f;
 	}
+	if (time >= m_totalAnimTime[3] && m_animation[3] != -1)
+	{
+		time = 0.0f;
+	}
 
 	//再生時間をセットする
 	if (m_animation[0] != -1)
@@ -91,6 +159,10 @@ void WeakEnemy::Animation(float& time)
 	if (m_animation[2] != -1)
 	{
 		MV1SetAttachAnimTime(m_handle, m_animation[2], time);
+	}
+	if (m_animation[3] != -1)
+	{
+		MV1SetAttachAnimTime(m_handle, m_animation[3], time);
 	}
 }
 
@@ -105,8 +177,10 @@ void WeakEnemy::Draw()
 	if (m_hp > 0.0f)
 	{
 		DrawCapsule3D(pos1.GetVector(), pos2.GetVector(), m_capsuleRadius, 16, m_color, 0, false);
+
+		//索敵範囲円の3D描画
+		DrawSphere3D(m_colSearchPos.GetVector(), m_searchRadius, 16, m_seachColor, m_seachColor, false);
 	}
-	
 
 	//3Dモデルポジション設定
 	MV1SetPosition(m_handle, m_pos);
@@ -114,28 +188,20 @@ void WeakEnemy::Draw()
 	//3Dモデル描画
 	MV1DrawModel(m_handle);
 
+	//3Dモデルの回転地をセットする
+	MV1SetRotationXYZ(m_handle, VGet(0.0f, m_angle, 0.0f));
+
 	DrawFormatString(0, 320, 0xffffff, "m_colposX : %f m_colposY : %f m_colposZ : %f", m_colPos.x, m_colPos.y, m_colPos.z);
 	DrawFormatString(0, 220, 0xffffff, "m_EnemyHp : %f", m_hp);
+
+	if (m_enemySearchFlag == true)
+	{
+		DrawFormatString(0, 250, 0xffffff, "発見された");
+	}
 }
 
 void WeakEnemy::End()
 {
-}
-
-bool WeakEnemy::isHit(const CapsuleCol& col)
-{
-	bool isHit = m_capsuleCol.IsHitCapsule(col);
-
-	if (isHit)
-	{
-		m_color = 0xffff00;
-	}
-	else
-	{
-		m_color = 0xffffff;
-	}
-
-	return isHit;
 }
 
 bool WeakEnemy::isSphereHit(const SphereCol& col, float damage)
@@ -161,6 +227,27 @@ bool WeakEnemy::isSphereHit(const SphereCol& col, float damage)
 		m_damageReceived = false;
 
 		m_color = 0xffffff;
+	}
+
+	return isHit;
+}
+
+bool WeakEnemy::isSeachHit(const CapsuleCol& col)
+{
+	bool isHit = m_colSearch.IsHitCapsule(col);
+
+	//プレイヤーを見つけた判定
+	if (isHit)
+	{
+		m_seachColor = 0xffff00;
+
+		m_enemySearchFlag = true;
+	}
+	else
+	{
+		m_seachColor = 0xffffff;
+
+		m_enemySearchFlag = false;
 	}
 
 	return isHit;

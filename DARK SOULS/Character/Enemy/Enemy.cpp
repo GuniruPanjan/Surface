@@ -13,9 +13,9 @@ void Enemy::Init()
 	enemy->Init();
 }
 
-void Enemy::Update()
+void Enemy::Update(Player& player)
 {
-	enemy->Update();
+	enemy->Update(player);
 }
 
 void Enemy::Draw()

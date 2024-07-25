@@ -1,7 +1,7 @@
 #pragma once
-#include "SphereCol.h"
 #include "Vec3.h"
 
+class SphereCol;
 
 class CapsuleCol
 {
