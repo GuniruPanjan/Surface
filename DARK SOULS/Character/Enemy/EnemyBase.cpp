@@ -2,7 +2,12 @@
 
 EnemyBase::EnemyBase():
 	m_enemySearchFlag(false),
-	m_searchRadius(0.0f)
+	m_enemyWait(false),
+	m_enemyWaitseeRandom(0),
+	m_searchRadius(0.0f),
+	m_distanceRadius(0.0f),
+	m_moveTurning(0.0f),
+	m_moveReverseTurning(0.0f)
 {
 	//“G‚Ìƒ‚ƒfƒ‹“Ç‚İ‚İ
 	m_handle = MV1LoadModel("Data/Enemy/EnemyModel.mv1");

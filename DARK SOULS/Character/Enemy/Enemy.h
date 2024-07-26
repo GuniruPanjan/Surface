@@ -23,6 +23,7 @@ public:
 	CapsuleCol GetCol() const { return enemy->GetCol(); }
 	bool isSphereHit(SphereCol col, float damage) { return enemy->isSphereHit(col, damage); }
 	bool isSeachHit(CapsuleCol col) { return enemy->isSeachHit(col); }
+	bool isDistanceHit(CapsuleCol col) { return enemy->isDistanceHit(col); }
 
 private:
 	//“G‚Ì\‘¢‘Ì‚ğ”z—ñ‚Å“Ç‚İ‚İ

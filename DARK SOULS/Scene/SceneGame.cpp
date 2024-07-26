@@ -25,6 +25,7 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	player->IsCapsuleHit(enemy->GetCol());
 	enemy->isSphereHit(player->GetSphereCol(), player->GetDamage());
 	enemy->isSeachHit(player->GetCapsuleCol());
+	enemy->isDistanceHit(player->GetCapsuleCol());
 
 	return shared_from_this();  //自身のポインタを返す
 }
