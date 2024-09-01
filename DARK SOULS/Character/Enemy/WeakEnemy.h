@@ -24,7 +24,9 @@ public:
 	float GetPosX() { return m_pos.x; }
 	float GetPosY() { return m_pos.y; }
 	float GetPosZ() { return m_pos.z; }
+	float GetDamage() { return m_attack; }
 	CapsuleCol GetCol() const { return m_capsuleCol; }
+	SphereCol GetAttackCol() const { return m_colAttack; }
 
 
 private:

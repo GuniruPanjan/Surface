@@ -6,6 +6,9 @@
 //だいたいのアニメーション
 #define  ANIMATION   30
 #define D2R(deg) ((deg)*DX_PI_F/180.0f)
+#define PLAYER_MAX_HITCOLL  252    //処理するコリジョンポリゴンの最大数
+
+class Map;   //マップクラス
 
 /// <summary>
 /// キャラクターの基底クラス
@@ -20,7 +23,9 @@ public:
 		m_modelSize(0.0f),
 		m_angle(0.0f),
 		m_speed(0.0f),
-		m_dead(false),
+		m_bounceDis(0.0f),
+		m_death(false),
+		m_oneInit(false),
 		m_posX(0.0f),
 		m_posY(0.0f),
 		m_posZ(0.0f),
@@ -47,7 +52,12 @@ public:
 		m_drawPos(VGet(0.0f, 0.0f, 0.0f)),
 		m_prevPos(VGet(0.0f, 0.0f, 0.0f)),
 		m_nowPos(VGet(0.0f, 0.0f, 0.0f)),
-		m_moveVector(VGet(0.0f, 0.0f, 0.0f))
+		m_moveVector(VGet(0.0f, 0.0f, 0.0f)),
+		m_mapHitColl(VGet(0.0f,0.0f,0.0f)),
+		m_HitFlag(false),
+		m_WallNum(0),
+		m_FloorNum(0),
+		m_HitDimNum(0)
 	{
 		for (int i = 0; i < ANIMATION; i++)
 		{
@@ -73,7 +83,9 @@ protected:
 	float m_modelSize;  //キャラのモデルサイズ
 	float m_angle;  //キャラのアングル
 	float m_speed;  //キャラのスピード
-	bool m_dead;   //キャラの死亡判定
+	float m_bounceDis;    //キャラを押し出す距離
+	bool m_death;   //キャラの死亡判定
+	bool m_oneInit;     //一回だけ初期化する
 	float m_posX;  //キャラのX座標
 	float m_posY;  //キャラのY座標
 	float m_posZ;  //キャラのZ座標
@@ -113,5 +125,15 @@ protected:
 	float m_sphereRadius;   //スフィアの半径
 	CapsuleCol m_capsuleCol;  //カプセルの当たり判定
 	SphereCol m_sphereCol;  //スフィアの当たり判定
+	VECTOR m_mapHitColl;    //キャラクターのマップとの当たり判定
 
+	//マップとの当たり判定
+	bool m_HitFlag;              //ポリゴンに当たったかどうかを記憶しておくのに使う変数
+	int m_WallNum;               //壁ポリゴンと判断されたポリゴンの数
+	int m_FloorNum;              //床ポリゴンと判断されたポリゴンの数
+	MV1_COLL_RESULT_POLY_DIM HitDim;      //キャラの周囲にあるポリゴンを検出した結果が代入される当たり判定結果構造体
+	int m_HitDimNum;        //HitDimの有効な配列要素数
+	MV1_COLL_RESULT_POLY* m_Wall[PLAYER_MAX_HITCOLL];     //壁ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
+	MV1_COLL_RESULT_POLY* m_Floor[PLAYER_MAX_HITCOLL];    //床ポリゴンと判断されたポリゴンの構造体のアドレスを保存しておくためのポインタ配列
+	MV1_COLL_RESULT_POLY* m_Poly;  //ポリゴンの構造体にアクセスするためにしようするポインタ
 };

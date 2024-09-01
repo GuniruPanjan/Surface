@@ -71,7 +71,7 @@ void Camera::Update(Player& player, Enemy& enemy)
 		}
 
 		//基準のベクトル
-		VECTOR Direction = VGet(0.0f, 120.0f, -120.0f);
+		VECTOR Direction = VGet(0.0f, 100.0f, -100.0f);
 
 		//X軸回転行列
 		MATRIX matrixX = MGetRotX(m_cameraAngle.x);
