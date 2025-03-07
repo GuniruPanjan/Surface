@@ -3,6 +3,8 @@
 #include "SceneMgr.h"
 #include "Font.h"
 #include "icon/icon.h"
+#include <cmath>
+#include <memory>
 
 //フォント変更する
 Font font;
